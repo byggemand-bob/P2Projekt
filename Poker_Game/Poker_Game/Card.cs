@@ -16,12 +16,23 @@ namespace Poker_Game {
         private static int DrawRandCard() {
             return random.Next(0, 52);
         }
-        public static Card DrawnCards(List<Card> cards) {
+        public static int DrawnCards(List<Card> cards) {
             int randCard = 0;
-            failure: //if card have already been made
+            remake: //if card have already been made
             randCard = DrawRandCard();
-            cardName = counter_ranks.ToString();
-            if (counter_ranks == 1) {
+            foreach (Card element in cards) {
+                if (randCard == element.number) {
+                    goto remake;
+                }
+            }
+            return randCard;
+        }
+        private Card MakeCard(int cardNumber) {
+            string cardName;
+            Card temp_card = new Card();
+            int Rank = cardNumber % ????;
+            //cardName = c.ToString();
+            if (Rank == 14 {
                 cardName = "A";
             } else if (counter_ranks == 11) {
                 cardName = "J";
@@ -34,17 +45,15 @@ namespace Poker_Game {
                 cardName = cardName + "C";
             } else if (counter_suits == 1) {
                 cardName = cardName + "D";
-            } else if (counter_suits == 2) {
+            else if (counter_suits == 2) {
                 cardName = cardName + "H";
             } else if (counter_suits == 3) {
                 cardName = cardName + "S";
             }
-            foreach (Card element in cards) {
-                if (randCard == element.number) {
-                    goto failure;
-                }
+            Deck[counter] = new Card((Image.FromFile(Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), Suit.Spades, Rank.Ace);
+            counter++;
             }
-            return randCard;
+            return temp_card;
         }
     }
 }
