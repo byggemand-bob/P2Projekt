@@ -93,6 +93,9 @@ namespace Poker_Game
         }
         public void buttonNewGame_Clicked(object sender, EventArgs e)
         {
+            this.Close();
+            Form1 form = new Form1();
+            form.Show();
 
         }
         public void buttonStatistics_Clicked(object sender, EventArgs e)
