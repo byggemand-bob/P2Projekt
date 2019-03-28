@@ -42,7 +42,7 @@ namespace Poker_Game
             // 
             // buttonNewGame
             // 
-            this.buttonNewGame.Location = new System.Drawing.Point(500, 300);
+            this.buttonNewGame.Location = new System.Drawing.Point(500, 100);
             this.buttonNewGame.Name = "buttonNewGame";
             this.buttonNewGame.Size = new System.Drawing.Size(75, 23);
             this.buttonNewGame.TabIndex = 0;
@@ -78,7 +78,7 @@ namespace Poker_Game
             // 
             // buttonQuit
             // 
-            this.buttonQuit.Location = new System.Drawing.Point(500, 100);
+            this.buttonQuit.Location = new System.Drawing.Point(500, 300);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(75, 23);
             this.buttonQuit.TabIndex = 0;
@@ -93,19 +93,18 @@ namespace Poker_Game
         }
         public void buttonNewGame_Clicked(object sender, EventArgs e)
         {
-            this.Close();
-            SettingsForm formNewGame = new SettingsForm();
-            formNewGame.Show();
+            SettingsForm formSettings = new SettingsForm();
+            formSettings.Show();
         }
         public void buttonStatistics_Clicked(object sender, EventArgs e)
         {
-            this.Close();
             Statistics formStatistics = new Statistics();
             formStatistics.Show();
         }
         public void buttonQuit_Clicked(object sender, EventArgs e)
         {
-            //this.Close();
+            this.Close();
+            Application.Exit();
         }
     }
 }
