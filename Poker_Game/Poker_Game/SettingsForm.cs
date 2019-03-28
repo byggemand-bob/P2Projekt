@@ -16,7 +16,7 @@ namespace Poker_Game
         {
             InitializeComponent();
 
-            MenuForm formMenu = new MenuForm();
+            
             
         }
     }
