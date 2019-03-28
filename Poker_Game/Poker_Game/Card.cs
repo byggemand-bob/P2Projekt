@@ -13,46 +13,51 @@ namespace Poker_Game {
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
+        public Card(Image image, Suit suit, Rank rank)
+        {
+            Image = image;
+            Suit = suit;
+            Rank = rank;
+        }
         private static int DrawRandCard() {
             return random.Next(0, 52);
         }
-        public static int DrawnCards(List<Card> cards) {
+        public static int DrawCards(List<Card> cards) {
             int randCard = 0;
             remake: //if card have already been made
             randCard = DrawRandCard();
-            foreach (Card element in cards) {
-                if (randCard == element.number) {
-                    goto remake;
+            if (cards.Count > 0) {
+                foreach (Card element in cards) {
+                    if (MakeCard(randCard) == element) {
+                        goto remake;
+                    }
                 }
             }
             return randCard;
         }
-        private Card MakeCard(int cardNumber) {
-            string cardName;
-            Card temp_card = new Card();
-            int Rank = cardNumber % ????;
-            //cardName = c.ToString();
-            if (Rank == 14 {
+        public static Card MakeCard(int cardNumber) {
+            int Rank = cardNumber % 13;
+            int Suit = cardNumber % 4;
+            string cardName = Rank.ToString();
+            if (Rank == 12 ){
                 cardName = "A";
-            } else if (counter_ranks == 11) {
+            } else if (Rank == 9) {
                 cardName = "J";
-            } else if (counter_ranks == 12) {
+            } else if (Rank == 10) {
                 cardName = "Q";
-            } else if (counter_ranks == 13) {
+            } else if (Rank == 11) {
                 cardName = "K";
             }
-            if (counter_suits == 0) {
+            if (Suit == 0) {
                 cardName = cardName + "C";
-            } else if (counter_suits == 1) {
+            } else if (Suit == 1) {
                 cardName = cardName + "D";
-            else if (counter_suits == 2) {
+            } else if (Suit == 2) {
                 cardName = cardName + "H";
-            } else if (counter_suits == 3) {
+            } else if (Suit == 3) {
                 cardName = cardName + "S";
             }
-            Deck[counter] = new Card((Image.FromFile(Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), Suit.Spades, Rank.Ace);
-            counter++;
-            }
+            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank+2);
             return temp_card;
         }
     }
