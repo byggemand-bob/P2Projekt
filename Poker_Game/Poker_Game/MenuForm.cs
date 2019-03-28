@@ -94,19 +94,18 @@ namespace Poker_Game
         public void buttonNewGame_Clicked(object sender, EventArgs e)
         {
             this.Close();
-            Form1 form = new Form1();
-            form.Show();
-
+            SettingsForm formNewGame = new SettingsForm();
+            formNewGame.Show();
         }
         public void buttonStatistics_Clicked(object sender, EventArgs e)
         {
-
-
+            this.Close();
+            Statistics formStatistics = new Statistics();
+            formStatistics.Show();
         }
         public void buttonQuit_Clicked(object sender, EventArgs e)
         {
-
-
+            //this.Close();
         }
     }
 }
