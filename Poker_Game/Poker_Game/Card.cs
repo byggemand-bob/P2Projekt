@@ -26,7 +26,7 @@ namespace Poker_Game {
             int randCard = 0;
             remake: //if card have already been made
             randCard = DrawRandCard();
-            if (cards.Count > 0) {
+            if (cards != null) {
                 foreach (Card element in cards) {
                     if (MakeCard(randCard) == element) {
                         goto remake;
@@ -36,16 +36,16 @@ namespace Poker_Game {
             return randCard;
         }
         public static Card MakeCard(int cardNumber) {
-            int Rank = cardNumber % 13;
+            int Rank = cardNumber % 13 + 2;
             int Suit = cardNumber % 4;
             string cardName = Rank.ToString();
-            if (Rank == 12 ){
+            if (Rank == 14 ){
                 cardName = "A";
-            } else if (Rank == 9) {
-                cardName = "J";
-            } else if (Rank == 10) {
-                cardName = "Q";
             } else if (Rank == 11) {
+                cardName = "J";
+            } else if (Rank == 12) {
+                cardName = "Q";
+            } else if (Rank == 13) {
                 cardName = "K";
             }
             if (Suit == 0) {
@@ -57,7 +57,7 @@ namespace Poker_Game {
             } else if (Suit == 3) {
                 cardName = cardName + "S";
             }
-            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank+2);
+            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank);
             return temp_card;
         }
     }
