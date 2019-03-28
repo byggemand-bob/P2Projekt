@@ -93,13 +93,17 @@ namespace Poker_Game
         }
         public void buttonNewGame_Clicked(object sender, EventArgs e)
         {
+            this.Hide();
             SettingsForm formSettings = new SettingsForm();
-            formSettings.Show();
+            formSettings.ShowDialog();
+            this.Close();
         }
         public void buttonStatistics_Clicked(object sender, EventArgs e)
         {
+            this.Hide();
             Statistics formStatistics = new Statistics();
-            formStatistics.Show();
+            formStatistics.ShowDialog();
+            this.Close();
         }
         public void buttonQuit_Clicked(object sender, EventArgs e)
         {
