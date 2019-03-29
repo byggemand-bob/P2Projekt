@@ -9,6 +9,8 @@ namespace Poker_Game {
         public Player CurrentPlayer { get; private set; }
         
 
-        public 
+        public void Action() {
+
+        }
     }
 }
