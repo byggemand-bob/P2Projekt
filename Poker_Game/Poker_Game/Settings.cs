@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Poker_Game {
     enum BlindType { Time, Rounds } // namechange
     class Settings {
+        public int NumberOfPlayers { get; set; }
         public int StackSize { get; set; }
         public int BlindSize { get; set; }
         public BlindType BlindType { get; set; }
