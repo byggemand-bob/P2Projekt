@@ -16,7 +16,7 @@ namespace Poker_Game
             {
                 Console.WriteLine("Count {0}", i);
                 H.Deck.Add(Card.MakeCard(Card.DrawCards(H.Deck)));
-                Console.WriteLine(Card.MakeCard(Card.DrawCards(H.Deck)).Rank); 
+                Console.WriteLine(Card.MakeCard(Card.DrawCards(H.Deck)).Rank + " " + Card.MakeCard(Card.DrawCards(H.Deck)).Suit); 
             }
             Console.ReadKey();
         }
