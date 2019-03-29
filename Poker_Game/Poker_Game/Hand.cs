@@ -11,5 +11,17 @@ namespace Poker_Game {
         public List<Card> Street { get; set; }
         public List<Round> Rounds { get; set; }
 
+
+        public Hand() {
+            Pot = 0;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+            Rounds = new List<Round>();
+        }
+
+        public void Start() {
+
+        }
+
     }
 }

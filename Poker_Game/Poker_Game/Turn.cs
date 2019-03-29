@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Turn {
-        public Player CurrentPlayer { get; set; }
+        public Player CurrentPlayer { get; private set; }
         
+
+        public 
     }
 }
