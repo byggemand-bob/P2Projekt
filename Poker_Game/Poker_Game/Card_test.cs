@@ -12,9 +12,9 @@ namespace Poker_Game
         {
             Console.WriteLine("Hello World!");
             Hand H = new Hand();
-            for (;;)
+            for (int i = 0; i < 52 ; i++)
             {
-                H.Deck = new Card.MakeCard(Card.DrawCards(H.Deck));
+                H.Deck[i] = Card.MakeCard(Card.DrawCards(H.Deck));
                 Console.WriteLine(Card.MakeCard(Card.DrawCards(H.Deck)).Rank); 
             }
             Console.ReadKey();

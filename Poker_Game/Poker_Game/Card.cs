@@ -57,7 +57,7 @@ namespace Poker_Game {
             } else if (Suit == 3) {
                 cardName = cardName + "S";
             }
-            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Deck_of_cards\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank);
+            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank);
             return temp_card;
         }
     }
