@@ -25,15 +25,15 @@ namespace Poker_Game
         {
             return random.Next(0, 52);
         }
-        public static int DrawCards(List<Card> cards)
+        public static Card DrawCards(List<Card> cards)
         {
-            int randCard = 0;
-        remake: //if card have already been made
-            randCard = DrawRandCard();
+            Card randCard;
+            remake: //if card have already been made
+            randCard = MakeCard(DrawRandCard());
 
             foreach (Card element in cards)
             {
-                if (MakeCard(randCard).Image == element.Image)
+                if (randCard.Rank == element.Rank && randCard.Suit == element.Suit)
                 {
                     goto remake;
                 }
@@ -43,7 +43,7 @@ namespace Poker_Game
         public static Card MakeCard(int cardNumber)
         {
             int Rank = cardNumber % 13 + 2;
-            int Suit = cardNumber % 4;
+            Suit Suit = Suit.Spades;
             string cardName = Rank.ToString();
             if (Rank == 14)
             {
@@ -61,23 +61,27 @@ namespace Poker_Game
             {
                 cardName = "K";
             }
-            if (Suit == 0)
+            if (cardNumber <= 12)
             {
-                cardName = cardName + "C";
+                Suit = Suit.Clubs;
+                cardName += "C";
             }
-            else if (Suit == 1)
+            else if (cardNumber <= 25)
             {
-                cardName = cardName + "D";
+                Suit = Suit.Diamond;
+                cardName += "D";
             }
-            else if (Suit == 2)
+            else if (cardNumber <= 38)
             {
-                cardName = cardName + "H";
+                Suit = Suit.Hearts;
+                cardName += "H";
             }
-            else if (Suit == 3)
+            else if (cardNumber <= 51)
             {
-                cardName = cardName + "S";
+                Suit = Suit.Spades;
+                cardName += "S";
             }
-            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png")), (Suit)Suit, (Rank)Rank);
+            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png")), Suit, (Rank)Rank);
             return temp_card;
         }
     }

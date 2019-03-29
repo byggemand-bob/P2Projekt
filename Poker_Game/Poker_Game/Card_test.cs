@@ -12,12 +12,19 @@ namespace Poker_Game
         {
             Console.WriteLine("Hello World!");
             Hand H = new Hand();
-            for (int i = 0; i < 100 ; i++)
+            for (int i = 0; i < 52; i++)
             {
-                Console.WriteLine("Count {0}", i);
-                H.Deck.Add(Card.MakeCard(Card.DrawCards(H.Deck)));
-                Console.WriteLine(Card.MakeCard(Card.DrawCards(H.Deck)).Rank + " " + Card.MakeCard(Card.DrawCards(H.Deck)).Suit); 
+                H.Deck.Add(Card.DrawCards(H.Deck));
+                Console.WriteLine(H.Deck[i].Rank + " " + H.Deck[i].Suit);
             }
+            Console.WriteLine("Done!");
+            //for (int j = 0; j < 52; j++)
+            //{
+            //    Card testkort = Card.MakeCard(j);
+
+            //    Console.WriteLine("Kort er " + testkort.Suit + " " + testkort.Rank);
+            //}
+            //Console.WriteLine("Done!");
             Console.ReadKey();
         }
     }
