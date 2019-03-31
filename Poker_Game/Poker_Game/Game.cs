@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Game {
-        public bool IsFinished = false;
         public int DealerButtonPosition {
             get {
                 return DealerButtonPosition;
@@ -45,14 +44,13 @@ namespace Poker_Game {
 
 
         public void Start() {
-            while(!IsFinished) { // Mulig optimering. Fjern IsFininshed og byt ud med IsGameover()
-                Hands.Add(new Hand());
+            while(!IsFinished()) {
+                Hands.Add(new Hand(Players));
                 Hands[Hands.Count - 1].Start();
-                IsFinished = IsGameOver();
             }
         }
 
-        private bool IsGameOver() {
+        private bool IsFinished() {
             int playersLeft = 0;
             foreach(Player player in Players) {
                 if(player.Stack < 1) {
@@ -64,10 +62,5 @@ namespace Poker_Game {
             }
             return true;
         }
-
-        
-
-
-
     }
 }

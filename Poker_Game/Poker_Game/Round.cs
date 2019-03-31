@@ -11,5 +11,16 @@ namespace Poker_Game {
         public Round() {
             Turns = new List<Turn>();
         }
+
+        public void Start() {
+            while(!IsFinished()) {
+
+            }
+        }
+
+        private bool IsFinished() {
+
+        }
     }
+
 }

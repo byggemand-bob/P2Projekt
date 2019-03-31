@@ -5,7 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Poker_Game {
-    class Player {
+    enum PlayerAction {
+        Check,
+        Call,
+        Raise,
+        Fold
+    }
+
+    class Player : IComparable {
         public int Stack {
             get {
                 return Stack;
@@ -21,13 +28,27 @@ namespace Poker_Game {
         public bool IsBigBlind { get; set; }
         public bool HasFolded { get; set; }
         public List<Card> Cards { get; set; }
+        public int CurrentBet { get; set; }
+        public PlayerAction Action { get; set; }
 
         public Player(int stackSize) {
             Cards = new List<Card>();
             Stack = stackSize;
+            Reset();
+        }
+
+        public void Reset() {
+            CurrentBet = 0;
             IsBigBlind = false;
             IsSmallBlind = false;
             HasFolded = false;
         }
+
+        public int CompareTo(object other) {
+            Player player = (Player)other;
+
+        }
+
+
     }
 }
