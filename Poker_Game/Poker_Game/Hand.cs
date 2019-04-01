@@ -12,28 +12,43 @@ namespace Poker_Game {
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
 
+
+        #region Initialization
         public Hand(List<Player> players) {
             Pot = 0;
             Deck = new List<Card>();
             Street = new List<Card>();
             Rounds = new List<Round>();
             Players = players;
+            //Players = GetActivePlayers(players);
+            StartRound();
         }
 
-        public void Start() {
-            while(!IsFinished()) {
-
-            }
-        }
-
-        private bool IsFinished() {
-            if(PlayersLeft() > 1) {
-                if() {
-
+        private List<Player> GetActivePlayers(List<Player> players) {
+            List<Player> output = new List<Player>();
+            foreach(Player player in players) {
+                if(player.Stack > 0) {
+                    output.Add(player);
                 }
             }
-
+            return output;
         }
+        #endregion
+
+        public void StartRound() {
+            Rounds.Add(new Round(Players));
+        }
+
+
+        private bool IsFinished() {
+            throw new NotImplementedException("Needs Card-validation");
+            
+            //if(PlayersLeft() > 1) {
+            //    if() {
+
+            //    }
+            //}
+        } // TODO
 
         private int PlayersLeft() {
             int playersLeft = 0;
