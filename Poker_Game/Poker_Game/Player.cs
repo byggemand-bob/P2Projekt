@@ -64,7 +64,7 @@ namespace Poker_Game {
             player.HasFolded = HasFolded;
 
             foreach(Card card in Cards) {
-                player.Cards.Add(card.clone());
+                player.Cards.Add((Card)card.Clone());
             }
 
             return player;

@@ -8,7 +8,7 @@ namespace Poker_Game {
     class Round {
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
-        private int TopBidderIndex {
+        public int TopBidderIndex {
             get {
                 return TopBidderIndex;
             }
@@ -20,7 +20,7 @@ namespace Poker_Game {
                 }
             }
         }
-        private int CycleStep;
+        public int CycleStep { get; set; }
 
         #region Initialization
         public Round(List<Player> players) {
@@ -48,8 +48,16 @@ namespace Poker_Game {
             for(int i = 0; i < Players.Count; i++) {
                 if(Players[i].CompareTo(Players[playerIndex]) == 0) {
                     TopBidderIndex = i;
+                    CycleStep = 0;
                 }
             }
+        }
+
+        private bool CycleFinished() {
+            if(CycleStep == Players.Count) {
+                return true;
+            }
+            return false;
         }
 
 
@@ -57,9 +65,7 @@ namespace Poker_Game {
             throw new NotImplementedException();
         }
 
-        private bool CycleFinished() {
-            throw new NotImplementedException();
-        }
+       
 
 
     }

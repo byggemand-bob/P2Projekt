@@ -65,23 +65,46 @@ namespace Poker_Game {
 
         #region Actions
         public void Call(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            Bet(CurrentPlayerIndex);
+            Players[CurrentPlayerIndex].Action = PlayerAction.Call;
             UpdateState();
+            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
         }
 
         public void Check(object sender, EventArgs e) {
-            throw new NotImplementedException();
-
+            Players[CurrentPlayerIndex].Action = PlayerAction.Check;
+            UpdateState();
+            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
         }
 
         public void Fold(object sender, EventArgs e) {
+            Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
             Players[CurrentPlayerIndex].HasFolded = true;
             UpdateState();
+            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+
         }
 
         public void Raise(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
+            Bet(CurrentPlayerIndex);
+
+            // Create functions for this.
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].ChangeTopBidder(CurrentPlayerIndex);
+            UpdateState();
+            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+        }
+
+        private void Bet(int playerIndex) {
+            if(Players[CurrentPlayerIndex].Action == PlayerAction.Call || Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].TopBidderIndex == CurrentPlayerIndex) {
+                Players[CurrentPlayerIndex].CurrentBet += Settings.BlindSize; // Not sure how much should be bet
+                Players[CurrentPlayerIndex].Stack -= Settings.BlindSize;
+                Hands[Hands.Count - 1].Pot += Settings.BlindSize;
+            } else {
+                Players[CurrentPlayerIndex].CurrentBet += 2 * Settings.BlindSize; // Not sure how much should be bet
+                Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize;
+                Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
+            }
         }
 
         #endregion
@@ -104,6 +127,7 @@ namespace Poker_Game {
         public int GetNextPlayerIndex() {
             int next = CurrentPlayerIndex++ % Settings.NumberOfPlayers;
             for(int i = 0; i < Settings.NumberOfPlayers - 1; i++) {
+
                 if(!Players[next].HasFolded) {
                     return next;
                 }
