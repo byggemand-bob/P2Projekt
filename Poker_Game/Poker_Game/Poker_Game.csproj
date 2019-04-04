@@ -73,45 +73,15 @@
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
     <Compile Include="Game\Hand.cs" />
-    <Compile Include="GUI\MenuForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\MenuForm.Designer.cs">
-      <DependentUpon>MenuForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game\Player.cs" />
-    <Compile Include="GUI\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game\Game.cs" />
     <Compile Include="PokerLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game\Round.cs" />
     <Compile Include="Game\Settings.cs" />
-    <Compile Include="GUI\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Statistics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Statistics.Designer.cs">
-      <DependentUpon>Statistics.cs</DependentUpon>
-    </Compile>
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
-    <EmbeddedResource Include="GUI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MenuForm.resx">
-      <DependentUpon>MenuForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
