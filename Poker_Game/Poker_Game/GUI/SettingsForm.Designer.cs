@@ -34,7 +34,7 @@ namespace Poker_Game
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textboxName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.numberOfPlayersTrackBar = new System.Windows.Forms.TrackBar();
             this.potSizeTrackBar = new System.Windows.Forms.TrackBar();
@@ -49,9 +49,9 @@ namespace Poker_Game
             ((System.ComponentModel.ISupportInitialize)(this.potSizeNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blindSizeNumericUpDown)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // buttonStartGame
-            // 
+            //
             this.buttonStartGame.Location = new System.Drawing.Point(187, 619);
             this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4);
             this.buttonStartGame.Name = "buttonStartGame";
@@ -60,9 +60,9 @@ namespace Poker_Game
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
             this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 53);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -70,9 +70,9 @@ namespace Poker_Game
             this.label1.Size = new System.Drawing.Size(118, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Number of players";
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(14, 132);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -80,9 +80,9 @@ namespace Poker_Game
             this.label2.Size = new System.Drawing.Size(55, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Pot size";
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 201);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -90,9 +90,9 @@ namespace Poker_Game
             this.label3.Size = new System.Drawing.Size(65, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Blind size";
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(123, 554);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -100,18 +100,29 @@ namespace Poker_Game
             this.label4.Size = new System.Drawing.Size(90, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Player Name:";
-            // 
-            // textBox1
-            // 
+            //
+            // textboxName
+            //
             this.textBox1.Location = new System.Drawing.Point(247, 554);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 5;
             this.textBox1.Text = "Enter Name";
-            // 
+
+            this.textboxName.Location = new System.Drawing.Point(247, 554);
+            this.textboxName.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(132, 22);
+            this.textboxName.TabIndex = 5;
+            this.textboxName.Text = "Enter Name";
+            this.textboxName.Enter += new System.EventHandler(this.textboxName_Enter);
+            this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_CheckChange);
+            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
+
+            //
             // label5
-            // 
+            //
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(14, 286);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -119,9 +130,9 @@ namespace Poker_Game
             this.label5.Size = new System.Drawing.Size(93, 16);
             this.label5.TabIndex = 6;
             this.label5.Text = "Blind Increase";
-            // 
+            //
             // numberOfPlayersTrackBar
-            // 
+            //
             this.numberOfPlayersTrackBar.Location = new System.Drawing.Point(130, 53);
             this.numberOfPlayersTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.numberOfPlayersTrackBar.Maximum = 2;
@@ -131,9 +142,9 @@ namespace Poker_Game
             this.numberOfPlayersTrackBar.TabIndex = 7;
             this.numberOfPlayersTrackBar.Value = 2;
             this.numberOfPlayersTrackBar.ValueChanged += new System.EventHandler(this.numberOfPlayersTrackBar_ValueChanged);
-            // 
+            //
             // potSizeTrackBar
-            // 
+            //
             this.potSizeTrackBar.Location = new System.Drawing.Point(130, 127);
             this.potSizeTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.potSizeTrackBar.Maximum = 10000;
@@ -143,9 +154,10 @@ namespace Poker_Game
             this.potSizeTrackBar.TabIndex = 8;
             this.potSizeTrackBar.Value = 1000;
             this.potSizeTrackBar.ValueChanged += new System.EventHandler(this.potSizeTrackBar_ValueChanged);
-            // 
+            //
             // blindSizeTrackBar
-            // 
+            //
+
             this.blindSizeTrackBar.Location = new System.Drawing.Point(130, 195);
             this.blindSizeTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.blindSizeTrackBar.Maximum = 1000;
@@ -155,9 +167,9 @@ namespace Poker_Game
             this.blindSizeTrackBar.TabIndex = 9;
             this.blindSizeTrackBar.Value = 50;
             this.blindSizeTrackBar.ValueChanged += new System.EventHandler(this.blindSizeTrackBar_ValueChanged);
-            // 
+            //
             // numberOfPlayersNumericUpDown
-            // 
+            //
             this.numberOfPlayersNumericUpDown.Location = new System.Drawing.Point(377, 53);
             this.numberOfPlayersNumericUpDown.Maximum = new decimal(new int[] {
             2,
@@ -178,9 +190,9 @@ namespace Poker_Game
             0,
             0});
             this.numberOfPlayersNumericUpDown.ValueChanged += new System.EventHandler(this.numberOfPlayersNumericUpDown_ValueChanged);
-            // 
+            //
             // potSizeNumericUpDown
-            // 
+            //
             this.potSizeNumericUpDown.Increment = new decimal(new int[] {
             500,
             0,
@@ -206,9 +218,9 @@ namespace Poker_Game
             0,
             0});
             this.potSizeNumericUpDown.ValueChanged += new System.EventHandler(this.potSizeNumericUpDown_ValueChanged);
-            // 
+            //
             // blindSizeNumericUpDown
-            // 
+            //
             this.blindSizeNumericUpDown.Increment = new decimal(new int[] {
             50,
             0,
@@ -234,9 +246,17 @@ namespace Poker_Game
             0,
             0});
             this.blindSizeNumericUpDown.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
-            // 
+
+            this.textBox2.Location = new System.Drawing.Point(208, 197);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(132, 22);
+            this.textBox2.TabIndex = 9;
+            this.textBox2.Text = "Enter here";
+
+            //
             // SettingsForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -248,7 +268,7 @@ namespace Poker_Game
             this.Controls.Add(this.potSizeTrackBar);
             this.Controls.Add(this.numberOfPlayersTrackBar);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textboxName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -276,7 +296,7 @@ namespace Poker_Game
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textboxName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TrackBar numberOfPlayersTrackBar;
         private System.Windows.Forms.TrackBar potSizeTrackBar;
