@@ -17,9 +17,6 @@ namespace Poker_Game
         public SettingsForm()
         {
             InitializeComponent();
-
-
-
         }
 
         private void buttonStartGame_Click(object sender, EventArgs e)
@@ -37,11 +34,21 @@ namespace Poker_Game
 
         private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
         {
+            if (blindSizeTrackBar.Value % 10 != 0)
+            {
+                blindSizeTrackBar.Value = blindSizeTrackBar.Value - (blindSizeTrackBar.Value % 10);
+            }
+
             blindSizeNumericUpDown.Value = blindSizeTrackBar.Value;
         }
 
         private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
         {
+            if (potSizeTrackBar.Value % 100 != 0)
+            {
+                potSizeTrackBar.Value = potSizeTrackBar.Value - (potSizeTrackBar.Value % 100);
+            }
+
             potSizeNumericUpDown.Value = potSizeTrackBar.Value;
         }
 
@@ -81,6 +88,5 @@ namespace Poker_Game
                 nameChanged = true;
             }
         }
-        
     }
 }
