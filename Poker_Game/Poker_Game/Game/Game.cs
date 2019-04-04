@@ -95,6 +95,11 @@ namespace Poker_Game {
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
         }
 
+        public void NewHand() {
+            
+        }
+
+
         private void Bet(int playerIndex) {
             if(Players[CurrentPlayerIndex].Action == PlayerAction.Call || Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].TopBidderIndex == CurrentPlayerIndex) {
                 Players[CurrentPlayerIndex].CurrentBet += Settings.BlindSize; // Not sure how much should be bet

@@ -47,8 +47,14 @@ namespace Poker_Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             HasFolded = false;
+            RemoveCards();
         }
 
+        public void RemoveCards() {
+            for(int i = Cards.Count - 1; i >= 0; i--) {
+                Cards.Remove(Cards[i]);
+            }
+        }
 
         public int CompareTo(object other) {
             return ID.CompareTo(((Player)other).ID);
