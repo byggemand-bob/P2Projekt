@@ -47,6 +47,7 @@ namespace Poker_Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             HasFolded = false;
+            Action = PlayerAction.TBD;
             RemoveCards();
         }
 

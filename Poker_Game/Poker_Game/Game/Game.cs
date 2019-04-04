@@ -96,9 +96,14 @@ namespace Poker_Game {
         }
 
         public void NewHand() {
-            
+            Hands.Add(new Hand(Players));
+            HandInProgress = true;
         }
 
+
+
+
+        #endregion
 
         private void Bet(int playerIndex) {
             if(Players[CurrentPlayerIndex].Action == PlayerAction.Call || Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].TopBidderIndex == CurrentPlayerIndex) {
@@ -111,8 +116,6 @@ namespace Poker_Game {
                 Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
             }
         }
-
-        #endregion
 
         public void UpdateState() {
             RoundInProgress = UpdateRoundProgress();
@@ -139,14 +142,7 @@ namespace Poker_Game {
                 next = next++ % Settings.NumberOfPlayers;
             }
             return -1;
-        }
-
-
-        public void StartHand() {
-            Hands.Add(new Hand(Players));
-            HandInProgress = true;
-        }
-        
+        }        
 
         private bool IsFinished() {
             int playersLeft = 0;

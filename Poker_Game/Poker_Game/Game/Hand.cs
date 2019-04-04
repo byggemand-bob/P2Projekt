@@ -48,12 +48,12 @@ namespace Poker_Game {
 
             //    }
             //}
-        } // TODO
+        }
 
         private int PlayersLeft() {
             int playersLeft = 0;
             foreach(Player player in Players) {
-                if(!player.HasFolded) {
+                if(player.Action != PlayerAction.Fold) {
                     playersLeft++;
                 }
             }
