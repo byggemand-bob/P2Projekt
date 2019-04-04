@@ -112,7 +112,7 @@ namespace Poker_Game {
                 Hands[Hands.Count - 1].Pot += Settings.BlindSize;
             } else {
                 Players[CurrentPlayerIndex].CurrentBet += 2 * Settings.BlindSize; // Not sure how much should be bet
-                Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize;
+                Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize; // CART optimization
                 Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
             }
         }

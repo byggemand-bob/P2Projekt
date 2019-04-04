@@ -34,7 +34,7 @@ namespace Poker_Game
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textboxName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
@@ -60,7 +60,7 @@ namespace Poker_Game
             this.label1.Location = new System.Drawing.Point(35, 53);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 20);
+            this.label1.Size = new System.Drawing.Size(118, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Number of players";
             // 
@@ -70,7 +70,7 @@ namespace Poker_Game
             this.label2.Location = new System.Drawing.Point(35, 132);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 20);
+            this.label2.Size = new System.Drawing.Size(55, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Pot size";
             // 
@@ -80,7 +80,7 @@ namespace Poker_Game
             this.label3.Location = new System.Drawing.Point(35, 201);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 20);
+            this.label3.Size = new System.Drawing.Size(65, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Blind size";
             // 
@@ -90,18 +90,21 @@ namespace Poker_Game
             this.label4.Location = new System.Drawing.Point(123, 554);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 20);
+            this.label4.Size = new System.Drawing.Size(90, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Player Name:";
             // 
-            // textBox1
+            // textboxName
             // 
-            this.textBox1.Location = new System.Drawing.Point(247, 554);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 26);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "Enter Name";
+            this.textboxName.Location = new System.Drawing.Point(247, 554);
+            this.textboxName.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(132, 22);
+            this.textboxName.TabIndex = 5;
+            this.textboxName.Text = "Enter Name";
+            this.textboxName.Enter += new System.EventHandler(this.textboxName_Enter);
+            this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_CheckChange);
+            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
             // 
             // label5
             // 
@@ -109,7 +112,7 @@ namespace Poker_Game
             this.label5.Location = new System.Drawing.Point(35, 286);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 20);
+            this.label5.Size = new System.Drawing.Size(93, 16);
             this.label5.TabIndex = 6;
             this.label5.Text = "Blind Increase";
             // 
@@ -118,7 +121,7 @@ namespace Poker_Game
             this.trackBar1.Location = new System.Drawing.Point(208, 53);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(4);
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(240, 56);
+            this.trackBar1.Size = new System.Drawing.Size(240, 45);
             this.trackBar1.TabIndex = 7;
             // 
             // trackBar2
@@ -126,7 +129,7 @@ namespace Poker_Game
             this.trackBar2.Location = new System.Drawing.Point(208, 116);
             this.trackBar2.Margin = new System.Windows.Forms.Padding(4);
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(240, 56);
+            this.trackBar2.Size = new System.Drawing.Size(240, 45);
             this.trackBar2.TabIndex = 8;
             // 
             // textBox2
@@ -134,13 +137,13 @@ namespace Poker_Game
             this.textBox2.Location = new System.Drawing.Point(208, 197);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(132, 26);
+            this.textBox2.Size = new System.Drawing.Size(132, 22);
             this.textBox2.TabIndex = 9;
             this.textBox2.Text = "Enter here";
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(512, 690);
@@ -148,7 +151,7 @@ namespace Poker_Game
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textboxName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -172,7 +175,7 @@ namespace Poker_Game
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textboxName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar trackBar2;
