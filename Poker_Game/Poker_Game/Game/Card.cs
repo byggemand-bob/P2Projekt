@@ -36,15 +36,15 @@ namespace Poker_Game {
             }
         }
         private void MakeCard(int cardNumber) {
-            int Rank = cardNumber % 13 + 2;
+            int RankInt = cardNumber % 13 + 2;
             string cardName = Rank.ToString();
-            if(Rank == 14) {
+            if(RankInt == 14) {
                 cardName = "A";
-            } else if(Rank == 11) {
+            } else if(RankInt == 11) {
                 cardName = "J";
-            } else if(Rank == 12) {
+            } else if(RankInt == 12) {
                 cardName = "Q";
-            } else if(Rank == 13) {
+            } else if(RankInt == 13) {
                 cardName = "K";
             }
             if(cardNumber <= 12) {
@@ -60,6 +60,7 @@ namespace Poker_Game {
                 Suit = Suit.Spades;
                 cardName += "S";
             }
+            Rank = (Rank)RankInt;
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
