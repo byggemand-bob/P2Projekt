@@ -28,9 +28,10 @@ namespace Poker_Game {
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        private void buttonSettings_Click(object sender, EventArgs e)
+        private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
-            //Load SettingsForm 
+            QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
+            formConfirmationQuit.ShowDialog();
         }
 
         private void buttonCall_Click(object sender, EventArgs e)
