@@ -22,7 +22,7 @@ namespace Poker_Game
         private void buttonStartGame_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameForm formGame = new GameForm();
+            GameForm formGame = new GameForm(textboxName.Text, potSizeTrackBar.Value, blindSizeTrackBar.Value);
             formGame.ShowDialog();
             this.Close();
         }

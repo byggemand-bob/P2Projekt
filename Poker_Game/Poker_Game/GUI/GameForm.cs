@@ -10,10 +10,17 @@ using System.Windows.Forms;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        public GameForm() {
+        /*
+        list<Player> Players = new list<Player>();
+        Settings GameSettings = New Settings();
+        */
+        
+        public GameForm(String InputPlayerName, int InputPotSize, int InputBlindSize) {
             InitializeComponent();
-
-            
+            /*
+            Players.add(new Player(1, InputPotSize, InputPlayerName));
+            GameSettings.BlindSize = InputBlindSize;
+            */
         }
 
         private void Form1_Load(object sender, EventArgs e)
