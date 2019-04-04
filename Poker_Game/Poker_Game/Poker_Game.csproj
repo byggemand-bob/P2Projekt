@@ -71,7 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Card.cs" />
-    <Compile Include="Card_test.cs" />
+    <Compile Include="GUI\QuitConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuitConfirmationForm.Designer.cs">
+      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Game\Hand.cs" />
     <Compile Include="GUI\MenuForm.cs">
       <SubType>Form</SubType>
@@ -80,11 +85,11 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Game\Player.cs" />
-    <Compile Include="GUI\Form1.cs">
+    <Compile Include="GUI\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUI\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Game\Game.cs" />
     <Compile Include="PokerLogic.cs" />
@@ -106,8 +111,11 @@
     </Compile>
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
-    <EmbeddedResource Include="GUI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="QuitConfirmationForm.resx">
+      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
@@ -116,6 +124,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
