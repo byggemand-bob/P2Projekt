@@ -42,6 +42,7 @@ namespace Poker_Game
             this.numberOfPlayersNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.potSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.blindSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.nameErrorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.potSizeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blindSizeTrackBar)).BeginInit();
@@ -239,12 +240,24 @@ namespace Poker_Game
             0});
             this.blindSizeNumericUpDown.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
             // 
+            // nameErrorLabel
+            // 
+            this.nameErrorLabel.AutoSize = true;
+            this.nameErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.nameErrorLabel.Location = new System.Drawing.Point(247, 534);
+            this.nameErrorLabel.Name = "nameErrorLabel";
+            this.nameErrorLabel.Size = new System.Drawing.Size(137, 16);
+            this.nameErrorLabel.TabIndex = 13;
+            this.nameErrorLabel.Text = "Need to enter a name";
+            this.nameErrorLabel.Visible = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(458, 690);
+            this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.blindSizeNumericUpDown);
             this.Controls.Add(this.potSizeNumericUpDown);
             this.Controls.Add(this.numberOfPlayersNumericUpDown);
@@ -288,5 +301,6 @@ namespace Poker_Game
         private System.Windows.Forms.NumericUpDown numberOfPlayersNumericUpDown;
         private System.Windows.Forms.NumericUpDown potSizeNumericUpDown;
         private System.Windows.Forms.NumericUpDown blindSizeNumericUpDown;
+        private System.Windows.Forms.Label nameErrorLabel;
     }
 }
