@@ -30,7 +30,7 @@ namespace Poker_Game {
         remake: //if card have already been made
             MakeCard(DrawRandCard());
             foreach(Card element in cards) {
-                if(element.Rank == this.Rank && element.Suit == this.Suit/*element.CompareTo(this) == 0*/) {
+                if(element.CompareTo(this) == 0) {
                     goto remake;
                 }
             }
