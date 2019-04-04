@@ -573,6 +573,16 @@ namespace Poker_Game.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PokerBord {
+            get {
+                object obj = ResourceManager.GetObject("PokerBord", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap QC {
             get {
                 object obj = ResourceManager.GetObject("QC", resourceCulture);
@@ -616,9 +626,6 @@ namespace Poker_Game.Properties {
         internal static System.Drawing.Bitmap z_Back_of_card2 {
             get {
                 object obj = ResourceManager.GetObject("z_Back_of_card2", resourceCulture);
-        internal static System.Drawing.Bitmap PokerBord {
-            get {
-                object obj = ResourceManager.GetObject("PokerBord", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poker_Game
-{
-    class Card_test
-    {
-        static void Main(string[] args)
-        {
+namespace Poker_Game {
+    class Card_test {
+        static void Main(string[] args) {
             Console.WriteLine("Hello World!");
-            Hand H = new Hand();
-            for (int i = 0; i < 52; i++)
-            {
-                H.Deck.Add(Card.DrawCards(H.Deck));
+            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) };
+            Hand H = new Hand(players);
+
+
+            for(int i = 0; i < 52; i++) {
+                H.Deck.Add(new Card(H.Deck));
                 Console.WriteLine(H.Deck[i].Rank + " " + H.Deck[i].Suit);
             }
             Console.WriteLine("Done!");

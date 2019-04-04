@@ -10,7 +10,7 @@ namespace Poker_Game {
     enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
-    class Card : ICloneable {
+    class Card : IComparable, ICloneable {
         static Random random = new Random();
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
@@ -20,24 +20,23 @@ namespace Poker_Game {
             Suit = suit;
             Rank = rank;
         }
+        public Card(List<Card> existingCards) {
+            DrawCards(existingCards);
+        }
         private int DrawRandCard() {
             return random.Next(0, 52);
         }
-        public Card DrawCards(List<Card> cards) {
-            Card randCard;
+        public void DrawCards(List<Card> cards) {
         remake: //if card have already been made
-            randCard = MakeCard(DrawRandCard());
-
+            MakeCard(DrawRandCard());
             foreach(Card element in cards) {
-                if(randCard.Rank == element.Rank && randCard.Suit == element.Suit) {
+                if(element.CompareTo(this) == 0) {
                     goto remake;
                 }
             }
-            return randCard;
         }
-        public void MakeCard(int cardNumber) {
+        private void MakeCard(int cardNumber) {
             int Rank = cardNumber % 13 + 2;
-            Suit Suit = Suit.Spades;
             string cardName = Rank.ToString();
             if(Rank == 14) {
                 cardName = "A";
@@ -62,6 +61,23 @@ namespace Poker_Game {
                 cardName += "S";
             }
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+        }
+
+
+        public int CompareTo(object other) { // Sort after suit, then rank
+            Card otherCard = (Card)other;
+            if(Suit.CompareTo(otherCard.Suit) < 0) {
+                return -1;
+            } else if(Suit.CompareTo(otherCard.Suit) > 0) {
+                return 1;
+            } else {
+                if(Rank.CompareTo(otherCard.Rank) < 0) {
+                    return -1;
+                } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                    return 1;
+                }
+            }
+            return 0;
         }
 
         public object Clone() {

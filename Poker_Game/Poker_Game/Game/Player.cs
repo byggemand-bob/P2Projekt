@@ -15,18 +15,19 @@ namespace Poker_Game {
 
     class Player : IComparable, ICloneable {
         public int ID { get; set; }
-        public int Stack {
-            get {
-                return Stack;
-            }
-            set {
-                if(value > 100 && value < int.MaxValue / 2) { // Minimum and maximum stacksizes not defined yet
-                    Stack = value;
-                } else {
-                    throw new ArgumentOutOfRangeException("{0} is not an accepted value for this property.", value.ToString());
-                }
-            }
-        }
+        public int Stack { get; set; }
+        //public int Stack {
+        //    get {
+        //        return Stack;
+        //    }
+        //    set {
+        //        if(value > 0 && value < int.MaxValue / 2) { // Minimum and maximum stacksizes not defined yet
+        //            Stack = value;
+        //        } else {
+        //            throw new ArgumentOutOfRangeException("{0} is not an accepted value for this property.", value.ToString());
+        //        }
+        //    }
+        //}
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public bool HasFolded { get; set; } // Obsolete

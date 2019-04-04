@@ -8,18 +8,19 @@ namespace Poker_Game {
     class Round {
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
-        public int TopBidderIndex {
-            get {
-                return TopBidderIndex;
-            }
-            set {
-                if(TopBidderIndex < Players.Count && TopBidderIndex >= 0) {
-                    TopBidderIndex = value;
-                } else {
-                    throw new ArgumentException(value + " is not an allowed value");
-                }
-            }
-        }
+        public int TopBidderIndex { get; set; }
+        //public int TopBidderIndex {
+        //    get {
+        //        return TopBidderIndex;
+        //    }
+        //    set {
+        //        if(TopBidderIndex < Players.Count && TopBidderIndex >= 0) {
+        //            TopBidderIndex = value;
+        //        } else {
+        //            throw new ArgumentException(value + " is not an allowed value");
+        //        }
+        //    }
+        //}
         public int CycleStep { get; set; }
 
         #region Initialization
