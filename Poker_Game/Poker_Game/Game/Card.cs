@@ -30,14 +30,14 @@ namespace Poker_Game {
         remake: //if card have already been made
             MakeCard(DrawRandCard());
             foreach(Card element in cards) {
-                if(element.CompareTo(this) == 0) {
+                if(element.Rank == this.Rank && element.Suit == this.Suit/*element.CompareTo(this) == 0*/) {
                     goto remake;
                 }
             }
         }
         private void MakeCard(int cardNumber) {
-            int RankInt = cardNumber % 13 + 2;
-            string cardName = Rank.ToString();
+            int RankInt = (cardNumber % 13) + 2;
+            string cardName = RankInt.ToString();
             if(RankInt == 14) {
                 cardName = "A";
             } else if(RankInt == 11) {
@@ -73,9 +73,9 @@ namespace Poker_Game {
                 return 1;
             } else {
                 if(Rank.CompareTo(otherCard.Rank) < 0) {
-                    return -1;
-                } else if(Rank.CompareTo(otherCard.Rank) > 0) {
                     return 1;
+                } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                    return -1;
                 }
             }
             return 0;

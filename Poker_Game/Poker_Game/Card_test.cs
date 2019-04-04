@@ -14,7 +14,11 @@ namespace Poker_Game {
 
             for(int i = 0; i < 52; i++) {
                 H.Deck.Add(new Card(H.Deck));
-                Console.WriteLine(H.Deck[i].Rank + " " + H.Deck[i].Suit);
+            }
+            H.Deck.Sort();
+            for(int j =0; j < 52; j++)
+            {
+                Console.WriteLine(H.Deck[j].Rank + " " + H.Deck[j].Suit);
             }
             Console.WriteLine("Done!");
             //for (int j = 0; j < 52; j++)
