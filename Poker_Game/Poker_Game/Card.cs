@@ -20,10 +20,10 @@ namespace Poker_Game {
             Suit = suit;
             Rank = rank;
         }
-        private static int DrawRandCard() {
+        private int DrawRandCard() {
             return random.Next(0, 52);
         }
-        public static Card DrawCards(List<Card> cards) {
+        public Card DrawCards(List<Card> cards) {
             Card randCard;
         remake: //if card have already been made
             randCard = MakeCard(DrawRandCard());
@@ -35,7 +35,7 @@ namespace Poker_Game {
             }
             return randCard;
         }
-        public static Card MakeCard(int cardNumber) {
+        public void MakeCard(int cardNumber) {
             int Rank = cardNumber % 13 + 2;
             Suit Suit = Suit.Spades;
             string cardName = Rank.ToString();
@@ -61,8 +61,7 @@ namespace Poker_Game {
                 Suit = Suit.Spades;
                 cardName += "S";
             }
-            var temp_card = new Card((Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png")), Suit, (Rank)Rank);
-            return temp_card;
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
         public object Clone() {
