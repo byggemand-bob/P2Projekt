@@ -27,5 +27,35 @@ namespace Poker_Game
             formGame.ShowDialog();
             this.Close();
         }
+
+        private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            blindSizeTrackBar.Value = (int) blindSizeNumericUpDown.Value;
+        }
+
+        private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            blindSizeNumericUpDown.Value = blindSizeTrackBar.Value;
+        }
+
+        private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            potSizeNumericUpDown.Value = potSizeTrackBar.Value;
+        }
+
+        private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            potSizeTrackBar.Value = (int) potSizeNumericUpDown.Value;
+        }
+
+        private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            numberOfPlayersNumericUpDown.Value = numberOfPlayersTrackBar.Value;
+        }
+
+        private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            numberOfPlayersTrackBar.Value = (int)numberOfPlayersNumericUpDown.Value;
+        }
     }
 }
