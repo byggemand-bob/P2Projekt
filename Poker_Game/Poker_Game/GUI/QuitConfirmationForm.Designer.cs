@@ -76,9 +76,15 @@
             this.Controls.Add(this.ConfirmationText);
             this.Controls.Add(this.buttonNo);
             this.Controls.Add(this.buttonYes);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "QuitConfirmationForm";
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Confirmation";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
