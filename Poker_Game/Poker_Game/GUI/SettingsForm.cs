@@ -96,5 +96,61 @@ namespace Poker_Game
                 nameChanged = true;
             }
         }
+
+        private void timeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(timeBasedCheckBox.Checked == true)
+            {
+                roundBasedCheckBox.Checked = false;
+
+                blindIncreaseTrackBar.Visible = true;
+                blindIncreaseNumericUpDown.Visible = true;
+
+                blindIncreaseNumericUpDown.Value = 20;
+
+                blindIncreaseNumericUpDown.Maximum = 60;
+                blindIncreaseNumericUpDown.Increment = 5;
+
+                blindIncreaseTrackBar.Maximum = 60;
+            }
+            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            {
+                blindIncreaseTrackBar.Visible = false;
+                blindIncreaseNumericUpDown.Visible = false;
+            }
+        }
+
+        private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (roundBasedCheckBox.Checked == true)
+            {
+                timeBasedCheckBox.Checked = false;
+
+                blindIncreaseTrackBar.Visible = true;
+                blindIncreaseNumericUpDown.Visible = true;
+
+                blindIncreaseNumericUpDown.Value = 5;
+
+                blindIncreaseNumericUpDown.Maximum = 20;
+                blindIncreaseNumericUpDown.Increment = 1;
+
+                blindIncreaseTrackBar.Maximum = 20;
+            }
+            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            {
+                blindIncreaseTrackBar.Visible = false;
+                blindIncreaseNumericUpDown.Visible = false;
+            }
+        }
+
+        private void blindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            blindIncreaseNumericUpDown.Value = blindIncreaseTrackBar.Value;
+        }
+
+        private void blindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            blindIncreaseTrackBar.Value = (int)blindIncreaseNumericUpDown.Value;
+        }
     }
 }

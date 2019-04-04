@@ -43,12 +43,18 @@ namespace Poker_Game
             this.potSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.blindSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.nameErrorLabel = new System.Windows.Forms.Label();
+            this.timeBasedCheckBox = new System.Windows.Forms.CheckBox();
+            this.roundBasedCheckBox = new System.Windows.Forms.CheckBox();
+            this.blindIncreaseNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.blindIncreaseTrackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.potSizeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blindSizeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.potSizeNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blindSizeNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStartGame
@@ -251,12 +257,74 @@ namespace Poker_Game
             this.nameErrorLabel.Text = "Need to enter a name";
             this.nameErrorLabel.Visible = false;
             // 
+            // timeBasedCheckBox
+            // 
+            this.timeBasedCheckBox.AutoSize = true;
+            this.timeBasedCheckBox.Location = new System.Drawing.Point(146, 285);
+            this.timeBasedCheckBox.Name = "timeBasedCheckBox";
+            this.timeBasedCheckBox.Size = new System.Drawing.Size(101, 20);
+            this.timeBasedCheckBox.TabIndex = 14;
+            this.timeBasedCheckBox.Text = "Time Based";
+            this.timeBasedCheckBox.UseVisualStyleBackColor = true;
+            this.timeBasedCheckBox.CheckedChanged += new System.EventHandler(this.timeBasedCheckBox_CheckedChanged);
+            // 
+            // roundBasedCheckBox
+            // 
+            this.roundBasedCheckBox.AutoSize = true;
+            this.roundBasedCheckBox.Location = new System.Drawing.Point(264, 285);
+            this.roundBasedCheckBox.Name = "roundBasedCheckBox";
+            this.roundBasedCheckBox.Size = new System.Drawing.Size(109, 20);
+            this.roundBasedCheckBox.TabIndex = 15;
+            this.roundBasedCheckBox.Text = "Round based";
+            this.roundBasedCheckBox.UseVisualStyleBackColor = true;
+            this.roundBasedCheckBox.CheckedChanged += new System.EventHandler(this.roundBasedCheckBox_CheckedChanged);
+            // 
+            // blindIncreaseNumericUpDown
+            // 
+            this.blindIncreaseNumericUpDown.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.blindIncreaseNumericUpDown.Location = new System.Drawing.Point(377, 321);
+            this.blindIncreaseNumericUpDown.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.blindIncreaseNumericUpDown.Name = "blindIncreaseNumericUpDown";
+            this.blindIncreaseNumericUpDown.Size = new System.Drawing.Size(76, 22);
+            this.blindIncreaseNumericUpDown.TabIndex = 17;
+            this.blindIncreaseNumericUpDown.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.blindIncreaseNumericUpDown.Visible = false;
+            this.blindIncreaseNumericUpDown.ValueChanged += new System.EventHandler(this.blindIncreaseNumericUpDown_ValueChanged);
+            // 
+            // blindIncreaseTrackBar
+            // 
+            this.blindIncreaseTrackBar.Location = new System.Drawing.Point(130, 321);
+            this.blindIncreaseTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.blindIncreaseTrackBar.Maximum = 60;
+            this.blindIncreaseTrackBar.Name = "blindIncreaseTrackBar";
+            this.blindIncreaseTrackBar.Size = new System.Drawing.Size(240, 45);
+            this.blindIncreaseTrackBar.TabIndex = 16;
+            this.blindIncreaseTrackBar.Value = 20;
+            this.blindIncreaseTrackBar.Visible = false;
+            this.blindIncreaseTrackBar.ValueChanged += new System.EventHandler(this.blindIncreaseTrackBar_ValueChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(458, 690);
+            this.Controls.Add(this.blindIncreaseNumericUpDown);
+            this.Controls.Add(this.blindIncreaseTrackBar);
+            this.Controls.Add(this.roundBasedCheckBox);
+            this.Controls.Add(this.timeBasedCheckBox);
             this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.blindSizeNumericUpDown);
             this.Controls.Add(this.potSizeNumericUpDown);
@@ -281,6 +349,8 @@ namespace Poker_Game
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.potSizeNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blindSizeNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,5 +372,9 @@ namespace Poker_Game
         private System.Windows.Forms.NumericUpDown potSizeNumericUpDown;
         private System.Windows.Forms.NumericUpDown blindSizeNumericUpDown;
         private System.Windows.Forms.Label nameErrorLabel;
+        private System.Windows.Forms.CheckBox timeBasedCheckBox;
+        private System.Windows.Forms.CheckBox roundBasedCheckBox;
+        private System.Windows.Forms.NumericUpDown blindIncreaseNumericUpDown;
+        private System.Windows.Forms.TrackBar blindIncreaseTrackBar;
     }
 }
