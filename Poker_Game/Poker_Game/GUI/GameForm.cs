@@ -18,7 +18,7 @@ namespace Poker_Game {
         public GameForm(String InputPlayerName, int InputPotSize, int InputBlindSize) {
             InitializeComponent();
             /*
-            Players.add(new Player(1, InputPotSize, InputPlayerName));
+            Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;
             */
         }
