@@ -19,13 +19,5 @@ namespace Poker_Game
             
             
         }
-
-        private void buttonStartGame_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            GameForm formGame = new GameForm();
-            formGame.ShowDialog();
-            this.Close();
-        }
     }
 }
