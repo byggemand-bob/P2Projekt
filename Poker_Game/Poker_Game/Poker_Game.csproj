@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2B55B119-4064-477D-BD7F-334C0F0470E4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Poker_Game</RootNamespace>
     <AssemblyName>Poker_Game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Poker_Game.Card_test</StartupObject>
+    <StartupObject>Poker_Game.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -75,6 +75,36 @@
     <Compile Include="Game\Hand.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\Game.cs" />
+    <Compile Include="GUI\GameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\QuitConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuitConfirmationForm.Designer.cs">
+      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="PokerLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +112,18 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
+    <EmbeddedResource Include="GUI\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\QuitConfirmationForm.resx">
+      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
