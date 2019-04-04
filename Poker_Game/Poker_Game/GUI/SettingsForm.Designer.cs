@@ -103,13 +103,6 @@ namespace Poker_Game
             //
             // textboxName
             //
-            this.textBox1.Location = new System.Drawing.Point(247, 554);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 22);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "Enter Name";
-
             this.textboxName.Location = new System.Drawing.Point(247, 554);
             this.textboxName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxName.Name = "textboxName";
@@ -119,7 +112,6 @@ namespace Poker_Game
             this.textboxName.Enter += new System.EventHandler(this.textboxName_Enter);
             this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_CheckChange);
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
-
             //
             // label5
             //
@@ -246,14 +238,6 @@ namespace Poker_Game
             0,
             0});
             this.blindSizeNumericUpDown.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
-
-            this.textBox2.Location = new System.Drawing.Point(208, 197);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(132, 22);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Text = "Enter here";
-
             //
             // SettingsForm
             //

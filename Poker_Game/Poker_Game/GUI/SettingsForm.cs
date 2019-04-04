@@ -32,7 +32,7 @@ namespace Poker_Game
 
         private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            blindSizeTrackBar.Value = (int) blindSizeNumericUpDown.Value;
+            blindSizeTrackBar.Value = (int)blindSizeNumericUpDown.Value;
         }
 
         private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace Poker_Game
 
         private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            potSizeTrackBar.Value = (int) potSizeNumericUpDown.Value;
+            potSizeTrackBar.Value = (int)potSizeNumericUpDown.Value;
         }
 
         private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
@@ -58,10 +58,11 @@ namespace Poker_Game
         private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             numberOfPlayersTrackBar.Value = (int)numberOfPlayersNumericUpDown.Value;
+        }
 
         private void textboxName_Leave(object sender, EventArgs e) {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text == "") {
+            if (txtbox.Text == "") {
                 txtbox.Text = "Enter Name";
                 nameChanged = false;
             }
@@ -69,16 +70,17 @@ namespace Poker_Game
 
         private void textboxName_Enter(object sender, EventArgs e) {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text == "Enter Name" && !nameChanged) {
+            if (txtbox.Text == "Enter Name" && !nameChanged) {
                 txtbox.Text = "";
             }
         }
 
         private void textbox_CheckChange(object sender, KeyPressEventArgs e) {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text != "" || txtbox.Text != "Enter Name") {
+            if (txtbox.Text != "" || txtbox.Text != "Enter Name") {
                 nameChanged = true;
             }
         }
+        
     }
 }
