@@ -11,7 +11,7 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        static Random random = new Random();
+        static Random _random = new Random();
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -24,7 +24,7 @@ namespace Poker_Game {
             DrawCards(existingCards);
         }
         private int DrawRandCard() {
-            return random.Next(0, 52);
+            return _random.Next(0, 52);
         }
         public void DrawCards(List<Card> cards) {
         remake: //if card have already been made
@@ -36,15 +36,15 @@ namespace Poker_Game {
             }
         }
         private void MakeCard(int cardNumber) {
-            int RankInt = (cardNumber % 13) + 2;
-            string cardName = RankInt.ToString();
-            if(RankInt == 14) {
+            int rankInt = (cardNumber % 13) + 2;
+            string cardName = rankInt.ToString();
+            if(rankInt == 14) {
                 cardName = "A";
-            } else if(RankInt == 11) {
+            } else if(rankInt == 11) {
                 cardName = "J";
-            } else if(RankInt == 12) {
+            } else if(rankInt == 12) {
                 cardName = "Q";
-            } else if(RankInt == 13) {
+            } else if(rankInt == 13) {
                 cardName = "K";
             }
             if(cardNumber <= 12) {
@@ -60,7 +60,7 @@ namespace Poker_Game {
                 Suit = Suit.Spades;
                 cardName += "S";
             }
-            Rank = (Rank)RankInt;
+            Rank = (Rank)rankInt;
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
