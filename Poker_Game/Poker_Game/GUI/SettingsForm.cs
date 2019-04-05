@@ -13,6 +13,7 @@ namespace Poker_Game
     public partial class SettingsForm : Form
     {
         private bool nameChanged = false;
+        private bool valueJustChanged = false;
 
         public SettingsForm()
         {
@@ -21,7 +22,6 @@ namespace Poker_Game
 
         private void buttonStartGame_Click(object sender, EventArgs e)
         {
-
             if (textboxName.Text != "" && textboxName.Text != "Enter Name")
             {
                 this.Hide();
@@ -37,32 +37,66 @@ namespace Poker_Game
 
         private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            blindSizeTrackBar.Value = (int)blindSizeNumericUpDown.Value;
+            if (valueJustChanged)
+            {
+                valueJustChanged = false;
+            }
+            else
+            {
+                valueJustChanged = true;
+                blindSizeTrackBar.Value = (int)blindSizeNumericUpDown.Value;
+            }
         }
 
         private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            if (blindSizeTrackBar.Value % 10 != 0)
+            if (valueJustChanged)
             {
-                blindSizeTrackBar.Value = blindSizeTrackBar.Value - (blindSizeTrackBar.Value % 10);
+                valueJustChanged = false;
             }
+            else
+            {
+                valueJustChanged = true;
 
-            blindSizeNumericUpDown.Value = blindSizeTrackBar.Value;
+                if (blindSizeTrackBar.Value % 10 != 0)
+                {
+                    valueJustChanged = true;
+                    blindSizeTrackBar.Value = blindSizeTrackBar.Value - (blindSizeTrackBar.Value % 10);
+                }
+                blindSizeNumericUpDown.Value = blindSizeTrackBar.Value;
+            }
         }
 
         private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            if (potSizeTrackBar.Value % 100 != 0)
+            if (valueJustChanged)
             {
-                potSizeTrackBar.Value = potSizeTrackBar.Value - (potSizeTrackBar.Value % 100);
+                valueJustChanged = false;
             }
+            else
+            {
+                if (potSizeTrackBar.Value % 100 != 0)
+                {
+                    valueJustChanged = true;
+                    potSizeTrackBar.Value = potSizeTrackBar.Value - (potSizeTrackBar.Value % 100);
+                }
+                valueJustChanged = true;
 
-            potSizeNumericUpDown.Value = potSizeTrackBar.Value;
+                potSizeNumericUpDown.Value = potSizeTrackBar.Value;
+            }
         }
 
         private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            potSizeTrackBar.Value = (int)potSizeNumericUpDown.Value;
+            if (valueJustChanged)
+            {
+                valueJustChanged = false;
+            }
+            else
+            {
+                valueJustChanged = true;
+                potSizeTrackBar.Value = (int)potSizeNumericUpDown.Value;
+            }
         }
 
         private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
