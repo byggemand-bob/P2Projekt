@@ -44,7 +44,7 @@ namespace Poker_Game {
         #region Initialization
         public Game(Settings settings) {
             Settings = settings;
-            Players = initializePlayers();
+            Players = InitializePlayers();
             Hands = new List<Hand>();
 
             DealerButtonPosition = 0;
@@ -54,7 +54,7 @@ namespace Poker_Game {
 
         }
 
-        private List<Player> initializePlayers() {
+        private List<Player> InitializePlayers() {
             List<Player> players = new List<Player>();
             for(int id = 0; id < Settings.NumberOfPlayers; id++) {
                 players.Add(new Player(id, Settings.StackSize));
