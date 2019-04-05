@@ -8,8 +8,9 @@ namespace Poker_Game {
     class Turn {
         public Player CurrentPlayer { get; private set; }
 
-        public void Action() {
-
+        public Turn()
+        {
+                
         }
     }
 }
