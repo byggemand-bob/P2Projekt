@@ -8,10 +8,31 @@ namespace Poker_Game {
     class WinConditions {
         // flush is when all of the suits are the same
         private bool isFlush(List<Card> table, List<Card> hand) {
+            int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in table) {
-                if (element.Suit == this.Suit) {
-
+                if (element.Suit == Suit.Clubs) {
+                    C++;
+                } else if (element.Suit == Suit.Diamond) {
+                    D++;
+                } else if (element.Suit == Suit.Hearts) {
+                    H++;
+                } else if (element.Suit == Suit.Spades) {
+                    S++;
                 }
+            }
+            foreach (Card element in hand) {
+                if (element.Suit == Suit.Clubs) {
+                    C++;
+                } else if (element.Suit == Suit.Diamond) {
+                    D++;
+                } else if (element.Suit == Suit.Hearts) {
+                    H++;
+                } else if (element.Suit == Suit.Spades) {
+                    S++;
+                }
+            }
+            if (C > 4 || D > 4 || H > 4 || S > 4) {
+                return true;
             }
             return false;
         }
