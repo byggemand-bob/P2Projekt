@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Game {
-        public List<Player> Players {
-            get {
-                return Players;
-            } set {
-                Players = value;
-            }
-        }
+        public List<Player> Players { get; set; }
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
-        // Gamestate
+        // Game state
         public int CurrentPlayerIndex {
             get {
                 return CurrentPlayerIndex;

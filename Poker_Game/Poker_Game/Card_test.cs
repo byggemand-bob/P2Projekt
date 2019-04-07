@@ -18,10 +18,10 @@ namespace Poker_Game {
                 h.Deck.Add(new Card(h.Deck));
             }
             for (int i = 0; i < 2; i++) {
-                players[0].Cards[i] = h.Deck[i];
+                players[0].Cards.Add(h.Deck[i]);
             }
             h.Deck.Sort();
-            for(int j =0; j < NumberOfCards-7; j++)
+            for(int j = 0; j < NumberOfCards-7; j++)
             {
                 Console.WriteLine(players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
             }
