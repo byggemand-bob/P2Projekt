@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poker_Game.AI
-{
-    class AI
-    {
+namespace Poker_Game.AI {
+    class AI {
     }
 }
