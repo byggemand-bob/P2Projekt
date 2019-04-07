@@ -1,11 +1,94 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Poker_Game {
+    enum Score {
+        None, Pair, TwoPairs, ThreeOfAKind,
+        Straight, Flush, FullHouse, FourOfAKind, StraightFlush,
+        RoyalFlush
+    }
+
     class WinConditions {
+
+        public Score Evaluate(List<Card> cards) {
+            List<Card> sortedCards = cards;
+            sortedCards.Sort();
+
+            if (HasRoyalFlush(sortedCards)) {
+                return Score.RoyalFlush;
+            } else if (HasStraightFlush(sortedCards)) {
+                return Score.StraightFlush;
+            } else if(HasFourOfAKind(sortedCards)) {
+                return Score.FourOfAKind;
+            } else if(HasFullHouse(sortedCards)) {
+                return Score.FullHouse;
+            } else if(HasFlush(sortedCards)) {
+                return Score.Flush;
+            } else if(HasStraight(sortedCards)) {
+                return Score.Straight;
+            } else if(HasThreeOfAKind(sortedCards)) {
+                return Score.ThreeOfAKind;
+            } else if(HasTwoPairs(sortedCards)) {
+                return Score.TwoPairs;
+            } else if (HasPair(sortedCards)) {
+                return Score.Pair;
+            } else {
+                return Score.None;
+            }
+        }
+
+        private bool HasPair(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasTwoPairs(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasThreeOfAKind(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasFullHouse(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasFourOfAKind(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasStraightFlush(List<Card> sortedCards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasRoyalFlush(List<Card> sortedCards) {
+            if (HasFlush(sortedCards) && 
+                HasStraight(sortedCards) &&
+                sortedCards[0].Rank == Rank.Ace &&
+                sortedCards[1].Rank == Rank.King &&
+                sortedCards[2].Rank == Rank.Queen &&
+                sortedCards[3].Rank == Rank.Jack &&
+                (int)sortedCards[4].Rank == 10) {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool HasFlush(List<Card> cards) {
+            throw new NotImplementedException();
+        }
+
+        private bool HasStraight(List<Card> cards) {
+            throw new NotImplementedException();
+        }
+
+
         // flush is when all of the suits are the same
         private bool IsFlush(List<Card> table, List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
