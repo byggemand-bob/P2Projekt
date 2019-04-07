@@ -14,13 +14,16 @@ namespace Poker_Game {
 
 
 
-            for(int i = 0; i < NumberOfCards; i++) {
+            for (int i = 0; i < NumberOfCards; i++) {
                 h.Deck.Add(new Card(h.Deck));
             }
+            for (int i = 0; i < 2; i++) {
+                players[0].Cards[i] = h.Deck[i];
+            }
             h.Deck.Sort();
-            for(int j =0; j < NumberOfCards; j++)
+            for(int j =0; j < NumberOfCards-7; j++)
             {
-                Console.WriteLine(h.Deck[j].Rank + " " + h.Deck[j].Suit);
+                Console.WriteLine(players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
             }
             Console.WriteLine("Done!");
             Console.ReadKey();
