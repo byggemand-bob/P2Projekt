@@ -30,13 +30,17 @@ namespace Poker_Game {
             this.buttonCall = new System.Windows.Forms.Button();
             this.buttonFold = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
+            this.playerName = new System.Windows.Forms.Label();
+            this.labelPlayerStack = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonQuitToMenu
             // 
-            this.buttonQuitToMenu.Location = new System.Drawing.Point(12, 12);
+            this.buttonQuitToMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonQuitToMenu.Location = new System.Drawing.Point(1105, 13);
+            this.buttonQuitToMenu.Margin = new System.Windows.Forms.Padding(4);
             this.buttonQuitToMenu.Name = "buttonQuitToMenu";
-            this.buttonQuitToMenu.Size = new System.Drawing.Size(107, 29);
+            this.buttonQuitToMenu.Size = new System.Drawing.Size(194, 46);
             this.buttonQuitToMenu.TabIndex = 0;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
             this.buttonQuitToMenu.UseVisualStyleBackColor = true;
@@ -44,58 +48,105 @@ namespace Poker_Game {
             // 
             // buttonRaise
             // 
-            this.buttonRaise.Location = new System.Drawing.Point(546, 592);
+            this.buttonRaise.BackColor = System.Drawing.Color.Maroon;
+            this.buttonRaise.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonRaise.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRaise.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonRaise.Location = new System.Drawing.Point(556, 724);
+            this.buttonRaise.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRaise.Name = "buttonRaise";
-            this.buttonRaise.Size = new System.Drawing.Size(100, 34);
+            this.buttonRaise.Size = new System.Drawing.Size(147, 73);
             this.buttonRaise.TabIndex = 1;
             this.buttonRaise.Text = "Raise";
-            this.buttonRaise.UseVisualStyleBackColor = true;
+            this.buttonRaise.UseVisualStyleBackColor = false;
             this.buttonRaise.Click += new System.EventHandler(this.buttonRaise_Click);
             // 
             // buttonCall
             // 
-            this.buttonCall.Location = new System.Drawing.Point(439, 592);
+            this.buttonCall.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCall.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCall.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonCall.Location = new System.Drawing.Point(401, 724);
+            this.buttonCall.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCall.Name = "buttonCall";
-            this.buttonCall.Size = new System.Drawing.Size(100, 34);
+            this.buttonCall.Size = new System.Drawing.Size(147, 73);
             this.buttonCall.TabIndex = 2;
             this.buttonCall.Text = "Call";
-            this.buttonCall.UseVisualStyleBackColor = true;
+            this.buttonCall.UseVisualStyleBackColor = false;
             this.buttonCall.Click += new System.EventHandler(this.buttonCall_Click);
             // 
             // buttonFold
             // 
-            this.buttonFold.Location = new System.Drawing.Point(747, 592);
+            this.buttonFold.BackColor = System.Drawing.Color.Red;
+            this.buttonFold.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonFold.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonFold.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFold.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFold.Location = new System.Drawing.Point(13, 724);
+            this.buttonFold.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFold.Name = "buttonFold";
-            this.buttonFold.Size = new System.Drawing.Size(100, 34);
+            this.buttonFold.Size = new System.Drawing.Size(147, 73);
             this.buttonFold.TabIndex = 3;
             this.buttonFold.Text = "Fold";
-            this.buttonFold.UseVisualStyleBackColor = true;
+            this.buttonFold.UseVisualStyleBackColor = false;
             // 
             // buttonCheck
             // 
-            this.buttonCheck.Location = new System.Drawing.Point(332, 592);
+            this.buttonCheck.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCheck.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCheck.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonCheck.Location = new System.Drawing.Point(246, 724);
+            this.buttonCheck.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCheck.Name = "buttonCheck";
-            this.buttonCheck.Size = new System.Drawing.Size(100, 34);
+            this.buttonCheck.Size = new System.Drawing.Size(147, 73);
             this.buttonCheck.TabIndex = 4;
             this.buttonCheck.Text = "Check";
-            this.buttonCheck.UseVisualStyleBackColor = true;
+            this.buttonCheck.UseVisualStyleBackColor = false;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            // 
+            // playerName
+            // 
+            this.playerName.BackColor = System.Drawing.Color.Transparent;
+            this.playerName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.playerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerName.ForeColor = System.Drawing.Color.White;
+            this.playerName.Location = new System.Drawing.Point(715, 684);
+            this.playerName.Name = "playerName";
+            this.playerName.Size = new System.Drawing.Size(190, 40);
+            this.playerName.TabIndex = 5;
+            this.playerName.Text = "Name";
+            // 
+            // labelPlayerStack
+            // 
+            this.labelPlayerStack.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayerStack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelPlayerStack.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayerStack.ForeColor = System.Drawing.Color.White;
+            this.labelPlayerStack.Location = new System.Drawing.Point(715, 724);
+            this.labelPlayerStack.Name = "labelPlayerStack";
+            this.labelPlayerStack.Size = new System.Drawing.Size(190, 73);
+            this.labelPlayerStack.TabIndex = 6;
+            this.labelPlayerStack.Text = "Stack";
             // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(984, 661);
+            this.ClientSize = new System.Drawing.Size(1312, 814);
+            this.Controls.Add(this.labelPlayerStack);
+            this.Controls.Add(this.playerName);
             this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.buttonFold);
             this.Controls.Add(this.buttonCall);
             this.Controls.Add(this.buttonRaise);
             this.Controls.Add(this.buttonQuitToMenu);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Window";
@@ -111,5 +162,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Button buttonCall;
         private System.Windows.Forms.Button buttonFold;
         private System.Windows.Forms.Button buttonCheck;
+        private System.Windows.Forms.Label playerName;
+        private System.Windows.Forms.Label labelPlayerStack;
     }
 }

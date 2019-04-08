@@ -14,11 +14,14 @@ namespace Poker_Game {
         list<Player> Players = new list<Player>();
         Settings GameSettings = New Settings();
         */
-        
-        public GameForm(String InputPlayerName, int InputPotSize, int InputBlindSize) {
+        public GameForm(String inputPlayerName, int inputPotSize, int inputBlindSize) {
             InitializeComponent();
 
             StartPosition = FormStartPosition.CenterScreen;
+
+            playerName.Text = inputPlayerName;
+
+            labelPlayerStack.Text = "Your Stack:"; // + Environment.Newline + PLAYER STACK
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;
