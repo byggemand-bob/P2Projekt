@@ -66,43 +66,42 @@ namespace Poker_Game {
             throw new NotImplementedException();
         }
 
-        private bool HasRoyalFlush(List<Card> sortedCards) {
+        public bool HasRoyalFlush(List<Card> sortedCards) {
             if (HasFlush(sortedCards) && 
-                HasStraight(sortedCards) &&
                 sortedCards[0].Rank == Rank.Ace &&
                 sortedCards[1].Rank == Rank.King &&
                 sortedCards[2].Rank == Rank.Queen &&
                 sortedCards[3].Rank == Rank.Jack &&
-                (int)sortedCards[4].Rank == 10) {
+                sortedCards[4].Rank == (Rank)10) {
                 return true;
             }
 
             return false;
         }
 
-        private bool HasFlush(List<Card> cards) {
-            throw new NotImplementedException();
-        }
-
+        // straight is when 5 of cards are in order by rank
         private bool HasStraight(List<Card> cards) {
-            throw new NotImplementedException();
-        }
-
-
-        // flush is when all of the suits are the same
-        private bool IsFlush(List<Card> table, List<Card> hand) {
-            int C = 0, D = 0, H = 0, S = 0;
-            foreach (Card element in table) {
-                if (element.Suit == Suit.Clubs) {
-                    C++;
-                } else if (element.Suit == Suit.Diamond) {
-                    D++;
-                } else if (element.Suit == Suit.Hearts) {
-                    H++;
-                } else if (element.Suit == Suit.Spades) {
-                    S++;
+            int RankCounter = 0;
+            cards.Sort();
+            for (int i = 0; i <= cards.Count - 2; i++) {
+                if (cards[i].Rank + 1 == cards[i + 1].Rank) {
+                    RankCounter++;
+                }
+                if (cards[i + 1].Rank == Rank.Ace) {
+                    cards[i + 1].Rank = (Rank)1;
+                    return HasStraight(cards);
                 }
             }
+            if (RankCounter >= 5) {
+                return true;
+            }
+            return false;
+        }
+
+
+        // flush is when 5 of the cards are of the same suit
+        private bool HasFlush(List<Card> hand) {
+            int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
                     C++;
