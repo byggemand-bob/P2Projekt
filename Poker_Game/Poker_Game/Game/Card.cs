@@ -15,8 +15,8 @@ namespace Poker_Game {
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
-        public Card(Image image, Suit suit, Rank rank) {
-            Image = image;
+        public Card(Suit suit, Rank rank) {
+            //Image = image;
             Suit = suit;
             Rank = rank;
         }
@@ -24,7 +24,7 @@ namespace Poker_Game {
             DrawCards(existingCards);
         }
         private int DrawRandCard() {
-            return _random.Next(0, 52);
+            return _random.Next(0, 51);
         }
         public void DrawCards(List<Card> cards) {
         remake: //if card have already been made
@@ -35,7 +35,7 @@ namespace Poker_Game {
                 }
             }
         }
-        private void MakeCard(int cardNumber) {
+        public void MakeCard(int cardNumber) {
             int rankInt = (cardNumber % 13) + 2;
             string cardName = rankInt.ToString();
             if(rankInt == 14) {
@@ -67,22 +67,22 @@ namespace Poker_Game {
 
         public int CompareTo(object other) { // Sort after suit, then rank
             Card otherCard = (Card)other;
-            if(Suit.CompareTo(otherCard.Suit) < 0) {
-                return -1;
-            } else if(Suit.CompareTo(otherCard.Suit) > 0) {
+            if(Rank.CompareTo(otherCard.Rank) < 0) {
                 return 1;
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                return -1;
             } else {
-                if(Rank.CompareTo(otherCard.Rank) < 0) {
-                    return 1;
-                } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                if(Suit.CompareTo(otherCard.Suit) < 0) {
                     return -1;
+                } else if(Suit.CompareTo(otherCard.Suit) > 0) {
+                    return 1;
                 }
             }
             return 0;
         }
 
         public object Clone() {
-            return new Card(Image, Suit, Rank);
+            return new Card(Suit, Rank);
         }
     }
 }
