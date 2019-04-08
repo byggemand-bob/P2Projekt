@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace Poker_Game {
     enum PlayerAction {
         Tbd, // To be decided
@@ -44,6 +47,14 @@ namespace Poker_Game {
                 Cards.Remove(Cards[i]);
             }
         }
+
+        public void DrawNewCardHand(List<Card> existingCards) {
+            for (int i = 0; i < 2; i++) {
+                Cards.Add(new Card(existingCards));
+                existingCards.Add(Cards[i]);
+            }
+        }
+
 
         public int CompareTo(object other) {
             return Id.CompareTo(((Player)other).Id);
