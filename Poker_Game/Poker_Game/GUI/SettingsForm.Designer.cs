@@ -59,6 +59,7 @@ namespace Poker_Game
             // 
             // buttonStartGame
             // 
+            this.buttonStartGame.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonStartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartGame.Location = new System.Drawing.Point(148, 340);
             this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4);

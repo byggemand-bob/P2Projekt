@@ -36,6 +36,7 @@
             // buttonNewGame
             // 
             this.buttonNewGame.BackColor = System.Drawing.Color.Gray;
+            this.buttonNewGame.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonNewGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonNewGame.ForeColor = System.Drawing.Color.White;
@@ -50,6 +51,7 @@
             // buttonStatistics
             // 
             this.buttonStatistics.BackColor = System.Drawing.Color.Gray;
+            this.buttonStatistics.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonStatistics.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStatistics.ForeColor = System.Drawing.Color.White;
@@ -64,6 +66,7 @@
             // buttonQuit
             // 
             this.buttonQuit.BackColor = System.Drawing.Color.Gray;
+            this.buttonQuit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonQuit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonQuit.ForeColor = System.Drawing.Color.White;
