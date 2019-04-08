@@ -21,6 +21,8 @@ namespace Poker_Game
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
 
+            StartPosition = FormStartPosition.CenterScreen;
+
             //Load background picture.
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;

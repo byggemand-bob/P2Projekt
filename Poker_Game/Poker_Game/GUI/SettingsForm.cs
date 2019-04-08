@@ -18,6 +18,8 @@ namespace Poker_Game
         public SettingsForm()
         {
             InitializeComponent();
+
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void buttonStartGame_Click(object sender, EventArgs e)

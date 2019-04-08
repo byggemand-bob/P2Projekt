@@ -17,6 +17,8 @@ namespace Poker_Game {
         
         public GameForm(String InputPlayerName, int InputPotSize, int InputBlindSize) {
             InitializeComponent();
+
+            StartPosition = FormStartPosition.CenterScreen;
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;

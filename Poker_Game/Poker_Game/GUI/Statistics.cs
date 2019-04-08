@@ -15,6 +15,8 @@ namespace Poker_Game
         public Statistics()
         {
             InitializeComponent();
+
+            StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }

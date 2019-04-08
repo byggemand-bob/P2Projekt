@@ -16,6 +16,9 @@ namespace Poker_Game
         public QuitConfirmationForm(GameForm GameFormQuit)
         {
             InitializeComponent();
+
+            StartPosition = FormStartPosition.CenterScreen;
+
             GameFormQuit1 = GameFormQuit;
         }
 
