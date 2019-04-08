@@ -22,6 +22,10 @@ namespace Poker_Game {
             playerName.Text = inputPlayerName;
 
             labelPlayerStack.Text = "Your Stack:"; // + Environment.Newline + PLAYER STACK
+
+            labelTablePot.Text = "Pot:   $"; // + TABLE POT
+
+            labelAI.Text = "AI" + Environment.NewLine + "Stack:"; //+ Environment.NewLine + AI STACK
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;

@@ -32,6 +32,8 @@ namespace Poker_Game {
             this.buttonCheck = new System.Windows.Forms.Button();
             this.playerName = new System.Windows.Forms.Label();
             this.labelPlayerStack = new System.Windows.Forms.Label();
+            this.labelTablePot = new System.Windows.Forms.Label();
+            this.labelAI = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonQuitToMenu
@@ -126,9 +128,33 @@ namespace Poker_Game {
             this.labelPlayerStack.ForeColor = System.Drawing.Color.White;
             this.labelPlayerStack.Location = new System.Drawing.Point(715, 724);
             this.labelPlayerStack.Name = "labelPlayerStack";
-            this.labelPlayerStack.Size = new System.Drawing.Size(190, 73);
+            this.labelPlayerStack.Size = new System.Drawing.Size(190, 60);
             this.labelPlayerStack.TabIndex = 6;
             this.labelPlayerStack.Text = "Stack";
+            // 
+            // labelTablePot
+            // 
+            this.labelTablePot.BackColor = System.Drawing.Color.Transparent;
+            this.labelTablePot.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelTablePot.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTablePot.ForeColor = System.Drawing.Color.White;
+            this.labelTablePot.Location = new System.Drawing.Point(551, 563);
+            this.labelTablePot.Name = "labelTablePot";
+            this.labelTablePot.Size = new System.Drawing.Size(207, 46);
+            this.labelTablePot.TabIndex = 7;
+            this.labelTablePot.Text = "Pot";
+            // 
+            // labelAI
+            // 
+            this.labelAI.BackColor = System.Drawing.Color.Transparent;
+            this.labelAI.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAI.ForeColor = System.Drawing.Color.White;
+            this.labelAI.Location = new System.Drawing.Point(402, 21);
+            this.labelAI.Name = "labelAI";
+            this.labelAI.Size = new System.Drawing.Size(178, 120);
+            this.labelAI.TabIndex = 8;
+            this.labelAI.Text = "AI";
             // 
             // GameForm
             // 
@@ -139,6 +165,8 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1312, 814);
+            this.Controls.Add(this.labelAI);
+            this.Controls.Add(this.labelTablePot);
             this.Controls.Add(this.labelPlayerStack);
             this.Controls.Add(this.playerName);
             this.Controls.Add(this.buttonCheck);
@@ -164,5 +192,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Button buttonCheck;
         private System.Windows.Forms.Label playerName;
         private System.Windows.Forms.Label labelPlayerStack;
+        private System.Windows.Forms.Label labelTablePot;
+        private System.Windows.Forms.Label labelAI;
     }
 }
