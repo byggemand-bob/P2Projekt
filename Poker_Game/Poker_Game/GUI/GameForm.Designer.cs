@@ -152,7 +152,7 @@ namespace Poker_Game {
             this.labelAI.ForeColor = System.Drawing.Color.White;
             this.labelAI.Location = new System.Drawing.Point(402, 21);
             this.labelAI.Name = "labelAI";
-            this.labelAI.Size = new System.Drawing.Size(178, 120);
+            this.labelAI.Size = new System.Drawing.Size(178, 108);
             this.labelAI.TabIndex = 8;
             this.labelAI.Text = "AI";
             // 
