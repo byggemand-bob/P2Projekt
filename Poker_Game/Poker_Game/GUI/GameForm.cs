@@ -21,11 +21,9 @@ namespace Poker_Game {
 
             playerName.Text = inputPlayerName;
 
-            labelPlayerStack.Text = "Your Stack:"; // + Environment.Newline + PLAYER STACK
 
             labelTablePot.Text = "Pot:   $"; // + TABLE POT
 
-            labelAI.Text = "AI" + Environment.NewLine + "Stack:"; //+ Environment.NewLine + AI STACK
 
             picturePlayerCard1.Image = Properties.Resources.AC;
 
@@ -79,6 +77,7 @@ namespace Poker_Game {
             pictureAICard1.Image = cards[0].Image;
             pictureAICard2.Image = cards[1].Image;
         }
+
         private void ShowFlopCards(List<Card> cards) // Changes picture of the flop cards.
         {
             pictureTableCard1.Image = cards[2].Image;
@@ -96,6 +95,10 @@ namespace Poker_Game {
             pictureTableCard5.Image = cards[6].Image;
         }
 
-
+        private void UpdatePlayerStack(Player player, Player AI)
+        {
+            labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
+            labelAIStack.Text = "AI" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+        }
     }
 }

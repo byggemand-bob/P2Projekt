@@ -34,7 +34,7 @@ namespace Poker_Game {
             this.playerName = new System.Windows.Forms.Label();
             this.labelPlayerStack = new System.Windows.Forms.Label();
             this.labelTablePot = new System.Windows.Forms.Label();
-            this.labelAI = new System.Windows.Forms.Label();
+            this.labelAIStack = new System.Windows.Forms.Label();
             this.pictureTableCard1 = new System.Windows.Forms.PictureBox();
             this.pictureTableCard2 = new System.Windows.Forms.PictureBox();
             this.pictureTableCard3 = new System.Windows.Forms.PictureBox();
@@ -163,18 +163,18 @@ namespace Poker_Game {
             this.labelTablePot.TabIndex = 7;
             this.labelTablePot.Text = "Pot";
             // 
-            // labelAI
+            // labelAIStack
             // 
-            this.labelAI.BackColor = System.Drawing.Color.Transparent;
-            this.labelAI.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.labelAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAI.ForeColor = System.Drawing.Color.White;
-            this.labelAI.Location = new System.Drawing.Point(302, 17);
-            this.labelAI.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelAI.Name = "labelAI";
-            this.labelAI.Size = new System.Drawing.Size(134, 88);
-            this.labelAI.TabIndex = 8;
-            this.labelAI.Text = "AI";
+            this.labelAIStack.BackColor = System.Drawing.Color.Transparent;
+            this.labelAIStack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelAIStack.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAIStack.ForeColor = System.Drawing.Color.White;
+            this.labelAIStack.Location = new System.Drawing.Point(302, 17);
+            this.labelAIStack.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelAIStack.Name = "labelAIStack";
+            this.labelAIStack.Size = new System.Drawing.Size(134, 88);
+            this.labelAIStack.TabIndex = 8;
+            this.labelAIStack.Text = "AI";
             // 
             // pictureTableCard1
             // 
@@ -317,7 +317,7 @@ namespace Poker_Game {
             this.Controls.Add(this.pictureTableCard3);
             this.Controls.Add(this.pictureTableCard2);
             this.Controls.Add(this.pictureTableCard1);
-            this.Controls.Add(this.labelAI);
+            this.Controls.Add(this.labelAIStack);
             this.Controls.Add(this.labelTablePot);
             this.Controls.Add(this.labelPlayerStack);
             this.Controls.Add(this.playerName);
@@ -326,7 +326,7 @@ namespace Poker_Game {
             this.Controls.Add(this.buttonCall);
             this.Controls.Add(this.buttonRaise);
             this.Controls.Add(this.buttonQuitToMenu);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Window";
@@ -354,7 +354,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Label playerName;
         private System.Windows.Forms.Label labelPlayerStack;
         private System.Windows.Forms.Label labelTablePot;
-        private System.Windows.Forms.Label labelAI;
+        private System.Windows.Forms.Label labelAIStack;
         private System.Windows.Forms.PictureBox pictureTableCard1;
         private System.Windows.Forms.PictureBox pictureTableCard2;
         private System.Windows.Forms.PictureBox pictureTableCard3;
