@@ -21,10 +21,6 @@ namespace Poker_Game {
 
             playerName.Text = inputPlayerName;
 
-
-            labelTablePot.Text = "Pot:   $"; // + TABLE POT
-
-
             picturePlayerCard1.Image = Properties.Resources.AC;
 
             /*
@@ -33,7 +29,7 @@ namespace Poker_Game {
             */
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e) // Events when the form loads
         {
             //Set the window form.
             this.MaximumSize = new Size(1000, 700);
@@ -43,7 +39,7 @@ namespace Poker_Game {
             //Load background picture.
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;
-        }
+        } 
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
@@ -99,6 +95,25 @@ namespace Poker_Game {
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
             labelAIStack.Text = "AI" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+        }
+
+        private void UpdatePotSize(Hand hand)
+        {
+            labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
+        }
+
+        private void UpdatePlayerBlind(Player player)
+        {
+            if (player.IsBigBlind)
+            {
+                labelAIBlind.Text = "Small blind";
+                labelPlayerBlind.Text = "Big blind";
+            }
+            else
+            {
+                labelPlayerBlind.Text = "Small blind";
+                labelAIBlind.Text = "Big blind";
+            }
         }
     }
 }
