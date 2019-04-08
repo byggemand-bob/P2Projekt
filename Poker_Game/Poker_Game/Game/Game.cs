@@ -11,28 +11,8 @@ namespace Poker_Game {
         public Settings Settings { get; set; }
 
         // Game state
-        public int CurrentPlayerIndex {
-            get {
-                return CurrentPlayerIndex;
-            }
-            private set {
-                if(value < Settings.NumberOfPlayers && value >= 0) {
-                    DealerButtonPosition = value % Settings.NumberOfPlayers;
-                }
-            }
-        }
-        public bool HandInProgress { get; set; }
-        public bool RoundInProgress { get; set; }
-        public int DealerButtonPosition {
-            get {
-                return DealerButtonPosition;
-            }
-            private set {
-                if(value < Settings.NumberOfPlayers && value >= 0) {
-                    DealerButtonPosition = value % Settings.NumberOfPlayers;
-                }
-            }
-        }
+        public int CurrentPlayerIndex { get; set; }
+        public int DealerButtonPosition { get; set; }
 
 
         #region Initialization
@@ -42,8 +22,6 @@ namespace Poker_Game {
             Hands = new List<Hand>();
 
             DealerButtonPosition = 0;
-            HandInProgress = false;
-            RoundInProgress = false;
             CurrentPlayerIndex = GetStartingPlayerIndex();
 
         }
@@ -91,7 +69,6 @@ namespace Poker_Game {
 
         public void NewHand() {
             Hands.Add(new Hand(Players));
-            HandInProgress = true;
         }
 
 
@@ -109,18 +86,29 @@ namespace Poker_Game {
                 Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize;
                 Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
             }
-        }
+        } // Validation. Impossible to bet if money is too low
 
-        public void UpdateState() {
-            RoundInProgress = UpdateRoundProgress();
+        public void UpdateState() { // WIP
+            
+
+            if (!RoundInProgress()) {
+                if (!HandInProgress()) {
+                    Hands.Add(new Hand(Players));
+                }
+            }
+
             CurrentPlayerIndex = GetNextPlayerIndex();
         }
 
 
-        private bool UpdateRoundProgress() {
+
+        private bool RoundInProgress() {
             return Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
         }
 
+        private bool HandInProgress() {
+            return Hands[Hands.Count - 1].IsFinished();
+        }
 
         public int GetStartingPlayerIndex() {
             return (DealerButtonPosition + 3) % Settings.NumberOfPlayers;
@@ -148,6 +136,7 @@ namespace Poker_Game {
                     }
                 }
             }
+
             return true;
         }
     }

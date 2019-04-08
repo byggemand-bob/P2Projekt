@@ -4,24 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//TODO: Max number of betting-rounds in round. 3
+
 namespace Poker_Game {
     class Round {
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
         public int TopBidderIndex { get; set; }
-        //public int TopBidderIndex {
-        //    get {
-        //        return TopBidderIndex;
-        //    }
-        //    set {
-        //        if(TopBidderIndex < Players.Count && TopBidderIndex >= 0) {
-        //            TopBidderIndex = value;
-        //        } else {
-        //            throw new ArgumentException(value + " is not an allowed value");
-        //        }
-        //    }
-        //}
         public int CycleStep { get; set; }
+        public int Bets { get; set; }
 
         #region Initialization
         public Round(List<Player> players) {
@@ -30,6 +21,7 @@ namespace Poker_Game {
             //Players = GetActivePlayers(players);
             TopBidderIndex = 0;
             CycleStep = 0;
+            Bets = 0;
         }
 
         private List<Player> GetActivePlayers(List<Player> players) {
@@ -45,30 +37,29 @@ namespace Poker_Game {
         #endregion
 
 
-        public void ChangeTopBidder(int playerIndex) {
+        public void ChangeTopBidder(int playerIndex) { // Validation. Cannot bet more than 3 times
             for(int i = 0; i < Players.Count; i++) {
                 if(Players[i].CompareTo(Players[playerIndex]) == 0) {
                     TopBidderIndex = i;
                     CycleStep = 0;
                 }
             }
+
+            Bets++;
         }
 
+
         private bool CycleFinished() {
-            if(CycleStep == Players.Count) {
-                return true;
-            }
-            return false;
+            return CycleStep == Players.Count;
         }
 
 
         public bool IsFinished() {
-            throw new NotImplementedException();
+            if (CycleFinished() && Bets == 3) {
+                return true;
+            }
+
+            return false;
         }
-
-       
-
-
     }
-
 }
