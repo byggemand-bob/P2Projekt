@@ -26,6 +26,8 @@ namespace Poker_Game {
             labelTablePot.Text = "Pot:   $"; // + TABLE POT
 
             labelAI.Text = "AI" + Environment.NewLine + "Stack:"; //+ Environment.NewLine + AI STACK
+
+            picturePlayerCard1.Image = Properties.Resources.AC;
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;
