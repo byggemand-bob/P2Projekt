@@ -28,6 +28,7 @@ namespace Poker_Game {
             labelAI.Text = "AI" + Environment.NewLine + "Stack:"; //+ Environment.NewLine + AI STACK
 
             picturePlayerCard1.Image = Properties.Resources.AC;
+
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
             GameSettings.BlindSize = InputBlindSize;
@@ -66,5 +67,35 @@ namespace Poker_Game {
         {
             // Raise
         }
+
+        private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
+        {
+            picturePlayerCard1.Image = cards[0].Image;
+            picturePlayerCard2.Image = cards[1].Image;
+        }
+
+        private void ShowOpponentHand(List<Card> cards) // Takes card list from opponent's hand
+        {
+            pictureAICard1.Image = cards[0].Image;
+            pictureAICard2.Image = cards[1].Image;
+        }
+        private void ShowFlopCards(List<Card> cards) // Changes picture of the flop cards.
+        {
+            pictureTableCard1.Image = cards[2].Image;
+            pictureTableCard2.Image = cards[3].Image;
+            pictureTableCard3.Image = cards[4].Image;
+        }
+
+        private void ShowTurnCard(List<Card> cards)
+        {
+            pictureTableCard4.Image = cards[5].Image;
+        }
+
+        private void ShowRiverCard(List<Card> cards)
+        {
+            pictureTableCard5.Image = cards[6].Image;
+        }
+
+
     }
 }
