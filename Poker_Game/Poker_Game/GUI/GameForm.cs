@@ -10,18 +10,16 @@ namespace Poker_Game {
 
         /* Settings GameSettings = New Settings();
         */
-        public GameForm(String inputPlayerName, int inputPotSize, int inputBlindSize) {
+        public GameForm(String inputPlayerName, int inputPotSize, int inputBlindSize, int blindIncrease) {
             InitializeComponent();
 
             StartPosition = FormStartPosition.CenterScreen;
-
             playerName.Text = inputPlayerName;
 
-            /*
-            Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
-            GameSettings.BlindSize = InputBlindSize;
-            */
+            
         }
+
+
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
         {
