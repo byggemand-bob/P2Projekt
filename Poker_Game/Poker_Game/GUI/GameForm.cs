@@ -15,7 +15,7 @@ namespace Poker_Game {
 
             StartPosition = FormStartPosition.CenterScreen;
             playerName.Text = inputPlayerName;
-
+            labelAIStack.Text = "AI" + Environment.NewLine + inputPotSize / 2;
             
         }
 
