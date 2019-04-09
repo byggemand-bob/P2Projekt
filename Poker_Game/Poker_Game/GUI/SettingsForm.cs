@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Poker_Game
@@ -18,7 +11,7 @@ namespace Poker_Game
         public SettingsForm()
         {
             InitializeComponent();
-
+            checkBoxRoundBased.Checked = true;
             StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -27,7 +20,7 @@ namespace Poker_Game
             if (textboxName.Text != "" && textboxName.Text != "Enter Name")
             {
                 this.Hide();
-                GameForm formGame = new GameForm(textboxName.Text, potSizeTrackBar.Value, blindSizeTrackBar.Value);
+                GameForm formGame = new GameForm(textboxName.Text, potSizeTrackBar.Value, blindSizeTrackBar.Value );
                 formGame.ShowDialog();
                 this.Close();
             }
@@ -137,7 +130,7 @@ namespace Poker_Game
         {
             if(timeBasedCheckBox.Checked == true)
             {
-                roundBasedCheckBox.Checked = false;
+                checkBoxRoundBased.Checked = false;
 
                 blindIncreaseTrackBar.Visible = true;
                 blindIncreaseNumericUpDown.Visible = true;
@@ -149,7 +142,7 @@ namespace Poker_Game
 
                 blindIncreaseTrackBar.Maximum = 60;
             }
-            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            else if (timeBasedCheckBox.Checked == false && checkBoxRoundBased.Checked == false)
             {
                 blindIncreaseTrackBar.Visible = false;
                 blindIncreaseNumericUpDown.Visible = false;
@@ -158,7 +151,7 @@ namespace Poker_Game
 
         private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (roundBasedCheckBox.Checked == true)
+            if (checkBoxRoundBased.Checked == true)
             {
                 timeBasedCheckBox.Checked = false;
 
@@ -172,7 +165,7 @@ namespace Poker_Game
 
                 blindIncreaseTrackBar.Maximum = 20;
             }
-            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            else if (timeBasedCheckBox.Checked == false && checkBoxRoundBased.Checked == false)
             {
                 blindIncreaseTrackBar.Visible = false;
                 blindIncreaseNumericUpDown.Visible = false;

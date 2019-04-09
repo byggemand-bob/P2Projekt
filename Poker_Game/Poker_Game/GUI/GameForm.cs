@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        /*
-        list<Player> Players = new list<Player>();
-        Settings GameSettings = New Settings();
+
+        List<Player> Players = new List<Player>();
+
+        /* Settings GameSettings = New Settings();
         */
         public GameForm(String inputPlayerName, int inputPotSize, int inputBlindSize) {
             InitializeComponent();
@@ -20,8 +16,6 @@ namespace Poker_Game {
             StartPosition = FormStartPosition.CenterScreen;
 
             playerName.Text = inputPlayerName;
-
-            picturePlayerCard1.Image = Properties.Resources.AC;
 
             /*
             Players.add(new Player(1, InputPotSize, InputPlayerName)); PlayerName needs implimenting
