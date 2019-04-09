@@ -70,6 +70,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\CalcEquity.cs" />
+    <Compile Include="AI\CardOdds.cs" />
+    <Compile Include="AI\FindOuts.cs" />
+    <Compile Include="AI\IsNashEq.cs" />
+    <Compile Include="AI\IsParetoOptimal.cs" />
+    <Compile Include="AI\PotOdds.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
     <Compile Include="Game\Hand.cs" />
@@ -446,8 +453,6 @@
     </BootstrapperPackage>
     <None Include="Resources\PokerBord.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
