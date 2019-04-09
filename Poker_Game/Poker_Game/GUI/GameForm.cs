@@ -13,7 +13,7 @@ namespace Poker_Game {
             InitializeComponent();
             playerName.Text = inputPlayerName;
 
-            // Constuctor called
+            // Constuctor called for Setting
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
 
             // Creates the game so to say...
@@ -22,8 +22,6 @@ namespace Poker_Game {
             ShowPlayerHand(Game.Players[0].Cards);
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
-            labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
-
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
@@ -149,6 +147,5 @@ namespace Poker_Game {
                 buttonFold.Enabled = false;
             }
         }
-
     }
 }
