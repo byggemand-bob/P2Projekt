@@ -35,14 +35,14 @@ namespace Poker_Game {
                 for (int i = 0; i < NumberOfCards; i++) {
                     players[0].Cards.Add(h.Deck[i]);
                 }
-                h.Deck.Sort();
-                
+                players[0].Cards.Sort();
+                for (int j = 0; j < 7; j++) {
+                    Console.WriteLine("Players Cards:" + players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
+                }
                 Console.WriteLine("HasRoyalflush: " + w.HasRoyalFlush(players[0].Cards));
                 w.HasRoyalFlush(players[0].Cards);
             } while (w.HasRoyalFlush(players[0].Cards) != true);
-            for (int j = 0; j < 7; j++) {
-                Console.WriteLine("Players Cards:" + players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
-            }
+            
             Console.WriteLine("Done!");
             Console.ReadKey();
         }
