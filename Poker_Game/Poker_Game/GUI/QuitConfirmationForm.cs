@@ -12,14 +12,14 @@ namespace Poker_Game
 {
     public partial class QuitConfirmationForm : Form
     {
-        GameForm _gameFormQuit1;
+        public GameForm _gameFormQuit1;
         public QuitConfirmationForm(GameForm gameFormQuit)
         {
             InitializeComponent();
 
             StartPosition = FormStartPosition.CenterScreen;
 
-            GameFormQuit1 = GameFormQuit;
+            _gameFormQuit1 = gameFormQuit;
         }
 
         private void buttonNo_Click(object sender, EventArgs e)
