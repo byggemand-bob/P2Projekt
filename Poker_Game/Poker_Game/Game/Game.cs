@@ -115,7 +115,7 @@ namespace Poker_Game {
 
         private int GetNextPlayerIndex() {
             int next = CurrentPlayerIndex++ % Settings.NumberOfPlayers;
-            for(int i = 0; i < Settings.NumberOfPlayers - 1; i++) {
+            for(int i = 0; i < Settings.NumberOfPlayers; i++) {
 
                 if(!Players[next].HasFolded) {
                     return next;
