@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Poker_Game
@@ -18,6 +11,8 @@ namespace Poker_Game
         public SettingsForm()
         {
             InitializeComponent();
+            checkBoxRoundBased.Checked = true;
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void buttonStartGame_Click(object sender, EventArgs e)
@@ -25,7 +20,7 @@ namespace Poker_Game
             if (textboxName.Text != "" && textboxName.Text != "Enter Name")
             {
                 this.Hide();
-                GameForm formGame = new GameForm(textboxName.Text, potSizeTrackBar.Value, blindSizeTrackBar.Value);
+                GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
                 formGame.ShowDialog();
                 this.Close();
             }
@@ -44,7 +39,7 @@ namespace Poker_Game
             else
             {
                 valueJustChanged = true;
-                blindSizeTrackBar.Value = (int)blindSizeNumericUpDown.Value;
+                trackBarBlindSize.Value = (int)numericUpDownBlindSize.Value;
             }
         }
 
@@ -58,12 +53,12 @@ namespace Poker_Game
             {
                 valueJustChanged = true;
 
-                if (blindSizeTrackBar.Value % 10 != 0)
+                if (trackBarBlindSize.Value % 10 != 0)
                 {
                     valueJustChanged = true;
-                    blindSizeTrackBar.Value = blindSizeTrackBar.Value - (blindSizeTrackBar.Value % 10);
+                    trackBarBlindSize.Value = trackBarBlindSize.Value - (trackBarBlindSize.Value % 10);
                 }
-                blindSizeNumericUpDown.Value = blindSizeTrackBar.Value;
+                numericUpDownBlindSize.Value = trackBarBlindSize.Value;
             }
         }
 
@@ -75,14 +70,14 @@ namespace Poker_Game
             }
             else
             {
-                if (potSizeTrackBar.Value % 100 != 0)
+                if (trackBarPotSize.Value % 100 != 0)
                 {
                     valueJustChanged = true;
-                    potSizeTrackBar.Value = potSizeTrackBar.Value - (potSizeTrackBar.Value % 100);
+                    trackBarPotSize.Value = trackBarPotSize.Value - (trackBarPotSize.Value % 100);
                 }
                 valueJustChanged = true;
 
-                potSizeNumericUpDown.Value = potSizeTrackBar.Value;
+                numericUpDownPotSize.Value = trackBarPotSize.Value;
             }
         }
 
@@ -95,18 +90,18 @@ namespace Poker_Game
             else
             {
                 valueJustChanged = true;
-                potSizeTrackBar.Value = (int)potSizeNumericUpDown.Value;
+                trackBarPotSize.Value = (int)numericUpDownPotSize.Value;
             }
         }
 
         private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            numberOfPlayersNumericUpDown.Value = numberOfPlayersTrackBar.Value;
+            numericUpDownNumberOfPlayers.Value = trackBarNumberOfPlayers.Value;
         }
 
         private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            numberOfPlayersTrackBar.Value = (int)numberOfPlayersNumericUpDown.Value;
+            trackBarNumberOfPlayers.Value = (int)numericUpDownNumberOfPlayers.Value;
         }
 
         private void textboxName_Leave(object sender, EventArgs e) {
@@ -133,58 +128,63 @@ namespace Poker_Game
 
         private void timeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(timeBasedCheckBox.Checked == true)
+            if(checkBoxTimeBased.Checked == true)
             {
-                roundBasedCheckBox.Checked = false;
+                checkBoxRoundBased.Checked = false;
 
-                blindIncreaseTrackBar.Visible = true;
-                blindIncreaseNumericUpDown.Visible = true;
+                trackBarBlindIncrease.Visible = true;
+                numericUpDownBlindIncrease.Visible = true;
 
-                blindIncreaseNumericUpDown.Value = 20;
+                numericUpDownBlindIncrease.Value = 20;
 
-                blindIncreaseNumericUpDown.Maximum = 60;
-                blindIncreaseNumericUpDown.Increment = 5;
+                numericUpDownBlindIncrease.Maximum = 60;
+                numericUpDownBlindIncrease.Increment = 5;
 
-                blindIncreaseTrackBar.Maximum = 60;
+                trackBarBlindIncrease.Maximum = 60;
             }
-            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            else if (checkBoxTimeBased.Checked == false && checkBoxRoundBased.Checked == false)
             {
-                blindIncreaseTrackBar.Visible = false;
-                blindIncreaseNumericUpDown.Visible = false;
+                trackBarBlindIncrease.Visible = false;
+                numericUpDownBlindIncrease.Visible = false;
             }
         }
 
         private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (roundBasedCheckBox.Checked == true)
+            if (checkBoxRoundBased.Checked == true)
             {
-                timeBasedCheckBox.Checked = false;
+                checkBoxTimeBased.Checked = false;
 
-                blindIncreaseTrackBar.Visible = true;
-                blindIncreaseNumericUpDown.Visible = true;
+                trackBarBlindIncrease.Visible = true;
+                numericUpDownBlindIncrease.Visible = true;
 
-                blindIncreaseNumericUpDown.Value = 5;
+                numericUpDownBlindIncrease.Value = 5;
 
-                blindIncreaseNumericUpDown.Maximum = 20;
-                blindIncreaseNumericUpDown.Increment = 1;
+                numericUpDownBlindIncrease.Maximum = 20;
+                numericUpDownBlindIncrease.Increment = 1;
 
-                blindIncreaseTrackBar.Maximum = 20;
+                trackBarBlindIncrease.Maximum = 20;
             }
-            else if (timeBasedCheckBox.Checked == false && roundBasedCheckBox.Checked == false)
+            else if (checkBoxTimeBased.Checked == false && checkBoxRoundBased.Checked == false)
             {
-                blindIncreaseTrackBar.Visible = false;
-                blindIncreaseNumericUpDown.Visible = false;
+                trackBarBlindIncrease.Visible = false;
+                numericUpDownBlindIncrease.Visible = false;
             }
         }
 
         private void blindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            blindIncreaseNumericUpDown.Value = blindIncreaseTrackBar.Value;
+            numericUpDownBlindIncrease.Value = trackBarBlindIncrease.Value;
         }
 
         private void blindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            blindIncreaseTrackBar.Value = (int)blindIncreaseNumericUpDown.Value;
+            trackBarBlindIncrease.Value = (int)numericUpDownBlindIncrease.Value;
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

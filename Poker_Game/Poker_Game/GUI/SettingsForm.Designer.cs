@@ -30,87 +30,89 @@ namespace Poker_Game
         private void InitializeComponent()
         {
             this.buttonStartGame = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelNumberOfPlayers = new System.Windows.Forms.Label();
+            this.labelStackSize = new System.Windows.Forms.Label();
+            this.labelBlindSize = new System.Windows.Forms.Label();
+            this.labelPlayerName = new System.Windows.Forms.Label();
             this.textboxName = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numberOfPlayersTrackBar = new System.Windows.Forms.TrackBar();
-            this.potSizeTrackBar = new System.Windows.Forms.TrackBar();
-            this.blindSizeTrackBar = new System.Windows.Forms.TrackBar();
-            this.numberOfPlayersNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.potSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.blindSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.labelBlindIncreaseType = new System.Windows.Forms.Label();
+            this.trackBarNumberOfPlayers = new System.Windows.Forms.TrackBar();
+            this.trackBarPotSize = new System.Windows.Forms.TrackBar();
+            this.trackBarBlindSize = new System.Windows.Forms.TrackBar();
+            this.numericUpDownNumberOfPlayers = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPotSize = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownBlindSize = new System.Windows.Forms.NumericUpDown();
             this.nameErrorLabel = new System.Windows.Forms.Label();
-            this.timeBasedCheckBox = new System.Windows.Forms.CheckBox();
-            this.roundBasedCheckBox = new System.Windows.Forms.CheckBox();
-            this.blindIncreaseNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.blindIncreaseTrackBar = new System.Windows.Forms.TrackBar();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.potSizeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindSizeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.potSizeNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindSizeNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseTrackBar)).BeginInit();
+            this.checkBoxTimeBased = new System.Windows.Forms.CheckBox();
+            this.checkBoxRoundBased = new System.Windows.Forms.CheckBox();
+            this.numericUpDownBlindIncrease = new System.Windows.Forms.NumericUpDown();
+            this.trackBarBlindIncrease = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfPlayers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPotSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlindSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlindIncrease)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindIncrease)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStartGame
             // 
-            this.buttonStartGame.Location = new System.Drawing.Point(153, 418);
+            this.buttonStartGame.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonStartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartGame.Location = new System.Drawing.Point(148, 340);
             this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4);
             this.buttonStartGame.Name = "buttonStartGame";
-            this.buttonStartGame.Size = new System.Drawing.Size(153, 58);
+            this.buttonStartGame.Size = new System.Drawing.Size(186, 68);
             this.buttonStartGame.TabIndex = 0;
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
             this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
             // 
-            // label1
+            // labelNumberOfPlayers
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Number of players";
+            this.labelNumberOfPlayers.AutoSize = true;
+            this.labelNumberOfPlayers.Location = new System.Drawing.Point(18, 21);
+            this.labelNumberOfPlayers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelNumberOfPlayers.Name = "labelNumberOfPlayers";
+            this.labelNumberOfPlayers.Size = new System.Drawing.Size(118, 16);
+            this.labelNumberOfPlayers.TabIndex = 1;
+            this.labelNumberOfPlayers.Text = "Number of players";
             // 
-            // label2
+            // labelStackSize
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 100);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Pot size";
+            this.labelStackSize.AutoSize = true;
+            this.labelStackSize.Location = new System.Drawing.Point(19, 77);
+            this.labelStackSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStackSize.Name = "labelStackSize";
+            this.labelStackSize.Size = new System.Drawing.Size(69, 16);
+            this.labelStackSize.TabIndex = 2;
+            this.labelStackSize.Text = "Stack size";
             // 
-            // label3
+            // labelBlindSize
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 169);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Blind size";
+            this.labelBlindSize.AutoSize = true;
+            this.labelBlindSize.Location = new System.Drawing.Point(18, 127);
+            this.labelBlindSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelBlindSize.Name = "labelBlindSize";
+            this.labelBlindSize.Size = new System.Drawing.Size(65, 16);
+            this.labelBlindSize.TabIndex = 3;
+            this.labelBlindSize.Text = "Blind size";
             // 
-            // label4
+            // labelPlayerName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(121, 370);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Player Name:";
+            this.labelPlayerName.AutoSize = true;
+            this.labelPlayerName.Location = new System.Drawing.Point(119, 295);
+            this.labelPlayerName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPlayerName.Name = "labelPlayerName";
+            this.labelPlayerName.Size = new System.Drawing.Size(90, 16);
+            this.labelPlayerName.TabIndex = 4;
+            this.labelPlayerName.Text = "Player Name:";
             // 
             // textboxName
             // 
-            this.textboxName.Location = new System.Drawing.Point(245, 370);
+            this.textboxName.Location = new System.Drawing.Point(243, 295);
             this.textboxName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(132, 22);
@@ -120,224 +122,235 @@ namespace Poker_Game
             this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_CheckChange);
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
             // 
-            // label5
+            // labelBlindIncreaseType
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 254);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 16);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Blind Increase";
+            this.labelBlindIncreaseType.AutoSize = true;
+            this.labelBlindIncreaseType.Location = new System.Drawing.Point(16, 185);
+            this.labelBlindIncreaseType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelBlindIncreaseType.Name = "labelBlindIncreaseType";
+            this.labelBlindIncreaseType.Size = new System.Drawing.Size(93, 16);
+            this.labelBlindIncreaseType.TabIndex = 6;
+            this.labelBlindIncreaseType.Text = "Blind Increase";
             // 
-            // numberOfPlayersTrackBar
+            // trackBarNumberOfPlayers
             // 
-            this.numberOfPlayersTrackBar.Location = new System.Drawing.Point(134, 21);
-            this.numberOfPlayersTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.numberOfPlayersTrackBar.Maximum = 2;
-            this.numberOfPlayersTrackBar.Minimum = 2;
-            this.numberOfPlayersTrackBar.Name = "numberOfPlayersTrackBar";
-            this.numberOfPlayersTrackBar.Size = new System.Drawing.Size(240, 45);
-            this.numberOfPlayersTrackBar.TabIndex = 7;
-            this.numberOfPlayersTrackBar.Value = 2;
-            this.numberOfPlayersTrackBar.ValueChanged += new System.EventHandler(this.numberOfPlayersTrackBar_ValueChanged);
+            this.trackBarNumberOfPlayers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBarNumberOfPlayers.Enabled = false;
+            this.trackBarNumberOfPlayers.Location = new System.Drawing.Point(134, 21);
+            this.trackBarNumberOfPlayers.Margin = new System.Windows.Forms.Padding(4);
+            this.trackBarNumberOfPlayers.Maximum = 2;
+            this.trackBarNumberOfPlayers.Minimum = 2;
+            this.trackBarNumberOfPlayers.Name = "trackBarNumberOfPlayers";
+            this.trackBarNumberOfPlayers.Size = new System.Drawing.Size(240, 45);
+            this.trackBarNumberOfPlayers.TabIndex = 7;
+            this.trackBarNumberOfPlayers.Value = 2;
+            this.trackBarNumberOfPlayers.ValueChanged += new System.EventHandler(this.numberOfPlayersTrackBar_ValueChanged);
             // 
-            // potSizeTrackBar
+            // trackBarPotSize
             // 
-            this.potSizeTrackBar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.potSizeTrackBar.Location = new System.Drawing.Point(134, 95);
-            this.potSizeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.potSizeTrackBar.Maximum = 10000;
-            this.potSizeTrackBar.Minimum = 100;
-            this.potSizeTrackBar.Name = "potSizeTrackBar";
-            this.potSizeTrackBar.Size = new System.Drawing.Size(240, 45);
-            this.potSizeTrackBar.TabIndex = 8;
-            this.potSizeTrackBar.Value = 1000;
-            this.potSizeTrackBar.ValueChanged += new System.EventHandler(this.potSizeTrackBar_ValueChanged);
+            this.trackBarPotSize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBarPotSize.Location = new System.Drawing.Point(135, 72);
+            this.trackBarPotSize.Margin = new System.Windows.Forms.Padding(4);
+            this.trackBarPotSize.Maximum = 10000;
+            this.trackBarPotSize.Minimum = 100;
+            this.trackBarPotSize.Name = "trackBarPotSize";
+            this.trackBarPotSize.Size = new System.Drawing.Size(240, 45);
+            this.trackBarPotSize.TabIndex = 8;
+            this.trackBarPotSize.Value = 1000;
+            this.trackBarPotSize.ValueChanged += new System.EventHandler(this.potSizeTrackBar_ValueChanged);
             // 
-            // blindSizeTrackBar
+            // trackBarBlindSize
             // 
-            this.blindSizeTrackBar.Location = new System.Drawing.Point(134, 163);
-            this.blindSizeTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.blindSizeTrackBar.Maximum = 1000;
-            this.blindSizeTrackBar.Minimum = 10;
-            this.blindSizeTrackBar.Name = "blindSizeTrackBar";
-            this.blindSizeTrackBar.Size = new System.Drawing.Size(240, 45);
-            this.blindSizeTrackBar.TabIndex = 9;
-            this.blindSizeTrackBar.Value = 50;
-            this.blindSizeTrackBar.ValueChanged += new System.EventHandler(this.blindSizeTrackBar_ValueChanged);
+            this.trackBarBlindSize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBarBlindSize.Location = new System.Drawing.Point(134, 121);
+            this.trackBarBlindSize.Margin = new System.Windows.Forms.Padding(4);
+            this.trackBarBlindSize.Maximum = 1000;
+            this.trackBarBlindSize.Minimum = 10;
+            this.trackBarBlindSize.Name = "trackBarBlindSize";
+            this.trackBarBlindSize.Size = new System.Drawing.Size(240, 45);
+            this.trackBarBlindSize.TabIndex = 9;
+            this.trackBarBlindSize.Value = 50;
+            this.trackBarBlindSize.ValueChanged += new System.EventHandler(this.blindSizeTrackBar_ValueChanged);
             // 
-            // numberOfPlayersNumericUpDown
+            // numericUpDownNumberOfPlayers
             // 
-            this.numberOfPlayersNumericUpDown.Location = new System.Drawing.Point(381, 21);
-            this.numberOfPlayersNumericUpDown.Maximum = new decimal(new int[] {
+            this.numericUpDownNumberOfPlayers.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDownNumberOfPlayers.Enabled = false;
+            this.numericUpDownNumberOfPlayers.Location = new System.Drawing.Point(381, 21);
+            this.numericUpDownNumberOfPlayers.Maximum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numberOfPlayersNumericUpDown.Minimum = new decimal(new int[] {
+            this.numericUpDownNumberOfPlayers.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numberOfPlayersNumericUpDown.Name = "numberOfPlayersNumericUpDown";
-            this.numberOfPlayersNumericUpDown.Size = new System.Drawing.Size(76, 22);
-            this.numberOfPlayersNumericUpDown.TabIndex = 10;
-            this.numberOfPlayersNumericUpDown.Value = new decimal(new int[] {
+            this.numericUpDownNumberOfPlayers.Name = "numericUpDownNumberOfPlayers";
+            this.numericUpDownNumberOfPlayers.Size = new System.Drawing.Size(76, 22);
+            this.numericUpDownNumberOfPlayers.TabIndex = 10;
+            this.numericUpDownNumberOfPlayers.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numberOfPlayersNumericUpDown.ValueChanged += new System.EventHandler(this.numberOfPlayersNumericUpDown_ValueChanged);
+            this.numericUpDownNumberOfPlayers.ValueChanged += new System.EventHandler(this.numberOfPlayersNumericUpDown_ValueChanged);
             // 
-            // potSizeNumericUpDown
+            // numericUpDownPotSize
             // 
-            this.potSizeNumericUpDown.Increment = new decimal(new int[] {
+            this.numericUpDownPotSize.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDownPotSize.Increment = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.potSizeNumericUpDown.Location = new System.Drawing.Point(381, 95);
-            this.potSizeNumericUpDown.Maximum = new decimal(new int[] {
+            this.numericUpDownPotSize.Location = new System.Drawing.Point(382, 72);
+            this.numericUpDownPotSize.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.potSizeNumericUpDown.Minimum = new decimal(new int[] {
+            this.numericUpDownPotSize.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.potSizeNumericUpDown.Name = "potSizeNumericUpDown";
-            this.potSizeNumericUpDown.Size = new System.Drawing.Size(76, 22);
-            this.potSizeNumericUpDown.TabIndex = 11;
-            this.potSizeNumericUpDown.Value = new decimal(new int[] {
+            this.numericUpDownPotSize.Name = "numericUpDownPotSize";
+            this.numericUpDownPotSize.Size = new System.Drawing.Size(76, 22);
+            this.numericUpDownPotSize.TabIndex = 11;
+            this.numericUpDownPotSize.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.potSizeNumericUpDown.ValueChanged += new System.EventHandler(this.potSizeNumericUpDown_ValueChanged);
+            this.numericUpDownPotSize.ValueChanged += new System.EventHandler(this.potSizeNumericUpDown_ValueChanged);
             // 
-            // blindSizeNumericUpDown
+            // numericUpDownBlindSize
             // 
-            this.blindSizeNumericUpDown.Increment = new decimal(new int[] {
+            this.numericUpDownBlindSize.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDownBlindSize.Increment = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.blindSizeNumericUpDown.Location = new System.Drawing.Point(381, 163);
-            this.blindSizeNumericUpDown.Maximum = new decimal(new int[] {
+            this.numericUpDownBlindSize.Location = new System.Drawing.Point(381, 121);
+            this.numericUpDownBlindSize.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.blindSizeNumericUpDown.Minimum = new decimal(new int[] {
+            this.numericUpDownBlindSize.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.blindSizeNumericUpDown.Name = "blindSizeNumericUpDown";
-            this.blindSizeNumericUpDown.Size = new System.Drawing.Size(76, 22);
-            this.blindSizeNumericUpDown.TabIndex = 12;
-            this.blindSizeNumericUpDown.Value = new decimal(new int[] {
+            this.numericUpDownBlindSize.Name = "numericUpDownBlindSize";
+            this.numericUpDownBlindSize.Size = new System.Drawing.Size(76, 22);
+            this.numericUpDownBlindSize.TabIndex = 12;
+            this.numericUpDownBlindSize.Value = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.blindSizeNumericUpDown.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
+            this.numericUpDownBlindSize.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
             // 
             // nameErrorLabel
             // 
             this.nameErrorLabel.AutoSize = true;
             this.nameErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.nameErrorLabel.Location = new System.Drawing.Point(245, 350);
+            this.nameErrorLabel.Location = new System.Drawing.Point(243, 275);
             this.nameErrorLabel.Name = "nameErrorLabel";
             this.nameErrorLabel.Size = new System.Drawing.Size(137, 16);
             this.nameErrorLabel.TabIndex = 13;
             this.nameErrorLabel.Text = "Need to enter a name";
             this.nameErrorLabel.Visible = false;
             // 
-            // timeBasedCheckBox
+            // checkBoxTimeBased
             // 
-            this.timeBasedCheckBox.AutoSize = true;
-            this.timeBasedCheckBox.Location = new System.Drawing.Point(150, 253);
-            this.timeBasedCheckBox.Name = "timeBasedCheckBox";
-            this.timeBasedCheckBox.Size = new System.Drawing.Size(101, 20);
-            this.timeBasedCheckBox.TabIndex = 14;
-            this.timeBasedCheckBox.Text = "Time Based";
-            this.timeBasedCheckBox.UseVisualStyleBackColor = true;
-            this.timeBasedCheckBox.CheckedChanged += new System.EventHandler(this.timeBasedCheckBox_CheckedChanged);
+            this.checkBoxTimeBased.AutoSize = true;
+            this.checkBoxTimeBased.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkBoxTimeBased.Location = new System.Drawing.Point(279, 185);
+            this.checkBoxTimeBased.Name = "checkBoxTimeBased";
+            this.checkBoxTimeBased.Size = new System.Drawing.Size(101, 20);
+            this.checkBoxTimeBased.TabIndex = 14;
+            this.checkBoxTimeBased.Text = "Time Based";
+            this.checkBoxTimeBased.UseVisualStyleBackColor = true;
+            this.checkBoxTimeBased.CheckedChanged += new System.EventHandler(this.timeBasedCheckBox_CheckedChanged);
             // 
-            // roundBasedCheckBox
+            // checkBoxRoundBased
             // 
-            this.roundBasedCheckBox.AutoSize = true;
-            this.roundBasedCheckBox.Location = new System.Drawing.Point(268, 253);
-            this.roundBasedCheckBox.Name = "roundBasedCheckBox";
-            this.roundBasedCheckBox.Size = new System.Drawing.Size(109, 20);
-            this.roundBasedCheckBox.TabIndex = 15;
-            this.roundBasedCheckBox.Text = "Round based";
-            this.roundBasedCheckBox.UseVisualStyleBackColor = true;
-            this.roundBasedCheckBox.CheckedChanged += new System.EventHandler(this.roundBasedCheckBox_CheckedChanged);
+            this.checkBoxRoundBased.AutoSize = true;
+            this.checkBoxRoundBased.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkBoxRoundBased.Location = new System.Drawing.Point(146, 184);
+            this.checkBoxRoundBased.Name = "checkBoxRoundBased";
+            this.checkBoxRoundBased.Size = new System.Drawing.Size(109, 20);
+            this.checkBoxRoundBased.TabIndex = 15;
+            this.checkBoxRoundBased.Text = "Round based";
+            this.checkBoxRoundBased.UseVisualStyleBackColor = true;
+            this.checkBoxRoundBased.CheckedChanged += new System.EventHandler(this.roundBasedCheckBox_CheckedChanged);
             // 
-            // blindIncreaseNumericUpDown
+            // numericUpDownBlindIncrease
             // 
-            this.blindIncreaseNumericUpDown.Increment = new decimal(new int[] {
+            this.numericUpDownBlindIncrease.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDownBlindIncrease.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.blindIncreaseNumericUpDown.Location = new System.Drawing.Point(381, 289);
-            this.blindIncreaseNumericUpDown.Maximum = new decimal(new int[] {
+            this.numericUpDownBlindIncrease.Location = new System.Drawing.Point(379, 220);
+            this.numericUpDownBlindIncrease.Maximum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.blindIncreaseNumericUpDown.Name = "blindIncreaseNumericUpDown";
-            this.blindIncreaseNumericUpDown.Size = new System.Drawing.Size(76, 22);
-            this.blindIncreaseNumericUpDown.TabIndex = 17;
-            this.blindIncreaseNumericUpDown.Value = new decimal(new int[] {
+            this.numericUpDownBlindIncrease.Name = "numericUpDownBlindIncrease";
+            this.numericUpDownBlindIncrease.Size = new System.Drawing.Size(76, 22);
+            this.numericUpDownBlindIncrease.TabIndex = 17;
+            this.numericUpDownBlindIncrease.Value = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.blindIncreaseNumericUpDown.Visible = false;
-            this.blindIncreaseNumericUpDown.ValueChanged += new System.EventHandler(this.blindIncreaseNumericUpDown_ValueChanged);
+            this.numericUpDownBlindIncrease.Visible = false;
+            this.numericUpDownBlindIncrease.ValueChanged += new System.EventHandler(this.blindIncreaseNumericUpDown_ValueChanged);
             // 
-            // blindIncreaseTrackBar
+            // trackBarBlindIncrease
             // 
-            this.blindIncreaseTrackBar.Location = new System.Drawing.Point(134, 289);
-            this.blindIncreaseTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.blindIncreaseTrackBar.Maximum = 60;
-            this.blindIncreaseTrackBar.Name = "blindIncreaseTrackBar";
-            this.blindIncreaseTrackBar.Size = new System.Drawing.Size(240, 45);
-            this.blindIncreaseTrackBar.TabIndex = 16;
-            this.blindIncreaseTrackBar.Value = 20;
-            this.blindIncreaseTrackBar.Visible = false;
-            this.blindIncreaseTrackBar.ValueChanged += new System.EventHandler(this.blindIncreaseTrackBar_ValueChanged);
+            this.trackBarBlindIncrease.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBarBlindIncrease.Location = new System.Drawing.Point(132, 220);
+            this.trackBarBlindIncrease.Margin = new System.Windows.Forms.Padding(4);
+            this.trackBarBlindIncrease.Maximum = 60;
+            this.trackBarBlindIncrease.Name = "trackBarBlindIncrease";
+            this.trackBarBlindIncrease.Size = new System.Drawing.Size(240, 45);
+            this.trackBarBlindIncrease.TabIndex = 16;
+            this.trackBarBlindIncrease.Value = 20;
+            this.trackBarBlindIncrease.Visible = false;
+            this.trackBarBlindIncrease.ValueChanged += new System.EventHandler(this.blindIncreaseTrackBar_ValueChanged);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(469, 492);
-            this.Controls.Add(this.blindIncreaseNumericUpDown);
-            this.Controls.Add(this.blindIncreaseTrackBar);
-            this.Controls.Add(this.roundBasedCheckBox);
-            this.Controls.Add(this.timeBasedCheckBox);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ClientSize = new System.Drawing.Size(469, 418);
+            this.Controls.Add(this.numericUpDownBlindIncrease);
+            this.Controls.Add(this.trackBarBlindIncrease);
+            this.Controls.Add(this.checkBoxRoundBased);
+            this.Controls.Add(this.checkBoxTimeBased);
             this.Controls.Add(this.nameErrorLabel);
-            this.Controls.Add(this.blindSizeNumericUpDown);
-            this.Controls.Add(this.potSizeNumericUpDown);
-            this.Controls.Add(this.numberOfPlayersNumericUpDown);
-            this.Controls.Add(this.blindSizeTrackBar);
-            this.Controls.Add(this.potSizeTrackBar);
-            this.Controls.Add(this.numberOfPlayersTrackBar);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.numericUpDownBlindSize);
+            this.Controls.Add(this.numericUpDownPotSize);
+            this.Controls.Add(this.numericUpDownNumberOfPlayers);
+            this.Controls.Add(this.trackBarBlindSize);
+            this.Controls.Add(this.trackBarPotSize);
+            this.Controls.Add(this.trackBarNumberOfPlayers);
+            this.Controls.Add(this.labelBlindIncreaseType);
             this.Controls.Add(this.textboxName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelPlayerName);
+            this.Controls.Add(this.labelBlindSize);
+            this.Controls.Add(this.labelStackSize);
+            this.Controls.Add(this.labelNumberOfPlayers);
             this.Controls.Add(this.buttonStartGame);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -346,14 +359,15 @@ namespace Poker_Game
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.Text = "Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.potSizeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindSizeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayersNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.potSizeNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindSizeNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blindIncreaseTrackBar)).EndInit();
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfPlayers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPotSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlindSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlindIncrease)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindIncrease)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,22 +376,22 @@ namespace Poker_Game
         #endregion
 
         private System.Windows.Forms.Button buttonStartGame;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelNumberOfPlayers;
+        private System.Windows.Forms.Label labelStackSize;
+        private System.Windows.Forms.Label labelBlindSize;
+        private System.Windows.Forms.Label labelPlayerName;
         private System.Windows.Forms.TextBox textboxName;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TrackBar numberOfPlayersTrackBar;
-        private System.Windows.Forms.TrackBar potSizeTrackBar;
-        private System.Windows.Forms.TrackBar blindSizeTrackBar;
-        private System.Windows.Forms.NumericUpDown numberOfPlayersNumericUpDown;
-        private System.Windows.Forms.NumericUpDown potSizeNumericUpDown;
-        private System.Windows.Forms.NumericUpDown blindSizeNumericUpDown;
+        private System.Windows.Forms.Label labelBlindIncreaseType;
+        private System.Windows.Forms.TrackBar trackBarNumberOfPlayers;
+        private System.Windows.Forms.TrackBar trackBarPotSize;
+        private System.Windows.Forms.TrackBar trackBarBlindSize;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumberOfPlayers;
+        private System.Windows.Forms.NumericUpDown numericUpDownPotSize;
+        private System.Windows.Forms.NumericUpDown numericUpDownBlindSize;
         private System.Windows.Forms.Label nameErrorLabel;
-        private System.Windows.Forms.CheckBox timeBasedCheckBox;
-        private System.Windows.Forms.CheckBox roundBasedCheckBox;
-        private System.Windows.Forms.NumericUpDown blindIncreaseNumericUpDown;
-        private System.Windows.Forms.TrackBar blindIncreaseTrackBar;
+        private System.Windows.Forms.CheckBox checkBoxTimeBased;
+        private System.Windows.Forms.CheckBox checkBoxRoundBased;
+        private System.Windows.Forms.NumericUpDown numericUpDownBlindIncrease;
+        private System.Windows.Forms.TrackBar trackBarBlindIncrease;
     }
 }
