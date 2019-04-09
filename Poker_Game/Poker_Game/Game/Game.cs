@@ -38,20 +38,20 @@ namespace Poker_Game {
         #endregion
 
         #region Actions
-        public void Call(object sender, EventArgs e) {
+        public void Call() {
             Bet(CurrentPlayerIndex);
             Players[CurrentPlayerIndex].Action = PlayerAction.Call;
             UpdateState();
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
         }
 
-        public void Check(object sender, EventArgs e) {
+        public void Check() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Check;
             UpdateState();
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
         }
 
-        public void Fold(object sender, EventArgs e) {
+        public void Fold() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
             Players[CurrentPlayerIndex].HasFolded = true;
             UpdateState();
@@ -59,7 +59,7 @@ namespace Poker_Game {
 
         }
 
-        public void Raise(object sender, EventArgs e) {
+        public void Raise() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
             Bet(CurrentPlayerIndex);
 
