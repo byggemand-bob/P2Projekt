@@ -49,6 +49,7 @@ namespace Poker_Game {
         }
 
         public void DrawNewCardHand(List<Card> existingCards) {
+            RemoveCards();
             for (int i = 0; i < 2; i++) {
                 Cards.Add(new Card(existingCards));
                 existingCards.Add(Cards[i]);
