@@ -135,6 +135,7 @@ namespace Poker_Game
             // trackBarNumberOfPlayers
             // 
             this.trackBarNumberOfPlayers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trackBarNumberOfPlayers.Enabled = false;
             this.trackBarNumberOfPlayers.Location = new System.Drawing.Point(134, 21);
             this.trackBarNumberOfPlayers.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarNumberOfPlayers.Maximum = 2;
@@ -174,6 +175,7 @@ namespace Poker_Game
             // numericUpDownNumberOfPlayers
             // 
             this.numericUpDownNumberOfPlayers.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.numericUpDownNumberOfPlayers.Enabled = false;
             this.numericUpDownNumberOfPlayers.Location = new System.Drawing.Point(381, 21);
             this.numericUpDownNumberOfPlayers.Maximum = new decimal(new int[] {
             2,
@@ -357,6 +359,7 @@ namespace Poker_Game
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).EndInit();

@@ -181,5 +181,10 @@ namespace Poker_Game
         {
             trackBarBlindIncrease.Value = (int)numericUpDownBlindIncrease.Value;
         }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -6,20 +6,13 @@ using System.Windows.Forms;
 namespace Poker_Game {
     public partial class GameForm : Form {
 
-        List<Player> Players = new List<Player>();
-
-        /* Settings GameSettings = New Settings();
-        */
-        public GameForm(String inputPlayerName, int inputPotSize, int inputBlindSize, int blindIncrease) {
+        public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) {
             InitializeComponent();
 
             StartPosition = FormStartPosition.CenterScreen;
             playerName.Text = inputPlayerName;
-            labelAIStack.Text = "AI" + Environment.NewLine + inputPotSize / 2;
-            
+
         }
-
-
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
         {
@@ -32,6 +25,7 @@ namespace Poker_Game {
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         } 
+
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
