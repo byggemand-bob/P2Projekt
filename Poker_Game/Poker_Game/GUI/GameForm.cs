@@ -20,6 +20,9 @@ namespace Poker_Game {
             Game = new Game(Setting);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
             ShowPlayerHand(Game.Players[0].Cards);
+            ShowOpponentHand(Game.Players[1].Cards);
+            UpdatePlayerStack(Game.Players[0], Game.Players[1]);
+            
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
@@ -59,6 +62,7 @@ namespace Poker_Game {
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             // Raise
+           
         }
 
         private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
