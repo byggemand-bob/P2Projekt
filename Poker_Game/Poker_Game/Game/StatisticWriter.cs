@@ -14,7 +14,7 @@ namespace Poker_Game {
         public StatisticWriter(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
             EnsureDirectoryExists(_folderPath);
-            _fileName = playerName + ".DeepPeer";
+            _fileName = playerName + ".stats";
             _streamWriter = new StreamWriter(_folderPath + _fileName);
         }
 
