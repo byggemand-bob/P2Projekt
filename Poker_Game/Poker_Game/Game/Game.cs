@@ -22,7 +22,7 @@ namespace Poker_Game {
             Players = InitializePlayers();
             Hands = new List<Hand>();
 
-            DealerButtonPosition = 0;
+            DealerButtonPosition = 1;
             CurrentPlayerIndex = GetStartingPlayerIndex();
 
             NewHand();
@@ -37,6 +37,8 @@ namespace Poker_Game {
         }
         #endregion
 
+
+        //Validation needed
         #region Actions
         public void Call() {
             Bet(CurrentPlayerIndex);
@@ -83,6 +85,7 @@ namespace Poker_Game {
 
         #endregion
 
+        // Validation. Impossible to bet if money is too low
         private void Bet(int playerIndex) {
             if(Players[CurrentPlayerIndex].Action == PlayerAction.Call || Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].TopBidderIndex == CurrentPlayerIndex) {
                 Players[CurrentPlayerIndex].CurrentBet += Settings.BlindSize; // Not sure how much should be bet
@@ -93,7 +96,7 @@ namespace Poker_Game {
                 Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize; // CART optimization
                 Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
             }
-        } // Validation. Impossible to bet if money is too low
+        } 
 
         private void UpdateState() { // WIP
             HandInProgress = IsHandInProgress();
@@ -114,9 +117,8 @@ namespace Poker_Game {
         }
 
         private int GetNextPlayerIndex() {
-            int next = CurrentPlayerIndex++ % Settings.NumberOfPlayers;
-            for(int i = 0; i < Settings.NumberOfPlayers - 1; i++) {
-
+            int next = ++CurrentPlayerIndex % Settings.NumberOfPlayers;
+            for(int i = 0; i < Settings.NumberOfPlayers; i++) {
                 if(!Players[next].HasFolded) {
                     return next;
                 }
@@ -124,6 +126,12 @@ namespace Poker_Game {
             }
             return -1;
         }
+
+
+        public int CurrentHandNumber() {
+            return Hands.Count;
+        }
+
 
         private bool IsFinished() {
             int playersLeft = 0;

@@ -89,6 +89,10 @@ namespace Poker_Game {
             return false;
         }
 
+        public int CurrentRoundNumber() {
+            return Rounds.Count;
+        }
+
         private int PlayersLeft() {
             int playersLeft = 0;
             foreach(Player player in Players) {

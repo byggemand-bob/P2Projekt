@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     enum PlayerAction {
-        Tbd, // To be decided
+        None,
         Check,
         Call,
         Raise,
@@ -29,7 +29,7 @@ namespace Poker_Game {
         public Player(int id,  int stackSize) {
             Cards = new List<Card>();
             Stack = stackSize;
-            Action = PlayerAction.Tbd;
+            Action = PlayerAction.None;
             Reset();
         }
 
@@ -38,7 +38,7 @@ namespace Poker_Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             HasFolded = false;
-            Action = PlayerAction.Tbd;
+            Action = PlayerAction.None;
             RemoveCards();
         }
 

@@ -113,6 +113,7 @@ namespace Poker_Game {
             this.buttonFold.TabIndex = 3;
             this.buttonFold.Text = "Fold";
             this.buttonFold.UseVisualStyleBackColor = false;
+            this.buttonFold.Click += new System.EventHandler(this.buttonFold_Click);
             // 
             // buttonCheck
             // 
