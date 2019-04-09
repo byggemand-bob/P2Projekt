@@ -52,17 +52,22 @@ namespace Poker_Game {
         private void buttonCall_Click(object sender, EventArgs e)
         {
             // Call
+            Game.Call();
+            UpdatePlayerStack(Game.Players[0], Game.Players[1]);
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             // Check
+            Game.Check();
         }
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             // Raise
-           
+            Game.Raise();
+            UpdatePlayerStack(Game.Players[0], Game.Players[1]);
+            UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
         }
 
         private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
