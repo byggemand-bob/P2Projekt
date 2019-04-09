@@ -22,7 +22,7 @@ namespace Poker_Game {
             ShowPlayerHand(Game.Players[0].Cards);
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
-            labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
+            //labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
 
         }
 
