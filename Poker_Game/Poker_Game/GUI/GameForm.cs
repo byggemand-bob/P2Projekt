@@ -61,7 +61,7 @@ namespace Poker_Game {
             picturePlayerCard2.Image = cards[1].Image;
         }
 
-        private void ShowOpponentHand(List<Card> cards) // Takes card list from opponent's hand
+        private void ShowOpponentHand(List<Card> cards) // Takes card list from opponent's (AI) hand
         {
             pictureAICard1.Image = cards[0].Image;
             pictureAICard2.Image = cards[1].Image;
