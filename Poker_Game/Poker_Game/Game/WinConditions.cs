@@ -62,7 +62,7 @@ namespace Poker_Game {
             throw new NotImplementedException();
         }
 
-        private bool HasStraightFlush(List<Card> sortedCards) {
+        public bool HasStraightFlush(List<Card> sortedCards) {
             throw new NotImplementedException();
         }
 
@@ -83,7 +83,7 @@ namespace Poker_Game {
         }
 
         // straight is when 5 of cards are in order by rank
-        private bool HasStraight(List<Card> cards) {
+        public bool HasStraight(List<Card> cards) {
             int RankCounter = 0;
             cards.Sort();
             for (int i = 0; i <= cards.Count - 2; i++) {
@@ -104,7 +104,7 @@ namespace Poker_Game {
 
 
         // flush is when 5 of the cards are of the same suit
-        private bool HasFlush(List<Card> hand) {
+        public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {

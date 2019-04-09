@@ -29,11 +29,11 @@ namespace Poker_Game {
             return _random.Next(0, 51);
         }
         public void DrawCards(List<Card> cards) {
-        remake: //if card have already been made
             MakeCard(DrawRandCard());
             foreach(Card element in cards) {
                 if(element.CompareTo(this) == 0) {
-                    goto remake;
+                    DrawCards(cards);
+                    break;
                 }
             }
         }
