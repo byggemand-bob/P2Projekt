@@ -22,7 +22,8 @@ namespace Poker_Game {
             ShowPlayerHand(Game.Players[0].Cards);
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
-            
+            labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
+
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
@@ -51,24 +52,30 @@ namespace Poker_Game {
 
         private void buttonCall_Click(object sender, EventArgs e)
         {
-            // Call
             Game.Call();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
         {
-            // Check
             Game.Check();
+            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
-            // Raise
             Game.Raise();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
+        }
+
+        private void buttonFold_Click(object sender, EventArgs e)
+        { 
+            Game.Fold();
+            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
         private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
@@ -85,19 +92,19 @@ namespace Poker_Game {
 
         private void ShowFlopCards(List<Card> cards) // Changes picture of the flop cards.
         {
-            pictureTableCard1.Image = cards[2].Image;
-            pictureTableCard2.Image = cards[3].Image;
-            pictureTableCard3.Image = cards[4].Image;
+            pictureTableCard1.Image = cards[0].Image;
+            pictureTableCard2.Image = cards[1].Image;
+            pictureTableCard3.Image = cards[2].Image;
         }
 
         private void ShowTurnCard(List<Card> cards)
         {
-            pictureTableCard4.Image = cards[5].Image;
+            pictureTableCard4.Image = cards[0].Image;
         }
 
         private void ShowRiverCard(List<Card> cards)
         {
-            pictureTableCard5.Image = cards[6].Image;
+            pictureTableCard5.Image = cards[0].Image;
         }
 
         private void UpdatePlayerStack(Player player, Player AI)
@@ -124,5 +131,24 @@ namespace Poker_Game {
                 labelAIBlind.Text = "Big blind";
             }
         }
+
+        private void CheckPlayerTurn(int id)
+        {
+            if (id == 0)
+            {
+                buttonCall.Enabled = true;
+                buttonCheck.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonFold.Enabled = true;
+            }
+            else
+            {
+                buttonCall.Enabled = false;
+                buttonCheck.Enabled = false;
+                buttonRaise.Enabled = false;
+                buttonFold.Enabled = false;
+            }
+        }
+
     }
 }
