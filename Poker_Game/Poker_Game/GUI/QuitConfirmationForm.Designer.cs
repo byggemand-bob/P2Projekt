@@ -37,10 +37,10 @@
             // 
             this.buttonYes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonYes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonYes.Location = new System.Drawing.Point(35, 48);
+            this.buttonYes.Location = new System.Drawing.Point(43, 48);
             this.buttonYes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonYes.Name = "buttonYes";
-            this.buttonYes.Size = new System.Drawing.Size(92, 28);
+            this.buttonYes.Size = new System.Drawing.Size(106, 33);
             this.buttonYes.TabIndex = 0;
             this.buttonYes.Text = "Yes";
             this.buttonYes.UseVisualStyleBackColor = true;
@@ -50,10 +50,10 @@
             // 
             this.buttonNo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNo.Location = new System.Drawing.Point(207, 48);
+            this.buttonNo.Location = new System.Drawing.Point(198, 48);
             this.buttonNo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonNo.Name = "buttonNo";
-            this.buttonNo.Size = new System.Drawing.Size(92, 28);
+            this.buttonNo.Size = new System.Drawing.Size(106, 33);
             this.buttonNo.TabIndex = 1;
             this.buttonNo.Text = "No";
             this.buttonNo.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
             // ConfirmationText
             // 
             this.ConfirmationText.AutoSize = true;
-            this.ConfirmationText.Location = new System.Drawing.Point(15, 11);
+            this.ConfirmationText.Location = new System.Drawing.Point(12, 9);
             this.ConfirmationText.Name = "ConfirmationText";
             this.ConfirmationText.Size = new System.Drawing.Size(320, 17);
             this.ConfirmationText.TabIndex = 2;
