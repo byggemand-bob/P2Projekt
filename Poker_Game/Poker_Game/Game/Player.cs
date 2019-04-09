@@ -68,7 +68,6 @@ namespace Poker_Game {
             player.Stack = Stack;
             player.Id = Id;
             player.CurrentBet = CurrentBet;
-            player.HasFolded = HasFolded;
 
             foreach(Card card in Cards) {
                 player.Cards.Add((Card)card.Clone());

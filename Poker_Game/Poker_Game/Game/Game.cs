@@ -13,7 +13,8 @@ namespace Poker_Game {
         // Game state
         public int CurrentPlayerIndex { get; set; }
         public int DealerButtonPosition { get; set; }
-
+        public bool HandInProgress { get; private set; }
+        public bool RoundInProgress { get; private set; }
 
         #region Initialization
         public Game(Settings settings) {
@@ -68,11 +69,16 @@ namespace Poker_Game {
         }
 
         public void NewHand() {
-            Hands.Add(new Hand(Players));
+            if(!HandInProgress) {
+                Hands.Add(new Hand(Players));
+            }
         }
 
-
-
+        public void NewRound() {
+            if(!RoundInProgress) {
+                Hands[Hands.Count - 1].StartRound();
+            }
+        }
 
         #endregion
 
@@ -88,25 +94,17 @@ namespace Poker_Game {
             }
         } // Validation. Impossible to bet if money is too low
 
-        public void UpdateState() { // WIP
-            
-
-            if (!RoundInProgress()) {
-                if (!HandInProgress()) {
-                    Hands.Add(new Hand(Players));
-                }
-            }
-
+        private void UpdateState() { // WIP
+            HandInProgress = IsHandInProgress();
+            RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();
         }
 
-
-
-        private bool RoundInProgress() {
+        private bool IsRoundInProgress() {
             return Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
         }
 
-        private bool HandInProgress() {
+        private bool IsHandInProgress() {
             return Hands[Hands.Count - 1].IsFinished();
         }
 
@@ -114,7 +112,7 @@ namespace Poker_Game {
             return (DealerButtonPosition + 3) % Settings.NumberOfPlayers;
         }
 
-        public int GetNextPlayerIndex() {
+        private int GetNextPlayerIndex() {
             int next = CurrentPlayerIndex++ % Settings.NumberOfPlayers;
             for(int i = 0; i < Settings.NumberOfPlayers - 1; i++) {
 
@@ -124,7 +122,7 @@ namespace Poker_Game {
                 next = next++ % Settings.NumberOfPlayers;
             }
             return -1;
-        }        
+        }
 
         private bool IsFinished() {
             int playersLeft = 0;
