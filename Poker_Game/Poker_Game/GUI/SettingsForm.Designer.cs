@@ -31,7 +31,7 @@ namespace Poker_Game
         {
             this.buttonStartGame = new System.Windows.Forms.Button();
             this.labelNumberOfPlayers = new System.Windows.Forms.Label();
-            this.labelPotSize = new System.Windows.Forms.Label();
+            this.labelStackSize = new System.Windows.Forms.Label();
             this.labelBlindSize = new System.Windows.Forms.Label();
             this.labelPlayerName = new System.Windows.Forms.Label();
             this.textboxName = new System.Windows.Forms.TextBox();
@@ -80,15 +80,15 @@ namespace Poker_Game
             this.labelNumberOfPlayers.TabIndex = 1;
             this.labelNumberOfPlayers.Text = "Number of players";
             // 
-            // labelPotSize
+            // labelStackSize
             // 
-            this.labelPotSize.AutoSize = true;
-            this.labelPotSize.Location = new System.Drawing.Point(19, 77);
-            this.labelPotSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelPotSize.Name = "labelPotSize";
-            this.labelPotSize.Size = new System.Drawing.Size(55, 16);
-            this.labelPotSize.TabIndex = 2;
-            this.labelPotSize.Text = "Pot size";
+            this.labelStackSize.AutoSize = true;
+            this.labelStackSize.Location = new System.Drawing.Point(19, 77);
+            this.labelStackSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStackSize.Name = "labelStackSize";
+            this.labelStackSize.Size = new System.Drawing.Size(69, 16);
+            this.labelStackSize.TabIndex = 2;
+            this.labelStackSize.Text = "Stack size";
             // 
             // labelBlindSize
             // 
@@ -349,7 +349,7 @@ namespace Poker_Game
             this.Controls.Add(this.textboxName);
             this.Controls.Add(this.labelPlayerName);
             this.Controls.Add(this.labelBlindSize);
-            this.Controls.Add(this.labelPotSize);
+            this.Controls.Add(this.labelStackSize);
             this.Controls.Add(this.labelNumberOfPlayers);
             this.Controls.Add(this.buttonStartGame);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -377,7 +377,7 @@ namespace Poker_Game
 
         private System.Windows.Forms.Button buttonStartGame;
         private System.Windows.Forms.Label labelNumberOfPlayers;
-        private System.Windows.Forms.Label labelPotSize;
+        private System.Windows.Forms.Label labelStackSize;
         private System.Windows.Forms.Label labelBlindSize;
         private System.Windows.Forms.Label labelPlayerName;
         private System.Windows.Forms.TextBox textboxName;

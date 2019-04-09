@@ -20,7 +20,7 @@ namespace Poker_Game
             if (textboxName.Text != "" && textboxName.Text != "Enter Name")
             {
                 this.Hide();
-                GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value);
+                GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
                 formGame.ShowDialog();
                 this.Close();
             }

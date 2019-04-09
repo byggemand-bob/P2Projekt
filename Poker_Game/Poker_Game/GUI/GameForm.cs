@@ -6,12 +6,14 @@ using System.Windows.Forms;
 namespace Poker_Game {
     public partial class GameForm : Form {
 
+        private Settings Settings = new Settings();
+
         public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) {
             InitializeComponent();
-
-            StartPosition = FormStartPosition.CenterScreen;
             playerName.Text = inputPlayerName;
 
+            // Constuctor called
+            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
@@ -20,12 +22,17 @@ namespace Poker_Game {
             this.MaximumSize = new Size(1000, 700);
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
+            StartPosition = FormStartPosition.CenterScreen;
 
             //Load background picture.
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         } 
 
+        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased)
+        {
+            // Call constuctor for Settings...
+        }
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
