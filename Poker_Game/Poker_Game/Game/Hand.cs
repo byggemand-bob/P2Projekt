@@ -89,7 +89,7 @@ namespace Poker_Game {
             return false;
         }
 
-        public int RoundNumber() {
+        public int CurrentRoundNumber() {
             return Rounds.Count;
         }
 

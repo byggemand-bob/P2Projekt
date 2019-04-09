@@ -127,6 +127,12 @@ namespace Poker_Game {
             return -1;
         }
 
+
+        public int CurrentHandNumber() {
+            return Hands.Count;
+        }
+
+
         private bool IsFinished() {
             int playersLeft = 0;
             foreach(Player player in Players) {
