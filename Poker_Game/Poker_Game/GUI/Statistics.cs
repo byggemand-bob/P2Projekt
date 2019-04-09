@@ -18,5 +18,13 @@ namespace Poker_Game
 
             StartPosition = FormStartPosition.CenterScreen;
         }
+
+        private void buttonBackToMenu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MenuForm formMenu = new MenuForm();
+            formMenu.ShowDialog();
+            this.Close();
+        }
     }
 }
