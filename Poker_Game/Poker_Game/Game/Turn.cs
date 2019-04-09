@@ -8,8 +8,8 @@ namespace Poker_Game {
     class Turn {
         public Player CurrentPlayer { get; private set; }
 
-        public Turn() {
-                
+        public Turn(Player player) {
+            CurrentPlayer = (Player)player.Clone();
         }
     }
 }

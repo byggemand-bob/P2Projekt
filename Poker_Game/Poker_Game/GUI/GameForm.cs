@@ -9,7 +9,7 @@ namespace Poker_Game {
         private Settings Setting;
         private Game Game;
 
-        public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) {
+        public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
             playerName.Text = inputPlayerName;
 
@@ -18,7 +18,8 @@ namespace Poker_Game {
 
             // Creates the game so to say...
             Game = new Game(Setting);
-
+            labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
+            ShowPlayerHand(Game.Players[0].Cards);
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
