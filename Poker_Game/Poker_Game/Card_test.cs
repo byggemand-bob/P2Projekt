@@ -40,8 +40,8 @@ namespace Poker_Game {
                 TAELLER++;
                 Console.WriteLine(TAELLER);
                 //Console.WriteLine("HasRoyalflush: " + w.HasRoyalFlush(players[0].Cards));
-                w.HasRoyalFlush(players[0].Cards);
-            } while (w.HasRoyalFlush(players[0].Cards) != true);
+                w.HasStraightFlush(players[0].Cards);
+            } while (w.HasStraightFlush(players[0].Cards) != true);
             for (int j = 0; j < 7; j++) {
                 Console.WriteLine("Players Cards:" + players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
             }
