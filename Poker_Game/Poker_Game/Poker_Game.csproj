@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2B55B119-4064-477D-BD7F-334C0F0470E4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Poker_Game</RootNamespace>
     <AssemblyName>Poker_Game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Poker_Game.CardTest</StartupObject>
+    <StartupObject>Poker_Game.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -73,7 +73,6 @@
     <Compile Include="AI\AI.cs" />
     <Compile Include="AI\CalcEquity.cs" />
     <Compile Include="AI\CardOdds.cs" />
-    <Compile Include="AI\FindOuts.cs" />
     <Compile Include="AI\IsNashEq.cs" />
     <Compile Include="AI\IsParetoOptimal.cs" />
     <Compile Include="AI\PotOdds.cs" />

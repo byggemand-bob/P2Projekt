@@ -6,7 +6,8 @@ using System.Windows.Forms;
 namespace Poker_Game {
     public partial class GameForm : Form {
 
-        private Settings Settings = new Settings();
+        private Settings Setting;
+        private Game Game;
 
         public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) {
             InitializeComponent();
@@ -14,6 +15,10 @@ namespace Poker_Game {
 
             // Constuctor called
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
+
+            // Creates the game so to say...
+            Game = new Game(Setting);
+
         }
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
@@ -31,7 +36,7 @@ namespace Poker_Game {
 
         private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased)
         {
-            // Call constuctor for Settings...
+            Setting = new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e)

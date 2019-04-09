@@ -56,7 +56,6 @@ namespace Poker_Game {
             }
         }
 
-
         public int CompareTo(object other) {
             return Id.CompareTo(((Player)other).Id);
         }
@@ -73,9 +72,7 @@ namespace Poker_Game {
             foreach(Card card in Cards) {
                 player.Cards.Add((Card)card.Clone());
             }
-
             return player;
         }
-
     }
 }
