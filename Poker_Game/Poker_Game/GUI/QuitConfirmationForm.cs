@@ -12,11 +12,11 @@ namespace Poker_Game
 {
     public partial class QuitConfirmationForm : Form
     {
-        GameForm GameFormQuit1;
-        public QuitConfirmationForm(GameForm GameFormQuit)
+        GameForm _gameFormQuit1;
+        public QuitConfirmationForm(GameForm gameFormQuit)
         {
             InitializeComponent();
-            GameFormQuit1 = GameFormQuit;
+            _gameFormQuit1 = gameFormQuit;
         }
 
         private void buttonNo_Click(object sender, EventArgs e)
@@ -28,13 +28,13 @@ namespace Poker_Game
         private void buttonYes_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameFormQuit1.Hide();
+            _gameFormQuit1.Hide();
 
             MenuForm formMenu = new MenuForm();
             formMenu.ShowDialog();
 
             this.Close();
-            GameFormQuit1.Close();
+            _gameFormQuit1.Close();
         }
     }
 }

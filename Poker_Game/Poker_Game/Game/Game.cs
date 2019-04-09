@@ -6,55 +6,28 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Game {
-        public List<Player> Players {
-            get {
-                return Players;
-            } set {
-                Players = value;
-            }
-        }
+        public List<Player> Players { get; set; }
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
-        // Gamestate
-        public int CurrentPlayerIndex {
-            get {
-                return CurrentPlayerIndex;
-            }
-            private set {
-                if(value < Settings.NumberOfPlayers && value >= 0) {
-                    DealerButtonPosition = value % Settings.NumberOfPlayers;
-                }
-            }
-        }
-        public bool HandInProgress { get; set; }
-        public bool RoundInProgress { get; set; }
-        public int DealerButtonPosition {
-            get {
-                return DealerButtonPosition;
-            }
-            private set {
-                if(value < Settings.NumberOfPlayers && value >= 0) {
-                    DealerButtonPosition = value % Settings.NumberOfPlayers;
-                }
-            }
-        }
-
+        // Game state
+        public int CurrentPlayerIndex { get; set; }
+        public int DealerButtonPosition { get; set; }
+        public bool HandInProgress { get; private set; }
+        public bool RoundInProgress { get; private set; }
 
         #region Initialization
         public Game(Settings settings) {
             Settings = settings;
-            Players = initializePlayers();
+            Players = InitializePlayers();
             Hands = new List<Hand>();
 
             DealerButtonPosition = 0;
-            HandInProgress = false;
-            RoundInProgress = false;
             CurrentPlayerIndex = GetStartingPlayerIndex();
 
         }
 
-        private List<Player> initializePlayers() {
+        private List<Player> InitializePlayers() {
             List<Player> players = new List<Player>();
             for(int id = 0; id < Settings.NumberOfPlayers; id++) {
                 players.Add(new Player(id, Settings.StackSize));
@@ -96,12 +69,16 @@ namespace Poker_Game {
         }
 
         public void NewHand() {
-            Hands.Add(new Hand(Players));
-            HandInProgress = true;
+            if(!HandInProgress) {
+                Hands.Add(new Hand(Players));
+            }
         }
 
-
-
+        public void NewRound() {
+            if(!RoundInProgress) {
+                Hands[Hands.Count - 1].StartRound();
+            }
+        }
 
         #endregion
 
@@ -115,24 +92,27 @@ namespace Poker_Game {
                 Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize; // CART optimization
                 Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
             }
-        }
+        } // Validation. Impossible to bet if money is too low
 
-        public void UpdateState() {
-            RoundInProgress = UpdateRoundProgress();
+        private void UpdateState() { // WIP
+            HandInProgress = IsHandInProgress();
+            RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();
         }
 
-
-        private bool UpdateRoundProgress() {
+        private bool IsRoundInProgress() {
             return Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
         }
 
+        private bool IsHandInProgress() {
+            return Hands[Hands.Count - 1].IsFinished();
+        }
 
         public int GetStartingPlayerIndex() {
             return (DealerButtonPosition + 3) % Settings.NumberOfPlayers;
         }
 
-        public int GetNextPlayerIndex() {
+        private int GetNextPlayerIndex() {
             int next = CurrentPlayerIndex++ % Settings.NumberOfPlayers;
             for(int i = 0; i < Settings.NumberOfPlayers - 1; i++) {
 
@@ -142,7 +122,7 @@ namespace Poker_Game {
                 next = next++ % Settings.NumberOfPlayers;
             }
             return -1;
-        }        
+        }
 
         private bool IsFinished() {
             int playersLeft = 0;
@@ -154,6 +134,7 @@ namespace Poker_Game {
                     }
                 }
             }
+
             return true;
         }
     }

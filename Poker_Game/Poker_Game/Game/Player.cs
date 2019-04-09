@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace Poker_Game {
     enum PlayerAction {
-        TBD, // To be decided
+        Tbd, // To be decided
         Check,
         Call,
         Raise,
@@ -14,20 +17,8 @@ namespace Poker_Game {
     }
 
     class Player : IComparable, ICloneable {
-        public int ID { get; set; }
-        public int Stack { get; set; }
-        //public int Stack {
-        //    get {
-        //        return Stack;
-        //    }
-        //    set {
-        //        if(value > 0 && value < int.MaxValue / 2) { // Minimum and maximum stacksizes not defined yet
-        //            Stack = value;
-        //        } else {
-        //            throw new ArgumentOutOfRangeException("{0} is not an accepted value for this property.", value.ToString());
-        //        }
-        //    }
-        //}
+        public int Id { get; set; }
+        public int Stack { get; set; } // Needs validation
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public bool HasFolded { get; set; } // Obsolete
@@ -38,7 +29,7 @@ namespace Poker_Game {
         public Player(int id,  int stackSize) {
             Cards = new List<Card>();
             Stack = stackSize;
-            Action = PlayerAction.TBD;
+            Action = PlayerAction.Tbd;
             Reset();
         }
 
@@ -47,7 +38,7 @@ namespace Poker_Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             HasFolded = false;
-            Action = PlayerAction.TBD;
+            Action = PlayerAction.Tbd;
             RemoveCards();
         }
 
@@ -57,19 +48,26 @@ namespace Poker_Game {
             }
         }
 
+        public void DrawNewCardHand(List<Card> existingCards) {
+            for (int i = 0; i < 2; i++) {
+                Cards.Add(new Card(existingCards));
+                existingCards.Add(Cards[i]);
+            }
+        }
+
+
         public int CompareTo(object other) {
-            return ID.CompareTo(((Player)other).ID);
+            return Id.CompareTo(((Player)other).Id);
         }
 
         public object Clone() {
-            Player player = new Player(ID, Stack);
+            Player player = new Player(Id, Stack);
             player.IsBigBlind = IsBigBlind;
             player.IsSmallBlind = IsSmallBlind;
             player.Action = Action;
             player.Stack = Stack;
-            player.ID = ID;
+            player.Id = Id;
             player.CurrentBet = CurrentBet;
-            player.HasFolded = HasFolded;
 
             foreach(Card card in Cards) {
                 player.Cards.Add((Card)card.Clone());

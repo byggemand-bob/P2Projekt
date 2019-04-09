@@ -5,11 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Poker_Game {
-    class Turn {
-        public Player CurrentPlayer { get; private set; }
+    class Pokertest {
+        private static void Main(string[] args) {
 
-        public Turn() {
-                
         }
     }
 }

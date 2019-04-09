@@ -10,7 +10,17 @@ namespace Poker_Game {
         public int NumberOfPlayers { get; set; }
         public int StackSize { get; set; }
         public int BlindSize { get; set; }
-        public BlindType BlindType { get; set; }
+        public bool RoundBased { get; set; }
         public int TurnTimeLimit { get; set; }
+        public string PlayerName { get; set; }
+
+        public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int turnTimeLimit, string playerName) {
+            NumberOfPlayers = numberOfPlayers;
+            StackSize = stackSize;
+            BlindSize = blindSize;
+            RoundBased = roundBased;
+            TurnTimeLimit = turnTimeLimit;
+            PlayerName = playerName;
+        }
     }
 }
