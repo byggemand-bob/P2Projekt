@@ -68,14 +68,14 @@ namespace Poker_Game {
         public int CompareTo(object other) { // Sort after suit, then rank
             Card otherCard = (Card)other;
             if(Rank.CompareTo(otherCard.Rank) < 0) {
-                return 1;
-            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
                 return -1;
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                return 1;
             } else {
                 if(Suit.CompareTo(otherCard.Suit) < 0) {
-                    return -1;
-                } else if(Suit.CompareTo(otherCard.Suit) > 0) {
                     return 1;
+                } else if(Suit.CompareTo(otherCard.Suit) > 0) {
+                    return -1;
                 }
             }
             return 0;

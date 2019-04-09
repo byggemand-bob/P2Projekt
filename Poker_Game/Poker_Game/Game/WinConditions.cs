@@ -68,15 +68,8 @@ namespace Poker_Game {
 
         public bool HasRoyalFlush(List<Card> sortedCards) {
             sortedCards.Sort();
-            for (int i = 0; i < 3; i++) {
-                if (HasFlush(sortedCards) &&
-                    sortedCards[i].Rank == Rank.Ace &&
-                    sortedCards[i + 1].Rank == Rank.King &&
-                    sortedCards[i + 2].Rank == Rank.Queen &&
-                    sortedCards[i + 3].Rank == Rank.Jack &&
-                    sortedCards[i + 4].Rank == (Rank)10) {
-                    return true;
-                } 
+            foreach (Card element in sortedCards){
+
             }
             return false;
         }
@@ -94,7 +87,8 @@ namespace Poker_Game {
                     return HasStraight(cards);
                 }
             }
-            if (RankCounter >= 5) {
+            Console.WriteLine("Rank counters = " + RankCounter);
+            if (RankCounter >= 4) {
                 return true;
             }
             return false;
