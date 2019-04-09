@@ -20,6 +20,6 @@ namespace Poker_Game {
             }
 
             return 0;
-        }
+        } 
     }
 }
