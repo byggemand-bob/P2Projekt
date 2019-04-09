@@ -54,6 +54,7 @@ namespace Poker_Game {
             // Call
             Game.Call();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
+            UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
