@@ -25,6 +25,7 @@ namespace Poker_Game {
             DealerButtonPosition = 0;
             CurrentPlayerIndex = GetStartingPlayerIndex();
 
+            NewHand();
         }
 
         private List<Player> InitializePlayers() {
