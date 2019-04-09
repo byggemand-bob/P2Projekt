@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     enum Score {
-        None, Pair, TwoPairs, ThreeOfAKind,
+        None, Pair = 15, TwoPairs, ThreeOfAKind,
         Straight, Flush, FullHouse, FourOfAKind, StraightFlush,
         RoyalFlush
     }

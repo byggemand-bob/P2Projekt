@@ -11,10 +11,12 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        static Random _random = new Random();
+        private Random _random = new Random();
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
+
+
         public Card(Suit suit, Rank rank) {
             //Image = image;
             Suit = suit;
