@@ -12,7 +12,6 @@ namespace Poker_Game {
         public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
-        
 
         #region Initialization
         public Hand(List<Player> players) {
@@ -90,17 +89,6 @@ namespace Poker_Game {
             return false;
         }
 
-        private void PayBlinds() {
-            foreach(Player player in Players) {
-                if(player.IsBigBlind) {
-
-                } else if(player.IsSmallBlind) {
-
-                }
-            }
-        }
-
-        
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }

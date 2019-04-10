@@ -57,6 +57,10 @@ namespace Poker_Game {
             }
         }
 
+        public override bool Equals(object obj) {
+            return ((Player) obj).CompareTo(this) == 0;
+        }
+
         public int CompareTo(object other) {
             return Id.CompareTo(((Player)other).Id);
         }

@@ -41,7 +41,8 @@ namespace Poker_Game {
         //Validation needed
         #region Actions
         public void Call() {
-            Bet(CurrentPlayerIndex);
+            // Needs to be cut down
+            Bet(Players[CurrentPlayerIndex],Players[Hands[CurrentHandNumber()].Rounds[Hands[CurrentHandNumber()].CurrentRoundNumber()].TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
             Players[CurrentPlayerIndex].Action = PlayerAction.Call;
             UpdateState();
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
@@ -62,8 +63,9 @@ namespace Poker_Game {
         }
 
         public void Raise() {
+            // Needs to be cut down
+            Bet(Players[CurrentPlayerIndex], (Players[Hands[CurrentHandNumber()].Rounds[Hands[CurrentHandNumber()].CurrentRoundNumber()].TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
-            Bet(CurrentPlayerIndex);
 
             // Create functions for this.
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].ChangeTopBidder(CurrentPlayerIndex);
@@ -149,7 +151,14 @@ namespace Poker_Game {
             return true;
         }
 
-        private void Bet(int amount) {
+
+
+
+        #endregion
+
+        #region Betting
+
+        private void Bet(Player player, int amount) {
             if(Players[CurrentPlayerIndex].Stack >= amount) {
                 Players[CurrentPlayerIndex].CurrentBet += amount;
                 Players[CurrentPlayerIndex].Stack -= amount;
@@ -160,10 +169,30 @@ namespace Poker_Game {
             }
         }
 
+        private bool HasUnevenOdds(Player currentPlayer) {
+            foreach(Player player in Players) {
+                if(currentPlayer.Equals(player)) {
+                    continue; // Skip to next
+                } else if(player.CurrentBet > currentPlayer.CurrentBet) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void PayBlinds() {
+            foreach(Player player in Players) {
+                if(player.IsBigBlind) {
+                    Bet(player, 2 * Settings.BlindSize);
+                } else if(player.IsSmallBlind) {
+                    Bet(player, Settings.BlindSize);
+                }
+            }
+        }
+
 
         #endregion
-
-
 
 
 
