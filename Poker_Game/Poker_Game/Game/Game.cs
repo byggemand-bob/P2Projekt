@@ -88,17 +88,9 @@ namespace Poker_Game {
         #endregion
 
         // Validation. Impossible to bet if money is too low
-        private void Bet(int playerIndex) {
-            if(Players[CurrentPlayerIndex].Action == PlayerAction.Call || Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].TopBidderIndex == CurrentPlayerIndex) {
-                Players[CurrentPlayerIndex].CurrentBet += Settings.BlindSize; // Not sure how much should be bet
-                Players[CurrentPlayerIndex].Stack -= Settings.BlindSize;
-                Hands[Hands.Count - 1].Pot += Settings.BlindSize;
-            } else {
-                Players[CurrentPlayerIndex].CurrentBet += 2 * Settings.BlindSize; // Not sure how much should be bet
-                Players[CurrentPlayerIndex].Stack -= 2 * Settings.BlindSize; // CART optimization
-                Hands[Hands.Count - 1].Pot += 2 * Settings.BlindSize;
-            }
-        } 
+        
+
+        #region GameState
 
         private void UpdateState() { // WIP
             HandInProgress = IsHandInProgress();
@@ -118,7 +110,7 @@ namespace Poker_Game {
             return !Hands[Hands.Count - 1].IsFinished();
         }
 
-        public int GetStartingPlayerIndex() {
+        private int GetStartingPlayerIndex() {
             return (DealerButtonPosition + 3) % Settings.NumberOfPlayers;
         }
 
@@ -134,12 +126,16 @@ namespace Poker_Game {
         }
 
 
+        #endregion
+
+
+        #region Utillity
+
         public int CurrentHandNumber() {
             return Hands.Count;
         }
 
-
-        private bool IsFinished() {
+        public bool IsFinished() {
             int playersLeft = 0;
             foreach(Player player in Players) {
                 if(player.Stack < 1) {
@@ -152,5 +148,24 @@ namespace Poker_Game {
 
             return true;
         }
+
+        private void Bet(int amount) {
+            if(Players[CurrentPlayerIndex].Stack >= amount) {
+                Players[CurrentPlayerIndex].CurrentBet += amount;
+                Players[CurrentPlayerIndex].Stack -= amount;
+                Hands[Hands.Count - 1].Pot += amount;
+            } else {
+                // Not enough money
+                //TODO: Do something
+            }
+        }
+
+
+        #endregion
+
+
+
+
+
     }
 }
