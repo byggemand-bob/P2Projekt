@@ -75,14 +75,13 @@ namespace Poker_Game {
             if(!HandInProgress) {
                 Hands.Add(new Hand(Players));
                 HandInProgress = true;
-                UpdateState();
             }
         }
 
         public void NewRound() {
             if(!RoundInProgress) {
                 Hands[Hands.Count - 1].StartRound();
-                UpdateState();
+                RoundInProgress = true;
             }
         }
 
@@ -105,6 +104,10 @@ namespace Poker_Game {
             HandInProgress = IsHandInProgress();
             RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();
+
+            if(!RoundInProgress && !HandInProgress) {
+                NewRound();
+            }
         }
 
         private bool IsRoundInProgress() {
@@ -125,7 +128,7 @@ namespace Poker_Game {
                 if(!Players[next].HasFolded) {
                     return next;
                 }
-                next = next++ % Settings.NumberOfPlayers;
+                next = ++next % Settings.NumberOfPlayers;
             }
             return -1;
         }
