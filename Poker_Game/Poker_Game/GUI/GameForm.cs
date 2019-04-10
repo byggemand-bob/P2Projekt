@@ -18,10 +18,8 @@ namespace Poker_Game {
 
             // Creates the game so to say...
             Game = new Game(Setting);
-            Game.NewHand();
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
             ShowPlayerHand(Game.Players[0].Cards);
-            ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             PlayerHasTurn();
             CheckRounds();
@@ -54,9 +52,9 @@ namespace Poker_Game {
             else if (Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 4)
             {
                 ShowRiverCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
+                ShowOpponentHand(Game.Players[1].Cards);
             }
         }
-
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
         {
