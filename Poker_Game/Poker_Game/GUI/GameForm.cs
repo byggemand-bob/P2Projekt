@@ -24,6 +24,7 @@ namespace Poker_Game {
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             PlayerHasTurn();
             CheckRounds();
+            UpdatePotSize(Game.CurrentHand());
         }
 
 

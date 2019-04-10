@@ -15,11 +15,11 @@ namespace Poker_Game {
         public int Bets { get; set; }
 
         #region Initialization
-        public Round(List<Player> players) {
+        public Round(List<Player> players, int dealerButtonPosition) {
             Turns = new List<Turn>();
             Players = players;
             //Players = GetActivePlayers(players);
-            TopBidderIndex = 0;
+            TopBidderIndex = (dealerButtonPosition + 2) % Players.Count;
             CycleStep = 0;
             Bets = 0;
         }
@@ -56,11 +56,23 @@ namespace Poker_Game {
 
         public bool IsFinished() {
             //System.Windows.Forms.MessageBox.Show(AllChecked() + " or " + (CycleFinished() && Bets == 3));
-            if (AllChecked() || (CycleFinished() && Bets == 3)) {
+            if (AllChecked() || Turns.Count > 2 && AllCalled()) {
                 return true;
             }
 
             return false;
+        }
+
+        private bool AllCalled() {
+            if(Bets == 3 && CycleFinished()) {
+                for(int i = 0; i < Players.Count; i++) {
+                    if(Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private bool AllChecked() {

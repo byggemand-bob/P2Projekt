@@ -42,36 +42,40 @@ namespace Poker_Game {
         //Validation needed
         #region Actions
         public void Call() {
-            // Needs to be cut down
-            Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
-            Players[CurrentPlayerIndex].Action = PlayerAction.Call;
-            UpdateState();
-            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+            if((Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) != 0) {
+                // Needs to be cut down
+                Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
+                Players[CurrentPlayerIndex].Action = PlayerAction.Call;
+                UpdateState();
+                CurrentRound().CycleStep++;
+            }
         }
 
         public void Check() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Check;
             UpdateState();
-            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+            CurrentRound().CycleStep++;
         }
 
         public void Fold() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
             Players[CurrentPlayerIndex].HasFolded = true;
             UpdateState();
-            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+            CurrentRound().CycleStep++;
 
         }
 
         public void Raise() {
-            // Needs to be cut down
-            Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
-            Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
+            if(CurrentRound().Bets != 3) {
+                // Needs to be cut down
+                Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
+                Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
 
-            // Create functions for this.
-            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].ChangeTopBidder(CurrentPlayerIndex);
-            UpdateState();
-            Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
+                // Create functions for this.
+                CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
+                UpdateState();
+                CurrentRound().CycleStep++;
+            }
         }
 
         public void NewHand() {
@@ -84,7 +88,7 @@ namespace Poker_Game {
 
         public void NewRound() {
             if(!RoundInProgress) {
-                Hands[Hands.Count - 1].StartRound();
+                Hands[Hands.Count - 1].StartRound(DealerButtonPosition);
                 RoundInProgress = true;
             }
         }
@@ -173,13 +177,13 @@ namespace Poker_Game {
         #region Betting
 
         private void Bet(Player player, int amount) {
-            if(Players[CurrentPlayerIndex].Stack >= amount) {
-                Players[CurrentPlayerIndex].CurrentBet += amount;
-                Players[CurrentPlayerIndex].Stack -= amount;
+            if(player.Stack >= amount) {
+                player.CurrentBet += amount;
+                player.Stack -= amount;
                 CurrentHand().Pot += amount;
             } else {
                 // Not enough money
-                //TODO: Do something
+                // TODO: Do something
             }
         }
 

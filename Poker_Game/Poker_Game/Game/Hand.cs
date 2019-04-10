@@ -22,7 +22,7 @@ namespace Poker_Game {
             Players = InitializePlayers(players, dealerButtionPosition);
 
             //Players = GetActivePlayers(players);
-            StartRound();
+            StartRound(dealerButtionPosition);
         }
 
         private List<Player> InitializePlayers(List<Player> players, int dealerButtonPosition) {
@@ -30,18 +30,16 @@ namespace Poker_Game {
             for(int i = 0; i < initPlayers.Count; i++) {
                 initPlayers[i].Reset();
                 initPlayers[i].DrawNewCardHand(Deck);
+                
+                // Distribute blinds
                 if(i == (dealerButtonPosition + 1) % initPlayers.Count) {
                     initPlayers[i].IsSmallBlind = true;
                 } else if(i == (dealerButtonPosition + 2) % initPlayers.Count) {
-                    initPlayers[i].IsSmallBlind = false;
+                    initPlayers[i].IsBigBlind = true;
                 }
             }
 
             return initPlayers;
-        }
-
-        private void DistributeBlinds() {
-            
         }
 
         private List<Player> GetActivePlayers(List<Player> players) {
@@ -55,9 +53,9 @@ namespace Poker_Game {
         }
         #endregion
 
-        public void StartRound() {
+        public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
-            Rounds.Add(new Round(Players));
+            Rounds.Add(new Round(Players, dealerButtonPosition));
             ResetActions();
         }
 
