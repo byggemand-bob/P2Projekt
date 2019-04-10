@@ -14,25 +14,34 @@ namespace Poker_Game {
         public List<Player> Players { get; set; }
 
         #region Initialization
-        public Hand(List<Player> players) {
+        public Hand(List<Player> players, int dealerButtionPosition) {
             Pot = 0;
             Deck = new List<Card>();
             Street = new List<Card>();
             Rounds = new List<Round>();
-            Players = InitializePlayers(players);
+            Players = InitializePlayers(players, dealerButtionPosition);
 
             //Players = GetActivePlayers(players);
             StartRound();
         }
 
-        private List<Player> InitializePlayers(List<Player> players) {
+        private List<Player> InitializePlayers(List<Player> players, int dealerButtonPosition) {
             List<Player> initPlayers = players;
-            foreach (Player player in initPlayers) {
-                player.Reset();
-                player.DrawNewCardHand(Deck);
+            for(int i = 0; i < initPlayers.Count; i++) {
+                initPlayers[i].Reset();
+                initPlayers[i].DrawNewCardHand(Deck);
+                if(i == (dealerButtonPosition + 1) % initPlayers.Count) {
+                    initPlayers[i].IsSmallBlind = true;
+                } else if(i == (dealerButtonPosition + 2) % initPlayers.Count) {
+                    initPlayers[i].IsSmallBlind = false;
+                }
             }
 
             return initPlayers;
+        }
+
+        private void DistributeBlinds() {
+            
         }
 
         private List<Player> GetActivePlayers(List<Player> players) {

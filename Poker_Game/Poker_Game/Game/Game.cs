@@ -16,6 +16,7 @@ namespace Poker_Game {
         public bool HandInProgress { get; private set; }
         public bool RoundInProgress { get; private set; }
 
+
         #region Initialization
         public Game(Settings settings) {
             Settings = settings;
@@ -42,7 +43,7 @@ namespace Poker_Game {
         #region Actions
         public void Call() {
             // Needs to be cut down
-            Bet(Players[CurrentPlayerIndex],Players[Hands[CurrentHandNumber()].Rounds[Hands[CurrentHandNumber()].CurrentRoundNumber()].TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
+            Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
             Players[CurrentPlayerIndex].Action = PlayerAction.Call;
             UpdateState();
             Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].CycleStep++;
@@ -64,7 +65,7 @@ namespace Poker_Game {
 
         public void Raise() {
             // Needs to be cut down
-            Bet(Players[CurrentPlayerIndex], (Players[Hands[CurrentHandNumber()].Rounds[Hands[CurrentHandNumber()].CurrentRoundNumber()].TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
+            Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
 
             // Create functions for this.
@@ -75,7 +76,7 @@ namespace Poker_Game {
 
         public void NewHand() {
             if(!HandInProgress) {
-                Hands.Add(new Hand(Players));
+                Hands.Add(new Hand(Players, DealerButtonPosition));
                 PayBlinds();
                 HandInProgress = true;
             }
@@ -125,7 +126,7 @@ namespace Poker_Game {
                 }
                 next = ++next % Settings.NumberOfPlayers;
             }
-            return -1;
+            return -1; // TODO: Do errorhandling
         }
 
 
@@ -136,6 +137,18 @@ namespace Poker_Game {
 
         public int CurrentHandNumber() {
             return Hands.Count;
+        }
+
+        public int CurrentRoundNumber() {
+            return Hands[CurrentHandNumber() - 1].CurrentRoundNumber();
+        }
+
+        public Round CurrentRound() {
+            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1];
+        }
+
+        public Hand CurrentHand() {
+            return Hands[CurrentHandNumber() - 1];
         }
 
         public bool IsFinished() {
@@ -163,7 +176,7 @@ namespace Poker_Game {
             if(Players[CurrentPlayerIndex].Stack >= amount) {
                 Players[CurrentPlayerIndex].CurrentBet += amount;
                 Players[CurrentPlayerIndex].Stack -= amount;
-                Hands[Hands.Count - 1].Pot += amount;
+                CurrentHand().Pot += amount;
             } else {
                 // Not enough money
                 //TODO: Do something

@@ -9,7 +9,7 @@ namespace Poker_Game {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
             List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) };
-            Hand h = new Hand(players);
+            Hand h = new Hand(players, 1);
             int NumberOfCards = 7, TAELLER = 0;
             WinConditions w = new WinConditions();
             
