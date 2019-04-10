@@ -17,15 +17,12 @@ namespace Poker_Game
 
         private void buttonStartGame_Click(object sender, EventArgs e)
         {
-            if (textboxName.Text != "" && textboxName.Text != "Enter Name")
-            {
+            if (true/*textboxName.Text != "" && textboxName.Text != "Enter Name"*/) {
                 this.Hide();
                 GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
                 formGame.ShowDialog();
                 this.Close();
-            }
-            else
-            {
+            } else {
                 nameErrorLabel.Visible = true;
             }
         }

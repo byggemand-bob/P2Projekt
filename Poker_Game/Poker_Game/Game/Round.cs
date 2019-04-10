@@ -37,7 +37,7 @@ namespace Poker_Game {
         #endregion
 
 
-        public void ChangeTopBidder(int playerIndex) { // Validation. Cannot bet more than 3 times
+        public void ChangeTopBidder(int playerIndex) { // Validation needed. Cannot bet more than 3 times
             for(int i = 0; i < Players.Count; i++) {
                 if(Players[i].CompareTo(Players[playerIndex]) == 0) {
                     TopBidderIndex = i;
@@ -55,11 +55,22 @@ namespace Poker_Game {
 
 
         public bool IsFinished() {
-            if (CycleFinished() && Bets == 3) {
+            if (AllChecked() || (CycleFinished() && Bets == 3)) {
                 return true;
             }
 
             return false;
         }
+
+        private bool AllChecked() {
+            foreach(Player player in Players) {
+                if(player.Action != PlayerAction.Check) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 }
