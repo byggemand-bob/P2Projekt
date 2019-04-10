@@ -19,6 +19,7 @@ namespace Poker_Game {
             // Creates the game so to say...
             Game = new Game(Setting);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
+            labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
             ShowPlayerHand(Game.Players[0].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             PlayerHasTurn();
