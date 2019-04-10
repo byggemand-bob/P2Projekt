@@ -15,8 +15,16 @@ namespace Poker_Game {
 
     class WinConditions {
 
+        public List<Card> DeckDuper3000(List<Card> cards) {
+            List<Card> DupeCards = new List<Card>();
+            foreach (Card element in cards) {
+                DupeCards.Add(element);
+            }
+            return DupeCards;
+        }
+
         public Score Evaluate(List<Card> cards) {
-            List<Card> sortedCards = cards;
+            List<Card> sortedCards = DeckDuper3000(cards);
             sortedCards.Sort();
 
             if (HasRoyalFlush(sortedCards)) {
@@ -51,7 +59,8 @@ namespace Poker_Game {
             return false;
         }
 
-        public bool HasTwoPairs(List<Card> sortedCards) {
+        public bool HasTwoPairs(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
                     return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
@@ -70,7 +79,8 @@ namespace Poker_Game {
             return false;
         }
 
-        public bool HasFullHouse(List<Card> sortedCards) {
+        public bool HasFullHouse(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
                     return HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
@@ -90,12 +100,9 @@ namespace Poker_Game {
             return false; 
         }
 
-        public bool HasStraightFlush(List<Card> sortedCards) {
+        public bool HasStraightFlush(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                for (int i = 0; i < FlushSuit(sortedCards).Count; i++) {
-                    Console.WriteLine(FlushSuit(sortedCards)[i].Rank + " " + FlushSuit(sortedCards)[i].Suit);
-                }
-                Console.WriteLine("");
                 return HasStraight(FlushSuit(sortedCards));
             }
             return false;
@@ -119,14 +126,15 @@ namespace Poker_Game {
 
         // straight is when 5 of cards are in order by rank
         public bool HasStraight(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             int RankCounter = 0;
-            for (int i = 0; i <= cards.Count - 2; i++) {
-                if (cards[i].Rank + 1 == cards[i + 1].Rank) {
+            for (int i = 0; i <= sortedCards.Count - 2; i++) {
+                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank) {
                     RankCounter++;
                 }
-                if (cards[i + 1].Rank == Rank.Ace) {
-                    cards[i + 1].Rank = (Rank)1;
-                    return HasStraight(cards);
+                if (sortedCards[i + 1].Rank == Rank.Ace) {
+                    sortedCards[i + 1].Rank = (Rank)1;
+                    return HasStraight(sortedCards);
                 }
             }
             if (RankCounter >= 4) {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Poker_Game;
 
 namespace Poker_Game {
     enum Suit { Clubs, Diamond, Hearts, Spades };
@@ -11,7 +12,7 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        private Random _random = new Random();
+        public RandomGenerator randomGenerator = new RandomGenerator();
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -25,11 +26,11 @@ namespace Poker_Game {
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
-        private int DrawRandCard() {
-            return _random.Next(0, 51);
-        }
+        //private int DrawRandCard() {
+        //    return random.Next(0, 51);
+        //}
         public void DrawCards(List<Card> cards) {
-            MakeCard(DrawRandCard());
+            MakeCard(randomGenerator.Next);
             foreach(Card element in cards) {
                 if(element.CompareTo(this) == 0) {
                     DrawCards(cards);
