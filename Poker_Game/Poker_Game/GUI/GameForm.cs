@@ -30,7 +30,7 @@ namespace Poker_Game {
         }
 
 
-        private void PlayerHasTurn()
+        private void PlayerHasTurn() // Highlights current player's name. 
         {
             if (Game.CurrentPlayerIndex == 0)
             {
@@ -48,6 +48,14 @@ namespace Poker_Game {
         private void CheckRounds() {
             if(Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 2) {
                 ShowFlopCards(Game.Hands[Game.CurrentHandNumber() - 1].Street);
+            }
+            else if (Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 3)
+            {
+                ShowTurnCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
+            }
+            else if (Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 4)
+            {
+                ShowRiverCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
             }
         }
 
@@ -138,12 +146,12 @@ namespace Poker_Game {
 
         private void ShowTurnCard(List<Card> cards)
         {
-            pictureTableCard4.Image = cards[0].Image;
+            pictureTableCard4.Image = cards[3].Image;
         }
 
         private void ShowRiverCard(List<Card> cards)
         {
-            pictureTableCard5.Image = cards[0].Image;
+            pictureTableCard5.Image = cards[4].Image;
         }
 
         private void UpdatePlayerStack(Player player, Player AI)
