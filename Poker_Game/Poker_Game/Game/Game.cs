@@ -76,6 +76,7 @@ namespace Poker_Game {
         public void NewHand() {
             if(!HandInProgress) {
                 Hands.Add(new Hand(Players));
+                PayBlinds();
                 HandInProgress = true;
             }
         }
@@ -167,18 +168,6 @@ namespace Poker_Game {
                 // Not enough money
                 //TODO: Do something
             }
-        }
-
-        private bool HasUnevenOdds(Player currentPlayer) {
-            foreach(Player player in Players) {
-                if(currentPlayer.Equals(player)) {
-                    continue; // Skip to next
-                } else if(player.CurrentBet > currentPlayer.CurrentBet) {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         private void PayBlinds() {
