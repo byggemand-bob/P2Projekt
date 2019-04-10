@@ -42,24 +42,45 @@ namespace Poker_Game {
             }
         }
 
-        private bool HasPair(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasPair(List<Card> sortedCards) {
+            for (int i = 0; i < 6; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private bool HasTwoPairs(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasTwoPairs(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+                }
+            }
+            return false;
         }
 
-        private bool HasThreeOfAKind(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasThreeOfAKind(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 2; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank ) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool HasFullHouse(List<Card> sortedCards) {
-            throw new NotImplementedException();
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+                }
+            }
+            return false;
         }
 
-        private bool HasFourOfAKind(List<Card> sortedCards) {
-            for (int i = 0; i < 4; i++) {
+        public bool HasFourOfAKind(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 3; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank == sortedCards[i + 2].Rank &&
                     sortedCards[i + 2].Rank == sortedCards[i + 3].Rank) {
@@ -69,7 +90,7 @@ namespace Poker_Game {
             return false; 
         }
 
-        private bool HasStraightFlush(List<Card> sortedCards) {
+        public bool HasStraightFlush(List<Card> sortedCards) {
             if (HasFlush(sortedCards)) {
                 for (int i = 0; i < FlushSuit(sortedCards).Count; i++) {
                     Console.WriteLine(FlushSuit(sortedCards)[i].Rank + " " + FlushSuit(sortedCards)[i].Suit);
@@ -80,7 +101,7 @@ namespace Poker_Game {
             return false;
         }
 
-        private bool HasRoyalFlush(List<Card> sortedCards) {
+        public bool HasRoyalFlush(List<Card> sortedCards) {
             if (HasFlush(sortedCards)) {
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < 3; i++) {
@@ -97,9 +118,8 @@ namespace Poker_Game {
         }
 
         // straight is when 5 of cards are in order by rank
-        private bool HasStraight(List<Card> cards) {
+        public bool HasStraight(List<Card> cards) {
             int RankCounter = 0;
-            cards.Sort();
             for (int i = 0; i <= cards.Count - 2; i++) {
                 if (cards[i].Rank + 1 == cards[i + 1].Rank) {
                     RankCounter++;
@@ -117,7 +137,7 @@ namespace Poker_Game {
 
 
         // flush is when 5 of the cards are of the same suit
-        private bool HasFlush(List<Card> hand) {
+        public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
@@ -159,10 +179,19 @@ namespace Poker_Game {
                 return RemoveUnfitSuit(cards, Suit.Spades);
             }
         }
-
+        
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
             for(int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {
+                    cards.Remove(cards[index]);
+                }
+            }
+            return cards;
+        }
+
+        private List<Card> RemoveUnfitRank(List<Card> cards, Rank rank) {
+            for (int index = cards.Count - 1; index >= 0; index--) {
+                if (cards[index].Rank != rank) {
                     cards.Remove(cards[index]);
                 }
             }
