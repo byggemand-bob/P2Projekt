@@ -11,7 +11,7 @@ namespace Poker_Game {
 
         public GameForm(String inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
-            playerName.Text = inputPlayerName;
+            labelPlayerName.Text = inputPlayerName;
 
             // Constuctor called for Setting
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
@@ -23,9 +23,26 @@ namespace Poker_Game {
             ShowPlayerHand(Game.Players[0].Cards);
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
+            PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
             CheckRounds();
+        }
+
+
+        private void PlayerHasTurn()
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerName.ForeColor = Color.Yellow;
+                labelAIStack.ForeColor = Color.White;
+               
+            }
+            else 
+            {
+                labelAIStack.ForeColor = Color.Yellow;
+                labelPlayerName.ForeColor = Color.White;
+            }
         }
 
         private void CheckRounds() {
@@ -64,6 +81,7 @@ namespace Poker_Game {
             Game.Call();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
@@ -73,6 +91,7 @@ namespace Poker_Game {
         {
             Game.Check();
             CheckRounds();
+            PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
 
@@ -84,6 +103,7 @@ namespace Poker_Game {
             Game.Raise();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
 
@@ -93,6 +113,7 @@ namespace Poker_Game {
         private void buttonFold_Click(object sender, EventArgs e)
         { 
             Game.Fold();
+            PlayerHasTurn();
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
