@@ -24,8 +24,6 @@ namespace Poker_Game {
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             PlayerHasTurn();
-            MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
-
             CheckRounds();
         }
 
@@ -91,8 +89,6 @@ namespace Poker_Game {
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
             CheckRounds();
             PlayerHasTurn();
-            MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
-
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
@@ -101,9 +97,6 @@ namespace Poker_Game {
             Game.Check();
             CheckRounds();
             PlayerHasTurn();
-            MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
-
-
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
@@ -114,9 +107,6 @@ namespace Poker_Game {
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
             CheckRounds();
             PlayerHasTurn();
-            MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
-
-
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
