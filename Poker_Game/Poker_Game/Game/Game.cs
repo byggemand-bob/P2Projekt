@@ -99,7 +99,7 @@ namespace Poker_Game {
             RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();
 
-            if(!RoundInProgress && !HandInProgress) {
+            if(!RoundInProgress) {
                 NewRound();
             }
         }
