@@ -89,6 +89,7 @@ namespace Poker_Game {
             Game.Call();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            CheckRounds();
             PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
@@ -111,6 +112,7 @@ namespace Poker_Game {
             Game.Raise();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.Hands[Game.Hands.Count - 1]);
+            CheckRounds();
             PlayerHasTurn();
             MessageBox.Show("" + Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber());
 
@@ -121,6 +123,7 @@ namespace Poker_Game {
         private void buttonFold_Click(object sender, EventArgs e)
         { 
             Game.Fold();
+            CheckRounds();
             PlayerHasTurn();
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
@@ -143,7 +146,7 @@ namespace Poker_Game {
             pictureTableCard2.Image = cards[1].Image;
             pictureTableCard3.Image = cards[2].Image;
         }
-
+        
         private void ShowTurnCard(List<Card> cards)
         {
             pictureTableCard4.Image = cards[3].Image;
