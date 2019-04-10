@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Text.RegularExpressions;
+
 
 namespace Poker_Game {
     class StatisticWriter {
@@ -17,13 +17,15 @@ namespace Poker_Game {
 
         public StatisticWriter(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
-            EnsureDirectoryExists(_folderPath);
             _fileName = playerName + ".stats";
+
+            EnsureDirectoryExists(_folderPath);
+            EnsureFileExists(_folderPath + _fileName);
             
         }
 
-        private void EnsureDirectoryExists(string filePath) {
-            FileInfo fileInfo = new FileInfo(filePath);
+        private void EnsureDirectoryExists(string folderPath) {
+            FileInfo fileInfo = new FileInfo(folderPath);
             if(!fileInfo.Directory.Exists) {
                 System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
             }
@@ -32,7 +34,7 @@ namespace Poker_Game {
         private void EnsureFileExists(string filePath) {
             if(!File.Exists(filePath)) {
                 StreamWriter sw = new StreamWriter(filePath);
-                 
+                
             }
         }
 
