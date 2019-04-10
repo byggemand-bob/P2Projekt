@@ -54,22 +54,33 @@ namespace Poker_Game {
             throw new NotImplementedException();
         }
 
-        private bool HasFullHouse(List<Card> sortedCards) {
+        public bool HasFullHouse(List<Card> sortedCards) {
             throw new NotImplementedException();
         }
 
         private bool HasFourOfAKind(List<Card> sortedCards) {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank &&
+                    sortedCards[i + 2].Rank == sortedCards[i + 3].Rank) {
+                    return true;
+                }
+            }
+            return false; 
         }
 
-        public bool HasStraightFlush(List<Card> sortedCards) {
+        private bool HasStraightFlush(List<Card> sortedCards) {
             if (HasFlush(sortedCards)) {
+                for (int i = 0; i < FlushSuit(sortedCards).Count; i++) {
+                    Console.WriteLine(FlushSuit(sortedCards)[i].Rank + " " + FlushSuit(sortedCards)[i].Suit);
+                }
+                Console.WriteLine("");
                 return HasStraight(FlushSuit(sortedCards));
             }
             return false;
         }
 
-        public bool HasRoyalFlush(List<Card> sortedCards) {
+        private bool HasRoyalFlush(List<Card> sortedCards) {
             if (HasFlush(sortedCards)) {
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < 3; i++) {
@@ -86,7 +97,7 @@ namespace Poker_Game {
         }
 
         // straight is when 5 of cards are in order by rank
-        public bool HasStraight(List<Card> cards) {
+        private bool HasStraight(List<Card> cards) {
             int RankCounter = 0;
             cards.Sort();
             for (int i = 0; i <= cards.Count - 2; i++) {
@@ -106,7 +117,7 @@ namespace Poker_Game {
 
 
         // flush is when 5 of the cards are of the same suit
-        public bool HasFlush(List<Card> hand) {
+        private bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
@@ -150,8 +161,8 @@ namespace Poker_Game {
         }
 
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
-            for(int index = 0; index < cards.Count; index++) {
-                if (cards[index].Suit == suit) {
+            for(int index = cards.Count - 1; index >= 0; index--) {
+                if (cards[index].Suit != suit) {
                     cards.Remove(cards[index]);
                 }
             }

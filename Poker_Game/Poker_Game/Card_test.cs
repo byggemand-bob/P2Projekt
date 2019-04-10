@@ -12,7 +12,7 @@ namespace Poker_Game {
             Hand h = new Hand(players);
             int NumberOfCards = 7, TAELLER = 0;
             WinConditions w = new WinConditions();
-            
+            bool overrule = false;
             do {
                 foreach (Player player in players) {
                     player.Reset();
@@ -26,23 +26,30 @@ namespace Poker_Game {
 
                 //royalflush
                 h.Deck.Add(new Card(Suit.Clubs, Rank.Ace));
-                h.Deck.Add(new Card(Suit.Clubs, Rank.Jack));
-                h.Deck.Add(new Card(Suit.Clubs, Rank.King));
-                h.Deck.Add(new Card(Suit.Clubs, Rank.Queen));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)10));
-                h.Deck.Add(new Card(Suit.Diamond, Rank.Ace));
+                h.Deck.Add(new Card(Suit.Diamond, Rank.King));
+                h.Deck.Add(new Card(Suit.Hearts, Rank.Jack));
+                h.Deck.Add(new Card(Suit.Hearts, (Rank)4));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)4));
+                h.Deck.Add(new Card(Suit.Spades, Rank.Queen));
+                h.Deck.Add(new Card(Suit.Spades, (Rank)4));
 
                 for (int i = 0; i < NumberOfCards; i++) {
                     players[0].Cards.Add(h.Deck[i]);
                 }
                 players[0].Cards.Sort();
                 TAELLER++;
-                Console.WriteLine(TAELLER);
                 //Console.WriteLine("HasRoyalflush: " + w.HasRoyalFlush(players[0].Cards));
-                w.HasStraightFlush(players[0].Cards);
-            } while (w.HasStraightFlush(players[0].Cards) != true);
-            for (int j = 0; j < 7; j++) {
+                //for (int j = 0; j < players[0].Cards.Count; j++) {
+                //    Console.WriteLine("Players Cards:" + players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
+                //}
+                //if (w.HasFlush(players[0].Cards) || found == true) {
+                //    found = true;
+                //    Console.ReadKey();
+                //}
+                //Console.WriteLine("");
+            } while (w.HasFullHouse(players[0].Cards) != true);
+            Console.WriteLine(TAELLER);
+            for (int j = 0; j < players[0].Cards.Count; j++) {
                 Console.WriteLine("Players Cards:" + players[0].Cards[j].Rank + " " + players[0].Cards[j].Suit);
             }
             Console.WriteLine("Done!");
