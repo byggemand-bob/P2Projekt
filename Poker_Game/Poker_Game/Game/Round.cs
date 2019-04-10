@@ -55,6 +55,7 @@ namespace Poker_Game {
 
 
         public bool IsFinished() {
+            System.Windows.Forms.MessageBox.Show(AllChecked() + " or " + (CycleFinished() && Bets == 3));
             if (AllChecked() || (CycleFinished() && Bets == 3)) {
                 return true;
             }

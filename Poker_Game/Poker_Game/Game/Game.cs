@@ -111,11 +111,11 @@ namespace Poker_Game {
         }
 
         private bool IsRoundInProgress() {
-            return Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
+            return !Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
         }
 
         private bool IsHandInProgress() {
-            return Hands[Hands.Count - 1].IsFinished();
+            return !Hands[Hands.Count - 1].IsFinished();
         }
 
         public int GetStartingPlayerIndex() {

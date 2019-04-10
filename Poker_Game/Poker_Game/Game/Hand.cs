@@ -9,7 +9,7 @@ namespace Poker_Game {
     class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }
-        public List<Card> Street { get; set; } // Obsolete
+        public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
         
@@ -73,6 +73,7 @@ namespace Poker_Game {
             for (int i = 0; i < numberOfCards; i++) {
                 Card newCard = new Card(Deck);
                 Deck.Add(newCard);
+                Street.Add(newCard);
                 foreach (Player player in Players) {
                     player.Cards.Add(newCard);
                 }
@@ -89,6 +90,17 @@ namespace Poker_Game {
             return false;
         }
 
+        private void PayBlinds() {
+            foreach(Player player in Players) {
+                if(player.IsBigBlind) {
+
+                } else if(player.IsSmallBlind) {
+
+                }
+            }
+        }
+
+        
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }
