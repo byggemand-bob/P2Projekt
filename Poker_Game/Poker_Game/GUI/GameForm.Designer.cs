@@ -31,7 +31,7 @@ namespace Poker_Game {
             this.buttonCall = new System.Windows.Forms.Button();
             this.buttonFold = new System.Windows.Forms.Button();
             this.buttonCheck = new System.Windows.Forms.Button();
-            this.playerName = new System.Windows.Forms.Label();
+            this.labelPlayerName = new System.Windows.Forms.Label();
             this.labelPlayerStack = new System.Windows.Forms.Label();
             this.labelTablePot = new System.Windows.Forms.Label();
             this.labelAIStack = new System.Windows.Forms.Label();
@@ -130,18 +130,18 @@ namespace Poker_Game {
             this.buttonCheck.UseVisualStyleBackColor = false;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
-            // playerName
+            // labelPlayerName
             // 
-            this.playerName.BackColor = System.Drawing.Color.Transparent;
-            this.playerName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.playerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playerName.ForeColor = System.Drawing.Color.White;
-            this.playerName.Location = new System.Drawing.Point(536, 556);
-            this.playerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.playerName.Name = "playerName";
-            this.playerName.Size = new System.Drawing.Size(142, 32);
-            this.playerName.TabIndex = 5;
-            this.playerName.Text = "Name";
+            this.labelPlayerName.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayerName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayerName.ForeColor = System.Drawing.Color.White;
+            this.labelPlayerName.Location = new System.Drawing.Point(536, 556);
+            this.labelPlayerName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelPlayerName.Name = "labelPlayerName";
+            this.labelPlayerName.Size = new System.Drawing.Size(142, 32);
+            this.labelPlayerName.TabIndex = 5;
+            this.labelPlayerName.Text = "Name";
             // 
             // labelPlayerStack
             // 
@@ -326,7 +326,7 @@ namespace Poker_Game {
             this.Controls.Add(this.labelAIStack);
             this.Controls.Add(this.labelTablePot);
             this.Controls.Add(this.labelPlayerStack);
-            this.Controls.Add(this.playerName);
+            this.Controls.Add(this.labelPlayerName);
             this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.buttonFold);
             this.Controls.Add(this.buttonCall);
@@ -358,7 +358,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Button buttonCall;
         private System.Windows.Forms.Button buttonFold;
         private System.Windows.Forms.Button buttonCheck;
-        private System.Windows.Forms.Label playerName;
+        private System.Windows.Forms.Label labelPlayerName;
         private System.Windows.Forms.Label labelPlayerStack;
         private System.Windows.Forms.Label labelTablePot;
         private System.Windows.Forms.Label labelAIStack;
