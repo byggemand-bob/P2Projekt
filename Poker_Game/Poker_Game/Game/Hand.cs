@@ -49,6 +49,7 @@ namespace Poker_Game {
         public void StartRound() {
             UpdateStreet();
             Rounds.Add(new Round(Players));
+            ResetActions();
         }
 
         public void UpdateStreet() {
@@ -65,6 +66,12 @@ namespace Poker_Game {
                 default:
                     // do something?
                 break;
+            }
+        }
+
+        private void ResetActions() {
+            foreach(Player player in Players) {
+                player.Action = PlayerAction.None;
             }
         }
 
