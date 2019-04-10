@@ -74,12 +74,15 @@ namespace Poker_Game {
         public void NewHand() {
             if(!HandInProgress) {
                 Hands.Add(new Hand(Players));
+                HandInProgress = true;
+                UpdateState();
             }
         }
 
         public void NewRound() {
             if(!RoundInProgress) {
                 Hands[Hands.Count - 1].StartRound();
+                UpdateState();
             }
         }
 

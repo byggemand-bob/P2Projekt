@@ -22,13 +22,15 @@ namespace Poker_Game {
             ShowPlayerHand(Game.Players[0].Cards);
             ShowOpponentHand(Game.Players[1].Cards);
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
-            
-            if (Game.Hands[Game.CurrentHandNumber()].CurrentRoundNumber() == 0)
-            {
-                ShowFlopCards(Game.Hands[Game.CurrentHandNumber()].Street);
-            }
-
+            CheckRounds();
         }
+
+        private void CheckRounds() {
+            if(Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 2) {
+                ShowFlopCards(Game.Hands[Game.CurrentHandNumber() - 1].Street);
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e) // Events when the form loads
         {
@@ -65,6 +67,7 @@ namespace Poker_Game {
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             Game.Check();
+            CheckRounds();
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled untill AI has been implemented
         }
 
