@@ -9,6 +9,7 @@ using System.Windows.Forms;
 namespace Poker_Game {
     class Hand {
         public int Pot { get; set; }
+
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
@@ -54,13 +55,15 @@ namespace Poker_Game {
         }
         #endregion
 
+        #region Actions
+
         public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
             Rounds.Add(new Round(Players, dealerButtonPosition));
             ResetActions();
         }
 
-        public void UpdateStreet() {
+        private void UpdateStreet() {
             switch (Rounds.Count) {
                 case 1: // Flop
                     DrawCards(3);
@@ -73,7 +76,7 @@ namespace Poker_Game {
                     break;
                 default:
                     // do something?
-                break;
+                    break;
             }
         }
 
@@ -94,16 +97,16 @@ namespace Poker_Game {
             }
         }
 
+        #endregion
+
+        #region Utility
+
         public bool IsFinished() {
             if(PlayersLeft() > 1) {
                 return Rounds.Count == 4;
             }
 
             return true;
-        }
-
-        public int CurrentRoundNumber() {
-            return Rounds.Count;
         }
 
         private int PlayersLeft() {
@@ -116,6 +119,12 @@ namespace Poker_Game {
 
             return playersLeft;
         }
+
+        public int CurrentRoundNumber() {
+            return Rounds.Count;
+        }
+
+        #endregion
 
     }
 }

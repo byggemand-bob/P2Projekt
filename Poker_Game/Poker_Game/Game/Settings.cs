@@ -14,6 +14,8 @@ namespace Poker_Game {
         public int BlindIncrease { get; set; }
         public string PlayerName { get; set; }
 
+        #region Initialization
+
         public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int blindIncrease, string playerName) {
             NumberOfPlayers = numberOfPlayers;
             StackSize = stackSize;
@@ -22,5 +24,7 @@ namespace Poker_Game {
             BlindIncrease = blindIncrease;
             PlayerName = playerName;
         }
+
+        #endregion
     }
 }

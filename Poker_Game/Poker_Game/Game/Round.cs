@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Round {
-        public List<Turn> Turns { get; set; }
-        public List<Player> Players { get; set; }
         public int TopBidderIndex { get; set; }
         public int CycleStep { get; set; }
         public int Bets { get; set; }
+
+        public List<Turn> Turns { get; set; }
+        public List<Player> Players { get; set; }
 
         #region Initialization
         public Round(List<Player> players, int dealerButtonPosition) {
@@ -36,6 +37,7 @@ namespace Poker_Game {
 
         #endregion
 
+        #region Actions
 
         public void ChangeTopBidder(int playerIndex) { // Validation needed. Cannot bet more than 3 times
             for(int i = 0; i < Players.Count; i++) {
@@ -48,19 +50,27 @@ namespace Poker_Game {
             Bets++;
         }
 
+        #endregion
 
-        private bool CycleFinished() {
-            return CycleStep == Players.Count;
-        }
-
+        #region Utility
 
         public bool IsFinished() {
             //System.Windows.Forms.MessageBox.Show(AllChecked() + " or " + (CycleFinished() && Bets == 3));
-            if (AllChecked() || Turns.Count > 2 && AllCalled()) {
+            if(AllChecked() || Turns.Count > 2 && AllCalled()) {
                 return true;
             }
 
             return false;
+        }
+
+        private bool AllChecked() {
+            foreach(Player player in Players) {
+                if(player.Action != PlayerAction.Check) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private bool AllCalled() {
@@ -75,15 +85,11 @@ namespace Poker_Game {
             return true;
         }
 
-        private bool AllChecked() {
-            foreach(Player player in Players) {
-                if(player.Action != PlayerAction.Check) {
-                    return false;
-                }
-            }
-
-            return true;
+        private bool CycleFinished() {
+            return CycleStep == Players.Count;
         }
+
+        #endregion
 
     }
 }

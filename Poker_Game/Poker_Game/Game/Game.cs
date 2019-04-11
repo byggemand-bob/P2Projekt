@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Game {
-        public List<Player> Players { get; set; }
-        public List<Hand> Hands { get; set; }
-        public Settings Settings { get; set; }
-
-        // Game state
         public int CurrentPlayerIndex { get; set; }
         public int DealerButtonPosition { get; set; }
         public bool HandInProgress { get; private set; }
         public bool RoundInProgress { get; private set; }
 
+        public List<Player> Players { get; set; }
+        public List<Hand> Hands { get; set; }
+        public Settings Settings { get; set; }
 
         #region Initialization
         public Game(Settings settings) {
@@ -60,7 +58,6 @@ namespace Poker_Game {
 
         public void Fold() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
-            Players[CurrentPlayerIndex].HasFolded = true;
             UpdateState();
             CurrentRound().CycleStep++;
         }
@@ -146,7 +143,7 @@ namespace Poker_Game {
         private int GetNextPlayerIndex() {
             int next = ++CurrentPlayerIndex % Settings.NumberOfPlayers;
             for(int i = 0; i < Settings.NumberOfPlayers; i++) {
-                if(!Players[next].HasFolded) {
+                if(Players[next].Action != PlayerAction.Fold) {
                     return next;
                 }
                 next = ++next % Settings.NumberOfPlayers;
@@ -158,7 +155,6 @@ namespace Poker_Game {
             return CurrentRound().TopBidderIndex == CurrentPlayerIndex || 
                    Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;
         }
-
 
         #endregion
         
@@ -219,10 +215,7 @@ namespace Poker_Game {
             }
         }
 
-
         #endregion
-
-
 
     }
 }

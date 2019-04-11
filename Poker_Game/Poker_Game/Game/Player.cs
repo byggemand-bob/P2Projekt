@@ -20,13 +20,15 @@ namespace Poker_Game {
     class Player : IComparable, ICloneable {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
+        public int CurrentBet { get; set; }
+
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
-        public bool HasFolded { get; set; } // Obsolete
-        public List<Card> Cards { get; set; }
-        public int CurrentBet { get; set; }
+
         public PlayerAction Action { get; set; }
         public Score Score { get; set; }
+
+        public List<Card> Cards { get; set; }
 
         #region Initialization
 
@@ -51,7 +53,6 @@ namespace Poker_Game {
             CurrentBet = 0;
             IsBigBlind = false;
             IsSmallBlind = false;
-            HasFolded = false;
             Action = PlayerAction.None;
             Score = Score.None;
             Cards.Clear();

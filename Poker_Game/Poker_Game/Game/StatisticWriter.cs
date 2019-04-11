@@ -59,6 +59,8 @@ namespace Poker_Game {
         } 
         #endregion
 
+        #region Actions
+
         public void SaveHand(Hand hand) {
            
         }
@@ -70,6 +72,8 @@ namespace Poker_Game {
         private void SaveTurn(Turn turn) {
             
         }
+
+        #endregion
 
 
 

@@ -5,6 +5,15 @@ using System.Windows.Forms;
 
 // TODO: When a player folds, show it on screen and start new game.
 
+/* Har ryddet lidt op i jeres kode og lavet nogle få hjælpe funktioner
+   der (forhåbentligt) giver klarhed og sparer kode. Har også lavet nogle
+   få metode-navne om, således at de beskriver det det gør, ifølge min mening.
+   Ændr dem endelig bare igen, hvis det ikke fungerer for jer, det hjalp mig
+   bare da jeg organiserede metoderne. Håber jeg har gjort det mere overskueligt
+   
+   - Magnus
+*/
+
 namespace Poker_Game {
     public partial class GameForm : Form {
         private Settings Settings;
@@ -148,28 +157,7 @@ namespace Poker_Game {
 
         #endregion
 
-        #region Utility
-
-        private void ChangeActionButtonState(bool updatedState) {
-            buttonCall.Enabled = updatedState;
-            buttonCheck.Enabled = updatedState;
-            buttonRaise.Enabled = updatedState;
-            buttonFold.Enabled = updatedState;
-        }
-
-
-        #endregion
-
-        #region Other
-
-        private void Showdown() {
-            ChangeActionButtonState(false);
-            ShowOpponentHand(Game.Players[1].Cards);
-            //TODO: Show winner and score
-            buttonMakeNewHand.Visible = true;
-        }
-
-        #endregion
+        #region ButtonEvents
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e) {
             QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
@@ -196,6 +184,37 @@ namespace Poker_Game {
             UpdateAll();
         }
 
+        private void buttonMakeNewHand_Click(object sender, EventArgs e) {
+            CreateNewHand();
+            UpdatePotSize(Game.CurrentHand());
+            ChangeActionButtonState(true);
+            buttonMakeNewHand.Visible = false;
+        }
+
+        #endregion
+
+        #region Utility
+
+        private void ChangeActionButtonState(bool updatedState) {
+            buttonCall.Enabled = updatedState;
+            buttonCheck.Enabled = updatedState;
+            buttonRaise.Enabled = updatedState;
+            buttonFold.Enabled = updatedState;
+        }
+
+
+        #endregion
+
+        // Un-categorized for now
+        #region Other
+
+        private void Showdown() {
+            ChangeActionButtonState(false);
+            ShowOpponentHand(Game.Players[1].Cards);
+            //TODO: Show winner and score
+            buttonMakeNewHand.Visible = true;
+        }
+
         private void CreateNewHand() {
             Game.NewHand();
             ResetCards();
@@ -204,11 +223,7 @@ namespace Poker_Game {
             ShowPlayerHand(Game.CurrentHand().Players[0].Cards);
         }
 
-        private void buttonMakeNewHand_Click(object sender, EventArgs e) {
-            CreateNewHand();
-            UpdatePotSize(Game.CurrentHand());
-            ChangeActionButtonState(true);
-            buttonMakeNewHand.Visible = false;
-        }
+        #endregion
+
     }
 }
