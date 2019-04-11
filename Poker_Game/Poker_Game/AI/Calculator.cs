@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Poker_Game.AI
 {
-    class CalcBinomial
+    class Calculator
     {
-        private double CalcFaculty(double number)
+        public int Faculty(int number)
         {
 
-            double fact, i;
+            int fact, i;
 
             fact = number;
 
@@ -21,18 +21,11 @@ namespace Poker_Game.AI
             }
 
             return fact;
-
         }
 
-        private double CalcBinomial(List<Hand> hands)
+        public int Binomial(int n, int r)
         {
-            double r, n;
-
-            r = CalcFaculty(hands.Count);
-            n = (52 - hands.Count);
-
-
-            return n / r * (n - r);
+            return Faculty(n) / Faculty(r) * Faculty(n - r);
         }
     }
 }
