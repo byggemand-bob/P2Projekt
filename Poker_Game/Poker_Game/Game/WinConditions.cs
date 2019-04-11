@@ -51,7 +51,7 @@ namespace Poker_Game {
         }
 
         public bool HasPair(List<Card> sortedCards) {
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
                     return true;
                 }
@@ -61,6 +61,7 @@ namespace Poker_Game {
 
         public bool HasTwoPairs(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
+
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
                     return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
@@ -199,7 +200,7 @@ namespace Poker_Game {
 
         private List<Card> RemoveUnfitRank(List<Card> cards, Rank rank) {
             for (int index = cards.Count - 1; index >= 0; index--) {
-                if (cards[index].Rank != rank) {
+                if (cards[index].Rank == rank) {
                     cards.Remove(cards[index]);
                 }
             }

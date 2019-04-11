@@ -12,7 +12,7 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        public RandomGenerator randomGenerator = new RandomGenerator();
+        Random random = new Random();
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -26,11 +26,11 @@ namespace Poker_Game {
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
-        //private int DrawRandCard() {
-        //    return random.Next(0, 51);
-        //}
+        private int DrawRandCard() {
+            return random.Next(0, 51);
+        }
         public void DrawCards(List<Card> cards) {
-            MakeCard(randomGenerator.Next);
+            MakeCard(DrawRandCard());
             foreach(Card element in cards) {
                 if(element.CompareTo(this) == 0) {
                     DrawCards(cards);
