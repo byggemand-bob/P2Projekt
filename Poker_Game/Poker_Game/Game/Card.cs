@@ -92,5 +92,27 @@ namespace Poker_Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
+
+        public override bool Equals(object obj) {
+            if(obj == null) {
+                return false;
+            }
+            if(ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if(GetType() != obj.GetType()) {
+                return false;
+            }
+            if(GetHashCode() != obj.GetHashCode()) {
+                return false;
+            }
+            
+            return Rank == ((Card)obj).Rank && Suit == ((Card)obj).Suit;
+        }
+
+        public override int GetHashCode() {
+            return (int)Rank; // RIP. Look at this at some point
+        }
     }
 }
