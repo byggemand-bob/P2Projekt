@@ -155,7 +155,7 @@ namespace Poker_Game {
             return Hands[CurrentHandNumber() - 1];
         }
 
-        public bool IsFinished() {
+        public bool IsFinished() { // Checks if players still has $ in stack
             int playersLeft = 0;
             foreach(Player player in Players) {
                 if(player.Stack < 1) {

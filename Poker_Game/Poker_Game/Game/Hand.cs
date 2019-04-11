@@ -95,7 +95,7 @@ namespace Poker_Game {
 
         public bool IsFinished() {         
             if(PlayersLeft() > 1) {
-                if(Rounds.Count == 5) {
+                if(Rounds.Count == 4) { // Corrected from == 5 to == 4
                     return true;
                 }
             }

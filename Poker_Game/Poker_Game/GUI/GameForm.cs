@@ -53,8 +53,8 @@ namespace Poker_Game {
             }
             else if (Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 4)
             {
-                ShowRiverCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
                 ShowOpponentHand(Game.Players[1].Cards);
+                ShowRiverCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Poker_Game {
             //Set the window form.
             this.MaximumSize = new Size(1000, 700);
             this.MinimumSize = new Size(1000, 700);
-            Size = new Size(1000, 700);
+            Size = new Size(1000, 700);  
             StartPosition = FormStartPosition.CenterScreen;
 
             //Load background picture.
@@ -145,6 +145,7 @@ namespace Poker_Game {
         private void ShowRiverCard(List<Card> cards)
         {
             pictureTableCard5.Image = cards[4].Image;
+            buttonMakeNewHand.Visible = true;
         }
 
         private void UpdatePlayerStack(Player player, Player AI)
@@ -187,6 +188,31 @@ namespace Poker_Game {
                 buttonCheck.Enabled = false;
                 buttonRaise.Enabled = false;
                 buttonFold.Enabled = false;
+            }
+        }
+
+        private void CreateNewHand()
+        {
+            Game.NewHand();
+
+            // Reset table and AI cards to be "invisible".
+            pictureAICard1.Image = Properties.Resources.z_Back_of_card2;
+            pictureAICard2.Image = Properties.Resources.z_Back_of_card2;
+            pictureTableCard1.Image = Properties.Resources.z_Back_of_card2; 
+            pictureTableCard2.Image = Properties.Resources.z_Back_of_card2; 
+            pictureTableCard3.Image = Properties.Resources.z_Back_of_card2;
+            pictureTableCard4.Image = Properties.Resources.z_Back_of_card2;
+            pictureTableCard5.Image = Properties.Resources.z_Back_of_card2;
+
+            // Shows player new hand cards
+            ShowPlayerHand(Game.Hands[Game.CurrentHandNumber() - 1].Players[0].Cards);
+        }
+
+        private void buttonMakeNewHand_Click(object sender, EventArgs e)
+        {
+            if (Game.Hands[Game.CurrentHandNumber() - 1].IsFinished())
+            {
+                CreateNewHand();
             }
         }
     }

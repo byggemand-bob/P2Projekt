@@ -46,6 +46,7 @@ namespace Poker_Game {
             this.picturePlayerCard2 = new System.Windows.Forms.PictureBox();
             this.labelAIBlind = new System.Windows.Forms.Label();
             this.labelPlayerBlind = new System.Windows.Forms.Label();
+            this.buttonMakeNewHand = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -303,6 +304,17 @@ namespace Poker_Game {
             this.labelPlayerBlind.TabIndex = 19;
             this.labelPlayerBlind.Text = "Big blind";
             // 
+            // buttonMakeNewHand
+            // 
+            this.buttonMakeNewHand.Location = new System.Drawing.Point(867, 316);
+            this.buttonMakeNewHand.Name = "buttonMakeNewHand";
+            this.buttonMakeNewHand.Size = new System.Drawing.Size(94, 35);
+            this.buttonMakeNewHand.TabIndex = 20;
+            this.buttonMakeNewHand.Text = "Continue";
+            this.buttonMakeNewHand.UseVisualStyleBackColor = true;
+            this.buttonMakeNewHand.Visible = false;
+            this.buttonMakeNewHand.Click += new System.EventHandler(this.buttonMakeNewHand_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,6 +324,7 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.buttonMakeNewHand);
             this.Controls.Add(this.labelPlayerBlind);
             this.Controls.Add(this.labelAIBlind);
             this.Controls.Add(this.picturePlayerCard2);
@@ -373,5 +386,6 @@ namespace Poker_Game {
         private System.Windows.Forms.PictureBox picturePlayerCard2;
         private System.Windows.Forms.Label labelAIBlind;
         private System.Windows.Forms.Label labelPlayerBlind;
+        private System.Windows.Forms.Button buttonMakeNewHand;
     }
 }
