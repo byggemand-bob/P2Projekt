@@ -38,8 +38,6 @@ namespace Poker_Game {
         }
         #endregion
 
-
-        //Validation needed
         #region Actions
         public void Call() {
             if((Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) != 0) {
@@ -52,7 +50,7 @@ namespace Poker_Game {
         }
 
         public void Check() {
-            if((Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) == 0) { // Fix this
+            if(CanCheck()) { // Fix this
                 Players[CurrentPlayerIndex].Action = PlayerAction.Check;
                 UpdateState();
                 CurrentRound().CycleStep++;
@@ -97,9 +95,6 @@ namespace Poker_Game {
 
         #endregion
 
-        // Validation. Impossible to bet if money is too low
-        
-
         #region GameState
 
         private void UpdateState() { // WIP
@@ -132,13 +127,20 @@ namespace Poker_Game {
                 }
                 next = ++next % Settings.NumberOfPlayers;
             }
-            return -1; // TODO: Do errorhandling
+            return -1; // TODO: Do error-handling
+        }
+
+        public bool CanCheck() {
+            if() {
+                return true;
+            }
+
+            return false;
         }
 
 
         #endregion
-
-
+        
         #region Utillity
 
         public int CurrentHandNumber() {
