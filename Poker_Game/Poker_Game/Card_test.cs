@@ -18,12 +18,14 @@ namespace Poker_Game {
             stopWatch.Start();
             int goal = 100;
             do {
-                for (int i = h.Deck.Count - 1; i >= 0; i--) {
-                    h.Deck.Remove(h.Deck[i]);
-                }
+                //for (int i = h.Deck.Count - 1; i >= 0; i--) {
+                //    h.Deck.Remove(h.Deck[i]);
+                //}
+                h.Deck.Clear();
+                Console.WriteLine(h.Deck.Count);
                 for (int i = 0; i < NumberOfCards; i++) {
                     h.Deck.Add(new Card(h.Deck));
-                    //Console.ReadKey();
+                    Console.ReadKey();
                 }
 
                 ////royalflush
@@ -37,10 +39,10 @@ namespace Poker_Game {
 
                 h.Deck.Sort();
                 TAELLER++;
-                //for (int j = 0; j < h.Deck.Count; j++) {
-                //    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
-                //}
-                //Console.WriteLine("");
+                for (int j = 0; j < h.Deck.Count; j++) {
+                    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
+                }
+                Console.WriteLine("");
 
                 if (w.HasRoyalFlush(h.Deck)) {
                     royalflush++;
@@ -65,15 +67,15 @@ namespace Poker_Game {
             stopWatch.Stop();
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             Console.WriteLine("TÆLLER: " + TAELLER);
-            Console.WriteLine("royalflush: " + royalflush / goal * 100);
-            Console.WriteLine("straightflush: " + straightflush / goal * 100);
-            Console.WriteLine("four: " + four / goal * 100);
-            Console.WriteLine("fullhouse: " + fullhouse / goal * 100);
-            Console.WriteLine("flush: " + flush/ goal * 100);
-            Console.WriteLine("straight: " + straight / goal * 100);
-            Console.WriteLine("three: " + three / goal * 100);
-            Console.WriteLine("twopair: " + twopair / goal * 100);
-            Console.WriteLine("pair: " + pair / goal * 100);
+            Console.WriteLine("royalflush: " + royalflush * (goal / 100));
+            Console.WriteLine("straightflush: " + straightflush * (goal / 100));
+            Console.WriteLine("four: " + four * (goal / 100));
+            Console.WriteLine("fullhouse: " + fullhouse / (goal / 100));
+            Console.WriteLine("flush: " + flush * (goal / 100));
+            Console.WriteLine("straight: " + straight * (goal / 100));
+            Console.WriteLine("three: " + three * (goal / 100));
+            Console.WriteLine("twopair: " + twopair * (goal / 100));
+            Console.WriteLine("pair: " + pair * (goal / 100));
 
             for (int j = 0; j < h.Deck.Count; j++) {
                 Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);

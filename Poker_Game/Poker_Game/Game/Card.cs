@@ -29,14 +29,19 @@ namespace Poker_Game {
         private int DrawRandCard() {
             return random.Next(0, 51);
         }
+        //public void DrawCards(List<Card> cards) {
+        //    MakeCard(DrawRandCard());
+        //    foreach (Card element in cards) {
+        //        if (element.CompareTo(this) == 0) {
+        //            DrawCards(cards);
+        //            break;
+        //        }
+        //    }
+        //}
         public void DrawCards(List<Card> cards) {
-            MakeCard(DrawRandCard());
-            foreach(Card element in cards) {
-                if(element.CompareTo(this) == 0) {
-                    DrawCards(cards);
-                    break;
-                }
-            }
+            do {
+                MakeCard(DrawRandCard());
+            } while (cards.Contains(this));
         }
         public void MakeCard(int cardNumber) {
             int rankInt = (cardNumber % 13) + 2;
