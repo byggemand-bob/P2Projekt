@@ -14,14 +14,18 @@ namespace Poker_Game {
         private readonly string _fileName;
 
         //File info
+        private string _playerName;
+        private int _numberOfGames;
+        private int _numberOfHands;
 
+        #region Initialization
         public StatisticWriter(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
             _fileName = playerName + ".stats";
 
             EnsureDirectoryExists(_folderPath);
-            EnsureFileExists(_folderPath + _fileName);
-            
+            EnsureFileExists(_folderPath + _fileName, playerName);
+            GetInfoFromFile(_folderPath + _fileName);
         }
 
         private void EnsureDirectoryExists(string folderPath) {
@@ -31,25 +35,43 @@ namespace Poker_Game {
             }
         }
 
-        private void EnsureFileExists(string filePath) {
+        private void EnsureFileExists(string filePath, string playerName) {
             if(!File.Exists(filePath)) {
-                StreamWriter sw = new StreamWriter(filePath);
-                
+                StreamWriter _streamWriter = new StreamWriter(filePath);
+                _streamWriter.WriteLine(playerName + ";" + _numberOfGames + ";" + _numberOfHands);
+                _streamWriter.Dispose();
             }
         }
+
+        // Split into more methods
+        private void GetInfoFromFile(string filePath) {
+            string[] info = new string[2];
+            _streamReader = new StreamReader(filePath);
+            string buffer = _streamReader.ReadLine();
+            if(buffer != null) {
+                info = buffer.Split(';');
+            } else { /* Error-handling */ }
+            _streamReader.Dispose();
+
+            _playerName = info[0];
+            _numberOfGames = int.Parse(info[1]);
+            _numberOfHands = int.Parse(info[2]);
+        } 
+        #endregion
 
         public void SaveHand(Hand hand) {
            
         }
 
-
-        private void GetInfoFromFile() {
-            string buffer;
-            _streamReader = new StreamReader(_folderPath + _fileName);
-            buffer = _streamReader.ReadLine();
-            buffer.Split(',');
+        private void SaveRound(Round round) {
 
         }
+
+        private void SaveTurn(Turn turn) {
+            
+        }
+
+
 
         // _streamWriter = new StreamWriter(_folderPath + _fileName);
 
