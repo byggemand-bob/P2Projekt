@@ -34,12 +34,21 @@ namespace Poker_Game {
             {
                 labelPlayerName.ForeColor = Color.Yellow;
                 labelAIStack.ForeColor = Color.White;
+                buttonCall.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonCheck.Enabled = true;
+                buttonFold.Enabled = true;
                
             }
             else 
             {
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
+                /* buttonCall.Enabled = false; Disabled untill AI has been implemented
+                buttonRaise.Enabled = false;
+                buttonCheck.Enabled = false;
+                buttonFold.Enabled = false;
+                */
             }
         }
 
@@ -53,6 +62,10 @@ namespace Poker_Game {
             }
             else if (Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber() == 4)
             {
+                buttonCall.Enabled = false;
+                buttonCheck.Enabled = false;
+                buttonRaise.Enabled = false;
+                buttonFold.Enabled = false;
                 ShowOpponentHand(Game.Players[1].Cards);
                 ShowRiverCard(Game.Hands[Game.CurrentHandNumber() - 1].Street);
             }
@@ -213,6 +226,12 @@ namespace Poker_Game {
             if (Game.Hands[Game.CurrentHandNumber() - 1].IsFinished())
             {
                 CreateNewHand();
+                UpdatePotSize(Game.Hands[Game.CurrentHandNumber() - 1]);
+                buttonCall.Enabled = true;
+                buttonRaise.Enabled = true;
+                buttonCheck.Enabled = true;
+                buttonFold.Enabled = true;
+                buttonMakeNewHand.Visible = false;
             }
         }
     }

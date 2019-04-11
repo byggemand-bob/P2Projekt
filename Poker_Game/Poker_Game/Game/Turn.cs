@@ -12,7 +12,7 @@ namespace Poker_Game {
         
         public Turn(Player player) {
             Action = player.Action;
-            Bet = 
+            // Bet = 
         }
     }
 }
