@@ -52,9 +52,11 @@ namespace Poker_Game {
         }
 
         public void Check() {
-            Players[CurrentPlayerIndex].Action = PlayerAction.Check;
-            UpdateState();
-            CurrentRound().CycleStep++;
+            if((Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) == 0) { // Fix this
+                Players[CurrentPlayerIndex].Action = PlayerAction.Check;
+                UpdateState();
+                CurrentRound().CycleStep++;
+            }
         }
 
         public void Fold() {
