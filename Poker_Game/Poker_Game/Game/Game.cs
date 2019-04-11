@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,7 +63,6 @@ namespace Poker_Game {
             Players[CurrentPlayerIndex].HasFolded = true;
             UpdateState();
             CurrentRound().CycleStep++;
-
         }
 
         public void Raise() {
@@ -80,6 +80,7 @@ namespace Poker_Game {
 
         public void NewHand() {
             if(!HandInProgress) {
+                DealerButtonPosition = ++DealerButtonPosition % Settings.NumberOfPlayers;
                 Hands.Add(new Hand(Players, DealerButtonPosition));
                 PayBlinds();
                 HandInProgress = true;
@@ -88,7 +89,7 @@ namespace Poker_Game {
 
         public void NewRound() {
             if(!RoundInProgress) {
-                Hands[Hands.Count - 1].StartRound(DealerButtonPosition);
+                CurrentHand().StartRound(DealerButtonPosition);
                 RoundInProgress = true;
             }
         }
@@ -97,7 +98,7 @@ namespace Poker_Game {
 
         #region GameState
 
-        private void UpdateState() { // WIP
+        private void UpdateState() { // WIP. Split up?
             HandInProgress = IsHandInProgress();
             RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();
@@ -105,10 +106,33 @@ namespace Poker_Game {
             if(!RoundInProgress) {
                 NewRound();
             }
+
+            if(!HandInProgress) {
+                RewardWinner(GetWinner(CurrentHand()));
+            }
+        }
+
+        private void RewardWinner(Player winner) {
+            winner.Stack += CurrentHand().Pot;
+        }
+
+        private Player GetWinner(Hand hand) {
+            Player winner = null;
+            foreach(Player player in hand.Players) {
+                player.GetScore();
+                if(winner == null) {
+                    winner = player;
+                } else if(player.Score > winner.Score) {
+                    winner = player;
+                } else if(player.Score == winner.Score) {
+                    // TODO: More than one winner?
+                } 
+            }
+            return winner;
         }
 
         private bool IsRoundInProgress() {
-            return !Hands[Hands.Count - 1].Rounds[Hands[Hands.Count - 1].Rounds.Count - 1].IsFinished(); // Could be split up
+            return !CurrentRound().IsFinished(); // Could be split up
         }
 
         private bool IsHandInProgress() {
@@ -131,11 +155,8 @@ namespace Poker_Game {
         }
 
         public bool CanCheck() {
-            if() {
-                return true;
-            }
-
-            return false;
+            return CurrentRound().TopBidderIndex == CurrentPlayerIndex || 
+                   Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;
         }
 
 
@@ -172,9 +193,6 @@ namespace Poker_Game {
 
             return true;
         }
-
-
-
 
         #endregion
 

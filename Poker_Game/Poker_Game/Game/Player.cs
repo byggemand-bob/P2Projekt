@@ -26,12 +26,25 @@ namespace Poker_Game {
         public List<Card> Cards { get; set; }
         public int CurrentBet { get; set; }
         public PlayerAction Action { get; set; }
+        public Score Score { get; set; }
+
+        #region Initialization
 
         public Player(int id,  int stackSize) {
             Cards = new List<Card>();
             Stack = stackSize;
             Action = PlayerAction.None;
+            Score = Score.None;
             Reset();
+        }
+
+        #endregion
+
+        #region Actions
+
+        public void GetScore() {
+            WinConditions wc = new WinConditions();
+            Score = wc.Evaluate(Cards);
         }
 
         public void Reset() {
@@ -40,6 +53,7 @@ namespace Poker_Game {
             IsSmallBlind = false;
             HasFolded = false;
             Action = PlayerAction.None;
+            Score = Score.None;
             Cards.Clear();
         }
 
@@ -53,10 +67,9 @@ namespace Poker_Game {
             }
         }
 
-        public override bool Equals(object obj) {
-            return ((Player) obj).CompareTo(this) == 0;
-        }
+        #endregion
 
+        #region Utility
         public int CompareTo(object other) {
             return Id.CompareTo(((Player)other).Id);
         }
@@ -75,5 +88,8 @@ namespace Poker_Game {
             }
             return player;
         }
+
+        #endregion
+
     }
 }

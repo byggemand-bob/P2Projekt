@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Poker_Game {
     class Hand {
@@ -93,14 +94,12 @@ namespace Poker_Game {
             }
         }
 
-        public bool IsFinished() {         
+        public bool IsFinished() {
             if(PlayersLeft() > 1) {
-                if(Rounds.Count == 4) { // Corrected from == 5 to == 4
-                    return true;
-                }
+                return Rounds.Count == 4;
             }
 
-            return false;
+            return true;
         }
 
         public int CurrentRoundNumber() {
