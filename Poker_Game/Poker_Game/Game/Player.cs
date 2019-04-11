@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TODO: create GetHashCode()
 
 
 
@@ -39,17 +40,12 @@ namespace Poker_Game {
             IsSmallBlind = false;
             HasFolded = false;
             Action = PlayerAction.None;
-            RemoveCards();
+            Cards.Clear();
         }
 
-        public void RemoveCards() {
-            for(int i = Cards.Count - 1; i >= 0; i--) {
-                Cards.Remove(Cards[i]);
-            }
-        }
 
         public void DrawNewCardHand(List<Card> existingCards) {
-            RemoveCards();
+            Cards.Clear();
             for (int i = 0; i < 2; i++) {
                 Card tCard = new Card(existingCards);
                 Cards.Add(tCard);

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Poker_Game {
     class Turn {
-        public Player CurrentPlayer { get; private set; }
-
+        public PlayerAction Action { get; set; }
+        public int Bet { get; set; }
+        public int PotSize { get; set; }
+        
         public Turn(Player player) {
-            CurrentPlayer = (Player)player.Clone();
+            Action = player.Action;
+            Bet = 
         }
     }
 }
