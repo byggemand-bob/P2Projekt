@@ -8,10 +8,11 @@ namespace Poker_Game.AI
 {
     class Calculator
     {
-        public int Faculty(int number)
+        ulong x;
+        public ulong Faculty(ulong number)
         {
 
-            int fact, i;
+            ulong fact, i;
 
             fact = number;
 
@@ -19,13 +20,25 @@ namespace Poker_Game.AI
             {
                 fact = fact * i;
             }
-
+            
             return fact;
         }
 
-        public int Binomial(int n, int r)
+        public ulong Faculty(ulong startFrom, ulong endAt)
         {
-            return Faculty(n) / Faculty(r) * Faculty(n - r);
+            ulong i;
+            x = startFrom;
+
+            for (i = startFrom - 1; i > endAt; i--)
+            {
+                x *= i;
+            }
+            return x;
+        }
+
+        public ulong Binomial(ulong n, ulong r)
+        {
+            return Faculty(n, n - r) / Faculty(r);
         }
     }
 }
