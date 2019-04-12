@@ -22,7 +22,7 @@ namespace Poker_Game {
                 //    h.Deck.Remove(h.Deck[i]);
                 //}
                 h.Deck.Clear();
-                Console.WriteLine(TAELLER);
+                //Console.WriteLine(TAELLER);
                 for (int i = 0; i < NumberOfCards; i++) {
                     h.Deck.Add(new Card(h.Deck));
                     //Console.ReadKey();
@@ -63,7 +63,7 @@ namespace Poker_Game {
                 } else if (w.HasPair(h.Deck)) {
                     pair++;
                 }
-            } while (TAELLER != (3401853*5*6));
+            } while (royalflush < 10);
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             stopWatch.Stop();
             Console.WriteLine("TÆLLER: " + TAELLER);

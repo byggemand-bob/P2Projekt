@@ -12,7 +12,8 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        Random random = new Random();
+        //Random random = new Random();
+        Random random = new Random(Guid.NewGuid().GetHashCode());
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
