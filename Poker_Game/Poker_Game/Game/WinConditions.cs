@@ -18,7 +18,7 @@ namespace Poker_Game {
         public List<Card> DeckDuper3000(List<Card> cards) {
             List<Card> DupeCards = new List<Card>();
             foreach (Card element in cards) {
-                DupeCards.Add(element);
+                DupeCards.Add((Card)element.Clone());
             }
             return DupeCards;
         }
@@ -109,10 +109,12 @@ namespace Poker_Game {
             return false;
         }
 
-        public bool HasRoyalFlush(List<Card> sortedCards) {
+        public bool HasRoyalFlush(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
+                FlushSuit(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
                         sortedCards[i+1].Rank == Rank.King &&
                         sortedCards[i+2].Rank == Rank.Queen &&
@@ -120,7 +122,7 @@ namespace Poker_Game {
                         sortedCards[i+4].Rank == (Rank)10) {
                         return true;
                     }
-                } 
+                }
             }
             return false;
         }

@@ -29,20 +29,20 @@ namespace Poker_Game {
         private int DrawRandCard() {
             return random.Next(0, 51);
         }
-        //public void DrawCards(List<Card> cards) {
-        //    MakeCard(DrawRandCard());
-        //    foreach (Card element in cards) {
-        //        if (element.CompareTo(this) == 0) {
-        //            DrawCards(cards);
-        //            break;
-        //        }
-        //    }
-        //}
         public void DrawCards(List<Card> cards) {
-            do {
-                MakeCard(DrawRandCard());
-            } while (cards.Contains(this));
+            MakeCard(DrawRandCard());
+            foreach (Card element in cards) {
+                if (element.CompareTo(this) == 0) {
+                    DrawCards(cards);
+                    break;
+                }
+            }
         }
+        //public void DrawCards(List<Card> cards) {
+        //    do {
+        //        MakeCard(DrawRandCard());
+        //    } while (cards.Contains(this));
+        //}
         public void MakeCard(int cardNumber) {
             int rankInt = (cardNumber % 13) + 2;
             string cardName = rankInt.ToString();
@@ -94,25 +94,25 @@ namespace Poker_Game {
         }
 
 
-        public override bool Equals(object obj) {
-            if(obj == null) {
-                return false;
-            }
-            if(ReferenceEquals(this, obj)) {
-                return true;
-            }
-            if(GetType() != obj.GetType()) {
-                return false;
-            }
-            if(GetHashCode() != obj.GetHashCode()) {
-                return false;
-            }
+        //public override bool Equals(object obj) {
+        //    if(obj == null) {
+        //        return false;
+        //    }
+        //    if(ReferenceEquals(this, obj)) {
+        //        return true;
+        //    }
+        //    if(GetType() != obj.GetType()) {
+        //        return false;
+        //    }
+        //    if(GetHashCode() != obj.GetHashCode()) {
+        //        return false;
+        //    }
             
-            return Rank == ((Card)obj).Rank && Suit == ((Card)obj).Suit;
-        }
+        //    return Rank == ((Card)obj).Rank && Suit == ((Card)obj).Suit;
+        //}
 
-        public override int GetHashCode() {
-            return (int)Rank; // RIP. Look at this at some point
-        }
+        //public override int GetHashCode() {
+        //    return (int)Rank; // RIP. Look at this at some point
+        //}
     }
 }
