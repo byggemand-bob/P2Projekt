@@ -325,6 +325,7 @@ namespace Poker_Game {
             this.labelRoundName.Name = "labelRoundName";
             this.labelRoundName.Size = new System.Drawing.Size(0, 21);
             this.labelRoundName.TabIndex = 21;
+            this.labelRoundName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GameForm
             // 

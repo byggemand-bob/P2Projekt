@@ -103,7 +103,7 @@ namespace Poker_Game {
 
         public bool IsFinished() {
             if(PlayersLeft() > 1) {
-                return Rounds.Count == 4;
+                return Rounds.Count == 5;
             }
 
             return true;

@@ -9,11 +9,13 @@ namespace Poker_Game {
     public partial class GameForm : Form {
         private Settings Settings;
         private Game Game;
+        private List<Button> Buttons = new List<Button>();
 
         #region Initialization
 
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
+            CreateButtonList();
             labelPlayerName.Text = inputPlayerName;
 
             Settings = CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
@@ -42,6 +44,14 @@ namespace Poker_Game {
             //Load background picture
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void CreateButtonList()
+        {
+            Buttons.Add(buttonCall);
+            Buttons.Add(buttonCheck);
+            Buttons.Add(buttonRaise);
+            Buttons.Add(buttonFold);
         }
 
         #endregion
@@ -209,13 +219,28 @@ namespace Poker_Game {
 
         #region Utility
 
-        private void ChangeActionButtonState(bool updatedState) {
-            buttonCall.Enabled = updatedState;
-            buttonCheck.Enabled = updatedState;
-            buttonRaise.Enabled = updatedState;
-            buttonFold.Enabled = updatedState;
+        private void ChangeActionButtonState(bool updatedState) { // check if updatedState is the same as old?
+            foreach (Button button in Buttons)
+            {
+                button.Enabled = updatedState;
+            }
+            ChangeActionButtonColor();
         }
 
+        private void ChangeActionButtonColor()
+        {
+            foreach (Button button in Buttons)
+            {
+                if (!button.Enabled)
+                {
+                    button.BackColor = Color.Gray;
+                }
+                else
+                {
+                    button.BackColor = Color.Red;
+                }
+            }
+        }
 
         #endregion
 
@@ -226,7 +251,7 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
             if (!playerHasFoled)
             {
-                // Shows AI's cards on hand
+                // Shows AI's cards on hand if showdown has been reached
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
             }
