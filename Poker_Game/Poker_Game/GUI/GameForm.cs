@@ -126,10 +126,13 @@ namespace Poker_Game {
         }
 
         private void UpdatePlayerBlind(Player player) {
-            if(player.IsBigBlind) {
+            if (player.IsBigBlind)
+            {
                 labelAIBlind.Text = "Small blind";
                 labelPlayerBlind.Text = "Big blind";
-            } else {
+            }
+            else
+            {
                 labelPlayerBlind.Text = "Small blind";
                 labelAIBlind.Text = "Big blind";
             }
