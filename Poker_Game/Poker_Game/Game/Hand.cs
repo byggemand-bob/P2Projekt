@@ -15,15 +15,15 @@ namespace Poker_Game {
         public List<Player> Players { get; set; }
 
         #region Initialization
-        public Hand(List<Player> players, int dealerButtionPosition) {
+        public Hand(List<Player> players, int dealerButtonPosition) {
             Pot = 0;
             Deck = new List<Card>();
             Street = new List<Card>();
             Rounds = new List<Round>();
-            Players = InitializePlayers(players, dealerButtionPosition);
+            Players = InitializePlayers(players, dealerButtonPosition);
 
             //Players = GetActivePlayers(players);
-            StartRound(dealerButtionPosition);
+            StartRound(dealerButtonPosition);
         }
 
         private List<Player> InitializePlayers(List<Player> players, int dealerButtonPosition) {
@@ -58,7 +58,7 @@ namespace Poker_Game {
 
         public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
-            Rounds.Add(new Round(Players, dealerButtonPosition));
+            Rounds.Add(new Round(Players));
             ResetActions();
         }
 
@@ -102,7 +102,7 @@ namespace Poker_Game {
 
         public bool IsFinished() {
             if(PlayersLeft() > 1) {
-                return Rounds.Count == 4;
+                return Rounds.Count == 5;
             }
 
             return true;

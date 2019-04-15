@@ -244,9 +244,9 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
-        private void Showdown(bool playerHasFoled) {
+        private void Showdown(bool playerHasFolded) {
             ChangeActionButtonState(false);
-            if (!playerHasFoled)
+            if (!playerHasFolded)
             {
                 // Shows AI's cards on hand if showdown has been reached
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
@@ -259,7 +259,7 @@ namespace Poker_Game {
         private void CreateNewHand() {
             Game.NewHand();
             ResetCards();
-            UpdateRoundName();
+            UpdateAll();
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);

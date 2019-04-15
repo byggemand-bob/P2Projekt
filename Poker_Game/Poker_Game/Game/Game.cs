@@ -23,7 +23,7 @@ namespace Poker_Game {
             Players = InitializePlayers();
             Hands = new List<Hand>();
 
-            DealerButtonPosition = 1;
+            DealerButtonPosition = 0;
             CurrentPlayerIndex = GetStartingPlayerIndex();
 
             NewHand();
@@ -64,7 +64,7 @@ namespace Poker_Game {
         }
 
         public void Raise() {
-            if(CurrentRound().Bets != 3) {
+            if(CanRaise()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
@@ -166,6 +166,10 @@ namespace Poker_Game {
             return Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
         }
 
+        public bool CanRaise() {
+            return CurrentRound().Bets != 3;
+        }
+
         public int CurrentHandNumber() {
             return Hands.Count;
         }
@@ -212,11 +216,12 @@ namespace Poker_Game {
         }
 
         private void PayBlinds() {
-            foreach(Player player in Players) {
-                if(player.IsBigBlind) {
-                    Bet(player, 2 * Settings.BlindSize);
-                } else if(player.IsSmallBlind) {
-                    Bet(player, Settings.BlindSize);
+            for (int i = 0; i < Settings.NumberOfPlayers; i++) {
+                if(Players[i].IsBigBlind) {
+                    Bet(Players[i], 2 * Settings.BlindSize);
+                    CurrentRound().TopBidderIndex = i;
+                } else if(Players[i].IsSmallBlind) {
+                    Bet(Players[i], Settings.BlindSize);
                 }
             }
         }
