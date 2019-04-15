@@ -5,15 +5,6 @@ using System.Windows.Forms;
 
 // TODO: When a player folds, show it on screen and start new game.
 
-/* Har ryddet lidt op i jeres kode og lavet nogle få hjælpe funktioner
-   der (forhåbentligt) giver klarhed og sparer kode. Har også lavet nogle
-   få metode-navne om, således at de beskriver det det gør, ifølge min mening.
-   Ændr dem endelig bare igen, hvis det ikke fungerer for jer, det hjalp mig
-   bare da jeg organiserede metoderne. Håber jeg har gjort det mere overskueligt
-   
-   - Magnus
-*/
-
 namespace Poker_Game {
     public partial class GameForm : Form {
         private Settings Settings;
@@ -31,7 +22,9 @@ namespace Poker_Game {
             Game = new Game(Settings);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
-            ShowPlayerHand(Game.Players[0].Cards);
+            // Shows player new hand cards
+            ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
+            ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
             UpdateAll();
         }
 
@@ -60,17 +53,6 @@ namespace Poker_Game {
             obj.Image = card.Image;
         }
 
-        private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
-        {
-            picturePlayerCard1.Image = cards[0].Image;
-            picturePlayerCard2.Image = cards[1].Image;
-        }
-
-        private void ShowOpponentHand(List<Card> cards) // Takes card list from opponent's (AI) hand
-        {
-            pictureAICard1.Image = cards[0].Image;
-            pictureAICard2.Image = cards[1].Image;
-        }
 
         private void ResetCards() {
             // Reset table and AI cards to be "invisible".
