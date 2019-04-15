@@ -321,7 +321,7 @@ namespace Poker_Game {
             this.labelRoundName.AutoSize = true;
             this.labelRoundName.BackColor = System.Drawing.Color.Transparent;
             this.labelRoundName.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRoundName.Location = new System.Drawing.Point(436, 240);
+            this.labelRoundName.Location = new System.Drawing.Point(411, 228);
             this.labelRoundName.Name = "labelRoundName";
             this.labelRoundName.Size = new System.Drawing.Size(0, 21);
             this.labelRoundName.TabIndex = 21;
