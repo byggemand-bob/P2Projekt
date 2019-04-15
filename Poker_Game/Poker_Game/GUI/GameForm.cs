@@ -14,9 +14,8 @@ namespace Poker_Game {
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
             CreateButtonList();
+            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
             labelPlayerName.Text = inputPlayerName;
-
-            Settings = CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
 
             // Creates the game so to say...
             Game = new Game(Settings);
@@ -28,8 +27,8 @@ namespace Poker_Game {
             UpdateAll();
         }
 
-        private Settings CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) {
-            return new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
+        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) {
+            Settings =  new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
 
         private void Form1_Load(object sender, EventArgs e) { // Events when the form loads
