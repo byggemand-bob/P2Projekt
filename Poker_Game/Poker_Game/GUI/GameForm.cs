@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-// TODO: When a player folds, show it on screen and start new game.
-
 namespace Poker_Game {
     public partial class GameForm : Form {
         private Settings Settings;
@@ -269,6 +267,5 @@ namespace Poker_Game {
         }
 
         #endregion
-
     }
 }
