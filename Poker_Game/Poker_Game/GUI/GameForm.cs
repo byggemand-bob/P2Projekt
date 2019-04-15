@@ -55,6 +55,11 @@ namespace Poker_Game {
 
         #region CardDrawing
 
+        private void ShowCardImage(PictureBox obj, Card card)
+        {
+            obj.Image = card.Image;
+        }
+
         private void ShowPlayerHand(List<Card> cards) // Takes card list from player hand
         {
             picturePlayerCard1.Image = cards[0].Image;
@@ -65,13 +70,6 @@ namespace Poker_Game {
         {
             pictureAICard1.Image = cards[0].Image;
             pictureAICard2.Image = cards[1].Image;
-        }
-
-        private void ShowFlopCards(List<Card> cards) // Changes picture of the flop cards.
-        {
-            pictureTableCard1.Image = cards[0].Image;
-            pictureTableCard2.Image = cards[1].Image;
-            pictureTableCard3.Image = cards[2].Image;
         }
 
         private void ShowTurnCard(List<Card> cards) {
@@ -107,13 +105,23 @@ namespace Poker_Game {
         }
 
         private void UpdateCards() {
-            if(Game.CurrentRoundNumber() == 2) {
-                ShowFlopCards(Game.CurrentHand().Street);
-            } else if(Game.CurrentRoundNumber() == 3) {
+            if (Game.CurrentRoundNumber() == 2)
+            {
+                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
+                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
+                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
+            }
+            else if (Game.CurrentRoundNumber() == 3)
+            {
                 ShowTurnCard(Game.CurrentHand().Street);
-            } else if(Game.CurrentRoundNumber() == 4) {
-                ShowRiverCard(Game.CurrentHand().Street);
-            } else if(Game.CurrentRoundNumber() == 5) {
+                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[3]); // Shows turn card
+            }
+            else if (Game.CurrentRoundNumber() == 4)
+            {
+                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[4]); // Shows river card
+            }
+            else if (Game.CurrentRoundNumber() == 5)
+            {
                 Showdown();
             }
         }
