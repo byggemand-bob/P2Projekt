@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Poker_Game {
     class Game {
         public int CurrentPlayerIndex { get; set; }
@@ -39,7 +40,7 @@ namespace Poker_Game {
 
         #region Actions
         public void Call() {
-            if((Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) != 0) {
+            if(CanCall()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Call;
@@ -65,7 +66,7 @@ namespace Poker_Game {
         public void Raise() {
             if(CurrentRound().Bets != 3) {
                 // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize));
+                Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
 
                 // Create functions for this.
@@ -151,14 +152,19 @@ namespace Poker_Game {
             return -1; // TODO: Do error-handling
         }
 
+
+
+        #endregion
+
+        #region Utillity
         public bool CanCheck() {
-            return CurrentRound().TopBidderIndex == CurrentPlayerIndex || 
+            return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
                    Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;
         }
 
-        #endregion
-        
-        #region Utillity
+        public bool CanCall() {
+            return Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
+        }
 
         public int CurrentHandNumber() {
             return Hands.Count;
