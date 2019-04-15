@@ -72,14 +72,6 @@ namespace Poker_Game {
             pictureAICard2.Image = cards[1].Image;
         }
 
-        private void ShowTurnCard(List<Card> cards) {
-            pictureTableCard4.Image = cards[3].Image;
-        }
-
-        private void ShowRiverCard(List<Card> cards) {
-            pictureTableCard5.Image = cards[4].Image;
-        }
-
         private void ResetCards() {
             // Reset table and AI cards to be "invisible".
             pictureAICard1.Image = Properties.Resources.z_Back_of_card2;
@@ -108,17 +100,16 @@ namespace Poker_Game {
             if (Game.CurrentRoundNumber() == 2)
             {
                 ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
-                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
-                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
+                ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
+                ShowCardImage(pictureTableCard3, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
             }
             else if (Game.CurrentRoundNumber() == 3)
             {
-                ShowTurnCard(Game.CurrentHand().Street);
-                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[3]); // Shows turn card
+                ShowCardImage(pictureTableCard4, Game.CurrentHand().Street[3]); // Shows turn card
             }
             else if (Game.CurrentRoundNumber() == 4)
             {
-                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[4]); // Shows river card
+                ShowCardImage(pictureTableCard5, Game.CurrentHand().Street[4]); // Shows river card
             }
             else if (Game.CurrentRoundNumber() == 5)
             {
@@ -127,11 +118,14 @@ namespace Poker_Game {
         }
 
         private void UpdateCurrentPlayer() { // Highlights current player's name. 
-            if(Game.CurrentPlayerIndex == 0) {
+            if (Game.CurrentPlayerIndex == 0)
+            {
                 labelPlayerName.ForeColor = Color.Yellow;
                 labelAIStack.ForeColor = Color.White;
                 ChangeActionButtonState(true);
-            } else {
+            }
+            else
+            {
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
                 //Disabled untill AI has been implemented
@@ -218,7 +212,9 @@ namespace Poker_Game {
 
         private void Showdown() {
             ChangeActionButtonState(false);
-            ShowOpponentHand(Game.Players[1].Cards);
+            // Shows AI's cards on hand
+            ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]); 
+            ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
             //TODO: Show winner and score
             buttonMakeNewHand.Visible = true;
         }
@@ -228,7 +224,8 @@ namespace Poker_Game {
             ResetCards();
 
             // Shows player new hand cards
-            ShowPlayerHand(Game.CurrentHand().Players[0].Cards);
+            ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
+            ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
         }
 
         #endregion
