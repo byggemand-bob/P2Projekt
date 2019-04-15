@@ -15,8 +15,16 @@ namespace Poker_Game {
 
     class WinConditions {
 
+        public List<Card> DeckDuper3000(List<Card> cards) {
+            List<Card> DupeCards = new List<Card>();
+            foreach (Card element in cards) {
+                DupeCards.Add((Card)element.Clone());
+            }
+            return DupeCards;
+        }
+
         public Score Evaluate(List<Card> cards) {
-            List<Card> sortedCards = cards;
+            List<Card> sortedCards = DeckDuper3000(cards);
             sortedCards.Sort();
 
             if (HasRoyalFlush(sortedCards)) {
@@ -42,37 +50,71 @@ namespace Poker_Game {
             }
         }
 
-        private bool HasPair(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasPair(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private bool HasTwoPairs(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasTwoPairs(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
+
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+                }
+            }
+            return false;
         }
 
-        private bool HasThreeOfAKind(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasThreeOfAKind(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 2; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank ) {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private bool HasFullHouse(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasFullHouse(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
+                    return HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+                }
+            }
+            return false;
         }
 
-        private bool HasFourOfAKind(List<Card> sortedCards) {
-            throw new NotImplementedException();
+        public bool HasFourOfAKind(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 3; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank &&
+                    sortedCards[i + 2].Rank == sortedCards[i + 3].Rank) {
+                    return true;
+                }
+            }
+            return false; 
         }
 
-        public bool HasStraightFlush(List<Card> sortedCards) {
+        public bool HasStraightFlush(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
                 return HasStraight(FlushSuit(sortedCards));
             }
             return false;
         }
 
-        public bool HasRoyalFlush(List<Card> sortedCards) {
+        public bool HasRoyalFlush(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
+                FlushSuit(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
                         sortedCards[i+1].Rank == Rank.King &&
                         sortedCards[i+2].Rank == Rank.Queen &&
@@ -80,22 +122,22 @@ namespace Poker_Game {
                         sortedCards[i+4].Rank == (Rank)10) {
                         return true;
                     }
-                } 
+                }
             }
             return false;
         }
 
         // straight is when 5 of cards are in order by rank
         public bool HasStraight(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             int RankCounter = 0;
-            cards.Sort();
-            for (int i = 0; i <= cards.Count - 2; i++) {
-                if (cards[i].Rank + 1 == cards[i + 1].Rank) {
+            for (int i = 0; i <= sortedCards.Count - 2; i++) {
+                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank) {
                     RankCounter++;
                 }
-                if (cards[i + 1].Rank == Rank.Ace) {
-                    cards[i + 1].Rank = (Rank)1;
-                    return HasStraight(cards);
+                if (sortedCards[i + 1].Rank == Rank.Ace) {
+                    sortedCards[i + 1].Rank = (Rank)1;
+                    return HasStraight(sortedCards);
                 }
             }
             if (RankCounter >= 4) {
@@ -148,10 +190,19 @@ namespace Poker_Game {
                 return RemoveUnfitSuit(cards, Suit.Spades);
             }
         }
-
+        
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
-            for(int index = 0; index < cards.Count; index++) {
-                if (cards[index].Suit == suit) {
+            for(int index = cards.Count - 1; index >= 0; index--) {
+                if (cards[index].Suit != suit) {
+                    cards.Remove(cards[index]);
+                }
+            }
+            return cards;
+        }
+
+        private List<Card> RemoveUnfitRank(List<Card> cards, Rank rank) {
+            for (int index = cards.Count - 1; index >= 0; index--) {
+                if (cards[index].Rank == rank) {
                     cards.Remove(cards[index]);
                 }
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Poker_Game;
 
 namespace Poker_Game {
     enum Suit { Clubs, Diamond, Hearts, Spades };
@@ -11,7 +12,8 @@ namespace Poker_Game {
 
 
     class Card : IComparable, ICloneable {
-        private Random _random = new Random();
+        //Random random = new Random();
+        Random random = new Random(Guid.NewGuid().GetHashCode());
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -26,17 +28,22 @@ namespace Poker_Game {
             DrawCards(existingCards);
         }
         private int DrawRandCard() {
-            return _random.Next(0, 51);
+            return random.Next(0, 51);
         }
         public void DrawCards(List<Card> cards) {
             MakeCard(DrawRandCard());
-            foreach(Card element in cards) {
-                if(element.CompareTo(this) == 0) {
+            foreach (Card element in cards) {
+                if (element.CompareTo(this) == 0) {
                     DrawCards(cards);
                     break;
                 }
             }
         }
+        //public void DrawCards(List<Card> cards) {
+        //    do {
+        //        MakeCard(DrawRandCard());
+        //    } while (cards.Contains(this));
+        //}
         public void MakeCard(int cardNumber) {
             int rankInt = (cardNumber % 13) + 2;
             string cardName = rankInt.ToString();
@@ -63,7 +70,7 @@ namespace Poker_Game {
                 cardName += "S";
             }
             Rank = (Rank)rankInt;
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+            //Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
 
@@ -86,5 +93,27 @@ namespace Poker_Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
+
+        //public override bool Equals(object obj) {
+        //    if(obj == null) {
+        //        return false;
+        //    }
+        //    if(ReferenceEquals(this, obj)) {
+        //        return true;
+        //    }
+        //    if(GetType() != obj.GetType()) {
+        //        return false;
+        //    }
+        //    if(GetHashCode() != obj.GetHashCode()) {
+        //        return false;
+        //    }
+            
+        //    return Rank == ((Card)obj).Rank && Suit == ((Card)obj).Suit;
+        //}
+
+        //public override int GetHashCode() {
+        //    return (int)Rank; // RIP. Look at this at some point
+        //}
     }
 }
