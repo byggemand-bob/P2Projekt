@@ -47,6 +47,7 @@ namespace Poker_Game {
             this.labelAIBlind = new System.Windows.Forms.Label();
             this.labelPlayerBlind = new System.Windows.Forms.Label();
             this.buttonMakeNewHand = new System.Windows.Forms.Button();
+            this.labelRoundName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -315,6 +316,14 @@ namespace Poker_Game {
             this.buttonMakeNewHand.Visible = false;
             this.buttonMakeNewHand.Click += new System.EventHandler(this.buttonMakeNewHand_Click);
             // 
+            // labelRoundName
+            // 
+            this.labelRoundName.AutoSize = true;
+            this.labelRoundName.Location = new System.Drawing.Point(465, 248);
+            this.labelRoundName.Name = "labelRoundName";
+            this.labelRoundName.Size = new System.Drawing.Size(0, 13);
+            this.labelRoundName.TabIndex = 21;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,6 +333,7 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.labelRoundName);
             this.Controls.Add(this.buttonMakeNewHand);
             this.Controls.Add(this.labelPlayerBlind);
             this.Controls.Add(this.labelAIBlind);
@@ -361,6 +371,7 @@ namespace Poker_Game {
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -387,5 +398,6 @@ namespace Poker_Game {
         private System.Windows.Forms.Label labelAIBlind;
         private System.Windows.Forms.Label labelPlayerBlind;
         private System.Windows.Forms.Button buttonMakeNewHand;
+        private System.Windows.Forms.Label labelRoundName;
     }
 }

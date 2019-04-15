@@ -69,7 +69,8 @@ namespace Poker_Game {
         #region Updates
 
         private void UpdateAll() // Name-change?
-        { 
+        {
+            UpdateRoundName();
             UpdateCurrentPlayer();
             UpdateCards();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
@@ -97,6 +98,31 @@ namespace Poker_Game {
             {
                 Showdown(false);
             }
+        }
+
+        private void UpdateRoundName()
+        {
+            if (Game.CurrentRoundNumber() == 1)
+            {
+                labelRoundName.Text = "Round: Preflop";
+            }
+            else if (Game.CurrentRoundNumber() == 2)
+            {
+                labelRoundName.Text = "Round: Flop";
+            }
+            else if (Game.CurrentRoundNumber() == 3)
+            {
+                labelRoundName.Text = "Round: Turn";
+            }
+            else if (Game.CurrentRoundNumber() == 4)
+            {
+                labelRoundName.Text = "Round: River";
+            }
+            else if (Game.CurrentRoundNumber() == 5)
+            {
+                labelRoundName.Text = "Round: Showdown";
+            }
+
         }
 
         private void UpdateCurrentPlayer() { // Highlights current player's name
@@ -211,7 +237,7 @@ namespace Poker_Game {
         private void CreateNewHand() {
             Game.NewHand();
             ResetCards();
-
+            UpdateRoundName();
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
