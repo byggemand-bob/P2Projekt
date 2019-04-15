@@ -33,13 +33,13 @@ namespace Poker_Game {
         }
 
         private void Form1_Load(object sender, EventArgs e) { // Events when the form loads
-            //Set the window form.
+            //Set the window form
             this.MaximumSize = new Size(1000, 700);
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
 
-            //Load background picture.
+            //Load background picture
             this.BackgroundImage = Properties.Resources.PokerBord;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
@@ -54,7 +54,7 @@ namespace Poker_Game {
         }
 
         private void ResetCards() {
-            // Reset table and AI cards to be "invisible".
+            // Reset table and AI cards to be "invisible"
             pictureAICard1.Image = Properties.Resources.z_Back_of_card2;
             pictureAICard2.Image = Properties.Resources.z_Back_of_card2;
             pictureTableCard1.Image = Properties.Resources.z_Back_of_card2;
@@ -95,11 +95,11 @@ namespace Poker_Game {
             }
             else if (Game.CurrentRoundNumber() == 5)
             {
-                Showdown();
+                Showdown(false);
             }
         }
 
-        private void UpdateCurrentPlayer() { // Highlights current player's name. 
+        private void UpdateCurrentPlayer() { // Highlights current player's name
             if (Game.CurrentPlayerIndex == 0)
             {
                 labelPlayerName.ForeColor = Color.Yellow;
@@ -168,6 +168,7 @@ namespace Poker_Game {
 
         private void buttonFold_Click(object sender, EventArgs e) {
             Game.Fold();
+            Showdown(true);
             UpdateAll();
         }
 
@@ -195,11 +196,14 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
-        private void Showdown() {
+        private void Showdown(bool playerHasFoled) {
             ChangeActionButtonState(false);
-            // Shows AI's cards on hand
-            ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]); 
-            ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
+            if (!playerHasFoled)
+            {
+                // Shows AI's cards on hand
+                ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
+                ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
+            }
             //TODO: Show winner and score
             buttonMakeNewHand.Visible = true;
         }
