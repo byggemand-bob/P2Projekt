@@ -26,7 +26,7 @@ namespace Poker_Game
             CardOdds cardodds = new CardOdds(street, hand);
 
             Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
-            Console.WriteLine("{0}", Calc.Faculty(100));
+            //Console.WriteLine("{0}", Calc.Faculty(100));
             Console.ReadKey();
         }
     }
