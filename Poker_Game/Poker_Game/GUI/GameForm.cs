@@ -69,7 +69,8 @@ namespace Poker_Game {
 
         #region Updates
 
-        private void UpdateAll() { // Name-change?
+        private void UpdateAll() // Name-change?
+        { 
             UpdateCurrentPlayer();
             UpdateCards();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
