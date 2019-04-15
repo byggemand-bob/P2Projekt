@@ -63,7 +63,7 @@ namespace Poker_Game {
                 } else if (w.HasPair(h.Deck)) {
                     pair++;
                 }
-            } while (royalflush < 10);
+            } while (royalflush < 1);
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             stopWatch.Stop();
             Console.WriteLine("TÆLLER: " + TAELLER);
