@@ -9,7 +9,6 @@ using System.Windows.Forms;
 namespace Poker_Game {
     class Hand {
         public int Pot { get; set; }
-
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
@@ -103,7 +102,7 @@ namespace Poker_Game {
 
         public bool IsFinished() {
             if(PlayersLeft() > 1) {
-                return Rounds.Count == 5;
+                return Rounds.Count == 4;
             }
 
             return true;
