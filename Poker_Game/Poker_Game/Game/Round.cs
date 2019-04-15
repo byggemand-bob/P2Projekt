@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//TODO: Max number of betting-rounds in round. 3
 
 namespace Poker_Game {
     class Round {
@@ -56,7 +55,7 @@ namespace Poker_Game {
 
         public bool IsFinished() {
             //System.Windows.Forms.MessageBox.Show(AllChecked() + " or " + (CycleFinished() && Bets == 3));
-            return AllChecked() || Turns.Count > 2 && AllCalled();
+            return AllChecked() || Turns.Count > Players.Count - 1 && AllCalled(); // TODO: Rework
         }
 
         private bool AllChecked() {

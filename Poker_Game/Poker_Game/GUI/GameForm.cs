@@ -8,6 +8,7 @@ namespace Poker_Game {
         private Settings Settings;
         private Game Game;
         private List<Button> Buttons = new List<Button>();
+        private const bool DiagnosticsMode = true;
 
         #region Initialization
 
@@ -16,6 +17,8 @@ namespace Poker_Game {
             CreateButtonList();
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
             labelPlayerName.Text = inputPlayerName;
+
+            panel1.Visible = DiagnosticsMode;
 
             // Creates the game so to say...
             Game = new Game(Settings);
@@ -83,6 +86,7 @@ namespace Poker_Game {
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
             UpdatePlayerBlind(Game.Players[0]);
+            if(DiagnosticsMode) {UpdateTest();}
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
 
@@ -264,6 +268,12 @@ namespace Poker_Game {
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
         }
+
+        private void UpdateTest() {
+            label2.Text = "DealerButtonPosition: " + Game.DealerButtonPosition;
+        }
+
+
 
         #endregion
     }

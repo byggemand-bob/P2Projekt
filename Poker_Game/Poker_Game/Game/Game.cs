@@ -22,11 +22,10 @@ namespace Poker_Game {
             Settings = settings;
             Players = InitializePlayers();
             Hands = new List<Hand>();
-
             DealerButtonPosition = 0;
-            CurrentPlayerIndex = GetStartingPlayerIndex();
-
+            
             NewHand();
+            CurrentPlayerIndex = GetStartingPlayerIndex();
         }
 
         private List<Player> InitializePlayers() {
@@ -78,7 +77,7 @@ namespace Poker_Game {
 
         public void NewHand() {
             if(!HandInProgress) {
-                DealerButtonPosition = ++DealerButtonPosition % Settings.NumberOfPlayers;
+                DealerButtonPosition = ++DealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
                 Hands.Add(new Hand(Players, DealerButtonPosition));
                 PayBlinds();
                 HandInProgress = true;
