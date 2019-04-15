@@ -18,7 +18,14 @@ namespace Poker_Game.AI
 
             for (i = number - 1; i >= 1; i--)
             {
-                fact = fact * i;
+                if (ulong.MaxValue / i > x)
+                {
+                    fact = fact * i;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             
             return fact;
@@ -31,7 +38,14 @@ namespace Poker_Game.AI
 
             for (i = startFrom - 1; i > endAt; i--)
             {
-                x *= i;
+                if (ulong.MaxValue / i > x)
+                {
+                    x *= i;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             return x;
         }

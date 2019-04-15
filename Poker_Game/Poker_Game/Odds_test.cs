@@ -21,12 +21,12 @@ namespace Poker_Game
 
             street.Add(new Card(Suit.Clubs, Rank.King));
             street.Add(new Card(Suit.Spades, Rank.Jack));
-            //street.Add(new Card(Suit.Spades, (Rank)5));
+            street.Add(new Card(Suit.Spades, (Rank)5));
 
             CardOdds cardodds = new CardOdds(street, hand);
 
             Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
-            //Console.WriteLine("{0}", cardodds.combinedHandStreetCount);
+            Console.WriteLine("{0}", Calc.Faculty(100));
             Console.ReadKey();
         }
     }

@@ -18,7 +18,7 @@ namespace Poker_Game.AI
             hand = Hand;
 
             combinedHandStreetCount = (ulong)street.Count + (ulong)hand.Count;
-            totalNumberOfOutcomes = calc.Binomial(52 - combinedHandStreetCount, 7 - combinedHandStreetCount);
+            totalNumberOfOutcomes = calc.Binomial(52 - combinedHandStreetCount, 9 - combinedHandStreetCount);
         }
 
 
