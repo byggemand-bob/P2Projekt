@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Poker_Game.Game;
+﻿using System.Collections.Generic;
 
-
-namespace Poker_Game {
+namespace Poker_Game.Game {
     class Round {
         public int TopBidderIndex { get; set; }
         public int CycleStep { get; set; }
