@@ -95,7 +95,7 @@ namespace Poker_Game {
 
         #region GameState
 
-        private void UpdateState() { // WIP. Split up?
+        public void UpdateState() { // WIP. Split up?
             HandInProgress = IsHandInProgress();
             RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = GetNextPlayerIndex();

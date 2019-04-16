@@ -86,6 +86,7 @@ namespace Poker_Game {
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
             UpdatePlayerBlind(Game.Players[0]);
+            UpdateButtons();
             if(DiagnosticsMode) {UpdateTest();}
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
@@ -174,6 +175,13 @@ namespace Poker_Game {
             }
         }
 
+        private void UpdateButtons() {
+            buttonCall.Enabled = Game.CanCall();
+            buttonCheck.Enabled = Game.CanCheck();
+            buttonRaise.Enabled = Game.CanRaise();
+
+        }
+
         private void CheckPlayerTurn(int id) {
             ChangeActionButtonState(id == 0);
         }
@@ -211,7 +219,6 @@ namespace Poker_Game {
 
         private void buttonMakeNewHand_Click(object sender, EventArgs e) {
             CreateNewHand();
-            UpdatePotSize(Game.CurrentHand());
             ChangeActionButtonState(true);
             buttonMakeNewHand.Visible = false;
         }
@@ -221,23 +228,17 @@ namespace Poker_Game {
         #region Utility
 
         private void ChangeActionButtonState(bool updatedState) { // check if updatedState is the same as old?
-            foreach (Button button in Buttons)
-            {
+            foreach(Button button in Buttons) {
                 button.Enabled = updatedState;
             }
             ChangeActionButtonColor();
         }
 
-        private void ChangeActionButtonColor()
-        {
-            foreach (Button button in Buttons)
-            {
-                if (!button.Enabled)
-                {
+        private void ChangeActionButtonColor() {
+            foreach(Button button in Buttons) {
+                if(!button.Enabled) {
                     button.BackColor = Color.Gray;
-                }
-                else
-                {
+                } else {
                     button.BackColor = Color.Red;
                 }
             }
@@ -257,6 +258,7 @@ namespace Poker_Game {
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
             }
             //TODO: Show winner and score
+            Game.UpdateState();
             buttonMakeNewHand.Visible = true;
         }
 
@@ -271,6 +273,12 @@ namespace Poker_Game {
 
         private void UpdateTest() {
             label2.Text = "DealerButtonPosition: " + Game.DealerButtonPosition;
+            label3.Text = "HandNumber: " + Game.CurrentHandNumber();
+            label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
+            label5.Text = "HandInProgress: " + Game.HandInProgress;
+            label6.Text = "RoundInProgress: " + Game.RoundInProgress;
+
+
         }
 
 
