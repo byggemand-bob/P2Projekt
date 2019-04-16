@@ -83,7 +83,7 @@ namespace Poker_Game {
             // 
             // buttonRaise
             // 
-            this.buttonRaise.BackColor = System.Drawing.Color.Maroon;
+            this.buttonRaise.BackColor = System.Drawing.Color.Red;
             this.buttonRaise.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonRaise.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRaise.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -98,7 +98,7 @@ namespace Poker_Game {
             // 
             // buttonCall
             // 
-            this.buttonCall.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCall.BackColor = System.Drawing.Color.Red;
             this.buttonCall.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCall.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -129,7 +129,7 @@ namespace Poker_Game {
             // 
             // buttonCheck
             // 
-            this.buttonCheck.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCheck.BackColor = System.Drawing.Color.Red;
             this.buttonCheck.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheck.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
