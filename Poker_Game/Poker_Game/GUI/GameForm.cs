@@ -8,6 +8,7 @@ namespace Poker_Game {
         private Settings Settings;
         private Game Game;
         private List<Button> Buttons = new List<Button>();
+        private List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
 
         #region Initialization
@@ -15,6 +16,7 @@ namespace Poker_Game {
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
             CreateButtonList();
+            CreatePictureBoxList();
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
             labelPlayerName.Text = inputPlayerName;
 
@@ -54,6 +56,17 @@ namespace Poker_Game {
             Buttons.Add(buttonFold);
         }
 
+        private void CreatePictureBoxList()
+        {
+            PictureBoxes.Add(pictureAICard1);
+            PictureBoxes.Add(pictureAICard2);
+            PictureBoxes.Add(pictureTableCard1);
+            PictureBoxes.Add(pictureTableCard2);
+            PictureBoxes.Add(pictureTableCard3);
+            PictureBoxes.Add(pictureTableCard4);
+            PictureBoxes.Add(pictureTableCard5);
+        }
+
         #endregion
 
         #region CardDrawing
@@ -65,13 +78,10 @@ namespace Poker_Game {
 
         private void ResetCards() {
             // Reset table and AI cards to be "invisible"
-            pictureAICard1.Image = Properties.Resources.z_Back_of_card2;
-            pictureAICard2.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard1.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard2.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard3.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard4.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard5.Image = Properties.Resources.z_Back_of_card2;
+            foreach (PictureBox pictureBox in PictureBoxes)
+            {
+                pictureBox.Image = Properties.Resources.z_Back_of_card2;
+            }
         }
 
         #endregion
