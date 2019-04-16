@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Poker_Game.Game;
+﻿using System.Collections.Generic;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     class CompareBySuit : IComparer<Card> {
         public int Compare(Card x, Card y) {
             if(x.Suit.CompareTo(y.Suit) < 0) {

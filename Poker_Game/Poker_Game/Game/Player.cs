@@ -6,7 +6,7 @@ using Poker_Game.Game;
 
 
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum PlayerAction {
         None,
         Check,
