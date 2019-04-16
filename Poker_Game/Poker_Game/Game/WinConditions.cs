@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Poker_Game.Game;
+﻿using System.Collections.Generic;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum Score {
         None, Pair = 15, TwoPairs, ThreeOfAKind,
         Straight, Flush, FullHouse, FourOfAKind, StraightFlush,

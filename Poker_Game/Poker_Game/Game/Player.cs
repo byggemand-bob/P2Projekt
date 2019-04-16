@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Poker_Game.Game;
 
 // TODO: create GetHashCode()
 
 
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum PlayerAction {
         None,
         Check,
