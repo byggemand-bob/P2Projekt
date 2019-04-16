@@ -10,11 +10,11 @@ namespace Poker_Game.Game {
     class WinConditions {
 
         public List<Card> DeckDuper3000(List<Card> cards) {
-            List<Card> DupeCards = new List<Card>();
+            List<Card> dupeCards = new List<Card>();
             foreach (Card element in cards) {
-                DupeCards.Add((Card)element.Clone());
+                dupeCards.Add((Card)element.Clone());
             }
-            return DupeCards;
+            return dupeCards;
         }
 
         public Score Evaluate(List<Card> cards) {
