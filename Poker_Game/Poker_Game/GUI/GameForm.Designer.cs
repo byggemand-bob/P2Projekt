@@ -69,6 +69,8 @@ namespace Poker_Game {
             // 
             // buttonQuitToMenu
             // 
+            this.buttonQuitToMenu.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonQuitToMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonQuitToMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonQuitToMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonQuitToMenu.Location = new System.Drawing.Point(829, 11);
@@ -76,7 +78,7 @@ namespace Poker_Game {
             this.buttonQuitToMenu.Size = new System.Drawing.Size(146, 37);
             this.buttonQuitToMenu.TabIndex = 0;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
-            this.buttonQuitToMenu.UseVisualStyleBackColor = true;
+            this.buttonQuitToMenu.UseVisualStyleBackColor = false;
             this.buttonQuitToMenu.Click += new System.EventHandler(this.buttonQuitToMenu_Click);
             // 
             // buttonRaise
