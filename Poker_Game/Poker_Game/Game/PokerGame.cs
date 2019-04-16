@@ -202,15 +202,15 @@ namespace Poker_Game {
         public bool IsFinished() { // Checks if players still has $ in stack
             int playersLeft = 0;
             foreach(Player player in Players) {
-                if(player.Stack < 1) {
+                if (player.Stack < 1) {
                     playersLeft++;
-                    if(playersLeft > 1) {
-                        return false;
+                    if (playersLeft > 1) {
+                        return true;
                     }
                 }
             }
 
-            return true;
+            return false;
         }
 
         #endregion

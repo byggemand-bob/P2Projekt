@@ -277,7 +277,14 @@ namespace Poker_Game {
             //TODO: Show winner and score
             Game.UpdateState();
             ChangeActionButtonState(false);
-            buttonMakeNewHand.Visible = true;
+            if (Game.IsFinished())
+            {
+                MessageBox.Show("GAMEOVER SUCKERS!");
+            }
+            else
+            {
+                buttonMakeNewHand.Visible = true;
+            }
         }
 
         private void CreateNewHand() {
@@ -295,6 +302,8 @@ namespace Poker_Game {
             label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
             label5.Text = "HandInProgress: " + Game.HandInProgress;
             label6.Text = "RoundInProgress: " + Game.RoundInProgress;
+            label7.Text = "AI Stack:" + Game.Players[1].Stack;
+            label8.Text = "Player Stack:" + Game.Players[0].Stack;
         }
 
         #endregion
