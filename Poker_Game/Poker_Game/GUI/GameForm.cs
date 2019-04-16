@@ -98,7 +98,7 @@ namespace Poker_Game {
                 ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
                 ShowCardImage(pictureTableCard3, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
             }
-            else if (Game.CurrentRoundNumber() == 3) 
+            else if (Game.CurrentRoundNumber() == 3)
             {
                 ShowCardImage(pictureTableCard4, Game.CurrentHand().Street[3]); // Shows turn card
             }
