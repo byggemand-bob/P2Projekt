@@ -49,12 +49,12 @@ namespace Poker_Game {
             this.buttonMakeNewHand = new System.Windows.Forms.Button();
             this.labelRoundName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -69,6 +69,8 @@ namespace Poker_Game {
             // 
             // buttonQuitToMenu
             // 
+            this.buttonQuitToMenu.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonQuitToMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonQuitToMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonQuitToMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonQuitToMenu.Location = new System.Drawing.Point(829, 11);
@@ -76,12 +78,12 @@ namespace Poker_Game {
             this.buttonQuitToMenu.Size = new System.Drawing.Size(146, 37);
             this.buttonQuitToMenu.TabIndex = 0;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
-            this.buttonQuitToMenu.UseVisualStyleBackColor = true;
+            this.buttonQuitToMenu.UseVisualStyleBackColor = false;
             this.buttonQuitToMenu.Click += new System.EventHandler(this.buttonQuitToMenu_Click);
             // 
             // buttonRaise
             // 
-            this.buttonRaise.BackColor = System.Drawing.Color.Maroon;
+            this.buttonRaise.BackColor = System.Drawing.Color.Red;
             this.buttonRaise.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonRaise.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRaise.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -96,7 +98,7 @@ namespace Poker_Game {
             // 
             // buttonCall
             // 
-            this.buttonCall.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCall.BackColor = System.Drawing.Color.Red;
             this.buttonCall.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCall.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -127,7 +129,7 @@ namespace Poker_Game {
             // 
             // buttonCheck
             // 
-            this.buttonCheck.BackColor = System.Drawing.Color.Maroon;
+            this.buttonCheck.BackColor = System.Drawing.Color.Red;
             this.buttonCheck.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheck.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -196,9 +198,9 @@ namespace Poker_Game {
             // 
             this.pictureTableCard1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureTableCard1.BackgroundImage")));
             this.pictureTableCard1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureTableCard1.Location = new System.Drawing.Point(296, 281);
+            this.pictureTableCard1.Location = new System.Drawing.Point(282, 281);
             this.pictureTableCard1.Name = "pictureTableCard1";
-            this.pictureTableCard1.Size = new System.Drawing.Size(66, 92);
+            this.pictureTableCard1.Size = new System.Drawing.Size(80, 100);
             this.pictureTableCard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureTableCard1.TabIndex = 9;
             this.pictureTableCard1.TabStop = false;
@@ -207,9 +209,9 @@ namespace Poker_Game {
             // 
             this.pictureTableCard2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureTableCard2.BackgroundImage")));
             this.pictureTableCard2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureTableCard2.Location = new System.Drawing.Point(375, 281);
+            this.pictureTableCard2.Location = new System.Drawing.Point(368, 281);
             this.pictureTableCard2.Name = "pictureTableCard2";
-            this.pictureTableCard2.Size = new System.Drawing.Size(66, 92);
+            this.pictureTableCard2.Size = new System.Drawing.Size(80, 100);
             this.pictureTableCard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureTableCard2.TabIndex = 10;
             this.pictureTableCard2.TabStop = false;
@@ -220,7 +222,7 @@ namespace Poker_Game {
             this.pictureTableCard3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureTableCard3.Location = new System.Drawing.Point(454, 281);
             this.pictureTableCard3.Name = "pictureTableCard3";
-            this.pictureTableCard3.Size = new System.Drawing.Size(66, 92);
+            this.pictureTableCard3.Size = new System.Drawing.Size(80, 100);
             this.pictureTableCard3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureTableCard3.TabIndex = 11;
             this.pictureTableCard3.TabStop = false;
@@ -229,9 +231,9 @@ namespace Poker_Game {
             // 
             this.pictureTableCard4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureTableCard4.BackgroundImage")));
             this.pictureTableCard4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureTableCard4.Location = new System.Drawing.Point(533, 281);
+            this.pictureTableCard4.Location = new System.Drawing.Point(540, 281);
             this.pictureTableCard4.Name = "pictureTableCard4";
-            this.pictureTableCard4.Size = new System.Drawing.Size(66, 92);
+            this.pictureTableCard4.Size = new System.Drawing.Size(80, 100);
             this.pictureTableCard4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureTableCard4.TabIndex = 12;
             this.pictureTableCard4.TabStop = false;
@@ -240,9 +242,9 @@ namespace Poker_Game {
             // 
             this.pictureTableCard5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureTableCard5.BackgroundImage")));
             this.pictureTableCard5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureTableCard5.Location = new System.Drawing.Point(612, 281);
+            this.pictureTableCard5.Location = new System.Drawing.Point(626, 281);
             this.pictureTableCard5.Name = "pictureTableCard5";
-            this.pictureTableCard5.Size = new System.Drawing.Size(66, 92);
+            this.pictureTableCard5.Size = new System.Drawing.Size(80, 100);
             this.pictureTableCard5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureTableCard5.TabIndex = 13;
             this.pictureTableCard5.TabStop = false;
@@ -253,7 +255,7 @@ namespace Poker_Game {
             this.pictureAICard2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureAICard2.Location = new System.Drawing.Point(204, 11);
             this.pictureAICard2.Name = "pictureAICard2";
-            this.pictureAICard2.Size = new System.Drawing.Size(66, 92);
+            this.pictureAICard2.Size = new System.Drawing.Size(80, 100);
             this.pictureAICard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureAICard2.TabIndex = 14;
             this.pictureAICard2.TabStop = false;
@@ -262,9 +264,9 @@ namespace Poker_Game {
             // 
             this.pictureAICard1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureAICard1.BackgroundImage")));
             this.pictureAICard1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureAICard1.Location = new System.Drawing.Point(132, 11);
+            this.pictureAICard1.Location = new System.Drawing.Point(118, 11);
             this.pictureAICard1.Name = "pictureAICard1";
-            this.pictureAICard1.Size = new System.Drawing.Size(66, 92);
+            this.pictureAICard1.Size = new System.Drawing.Size(80, 100);
             this.pictureAICard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureAICard1.TabIndex = 15;
             this.pictureAICard1.TabStop = false;
@@ -275,7 +277,7 @@ namespace Poker_Game {
             this.picturePlayerCard1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picturePlayerCard1.Location = new System.Drawing.Point(706, 555);
             this.picturePlayerCard1.Name = "picturePlayerCard1";
-            this.picturePlayerCard1.Size = new System.Drawing.Size(66, 92);
+            this.picturePlayerCard1.Size = new System.Drawing.Size(80, 100);
             this.picturePlayerCard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picturePlayerCard1.TabIndex = 16;
             this.picturePlayerCard1.TabStop = false;
@@ -284,9 +286,9 @@ namespace Poker_Game {
             // 
             this.picturePlayerCard2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picturePlayerCard2.BackgroundImage")));
             this.picturePlayerCard2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picturePlayerCard2.Location = new System.Drawing.Point(778, 555);
+            this.picturePlayerCard2.Location = new System.Drawing.Point(801, 555);
             this.picturePlayerCard2.Name = "picturePlayerCard2";
-            this.picturePlayerCard2.Size = new System.Drawing.Size(66, 92);
+            this.picturePlayerCard2.Size = new System.Drawing.Size(80, 100);
             this.picturePlayerCard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picturePlayerCard2.TabIndex = 17;
             this.picturePlayerCard2.TabStop = false;
@@ -296,7 +298,7 @@ namespace Poker_Game {
             this.labelAIBlind.BackColor = System.Drawing.Color.Transparent;
             this.labelAIBlind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAIBlind.ForeColor = System.Drawing.Color.White;
-            this.labelAIBlind.Location = new System.Drawing.Point(128, 106);
+            this.labelAIBlind.Location = new System.Drawing.Point(427, 25);
             this.labelAIBlind.Name = "labelAIBlind";
             this.labelAIBlind.Size = new System.Drawing.Size(100, 23);
             this.labelAIBlind.TabIndex = 18;
@@ -348,6 +350,15 @@ namespace Poker_Game {
             this.panel1.Size = new System.Drawing.Size(188, 207);
             this.panel1.TabIndex = 22;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(2, 86);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "label6";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -393,15 +404,6 @@ namespace Poker_Game {
             this.label1.Size = new System.Drawing.Size(103, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Diagnostics";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 86);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "label6";
             // 
             // GameForm
             // 

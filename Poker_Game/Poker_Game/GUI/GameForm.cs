@@ -8,6 +8,7 @@ namespace Poker_Game {
         private Settings Settings;
         private Game Game;
         private List<Button> Buttons = new List<Button>();
+        private List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
 
         #region Initialization
@@ -15,6 +16,7 @@ namespace Poker_Game {
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
             CreateButtonList();
+            CreatePictureBoxList();
             CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
             labelPlayerName.Text = inputPlayerName;
 
@@ -54,6 +56,17 @@ namespace Poker_Game {
             Buttons.Add(buttonFold);
         }
 
+        private void CreatePictureBoxList()
+        {
+            PictureBoxes.Add(pictureAICard1);
+            PictureBoxes.Add(pictureAICard2);
+            PictureBoxes.Add(pictureTableCard1);
+            PictureBoxes.Add(pictureTableCard2);
+            PictureBoxes.Add(pictureTableCard3);
+            PictureBoxes.Add(pictureTableCard4);
+            PictureBoxes.Add(pictureTableCard5);
+        }
+
         #endregion
 
         #region CardDrawing
@@ -65,13 +78,10 @@ namespace Poker_Game {
 
         private void ResetCards() {
             // Reset table and AI cards to be "invisible"
-            pictureAICard1.Image = Properties.Resources.z_Back_of_card2;
-            pictureAICard2.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard1.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard2.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard3.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard4.Image = Properties.Resources.z_Back_of_card2;
-            pictureTableCard5.Image = Properties.Resources.z_Back_of_card2;
+            foreach (PictureBox pictureBox in PictureBoxes)
+            {
+                pictureBox.Image = Properties.Resources.z_Back_of_card2;
+            }
         }
 
         #endregion
@@ -82,12 +92,12 @@ namespace Poker_Game {
         {
             UpdateRoundName();
             UpdateCurrentPlayer();
-            UpdateCards();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
             UpdatePlayerBlind(Game.Players[0]);
             UpdateButtons();
-            if(DiagnosticsMode) {UpdateTest();}
+            UpdateCards();
+            if (DiagnosticsMode) {UpdateTest();}
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
 
@@ -176,6 +186,7 @@ namespace Poker_Game {
         }
 
         private void UpdateButtons() {
+           
             buttonCall.Enabled = Game.CanCall();
             buttonCheck.Enabled = Game.CanCheck();
             buttonRaise.Enabled = Game.CanRaise();
@@ -214,12 +225,14 @@ namespace Poker_Game {
         private void buttonFold_Click(object sender, EventArgs e) {
             Game.Fold();
             Showdown(true);
+            ChangeActionButtonColor();
             UpdateAll();
+            ChangeActionButtonState(false);
         }
 
         private void buttonMakeNewHand_Click(object sender, EventArgs e) {
-            CreateNewHand();
             ChangeActionButtonState(true);
+            CreateNewHand();
             buttonMakeNewHand.Visible = false;
         }
 
@@ -235,10 +248,14 @@ namespace Poker_Game {
         }
 
         private void ChangeActionButtonColor() {
-            foreach(Button button in Buttons) {
-                if(!button.Enabled) {
+            foreach(Button button in Buttons)
+            {
+                if (!button.Enabled)
+                {
                     button.BackColor = Color.Gray;
-                } else {
+                }
+                else
+                {
                     button.BackColor = Color.Red;
                 }
             }
@@ -250,7 +267,6 @@ namespace Poker_Game {
         #region Other
 
         private void Showdown(bool playerHasFolded) {
-            ChangeActionButtonState(false);
             if (!playerHasFolded)
             {
                 // Shows AI's cards on hand if showdown has been reached
@@ -259,6 +275,7 @@ namespace Poker_Game {
             }
             //TODO: Show winner and score
             Game.UpdateState();
+            ChangeActionButtonState(false);
             buttonMakeNewHand.Visible = true;
         }
 
@@ -277,12 +294,9 @@ namespace Poker_Game {
             label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
             label5.Text = "HandInProgress: " + Game.HandInProgress;
             label6.Text = "RoundInProgress: " + Game.RoundInProgress;
-
-
         }
 
-
-
         #endregion
+
     }
 }
