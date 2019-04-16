@@ -225,12 +225,14 @@ namespace Poker_Game {
         private void buttonFold_Click(object sender, EventArgs e) {
             Game.Fold();
             Showdown(true);
+            ChangeActionButtonColor();
             UpdateAll();
+            ChangeActionButtonState(false);
         }
 
         private void buttonMakeNewHand_Click(object sender, EventArgs e) {
-            CreateNewHand();
             ChangeActionButtonState(true);
+            CreateNewHand();
             buttonMakeNewHand.Visible = false;
         }
 
@@ -246,10 +248,14 @@ namespace Poker_Game {
         }
 
         private void ChangeActionButtonColor() {
-            foreach(Button button in Buttons) {
-                if(!button.Enabled) {
+            foreach(Button button in Buttons)
+            {
+                if (!button.Enabled)
+                {
                     button.BackColor = Color.Gray;
-                } else {
+                }
+                else
+                {
                     button.BackColor = Color.Red;
                 }
             }
@@ -291,5 +297,6 @@ namespace Poker_Game {
         }
 
         #endregion
+
     }
 }

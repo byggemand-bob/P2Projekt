@@ -81,6 +81,7 @@ namespace Poker_Game {
                 Hands.Add(new Hand(Players, DealerButtonPosition));
                 PayBlinds();
                 HandInProgress = true;
+                CurrentPlayerIndex = GetStartingPlayerIndex();
             }
         }
 
