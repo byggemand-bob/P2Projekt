@@ -15,8 +15,8 @@ namespace Poker_Game.Game {
         public Image Image { get; set; }
 
 
-        public Card(Suit suit, Rank rank, Image image) {
-            Image = image;
+        public Card(Suit suit, Rank rank) {
+            //Image = image;
             Suit = suit;
             Rank = rank;
         }
@@ -69,7 +69,7 @@ namespace Poker_Game.Game {
                 cardName += "S";
             }
             Rank = (Rank)rankInt;
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+            //Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
 
@@ -90,7 +90,7 @@ namespace Poker_Game.Game {
         }
 
         public object Clone() {
-            return new Card(Suit, Rank, Image);
+            return new Card(Suit, Rank);
         }
     }
 }
