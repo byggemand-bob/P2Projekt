@@ -12,6 +12,8 @@ namespace Poker_Game {
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
 
+         // TODO: Make prettier and show who wins and how much at showdown
+
         #region Initialization
 
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
