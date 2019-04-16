@@ -1,19 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using Poker_Game;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum Suit { Clubs, Diamond, Hearts, Spades };
     enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
     class Card : IComparable, ICloneable {
         //Random random = new Random();
-        Random random = new Random(Guid.NewGuid().GetHashCode());
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -24,12 +20,15 @@ namespace Poker_Game {
             Suit = suit;
             Rank = rank;
         }
+
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
+
         private int DrawRandCard() {
-            return random.Next(0, 51);
+            return _random.Next(0, 51);
         }
+
         public void DrawCards(List<Card> cards) {
             MakeCard(DrawRandCard());
             foreach (Card element in cards) {
@@ -93,27 +92,5 @@ namespace Poker_Game {
         public object Clone() {
             return new Card(Suit, Rank, Image);
         }
-
-
-        //public override bool Equals(object obj) {
-        //    if(obj == null) {
-        //        return false;
-        //    }
-        //    if(ReferenceEquals(this, obj)) {
-        //        return true;
-        //    }
-        //    if(GetType() != obj.GetType()) {
-        //        return false;
-        //    }
-        //    if(GetHashCode() != obj.GetHashCode()) {
-        //        return false;
-        //    }
-            
-        //    return Rank == ((Card)obj).Rank && Suit == ((Card)obj).Suit;
-        //}
-
-        //public override int GetHashCode() {
-        //    return (int)Rank; // RIP. Look at this at some point
-        //}
     }
 }

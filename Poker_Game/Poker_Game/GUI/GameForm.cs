@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
         private Settings Settings;
-        private Game Game;
-        private List<Button> Buttons = new List<Button>();
-        private List<PictureBox> PictureBoxes = new List<PictureBox>();
+        private readonly PokerGame Game;
+        private readonly List<Button> Buttons = new List<Button>();
+        private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
 
         #region Initialization
@@ -23,7 +24,7 @@ namespace Poker_Game {
             panel1.Visible = DiagnosticsMode;
 
             // Creates the game so to say...
-            Game = new Game(Settings);
+            Game = new PokerGame(Settings);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
             // Shows player new hand cards
