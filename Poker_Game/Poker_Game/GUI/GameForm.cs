@@ -302,11 +302,11 @@ namespace Poker_Game {
             label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
             label5.Text = "HandInProgress: " + Game.HandInProgress;
             label6.Text = "RoundInProgress: " + Game.RoundInProgress;
-            label7.Text = "AI Stack:" + Game.Players[1].Stack;
-            label8.Text = "Player Stack:" + Game.Players[0].Stack;
+            label7.Text = "AI Stack: " + Game.Players[1].Stack;
+            label8.Text = "Player Stack: " + Game.Players[0].Stack;
+            label9.Text = "CycleStep: " + Game.CurrentRound().CycleStep;
         }
 
         #endregion
-
     }
 }

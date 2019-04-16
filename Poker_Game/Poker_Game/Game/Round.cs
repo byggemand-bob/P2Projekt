@@ -44,8 +44,8 @@ namespace Poker_Game.Game {
             Bets++;
         }
 
-        public void NewTurn() {
-
+        public void NewTurn(Player currentPlayer, int potSize) {
+            Turns.Add(new Turn(currentPlayer, potSize));
         }
 
 
