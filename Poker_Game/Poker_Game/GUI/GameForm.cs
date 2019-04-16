@@ -92,12 +92,12 @@ namespace Poker_Game {
         {
             UpdateRoundName();
             UpdateCurrentPlayer();
-            UpdateCards();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
             UpdatePlayerBlind(Game.Players[0]);
             UpdateButtons();
-            if(DiagnosticsMode) {UpdateTest();}
+            UpdateCards();
+            if (DiagnosticsMode) {UpdateTest();}
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
 
@@ -186,6 +186,7 @@ namespace Poker_Game {
         }
 
         private void UpdateButtons() {
+           
             buttonCall.Enabled = Game.CanCall();
             buttonCheck.Enabled = Game.CanCheck();
             buttonRaise.Enabled = Game.CanRaise();
@@ -260,7 +261,6 @@ namespace Poker_Game {
         #region Other
 
         private void Showdown(bool playerHasFolded) {
-            ChangeActionButtonState(false);
             if (!playerHasFolded)
             {
                 // Shows AI's cards on hand if showdown has been reached
@@ -269,6 +269,7 @@ namespace Poker_Game {
             }
             //TODO: Show winner and score
             Game.UpdateState();
+            ChangeActionButtonState(false);
             buttonMakeNewHand.Visible = true;
         }
 
@@ -287,11 +288,7 @@ namespace Poker_Game {
             label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
             label5.Text = "HandInProgress: " + Game.HandInProgress;
             label6.Text = "RoundInProgress: " + Game.RoundInProgress;
-
-
         }
-
-
 
         #endregion
     }
