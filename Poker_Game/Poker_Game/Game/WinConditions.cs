@@ -46,8 +46,12 @@ namespace Poker_Game {
             } else if (HasPair(sortedCards)) {
                 return Score.Pair;
             } else {
-                return Score.None;
+                return GetBestCard(cards);
             }
+        }
+
+        private Score GetBestCard(List<Card> playerHand) {
+            return (playerHand[0].Rank > playerHand[1].Rank) ? (Score)playerHand[0].Rank : (Score)playerHand[1].Rank;
         }
 
         public bool HasPair(List<Card> sortedCards) {
@@ -208,5 +212,10 @@ namespace Poker_Game {
             }
             return cards;
         }
+
+        public Player SameScore(Player currentBest, Player player) {
+            return null;
+        }
+
     }
 }

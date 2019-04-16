@@ -88,6 +88,7 @@ namespace Poker_Game {
             if(!RoundInProgress) {
                 CurrentHand().StartRound(DealerButtonPosition);
                 RoundInProgress = true;
+                CurrentPlayerIndex = GetNextPlayerIndex();
             }
         }
 
@@ -105,31 +106,43 @@ namespace Poker_Game {
             }
 
             if(!HandInProgress) {
-                RewardWinner(GetWinner(CurrentHand()));
+                RewardWinners(GetWinners(CurrentHand()));
             }
         }
 
-        private void RewardWinner(Player winner) {
-            winner.Stack += CurrentHand().Pot;
+        private void RewardWinners(List<Player> winners) {
+            foreach(Player player in winners) {
+                player.Stack += CurrentHand().Pot / winners.Count;
+            }
         }
 
-        private Player GetWinner(Hand hand) {
-            Player winner = null;
+        // TODO Cleanup. Separate.
+        private List<Player> GetWinners(Hand hand) {
+            WinConditions wc = new WinConditions();
+            List<Player> winners = new List<Player>();
+
             foreach(Player player in hand.Players) {
                 player.GetScore();
-                if(winner == null) {
-                    winner = player;
-                } else if(player.Score > winner.Score) {
-                    winner = player;
-                } else if(player.Score == winner.Score) {
-                    // TODO: More than one winner?
+                if(winners.Count == 0) {
+                    winners.Add(player);
+                } else if(player.Score > winners[0].Score) {
+                    winners.Clear();
+                    winners.Add(player);
+                } else if(player.Score == winners[0].Score) {
+                    Player tPlayer = wc.SameScore(winners[0], player);
+                    if(tPlayer == null) {
+                        winners.Add(player);
+                    } else {
+                        winners.Clear();
+                        winners.Add(tPlayer);
+                    }
                 } 
             }
-            return winner;
+            return winners;
         }
 
         private bool IsRoundInProgress() {
-            return !CurrentRound().IsFinished(); // Could be split up
+            return !CurrentRound().IsFinished();
         }
 
         private bool IsHandInProgress() {
