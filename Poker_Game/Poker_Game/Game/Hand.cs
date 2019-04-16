@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Poker_Game.Game;
 
 namespace Poker_Game {
     class Hand {
