@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Poker_Game.Game;
 
 // TODO: create GetHashCode()
 
@@ -18,7 +19,6 @@ namespace Poker_Game.Game {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
         public int CurrentBet { get; set; }
-
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
 
