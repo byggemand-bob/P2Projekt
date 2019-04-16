@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum Score {
         None, Pair = 15, TwoPairs, ThreeOfAKind,
         Straight, Flush, FullHouse, FourOfAKind, StraightFlush,
@@ -16,11 +10,11 @@ namespace Poker_Game {
     class WinConditions {
 
         public List<Card> DeckDuper3000(List<Card> cards) {
-            List<Card> DupeCards = new List<Card>();
+            List<Card> dupeCards = new List<Card>();
             foreach (Card element in cards) {
-                DupeCards.Add((Card)element.Clone());
+                dupeCards.Add((Card)element.Clone());
             }
-            return DupeCards;
+            return dupeCards;
         }
 
         public Score Evaluate(List<Card> cards) {

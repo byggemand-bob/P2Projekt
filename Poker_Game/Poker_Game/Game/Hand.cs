@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }

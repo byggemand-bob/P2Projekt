@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.IO;
 
-
-namespace Poker_Game {
-    class StatisticWriter {
+namespace Poker_Game.Game {
+    class StatisticsIO {
         private StreamWriter _streamWriter;
         private StreamReader _streamReader;
         private readonly string _folderPath;
@@ -19,7 +13,7 @@ namespace Poker_Game {
         private int _numberOfHands;
 
         #region Initialization
-        public StatisticWriter(string playerName) {
+        public StatisticsIO(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
             _fileName = playerName + ".stats";
 
@@ -37,7 +31,7 @@ namespace Poker_Game {
 
         private void EnsureFileExists(string filePath, string playerName) {
             if(!File.Exists(filePath)) {
-                StreamWriter _streamWriter = new StreamWriter(filePath);
+                _streamWriter = new StreamWriter(filePath);
                 _streamWriter.WriteLine(playerName + ";" + _numberOfGames + ";" + _numberOfHands);
                 _streamWriter.Dispose();
             }
