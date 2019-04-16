@@ -8,7 +8,7 @@
 
         public Turn(Player player) {
             Action = player.Action;
-            // Bet = 
+            
         }
 
         #endregion

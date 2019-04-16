@@ -44,6 +44,11 @@ namespace Poker_Game.Game {
             Bets++;
         }
 
+        public void NewTurn() {
+
+        }
+
+
         #endregion
 
         #region Utility
