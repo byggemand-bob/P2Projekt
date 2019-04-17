@@ -125,7 +125,6 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // straight is when 5 of cards are in order by rank
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             int RankCounter = 0;
@@ -144,8 +143,6 @@ namespace Poker_Game.Game {
             return false;
         }
 
-
-        // flush is when 5 of the cards are of the same suit
         public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
@@ -207,59 +204,92 @@ namespace Poker_Game.Game {
             return cards;
         }
 
-        public Player SameScore(Player player1, Player player2) {
-            if (player1.Score == Score.RoyalFlush) {
-                return null;
-            } else if (player1.Score == Score.StraightFlush) {
-                return BestStraight(player1, player2);
-            } else if (player1.Score == Score.FourOfAKind) {
-                return BestFourOfAKind(player1, player2);
-            } else if (player1.Score == Score.FullHouse) {
-                return BestFullHouse(player1, player2);
-            } else if (player1.Score == Score.Flush) {
-                return BestFlush(player1, player2);
-            } else if (player1.Score == Score.Straight) {
-                return BestStraight(player1, player2);
-            } else if (player1.Score == Score.ThreeOfAKind) {
-                return BestThreeOfAKind(player1, player2);
-            } else if (player1.Score == Score.TwoPairs) {
-                return BestTwoPairs(player1, player2);
-            } else if (player1.Score == Score.Pair) {
-                return BestPair(player1, player2);
-            }
-            return null;
-        }
-        private Player BestStraight(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
-            for (int i = 0; i < player1cards.Count - 5; i++) {
-                if(player1cards[i].Rank - 5 == player1cards[i + 5].Rank) {
-                    for (int j = 0; j < player2cards.Count - 5; j++) {
-                        if (player2cards[j].Rank - 5 == player2cards[j + 5].Rank) {
-                            return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-        private Player BestFourOfAKind(Player player1, Player player2) {
-            return null;
-        }
-        private Player BestFullHouse(Player player1, Player player2) {
-            return null;
-        }
-        private Player BestFlush(Player player1, Player player2) {
-            return null;
-        }
-        private Player BestThreeOfAKind(Player player1, Player player2) {
-            return null;
-        }
-        private Player BestTwoPairs(Player player1, Player player2) {
-            return null;
-        }
-        private Player BestPair(Player player1, Player player2) {
-            return null;
-        }
+        //public Player SameScore(Player player1, Player player2) {
+        //    if (player1.Score == Score.RoyalFlush) {
+        //        return null;
+        //    } else if (player1.Score == Score.StraightFlush) {
+        //        return BestStraight(player1, player2);
+        //    } else if (player1.Score == Score.FourOfAKind) {
+        //        return BestFourOfAKind(player1, player2);
+        //    } else if (player1.Score == Score.FullHouse) {
+        //        //return BestFullHouse(player1, player2);
+        //    } else if (player1.Score == Score.Flush) {
+        //        return BestFlush(player1, player2);
+        //    } else if (player1.Score == Score.Straight) {
+        //        return BestStraight(player1, player2);
+        //    } else if (player1.Score == Score.ThreeOfAKind) {
+        //        return BestThreeOfAKind(player1, player2);
+        //    } else if (player1.Score == Score.TwoPairs) {
+        //        return BestTwoPairs(player1, player2);
+        //    } else if (player1.Score == Score.Pair) {
+        //        return BestPair(player1, player2);
+        //    }
+        //    return null;
+        //}
+        //private Player BestStraight(Player player1, Player player2) {
+        //    List<Card> player1cards = DeckDuper3000(player1.Cards);
+        //    List<Card> player2cards = DeckDuper3000(player2.Cards);
+        //    player1cards.Sort();
+        //    player2cards.Sort();
+        //    for (int i = 0; i < player1cards.Count - 5; i++) {
+        //        if(player1cards[i].Rank - 5 == player1cards[i + 5].Rank) {
+        //            for (int j = 0; j < player2cards.Count - 5; j++) {
+        //                if (player2cards[j].Rank - 5 == player2cards[j + 5].Rank) {
+        //                    return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
+        //private Player BestFourOfAKind(Player player1, Player player2) {
+        //    List<Card> player1cards = DeckDuper3000(player1.Cards);
+        //    List<Card> player2cards = DeckDuper3000(player2.Cards);
+        //    player1cards.Sort();
+        //    player2cards.Sort();
+        //    for (int i = 0; i < player1cards.Count - 3; i++) {
+        //        if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+        //            player1cards[i + 1].Rank == player1cards[i + 2].Rank &&
+        //            player1cards[i + 2].Rank == player1cards[i + 3].Rank) {
+        //            for (int j = 0; i < player1cards.Count - 3; j++) {
+        //                if (player1cards[j].Rank == player1cards[j + 1].Rank &&
+        //                    player1cards[j + 1].Rank == player1cards[j + 2].Rank &&
+        //                    player1cards[j + 2].Rank == player1cards[j + 3].Rank) {
+        //                    return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
+        //private Player BestFullHouse(Player player1, Player player2) {
+        //    List<Card> player1cards = DeckDuper3000(player1.Cards);
+        //    List<Card> player2cards = DeckDuper3000(player2.Cards);
+        //    player1cards.Sort();
+        //    player2cards.Sort();
+        //    for (int i = 0; i < player1cards.Count - 1; i++) {
+        //        if (player1cards[i].Rank == player1cards[i + 1].Rank) {
+        //            for (int i = 0; i < player1cards.Count - 1; i++) {
+        //                if (player1cards[i].Rank == player1cards[i + 1].Rank) {
+        //                    return null;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+        //    return null;
+        //}
+        //private Player BestFlush(Player player1, Player player2) {
+        //    return null;
+        //}
+        //private Player BestThreeOfAKind(Player player1, Player player2) {
+        //    return null;
+        //}
+        //private Player BestTwoPairs(Player player1, Player player2) {
+        //    return null;
+        //}
+        //private Player BestPair(Player player1, Player player2) {
+        //    return null;
+        //}
     }
 }

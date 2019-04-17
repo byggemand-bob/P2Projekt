@@ -6,9 +6,10 @@
 
         #region Initialization
 
-        public Turn(Player player) {
+        public Turn(Player player, int potSize) {
             Action = player.Action;
-            // Bet = 
+            Bet = player.CurrentBet;
+            PotSize = potSize;
         }
 
         #endregion

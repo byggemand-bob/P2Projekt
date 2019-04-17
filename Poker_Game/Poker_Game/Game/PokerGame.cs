@@ -44,6 +44,7 @@ namespace Poker_Game {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Call;
+                NewTurn();
                 UpdateState();
                 CurrentRound().CycleStep++;
             }
@@ -52,6 +53,7 @@ namespace Poker_Game {
         public void Check() {
             if(CanCheck()) { // Fix this
                 Players[CurrentPlayerIndex].Action = PlayerAction.Check;
+                NewTurn();
                 UpdateState();
                 CurrentRound().CycleStep++;
             }
@@ -59,6 +61,7 @@ namespace Poker_Game {
 
         public void Fold() {
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
+            NewTurn();
             UpdateState();
             CurrentRound().CycleStep++;
         }
@@ -71,8 +74,17 @@ namespace Poker_Game {
 
                 // Create functions for this.
                 CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
+                NewTurn();
                 UpdateState();
                 CurrentRound().CycleStep++;
+            }
+        }
+
+        public void NewRound() {
+            if(!RoundInProgress) {
+                CurrentHand().StartRound(DealerButtonPosition);
+                RoundInProgress = true;
+                CurrentPlayerIndex = GetNextPlayerIndex();
             }
         }
 
@@ -86,13 +98,10 @@ namespace Poker_Game {
             }
         }
 
-        public void NewRound() {
-            if(!RoundInProgress) {
-                CurrentHand().StartRound(DealerButtonPosition);
-                RoundInProgress = true;
-                CurrentPlayerIndex = GetNextPlayerIndex();
-            }
+        private void NewTurn() {
+            CurrentRound().NewTurn(Players[CurrentPlayerIndex], CurrentHand().Pot);
         }
+       
 
         #endregion
 
@@ -131,13 +140,13 @@ namespace Poker_Game {
                     winners.Clear();
                     winners.Add(player);
                 } else if(player.Score == winners[0].Score) {
-                    Player tPlayer = wc.SameScore(winners[0], player);
-                    if(tPlayer == null) {
-                        winners.Add(player);
-                    } else {
-                        winners.Clear();
-                        winners.Add(tPlayer);
-                    }
+                    //Player tPlayer = new Player//wc.SameScore(winners[0], player);
+                    //if(tPlayer == null) {
+                    //    winners.Add(player);
+                    //} else {
+                    //    winners.Clear();
+                    //    winners.Add(tPlayer);
+                    //}
                 } 
             }
             return winners;

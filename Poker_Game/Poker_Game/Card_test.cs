@@ -17,7 +17,6 @@ namespace Poker_Game {
             int flush = 0, straight = 0, royalflush = 0, straightflush = 0, four = 0, fullhouse = 0, three = 0, twopair = 0, pair = 0;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            int goal = 1000000;
             do {
                 //for (int i = h.Deck.Count - 1; i >= 0; i--) {
                 //    h.Deck.Remove(h.Deck[i]);
@@ -30,16 +29,19 @@ namespace Poker_Game {
                 }
 
                 ////royalflush
-                //h.Deck.Add(new Card(Suit.Clubs, Rank.Ace));
-                //h.Deck.Add(new Card(Suit.Clubs, Rank.Queen));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
                 //h.Deck.Add(new Card(Suit.Clubs, Rank.King));
-                //h.Deck.Add(new Card(Suit.Clubs, (Rank)10));
-                //h.Deck.Add(new Card(Suit.Spades, (Rank)3));
                 //h.Deck.Add(new Card(Suit.Clubs, Rank.Jack));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
+                //h.Deck.Add(new Card(Suit.Spades, (Rank)3));
+                //h.Deck.Add(new Card(Suit.Clubs, Rank.King));
                 //h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
 
                 h.Deck.Sort();
                 TAELLER++;
+                //if (w.HasFullHouse(h.Deck)) {
+                //    fullhouse++;
+                //}
                 //for (int j = 0; j < h.Deck.Count; j++) {
                 //    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
                 //}
@@ -64,7 +66,7 @@ namespace Poker_Game {
                 } else if (w.HasPair(h.Deck)) {
                     pair++;
                 }
-            } while (royalflush < 1);
+            } while (royalflush < 100);
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             stopWatch.Stop();
             Console.WriteLine("TÆLLER: " + TAELLER);

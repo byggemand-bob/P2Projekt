@@ -6,6 +6,9 @@ namespace Poker_Game.Game {
         private StreamReader _streamReader;
         private readonly string _folderPath;
         private readonly string _fileName;
+        private readonly string _filePath;
+
+        private int _currentLineNumber;
 
         //File info
         private string _playerName;
@@ -16,10 +19,22 @@ namespace Poker_Game.Game {
         public StatisticsIO(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
             _fileName = playerName + ".stats";
+            _filePath = _folderPath + _fileName;
+            _currentLineNumber = GetCurrentLine(_filePath);
 
             EnsureDirectoryExists(_folderPath);
             EnsureFileExists(_folderPath + _fileName, playerName);
             GetInfoFromFile(_folderPath + _fileName);
+        }
+
+        private int GetCurrentLine(string filePath) {
+            _streamReader = new StreamReader(filePath);
+            int lineCount = 0;
+            while(_streamReader.ReadLine() != null) {
+                lineCount++;
+            }
+
+            return lineCount;
         }
 
         private void EnsureDirectoryExists(string folderPath) {
@@ -33,7 +48,7 @@ namespace Poker_Game.Game {
             if(!File.Exists(filePath)) {
                 _streamWriter = new StreamWriter(filePath);
                 _streamWriter.WriteLine(playerName + ";" + _numberOfGames + ";" + _numberOfHands);
-                _streamWriter.Dispose();
+                _streamWriter.Close();
             }
         }
 
@@ -45,18 +60,24 @@ namespace Poker_Game.Game {
             if(buffer != null) {
                 info = buffer.Split(';');
             } else { /* Error-handling */ }
-            _streamReader.Dispose();
+            _streamReader.Close();
 
             _playerName = info[0];
             _numberOfGames = int.Parse(info[1]);
             _numberOfHands = int.Parse(info[2]);
-        } 
+        }
         #endregion
 
         #region Actions
 
-        public void SaveHand(Hand hand) {
-           
+        #region MyRegion
+
+        public void SaveGame(PokerGame game) {
+
+        }
+
+        private void SaveHand(Hand hand) {
+
         }
 
         private void SaveRound(Round round) {
@@ -64,8 +85,11 @@ namespace Poker_Game.Game {
         }
 
         private void SaveTurn(Turn turn) {
-            
+            _streamWriter = new StreamWriter(_filePath);
+            _streamWriter.WriteLine("");
         }
+
+        #endregion
 
         #endregion
 
