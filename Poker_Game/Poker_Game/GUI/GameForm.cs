@@ -203,6 +203,9 @@ namespace Poker_Game {
 
         #region ButtonEvents
 
+        // TODO: Fix Fold (Doesn't give the pot to the right player
+        // TODO: Fix disables of buttons, so that you cant check when a player has raised
+
         private void buttonQuitToMenu_Click(object sender, EventArgs e) {
             QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
             formConfirmationQuit.ShowDialog();
