@@ -140,13 +140,13 @@ namespace Poker_Game {
                     winners.Clear();
                     winners.Add(player);
                 } else if(player.Score == winners[0].Score) {
-                    Player tPlayer = wc.SameScore(winners[0], player);
-                    if(tPlayer == null) {
-                        winners.Add(player);
-                    } else {
-                        winners.Clear();
-                        winners.Add(tPlayer);
-                    }
+                    //Player tPlayer = new Player//wc.SameScore(winners[0], player);
+                    //if(tPlayer == null) {
+                    //    winners.Add(player);
+                    //} else {
+                    //    winners.Clear();
+                    //    winners.Add(tPlayer);
+                    //}
                 } 
             }
             return winners;
