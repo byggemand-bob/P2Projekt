@@ -46,9 +46,9 @@ namespace Poker_Game {
             this.picturePlayerCard2 = new System.Windows.Forms.PictureBox();
             this.labelAIBlind = new System.Windows.Forms.Label();
             this.labelPlayerBlind = new System.Windows.Forms.Label();
-            this.buttonMakeNewHand = new System.Windows.Forms.Button();
             this.labelRoundName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,7 +57,6 @@ namespace Poker_Game {
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -318,17 +317,6 @@ namespace Poker_Game {
             this.labelPlayerBlind.TabIndex = 19;
             this.labelPlayerBlind.Text = "Big blind";
             // 
-            // buttonMakeNewHand
-            // 
-            this.buttonMakeNewHand.Location = new System.Drawing.Point(867, 316);
-            this.buttonMakeNewHand.Name = "buttonMakeNewHand";
-            this.buttonMakeNewHand.Size = new System.Drawing.Size(94, 35);
-            this.buttonMakeNewHand.TabIndex = 20;
-            this.buttonMakeNewHand.Text = "Continue";
-            this.buttonMakeNewHand.UseVisualStyleBackColor = true;
-            this.buttonMakeNewHand.Visible = false;
-            this.buttonMakeNewHand.Click += new System.EventHandler(this.buttonMakeNewHand_Click);
-            // 
             // labelRoundName
             // 
             this.labelRoundName.AutoSize = true;
@@ -355,6 +343,15 @@ namespace Poker_Game {
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(188, 207);
             this.panel1.TabIndex = 22;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(2, 125);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "label9";
             // 
             // label8
             // 
@@ -429,15 +426,6 @@ namespace Poker_Game {
             this.label1.TabIndex = 0;
             this.label1.Text = "Diagnostics";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(2, 125);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "label9";
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -449,7 +437,6 @@ namespace Poker_Game {
             this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelRoundName);
-            this.Controls.Add(this.buttonMakeNewHand);
             this.Controls.Add(this.labelPlayerBlind);
             this.Controls.Add(this.labelAIBlind);
             this.Controls.Add(this.picturePlayerCard2);
@@ -514,7 +501,6 @@ namespace Poker_Game {
         private System.Windows.Forms.PictureBox picturePlayerCard2;
         private System.Windows.Forms.Label labelAIBlind;
         private System.Windows.Forms.Label labelPlayerBlind;
-        private System.Windows.Forms.Button buttonMakeNewHand;
         private System.Windows.Forms.Label labelRoundName;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;

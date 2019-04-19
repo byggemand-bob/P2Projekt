@@ -25,11 +25,6 @@ namespace Poker_Game {
             labelPlayerName.Text = inputPlayerName;
 
             panel1.Visible = DiagnosticsMode;
-            MessageBox.Show("WINNER" + Environment.NewLine +
-                            "--------" + Environment.NewLine + 
-                            "PlayerName" + Environment.NewLine + 
-                            "PotSizeWon" + Environment.NewLine + 
-                            "WinningCardCombinatio");
             // Creates the game so to say...
             Game = new PokerGame(Settings);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
@@ -241,11 +236,6 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
         }
 
-        private void buttonMakeNewHand_Click(object sender, EventArgs e) {
-            ChangeActionButtonState(true);
-            CreateNewHand();
-            buttonMakeNewHand.Visible = false;
-        }
 
         #endregion
 
@@ -293,11 +283,14 @@ namespace Poker_Game {
             }
             else
             {
-                buttonMakeNewHand.Visible = true;
+                HandWinnerForm handWinnerForm = new HandWinnerForm(this); // More information from GameForm
+                handWinnerForm.ShowDialog();
+                ChangeActionButtonState(true);
+                CreateNewHand();
             }
         }
 
-        private void CreateNewHand() {
+        public void CreateNewHand() {
             Game.NewHand();
             ResetCards();
             UpdateAll();
