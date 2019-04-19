@@ -69,7 +69,7 @@ namespace Poker_Game.Game {
                 cardName += "S";
             }
             Rank = (Rank)rankInt;
-            //Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
 
