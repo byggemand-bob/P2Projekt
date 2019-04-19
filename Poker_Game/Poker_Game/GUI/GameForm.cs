@@ -13,6 +13,7 @@ namespace Poker_Game {
         private const bool DiagnosticsMode = true;
 
          // TODO: Make prettier and show who wins and how much at showdown
+        
 
         #region Initialization
 
@@ -24,7 +25,11 @@ namespace Poker_Game {
             labelPlayerName.Text = inputPlayerName;
 
             panel1.Visible = DiagnosticsMode;
-
+            MessageBox.Show("WINNER" + Environment.NewLine +
+                            "--------" + Environment.NewLine + 
+                            "PlayerName" + Environment.NewLine + 
+                            "PotSizeWon" + Environment.NewLine + 
+                            "WinningCardCombinatio");
             // Creates the game so to say...
             Game = new PokerGame(Settings);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
