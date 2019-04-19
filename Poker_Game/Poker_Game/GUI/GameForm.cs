@@ -6,8 +6,8 @@ using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        private Settings Settings;
-        private readonly PokerGame Game;
+        internal Settings Settings;
+        internal readonly PokerGame Game;
         private readonly List<Button> Buttons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;

@@ -128,7 +128,7 @@ namespace Poker_Game {
         }
 
         // TODO Cleanup. Separate.
-        private List<Player> GetWinners(Hand hand) {
+        public List<Player> GetWinners(Hand hand) {
             WinConditions wc = new WinConditions();
             List<Player> winners = new List<Player>();
 
