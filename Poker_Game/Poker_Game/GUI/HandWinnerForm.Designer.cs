@@ -41,42 +41,46 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWinnerTEXT.AutoSize = true;
-            this.labelWinnerTEXT.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWinnerTEXT.Location = new System.Drawing.Point(87, 9);
+            this.labelWinnerTEXT.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWinnerTEXT.Location = new System.Drawing.Point(72, 9);
             this.labelWinnerTEXT.Name = "labelWinnerTEXT";
-            this.labelWinnerTEXT.Size = new System.Drawing.Size(109, 30);
+            this.labelWinnerTEXT.Size = new System.Drawing.Size(143, 38);
             this.labelWinnerTEXT.TabIndex = 0;
             this.labelWinnerTEXT.Text = "WINNER";
             // 
             // labelWinningPlayerName
             // 
             this.labelWinningPlayerName.AutoSize = true;
-            this.labelWinningPlayerName.Location = new System.Drawing.Point(72, 64);
+            this.labelWinningPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWinningPlayerName.Location = new System.Drawing.Point(53, 65);
             this.labelWinningPlayerName.Name = "labelWinningPlayerName";
-            this.labelWinningPlayerName.Size = new System.Drawing.Size(115, 13);
+            this.labelWinningPlayerName.Size = new System.Drawing.Size(165, 20);
             this.labelWinningPlayerName.TabIndex = 1;
             this.labelWinningPlayerName.Text = "PlayerName: xxxxxxxxx";
             // 
             // labelPotSizeWon
             // 
             this.labelPotSizeWon.AutoSize = true;
-            this.labelPotSizeWon.Location = new System.Drawing.Point(72, 87);
+            this.labelPotSizeWon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPotSizeWon.Location = new System.Drawing.Point(53, 95);
             this.labelPotSizeWon.Name = "labelPotSizeWon";
-            this.labelPotSizeWon.Size = new System.Drawing.Size(113, 13);
+            this.labelPotSizeWon.Size = new System.Drawing.Size(162, 20);
             this.labelPotSizeWon.TabIndex = 2;
             this.labelPotSizeWon.Text = "Potsize Won: xxxxxxxx";
             // 
             // labelWincondition
             // 
             this.labelWincondition.AutoSize = true;
-            this.labelWincondition.Location = new System.Drawing.Point(72, 111);
+            this.labelWincondition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWincondition.Location = new System.Drawing.Point(53, 125);
             this.labelWincondition.Name = "labelWincondition";
-            this.labelWincondition.Size = new System.Drawing.Size(176, 13);
+            this.labelWincondition.Size = new System.Drawing.Size(266, 20);
             this.labelWincondition.TabIndex = 3;
             this.labelWincondition.Text = "BestCardCombination (wincondition)";
             // 
             // buttonContinue
             // 
+            this.buttonContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonContinue.Location = new System.Drawing.Point(92, 171);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(104, 36);
