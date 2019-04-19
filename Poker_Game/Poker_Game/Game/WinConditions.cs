@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+// TODO: Make a method for when both players has no winning hand -> Slit the pot
+
 namespace Poker_Game.Game {
     enum Score {
         None, Pair = 15, TwoPairs, ThreeOfAKind,
