@@ -16,7 +16,6 @@ namespace Poker_Game.Game {
 
 
         public Card(Suit suit, Rank rank) {
-            //Image = image;
             Suit = suit;
             Rank = rank;
         }
@@ -73,7 +72,7 @@ namespace Poker_Game.Game {
         }
 
 
-        public int CompareTo(object other) { // Sort after suit, then rank
+        public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
             if(Rank.CompareTo(otherCard.Rank) < 0) {
                 return -1;
