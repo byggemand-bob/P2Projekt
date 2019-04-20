@@ -13,7 +13,7 @@ namespace Poker_Game {
         private const bool DiagnosticsMode = true;
 
          // TODO: Make prettier and show who wins and how much at showdown
-        
+         // TODO: buttonRaise or Game.Raise() does NOT work propperly
 
         #region Initialization
 
