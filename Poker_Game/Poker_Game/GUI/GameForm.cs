@@ -309,6 +309,7 @@ namespace Poker_Game {
             label7.Text = "AI Stack: " + Game.Players[1].Stack;
             label8.Text = "Player Stack: " + Game.Players[0].Stack;
             label9.Text = "CycleStep: " + Game.CurrentRound().CycleStep;
+            label10.Text = "Bets: " + Game.CurrentRound().Bets;
         }
 
         #endregion

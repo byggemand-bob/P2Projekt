@@ -190,7 +190,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentRound().Bets != 3;
+            return CurrentRound().Bets < 3;
         }
 
         public int CurrentHandNumber() {
