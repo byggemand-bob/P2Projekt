@@ -29,6 +29,7 @@ namespace Poker_Game {
             Game = new PokerGame(Settings);
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
+
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
