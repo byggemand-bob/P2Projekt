@@ -16,7 +16,6 @@ namespace Poker_Game
     partial class HandWinnerForm : Form
     {
         private GameForm GameForm;
-        private string Winners;
 
         public HandWinnerForm(GameForm gameForm)
         {
@@ -27,13 +26,9 @@ namespace Poker_Game
             UpdatePotSizeLabel(gameForm.Game.Hands[gameForm.Game.CurrentHandNumber() - 1].Pot);
         }
 
-        private void FindWinnerName(List<Player> players, String playernames) // TODO: Make this shit work
+        private void FindWinnerName(List<Player> players, String playername) // TODO: Make this shit work
         {
-            foreach (Player player in players)
-            {
-                Winners += playernames;
-            }
-            labelWinningPlayerName.Text = "Playername: " + Winners;
+            
         }
 
         private void UpdatePotSizeLabel(int potSize)
