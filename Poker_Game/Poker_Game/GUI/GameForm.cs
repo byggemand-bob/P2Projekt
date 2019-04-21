@@ -288,7 +288,7 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
-        private void Showdown(bool playerHasFolded)
+        private void Showdown(bool playerHasFolded) // TODO: Make less crowded - more methods!
         {
             if (!playerHasFolded)
             {
@@ -305,11 +305,23 @@ namespace Poker_Game {
             }
             else
             {
-                HandWinnerForm handWinnerForm = new HandWinnerForm(this); // More information from GameForm
+                // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
+                HandWinnerForm handWinnerForm = new HandWinnerForm(this, GetWinnerPlayers(), Game.CurrentHand().Pot); // More information from GameForm
                 handWinnerForm.ShowDialog();
                 ChangeActionButtonState(true);
                 CreateNewHand();
             }
+        }
+
+        private string GetWinnerPlayers() // Gets the string of which player has won
+        {
+            List<Player> players = Game.GetWinners(Game.CurrentHand());
+            string winners = null;
+            foreach (Player player in players)
+            {
+                winners += player.Name;
+            }
+            return winners;
         }
 
         public void CreateNewHand() // Creates a new hand and calls methods for the new gamestate

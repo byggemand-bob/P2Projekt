@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Poker_Game.Game;
 
 // Kan det laves bedre? Det kan det sikkert...
 
@@ -15,20 +7,19 @@ namespace Poker_Game
 {
     partial class HandWinnerForm : Form
     {
-        private GameForm GameForm;
-
-        public HandWinnerForm(GameForm gameForm)
+        GameForm GameForm;
+        public HandWinnerForm(GameForm gameForm, string winners, int potsizeWon)
         {
             GameForm = gameForm;
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            FindWinnerName(GameForm.Game.GetWinners(GameForm.Game.CurrentHand()), GameForm.Settings.PlayerName);
-            UpdatePotSizeLabel(gameForm.Game.Hands[gameForm.Game.CurrentHandNumber() - 1].Pot);
+            FindWinnerName(winners);
+            UpdatePotSizeLabel(potsizeWon);
         }
 
-        private void FindWinnerName(List<Player> players, String playername) // TODO: Make this shit work
+        private void FindWinnerName(string winners) 
         {
-            
+            labelWinningPlayerName.Text = "Playername: " + winners;
         }
 
         private void UpdatePotSizeLabel(int potSize)
