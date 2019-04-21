@@ -6,8 +6,8 @@ using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        internal Settings Settings;
-        internal readonly PokerGame Game;
+        private Settings Settings;
+        private readonly PokerGame Game;
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
@@ -306,7 +306,7 @@ namespace Poker_Game {
             else
             {
                 // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-                HandWinnerForm handWinnerForm = new HandWinnerForm(this, GetWinnerPlayers(), Game.CurrentHand().Pot); // More information from GameForm
+                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot); // More information from GameForm
                 handWinnerForm.ShowDialog();
                 ChangeActionButtonState(true);
                 CreateNewHand();

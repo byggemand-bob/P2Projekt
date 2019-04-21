@@ -7,10 +7,8 @@ namespace Poker_Game
 {
     partial class HandWinnerForm : Form
     {
-        GameForm GameForm;
-        public HandWinnerForm(GameForm gameForm, string winners, int potsizeWon)
+        public HandWinnerForm(string winners, int potsizeWon)
         {
-            GameForm = gameForm;
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             FindWinnerName(winners);
@@ -32,9 +30,8 @@ namespace Poker_Game
             // Do this mehtod when vindonditions are okay
             labelWincondition.Text = "2 pairs";
         }
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonContinue_Click(object sender, EventArgs e) // How can this method be called without having gameForm as parameter and mehtod non-static?
         {
-            GameForm.CreateNewHand();
             this.Close();
         }
     }
