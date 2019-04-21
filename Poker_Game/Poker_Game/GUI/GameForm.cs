@@ -8,7 +8,7 @@ namespace Poker_Game {
     public partial class GameForm : Form {
         internal Settings Settings;
         internal readonly PokerGame Game;
-        private readonly List<Button> Buttons = new List<Button>();
+        private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
 
@@ -17,18 +17,26 @@ namespace Poker_Game {
 
         #region Initialization
 
-        public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { //Think about making Settings in settingsform and has it as a parameter. 
+        public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { // Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
+
+            // Initilization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
-            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
-            labelPlayerName.Text = inputPlayerName;
 
+            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
+
+            // Diagnostics window for (bad) debugging
             panel1.Visible = DiagnosticsMode;
-            // Creates the game so to say...
+
+            // Creates the game with usersettings
             Game = new PokerGame(Settings);
-            labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack);
+            Game.Players[0].Name = inputPlayerName;
+            Game.Players[1].Name = "AI";
+            
+            labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
+            labelPlayerName.Text = inputPlayerName;
 
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
@@ -36,12 +44,12 @@ namespace Poker_Game {
             UpdateAll();
         }
 
-        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) {
+        
+        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) { // Help-method to declare settings class for the game
             Settings =  new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
 
-        private void Form1_Load(object sender, EventArgs e) { // Events when the form loads
-            //Set the window form
+        private void Form1_Load(object sender, EventArgs e) { 
             this.MaximumSize = new Size(1000, 700);
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
@@ -52,15 +60,15 @@ namespace Poker_Game {
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        private void CreateButtonList()
+        private void CreateButtonList() // Adds all action-buttons to ButtonsList
         {
-            Buttons.Add(buttonCall);
-            Buttons.Add(buttonCheck);
-            Buttons.Add(buttonRaise);
-            Buttons.Add(buttonFold);
+            ActionButtons.Add(buttonCall);
+            ActionButtons.Add(buttonCheck);
+            ActionButtons.Add(buttonRaise);
+            ActionButtons.Add(buttonFold);
         }
 
-        private void CreatePictureBoxList()
+        private void CreatePictureBoxList() // Adds all pictureBoxes from winform into a list. 
         {
             PictureBoxes.Add(pictureAICard1);
             PictureBoxes.Add(pictureAICard2);
@@ -75,13 +83,12 @@ namespace Poker_Game {
 
         #region CardDrawing
 
-        private void ShowCardImage(PictureBox obj, Card card)
+        private void ShowCardImage(PictureBox obj, Card card) // Changes image of a tablecard. Both image and object are parameters
         {
             obj.Image = card.Image;
         }
 
-        private void ResetCards() {
-            // Reset table and AI cards to be "invisible"
+        private void ResetCards() { // Reset of tablecard images to default
             foreach (PictureBox pictureBox in PictureBoxes)
             {
                 pictureBox.Image = Properties.Resources.z_Back_of_card2;
@@ -92,7 +99,7 @@ namespace Poker_Game {
 
         #region Updates
 
-        private void UpdateAll() // Name-change?
+        private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
             UpdateRoundName();
             UpdateCurrentPlayer();
@@ -105,7 +112,8 @@ namespace Poker_Game {
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
 
-        private void UpdateCards() {
+        private void UpdateCards() // Checks if a new tablecard should be 'revealed'
+        { 
             if (Game.CurrentRoundNumber() == 2)
             {
                 ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
@@ -126,7 +134,7 @@ namespace Poker_Game {
             }
         }
 
-        private void UpdateRoundName()
+        private void UpdateRoundName() 
         {
             if (Game.CurrentRoundNumber() == 1)
             {
@@ -151,7 +159,8 @@ namespace Poker_Game {
 
         }
 
-        private void UpdateCurrentPlayer() { // Highlights current player's name
+        private void UpdateCurrentPlayer() // Highlights current player's name
+        { 
             if (Game.CurrentPlayerIndex == 0)
             {
                 labelPlayerName.ForeColor = Color.Yellow;
@@ -162,21 +171,24 @@ namespace Poker_Game {
             {
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
-                //Disabled untill AI has been implemented
+                //Disabled untill AI has been implemented ??? missing something
                 //ChangeActionButtonState(false);
             }
         }
 
-        private void UpdatePlayerStack(Player player, Player AI) {
+        private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
+        {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
             labelAIStack.Text = "AI" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
         }
 
-        private void UpdatePotSize(Hand hand) {
+        private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
+        {
             labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
         }
 
-        private void UpdatePlayerBlind(Player player) {
+        private void UpdatePlayerBlind(Player player) // Updates blind-labels for each player
+        {
             if (player.IsBigBlind)
             {
                 labelAIBlind.Text = "Small blind";
@@ -189,15 +201,16 @@ namespace Poker_Game {
             }
         }
 
-        private void UpdateButtons() {
-           
+        private void UpdateButtons() // Enables buttons only if the player can make such action
+        {
             buttonCall.Enabled = Game.CanCall();
             buttonCheck.Enabled = Game.CanCheck();
             buttonRaise.Enabled = Game.CanRaise();
 
         }
 
-        private void CheckPlayerTurn(int id) {
+        private void CheckPlayerTurn(int id)
+        {
             ChangeActionButtonState(id == 0);
         }
 
@@ -206,30 +219,35 @@ namespace Poker_Game {
 
         #region ButtonEvents
 
-        // TODO: Fix Fold (Doesn't give the pot to the right player
+        // TODO: Fix Fold (Doesn't give the pot to the right player)
         // TODO: Fix disables of buttons, so that you cant check when a player has raised
 
-        private void buttonQuitToMenu_Click(object sender, EventArgs e) {
+        private void buttonQuitToMenu_Click(object sender, EventArgs e)
+        {
             QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
             formConfirmationQuit.ShowDialog();
         }
 
-        private void buttonCall_Click(object sender, EventArgs e) {
+        private void buttonCall_Click(object sender, EventArgs e)
+        {
             Game.Call();
             UpdateAll();
         }
 
-        private void buttonCheck_Click(object sender, EventArgs e) {
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
             Game.Check();
             UpdateAll();
         }
 
-        private void buttonRaise_Click(object sender, EventArgs e) {
+        private void buttonRaise_Click(object sender, EventArgs e)
+        {
             Game.Raise();
             UpdateAll();
         }
 
-        private void buttonFold_Click(object sender, EventArgs e) {
+        private void buttonFold_Click(object sender, EventArgs e)
+        {
             Game.Fold();
             Showdown(true);
             ChangeActionButtonColor();
@@ -242,15 +260,17 @@ namespace Poker_Game {
 
         #region Utility
 
-        private void ChangeActionButtonState(bool updatedState) { // check if updatedState is the same as old?
-            foreach(Button button in Buttons) {
+        private void ChangeActionButtonState(bool updatedState) // check if updatedState is the same as old?
+        { 
+            foreach(Button button in ActionButtons) {
                 button.Enabled = updatedState;
             }
             ChangeActionButtonColor();
         }
 
-        private void ChangeActionButtonColor() {
-            foreach(Button button in Buttons)
+        private void ChangeActionButtonColor() // Changes color depending if button is clickable or not
+        {
+            foreach(Button button in ActionButtons)
             {
                 if (!button.Enabled)
                 {
@@ -268,10 +288,11 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
-        private void Showdown(bool playerHasFolded) {
+        private void Showdown(bool playerHasFolded)
+        {
             if (!playerHasFolded)
             {
-                // Shows AI's cards on hand if showdown has been reached
+                // Shows AI's cards on hand if a player has not folded
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
             }
@@ -280,7 +301,7 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
             if (Game.IsFinished())
             {
-                MessageBox.Show("GAMEOVER SUCKERS!");
+                MessageBox.Show("GAMEOVER!");
             }
             else
             {
@@ -291,7 +312,8 @@ namespace Poker_Game {
             }
         }
 
-        public void CreateNewHand() {
+        public void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
+        {
             Game.NewHand();
             ResetCards();
             UpdateAll();
@@ -300,7 +322,8 @@ namespace Poker_Game {
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
         }
 
-        private void UpdateTest() {
+        private void UpdateTest() // Test labels - used for diagnostics
+        {
             label2.Text = "DealerButtonPosition: " + Game.DealerButtonPosition;
             label3.Text = "HandNumber: " + Game.CurrentHandNumber();
             label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();

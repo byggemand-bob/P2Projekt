@@ -21,6 +21,7 @@ namespace Poker_Game.Game {
         public int CurrentBet { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
+        public string Name { get; set; }
 
         public PlayerAction Action { get; set; }
         public Score Score { get; set; }
