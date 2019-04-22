@@ -112,7 +112,7 @@ namespace Poker_Game.Game {
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                return HasStraight(FlushSuit(sortedCards));
+                return HasStraight(FullHouse(sortedCards));
             }
             return false;
         }
@@ -121,7 +121,7 @@ namespace Poker_Game.Game {
         public bool HasRoyalFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                FlushSuit(sortedCards);
+                FullHouse(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
