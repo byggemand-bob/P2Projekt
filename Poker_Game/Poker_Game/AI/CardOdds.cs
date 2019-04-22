@@ -20,10 +20,10 @@ namespace Poker_Game.AI
 
             combinedHandStreetCount = street.Count + hand.Count;
             deckSize = 52 - combinedHandStreetCount;
-            totalNumberOfOutcomes = TotalNumberOfOutcomescalc(street.Count);
+            totalNumberOfOutcomes = TotalNumberOfOutcomesCalc(street.Count);
         }
 
-        private int TotalNumberOfOutcomescalc(int StreetSize)
+        private int TotalNumberOfOutcomesCalc(int StreetSize)
         {
             int devideBy = 1;
 
@@ -34,14 +34,10 @@ namespace Poker_Game.AI
                 result *= deckSize - i; 
             }
 
-            Console.WriteLine("{0}", i);
-
             for(n = 2; n <= i; n++)
             {
                 devideBy *= n;
             }
-
-            Console.WriteLine("{0}", n);
 
             result = result / devideBy;
             result *= ((deckSize - i) * (deckSize - i - 1)) / 2;
@@ -49,7 +45,8 @@ namespace Poker_Game.AI
             return result;
         }
 
-        private int NumberOfSameCardranksInList(List<Card> TestList, Rank TestCard)
+        private int NumberOfSameCardranksInList(List<Card> TestList, Rank TestRank)
+        // Counts the number of cards with the rank = TestRank in TestList.
         {
             int listsize;
 
@@ -58,14 +55,15 @@ namespace Poker_Game.AI
             
             for(i = 0; i < listsize; i++)
             {
-                if (TestList[i].Rank == TestCard)
+                if (TestList[i].Rank == TestRank)
                     result++;
             }
 
             return result;
         }
 
-        public int OutcomeswhereOpponantsGetsTwoOfKind(Rank CardRank)
+        public int OutcomesWhereOpponantsGetsTwoOfKind(Rank CardRank)
+        // Calculates number outcomes where opponant get to of a kind of CardRank
         {
             int numberOfSameCardsInPlay;
 
