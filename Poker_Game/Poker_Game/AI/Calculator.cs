@@ -32,7 +32,7 @@ namespace Poker_Game.AI
         }
 
         public ulong FacultyXDevidedByFacultyY(ulong startFrom, ulong endAt)
-        //multiplies every number from startFrom down to but not including endAt ex. 10 and 7 = 10 x 9 x 8.
+        //multiplies every number from startFrom down to but not including endAt ex. 10 and 7: 10 x 9 x 8 = 720.
         {
             ulong i;
             x = startFrom;
