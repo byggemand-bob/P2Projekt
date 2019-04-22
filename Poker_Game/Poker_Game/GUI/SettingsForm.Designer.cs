@@ -205,7 +205,7 @@ namespace Poker_Game
             0,
             0,
             0});
-            this.numericUpDownPotSize.Location = new System.Drawing.Point(382, 72);
+            this.numericUpDownPotSize.Location = new System.Drawing.Point(381, 72);
             this.numericUpDownPotSize.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -298,7 +298,7 @@ namespace Poker_Game
             0,
             0,
             0});
-            this.numericUpDownBlindIncrease.Location = new System.Drawing.Point(379, 220);
+            this.numericUpDownBlindIncrease.Location = new System.Drawing.Point(381, 220);
             this.numericUpDownBlindIncrease.Maximum = new decimal(new int[] {
             60,
             0,
