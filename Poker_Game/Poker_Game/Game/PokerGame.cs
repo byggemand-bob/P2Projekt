@@ -19,12 +19,12 @@ namespace Poker_Game.Game {
         public Settings Settings { get; set; }
 
         #region Initialization
+
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
             Hands = new List<Hand>();
             DealerButtonPosition = 0;
-            
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
@@ -39,8 +39,8 @@ namespace Poker_Game.Game {
         #endregion
 
         #region Actions
-        public void Call() {
-            if(CanCall()) {
+        public void Call() { // Method used for coding a press of Call-button in GameForm.
+            if (CanCall()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Call;
@@ -50,8 +50,8 @@ namespace Poker_Game.Game {
             }
         }
 
-        public void Check() {
-            if(CanCheck()) { // Fix this
+        public void Check() { // Method used for coding a press of Check-button in GameForm.
+            if (CanCheck()) { // Needs fixing
                 Players[CurrentPlayerIndex].Action = PlayerAction.Check;
                 NewTurn();
                 UpdateState();
@@ -59,19 +59,18 @@ namespace Poker_Game.Game {
             }
         }
 
-        public void Fold() {
+        public void Fold() { // Method used for coding a press of Fold-button in GameForm.
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
             NewTurn();
             UpdateState();
             CurrentRound().CycleStep++;
         }
 
-        public void Raise() {
+        public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
-
                 // Create functions for this.
                 CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
                 NewTurn();
@@ -121,7 +120,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        private void RewardWinners(List<Player> winners) {
+        private void RewardWinners(List<Player> winners) { // TODO: Make a split of the pot if more than one player wins.
             foreach(Player player in winners) {
                 player.Stack += CurrentHand().Pot / winners.Count;
             }
@@ -166,8 +165,8 @@ namespace Poker_Game.Game {
 
         private int GetNextPlayerIndex() {
             int next = ++CurrentPlayerIndex % Settings.NumberOfPlayers;
-            for(int i = 0; i < Settings.NumberOfPlayers; i++) {
-                if(Players[next].Action != PlayerAction.Fold) {
+            for (int i = 0; i < Settings.NumberOfPlayers; i++) {
+                if (Players[next].Action != PlayerAction.Fold) {
                     return next;
                 }
                 next = ++next % Settings.NumberOfPlayers;
@@ -211,7 +210,7 @@ namespace Poker_Game.Game {
 
         public bool IsFinished() { // Checks if players still has $ in stack
             int playersLeft = 0;
-            foreach(Player player in Players) {
+            foreach (Player player in Players) {
                 if (player.Stack < 1) {
                     playersLeft++;
                     if (playersLeft > 1) {
@@ -228,22 +227,28 @@ namespace Poker_Game.Game {
         #region Betting
 
         private void Bet(Player player, int amount) {
-            if(player.Stack >= amount) {
+            if (player.Stack >= amount) {
                 player.CurrentBet += amount;
                 player.Stack -= amount;
                 CurrentHand().Pot += amount;
-            } else {
+            }
+            else {
                 // Not enough money
                 // TODO: Do something
             }
         }
 
-        private void PayBlinds() {
-            for (int i = 0; i < Settings.NumberOfPlayers; i++) {
-                if(Players[i].IsBigBlind) {
+        private void PayBlinds() 
+        {
+            for (int i = 0; i < Settings.NumberOfPlayers; i++)
+            {
+                if (Players[i].IsBigBlind)
+                {
                     Bet(Players[i], 2 * Settings.BlindSize);
                     CurrentRound().TopBidderIndex = i;
-                } else if(Players[i].IsSmallBlind) {
+                }
+                else if (Players[i].IsSmallBlind)
+                {
                     Bet(Players[i], Settings.BlindSize);
                 }
             }
