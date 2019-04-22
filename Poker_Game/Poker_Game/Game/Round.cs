@@ -19,14 +19,15 @@ namespace Poker_Game.Game {
             Bets = 0;
         }
 
-        private List<Player> GetActivePlayers(List<Player> players) {
-            List<Player> output = new List<Player>();
+        private List<Player> GetActivePlayers(List<Player> players) // Returns a List of players who has not folded.
+        {
+            List<Player> activePlayers = new List<Player>();
             foreach(Player player in players) {
-                if(player.Action != PlayerAction.Fold) {
-                    output.Add(player);
+                if (player.Action != PlayerAction.Fold) {
+                    activePlayers.Add(player);
                 }
             }
-            return output;
+            return activePlayers;
         }
 
         #endregion
@@ -54,13 +55,12 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            //System.Windows.Forms.MessageBox.Show(AllChecked() + " or " + (CycleFinished() && Bets == 3));
             return AllChecked() || Turns.Count > Players.Count - 1 && AllCalled(); // TODO: Rework
         }
 
         private bool AllChecked() {
-            foreach(Player player in Players) {
-                if(player.Action != PlayerAction.Check) {
+            foreach (Player player in Players) {
+                if (player.Action != PlayerAction.Check) {
                     return false;
                 }
             }
@@ -69,9 +69,9 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            if(Bets == 3 && CycleFinished()) {
-                for(int i = 0; i < Players.Count; i++) {
-                    if(Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
+            if (Bets == 3 && CycleFinished()) {
+                for (int i = 0; i < Players.Count; i++) {
+                    if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
                         return false;
                     }
                 }
