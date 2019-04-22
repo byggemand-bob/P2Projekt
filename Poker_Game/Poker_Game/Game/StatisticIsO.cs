@@ -1,6 +1,8 @@
 ﻿using System.IO;
 
 namespace Poker_Game.Game {
+
+    // This class saves the information of the different hands played in the game
     class StatisticsIO {
         private StreamWriter _streamWriter;
         private StreamReader _streamReader;
@@ -16,6 +18,8 @@ namespace Poker_Game.Game {
         private int _numberOfHands;
 
         #region Initialization
+
+        // Creates the path and path name and adding the players name for identification
         public StatisticsIO(string playerName) {
             _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
             _fileName = playerName + ".stats";
@@ -27,6 +31,7 @@ namespace Poker_Game.Game {
             GetInfoFromFile(_folderPath + _fileName);
         }
 
+        // Finds the line where the StreamReader should read from in the code
         private int GetCurrentLine(string filePath) {
             _streamReader = new StreamReader(filePath);
             int lineCount = 0;
@@ -37,6 +42,7 @@ namespace Poker_Game.Game {
             return lineCount;
         }
 
+        //Checks if the FileInfo has been created
         private void EnsureDirectoryExists(string folderPath) {
             FileInfo fileInfo = new FileInfo(folderPath);
             if(!fileInfo.Directory.Exists) {
@@ -44,6 +50,7 @@ namespace Poker_Game.Game {
             }
         }
 
+        // checks if the StreamWriter has the correct filePath to write to, and writes info to the file
         private void EnsureFileExists(string filePath, string playerName) {
             if(!File.Exists(filePath)) {
                 _streamWriter = new StreamWriter(filePath);
@@ -52,7 +59,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        // Split into more methods
+        // Work in progres - (Split into more methods) - retrieves needed info from a file path 
         private void GetInfoFromFile(string filePath) {
             string[] info = new string[2];
             _streamReader = new StreamReader(filePath);
@@ -71,6 +78,8 @@ namespace Poker_Game.Game {
         #region Actions
 
         #region MyRegion
+
+        // Work in progress
 
         public void SaveGame(PokerGame game) {
 

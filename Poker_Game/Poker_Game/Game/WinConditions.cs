@@ -18,7 +18,8 @@ namespace Poker_Game.Game {
             }
             return dupeCards;
         }
-
+        
+        // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             sortedCards.Sort();
@@ -45,11 +46,13 @@ namespace Poker_Game.Game {
                 return GetBestCard(cards);
             }
         }
-
+        
+        // Finds the best of 2 cards
         private Score GetBestCard(List<Card> playerHand) {
             return (playerHand[0].Rank > playerHand[1].Rank) ? (Score)playerHand[0].Rank : (Score)playerHand[1].Rank;
         }
-
+        
+        // Checks if the player has a pair
         public bool HasPair(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
@@ -59,6 +62,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        // Check if the player has two pairs
         public bool HasTwoPairs(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
 
@@ -70,6 +74,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        // Checks for three of a kind
         public bool HasThreeOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -79,7 +84,8 @@ namespace Poker_Game.Game {
             }
             return false;
         }
-
+        
+        // Checks for a full house
         public bool HasFullHouse(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i < sortedCards.Count - 1; i++) {
@@ -90,6 +96,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        // Checks for four of a kind
         public bool HasFourOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 3; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -101,6 +108,7 @@ namespace Poker_Game.Game {
             return false; 
         }
 
+        // Checks for straight flush
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
@@ -109,6 +117,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        // Checks if the player has a royal straight flush
         public bool HasRoyalFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
@@ -126,6 +135,8 @@ namespace Poker_Game.Game {
             }
             return false;
         }
+
+        // Checks if the player has a straight
 
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
@@ -145,6 +156,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        // Checks if the player has a flush 
         public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
@@ -163,6 +175,7 @@ namespace Poker_Game.Game {
             }
             return false;
         }
+
 
         private List<Card> FlushSuit(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;

@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 
 namespace Poker_Game.Game {
+
+    // This function represents each individual round of the game, one for each hand dealt
     class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
-
+        
+        // Allocating memory for the various elements of a hand
         #region Initialization
         public Hand(List<Player> players, int dealerButtonPosition) {
             Pot = 0;
@@ -20,6 +23,7 @@ namespace Poker_Game.Game {
             StartRound(dealerButtonPosition);
         }
 
+        // Initialized the players, from a list of players and their positions, resets them each round, and deals a new hand of cards
         private List<Player> InitializePlayers(List<Player> players, int dealerButtonPosition) {
             List<Player> initPlayers = players;
             for(int i = 0; i < initPlayers.Count; i++) {
@@ -37,6 +41,7 @@ namespace Poker_Game.Game {
             return initPlayers;
         }
 
+        // Checks if the players have a stack greater than 0, and adds t
         private List<Player> GetActivePlayers(List<Player> players) {
             List<Player> output = new List<Player>();
             foreach(Player player in players) {
@@ -50,12 +55,14 @@ namespace Poker_Game.Game {
 
         #region Actions
 
+        //Function to start the round, which resets the previous rounds
         public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
             Rounds.Add(new Round(Players));
             ResetActions();
         }
 
+        // Function to determine whether the hand game state is preflop, flop, turn og river
         private void UpdateStreet() {
             switch (Rounds.Count) {
                 case 1: // Flop
@@ -73,12 +80,14 @@ namespace Poker_Game.Game {
             }
         }
 
+        // Resets the current actions of the player
         private void ResetActions() {
             foreach(Player player in Players) {
                 player.Action = PlayerAction.None;
             }
         }
 
+        // Draws number of cards needed for the player / street
         private void DrawCards(int numberOfCards) {
             for (int i = 0; i < numberOfCards; i++) {
                 Card newCard = new Card(Deck);
@@ -94,6 +103,7 @@ namespace Poker_Game.Game {
 
         #region Utility
 
+        // Checks if the game has played all 5 rounds and is finished
         public bool IsFinished() {
             if(PlayersLeft() > 1) {
                 return Rounds.Count == 5;
@@ -102,6 +112,7 @@ namespace Poker_Game.Game {
             return true;
         }
 
+        // Checks if any players are left in the game, or if they folded
         private int PlayersLeft() {
             int playersLeft = 0;
             foreach(Player player in Players) {
@@ -113,6 +124,7 @@ namespace Poker_Game.Game {
             return playersLeft;
         }
 
+        // Finds the current round number
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }
