@@ -31,7 +31,8 @@ namespace Poker_Game.AI
             return fact;
         }
 
-        public ulong Faculty(ulong startFrom, ulong endAt)
+        public ulong FacultyXDevidedByFacultyY(ulong startFrom, ulong endAt)
+        //multiplies every number from startFrom down to but not including endAt ex. 10 and 7 = 10 x 9 x 8.
         {
             ulong i;
             x = startFrom;
@@ -52,7 +53,7 @@ namespace Poker_Game.AI
 
         public ulong Binomial(ulong n, ulong r)
         {
-            return Faculty(n, n - r) / Faculty(r);
+            return FacultyXDevidedByFacultyY(n, n - r) / Faculty(r);
         }
     }
 }
