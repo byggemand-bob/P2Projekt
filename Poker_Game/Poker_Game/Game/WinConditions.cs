@@ -201,6 +201,7 @@ namespace Poker_Game.Game {
             }
         }
         
+
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
             for(int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {
