@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Poker_Game.Game;
 
 // TODO: create GetHashCode()
-
-
 
 namespace Poker_Game.Game {
     enum PlayerAction {
@@ -22,10 +19,8 @@ namespace Poker_Game.Game {
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public string Name { get; set; }
-
         public PlayerAction Action { get; set; }
         public Score Score { get; set; }
-
         public List<Card> Cards { get; set; }
 
         #region Initialization
@@ -43,11 +38,11 @@ namespace Poker_Game.Game {
         #region Actions
 
         public void GetScore() {
-            WinConditions wc = new WinConditions();
+            WinConditions wc = new WinConditions(); // TODO: Give variable a better name...
             Score = wc.Evaluate(Cards);
         }
 
-        public void Reset() {
+        public void Reset() { // Reset a player-state for each new hand
             CurrentBet = 0;
             IsBigBlind = false;
             IsSmallBlind = false;
@@ -69,11 +64,11 @@ namespace Poker_Game.Game {
         #endregion
 
         #region Utility
-        public int CompareTo(object other) {
+        public int CompareTo(object other) { // Compares players
             return Id.CompareTo(((Player)other).Id);
         }
 
-        public object Clone() {
+        public object Clone() { // Clones players
             Player player = new Player(Id, Stack);
             player.IsBigBlind = IsBigBlind;
             player.IsSmallBlind = IsSmallBlind;
