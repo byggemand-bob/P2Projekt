@@ -18,7 +18,7 @@ namespace Poker_Game
         private void buttonStartGame_Click(object sender, EventArgs e)
         // Makes sure you've entered a name before continueing
         {
-            if (textboxName.Text != "" && textboxName.Text != "Enter Name")
+            if (nameChanged)
             {
                 this.Hide();
                 GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
