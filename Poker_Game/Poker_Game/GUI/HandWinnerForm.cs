@@ -30,7 +30,7 @@ namespace Poker_Game
             // Do this mehtod when vindonditions are okay
             labelWincondition.Text = "2 pairs";
         }
-        private void buttonContinue_Click(object sender, EventArgs e) // How can this method be called without having gameForm as parameter and mehtod non-static?
+        private void buttonContinue_Click(object sender, EventArgs e)
         {
             this.Close();
         }
