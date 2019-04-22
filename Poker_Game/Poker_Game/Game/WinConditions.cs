@@ -176,8 +176,8 @@ namespace Poker_Game.Game {
             return false;
         }
 
-
-        private List<Card> FlushSuit(List<Card> cards) {
+        // Checks if the cards in hand / street forms a correct straight house
+        private List<Card> FullHouse(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
