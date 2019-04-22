@@ -14,7 +14,6 @@ namespace Poker_Game.Game {
         public Rank Rank { get; set; }
         public Image Image { get; set; }
 
-
         public Card(Suit suit, Rank rank) {
             Suit = suit;
             Rank = rank;
@@ -24,12 +23,12 @@ namespace Poker_Game.Game {
             DrawCards(existingCards);
         }
 
-        private int DrawRandCard() {
+        private int DrawRandomCard() {
             return _random.Next(0, 51);
         }
 
         public void DrawCards(List<Card> cards) {
-            MakeCard(DrawRandCard());
+            MakeCard(DrawRandomCard());
             foreach (Card element in cards) {
                 if (element.CompareTo(this) == 0) {
                     DrawCards(cards);
@@ -42,7 +41,7 @@ namespace Poker_Game.Game {
         //        MakeCard(DrawRandCard());
         //    } while (cards.Contains(this));
         //}
-        public void MakeCard(int cardNumber) {
+        public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
             string cardName = rankInt.ToString();
             if(rankInt == 14) {

@@ -80,7 +80,7 @@ namespace Poker_Game.Game {
             return true;
         }
 
-        private bool CycleFinished() {
+        private bool CycleFinished() { // One cycle is one round for each player
             return CycleStep == Players.Count;
         }
 
