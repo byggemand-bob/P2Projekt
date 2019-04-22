@@ -22,12 +22,12 @@ namespace Poker_Game
 
         private void UpdatePotSizeLabel(int potSize)
         {
-            labelPotSizeWon.Text = "Pot Size Won: " + potSize;
+            labelPotSizeWon.Text = "Pot Size Won: $" + potSize;
         }
 
         private void UpdateWincondition()
         {
-            // Do this mehtod when vindonditions are okay
+            // Do this mehtod when winconditions are okay
             labelWincondition.Text = "2 pairs";
         }
         private void buttonContinue_Click(object sender, EventArgs e)
