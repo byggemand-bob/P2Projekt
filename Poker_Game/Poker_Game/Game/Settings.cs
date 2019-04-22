@@ -9,7 +9,8 @@
         public string PlayerName { get; set; }
 
         #region Initialization
-
+        
+        // Initializes the values of the settings, depending on GUI player input
         public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int blindIncrease, string playerName) {
             NumberOfPlayers = numberOfPlayers;
             StackSize = stackSize;
