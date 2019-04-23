@@ -14,7 +14,7 @@ namespace Poker_Game {
 
          // TODO: Make prettier and show who wins and how much at showdown
          // TODO: buttonRaise or Game.Raise() does NOT work properly - Can't check when another raises.
-
+        
         #region Initialization
 
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { // Think about making Settings in settingsform and has it as a parameter. 
@@ -214,8 +214,7 @@ namespace Poker_Game {
         {
             ChangeActionButtonState(id == 0);
         }
-
-
+ 
         #endregion
 
         #region ButtonEvents

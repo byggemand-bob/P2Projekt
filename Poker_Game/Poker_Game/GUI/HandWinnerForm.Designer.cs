@@ -94,7 +94,7 @@ namespace Poker_Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 219);
+            this.ClientSize = new System.Drawing.Size(295, 219);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.labelWincondition);
             this.Controls.Add(this.labelPotSizeWon);
