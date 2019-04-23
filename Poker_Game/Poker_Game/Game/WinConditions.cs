@@ -140,15 +140,15 @@ namespace Poker_Game.Game {
 
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
-            for (int i = 0; i <= sortedCards.Count - 4; i++) {
+            for (int i = 0; i <= sortedCards.Count - 5; i++) {
                 if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
                     sortedCards[i + 2].Rank + 1 == sortedCards[i + 3].Rank &&
                     sortedCards[i + 3].Rank + 1 == sortedCards[i + 4].Rank) {
                     return true;
                 }
-                if (sortedCards[i + 5].Rank == Rank.Ace) {
-                    sortedCards[i + 5].Rank = (Rank)1;
+                if (sortedCards[i + 4].Rank == Rank.Ace) {
+                    sortedCards[i + 4].Rank = (Rank)1;
                     return HasStraight(sortedCards);
                 }
             }
