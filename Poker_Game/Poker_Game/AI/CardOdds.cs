@@ -101,17 +101,17 @@ namespace Poker_Game.AI
 
         public int StraightPossibilities()
         {
-            return result;
+            return 0;
         }
 
         public int PossibilitiesWhereYouStillWin()
         {
-            return result;
+            return 0;
         }
 
         public int FlushPossibilities()
         {
-            return result;
+            return 0;
         }
     }
 }
