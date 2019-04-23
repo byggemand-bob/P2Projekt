@@ -10,7 +10,7 @@ namespace Poker_Game.Game {
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
         
-        // Allocating memory for the various elements of a hand
+        // Allocation and initialization for the various elements of a hand
         #region Initialization
         public Hand(List<Player> players, int dealerButtonPosition) {
             Pot = 0;
@@ -41,7 +41,7 @@ namespace Poker_Game.Game {
             return initPlayers;
         }
 
-        // Checks if the players have a stack greater than 0, and adds t
+        // Finds Active Players - stack > 0
         private List<Player> GetActivePlayers(List<Player> players) {
             List<Player> output = new List<Player>();
             foreach(Player player in players) {
@@ -55,14 +55,14 @@ namespace Poker_Game.Game {
 
         #region Actions
 
-        //Function to start the round, which resets the previous rounds
+        //Function to start the round, which resets the actions of the previous rounds
         public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
             Rounds.Add(new Round(Players));
             ResetActions();
         }
 
-        // Function to determine whether the hand game state is preflop, flop, turn og river
+        // Function that adds cards to the street in each round
         private void UpdateStreet() {
             switch (Rounds.Count) {
                 case 1: // Flop

@@ -71,18 +71,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CalcEquity.cs" />
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\IsNashEq.cs" />
     <Compile Include="AI\IsParetoOptimal.cs" />
-    <Compile Include="AI\PotOdds.cs" />
+    <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
     <Compile Include="Game\CompareBySuit.cs" />
     <Compile Include="Game\Hand.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\PokerGame.cs" />
-    <Compile Include="Game\StatisticIsO.cs" />
+    <Compile Include="Game\StatisticsIO.cs" />
     <Compile Include="GUI\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>

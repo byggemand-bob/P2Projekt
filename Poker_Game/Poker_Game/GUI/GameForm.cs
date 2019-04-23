@@ -13,7 +13,7 @@ namespace Poker_Game {
         private const bool DiagnosticsMode = true;
 
          // TODO: Make prettier and show who wins and how much at showdown
-         // TODO: buttonRaise or Game.Raise() does NOT work properly - Cant check when another raises.
+         // TODO: buttonRaise or Game.Raise() does NOT work properly - Can't check when another raises.
 
         #region Initialization
 
@@ -357,6 +357,8 @@ namespace Poker_Game {
             label8.Text = "Player Stack: " + Game.Players[0].Stack;
             label9.Text = "CycleStep: " + Game.CurrentRound().CycleStep;
             label10.Text = "Bets: " + Game.CurrentRound().Bets;
+            label11.Text = "CurrentPlayerIndex: " + Game.CurrentPlayerIndex;
+            label12.Text = "TopBidderIndex: " + Game.CurrentRound().TopBidderIndex;
         }
 
         #endregion

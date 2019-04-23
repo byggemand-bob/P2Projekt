@@ -112,7 +112,7 @@ namespace Poker_Game.Game {
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                return HasStraight(FlushSuit(sortedCards));
+                return HasStraight(FullHouse(sortedCards));
             }
             return false;
         }
@@ -121,7 +121,7 @@ namespace Poker_Game.Game {
         public bool HasRoyalFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                FlushSuit(sortedCards);
+                FullHouse(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
@@ -140,18 +140,17 @@ namespace Poker_Game.Game {
 
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
-            int RankCounter = 0;
-            for (int i = 0; i <= sortedCards.Count - 2; i++) {
-                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank) {
-                    RankCounter++;
+            for (int i = 0; i <= sortedCards.Count - 5; i++) {
+                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
+                    sortedCards[i + 2].Rank + 1 == sortedCards[i + 3].Rank &&
+                    sortedCards[i + 3].Rank + 1 == sortedCards[i + 4].Rank) {
+                    return true;
                 }
-                if (sortedCards[i + 1].Rank == Rank.Ace) {
-                    sortedCards[i + 1].Rank = (Rank)1;
+                if (sortedCards[i + 4].Rank == Rank.Ace) {
+                    sortedCards[i + 4].Rank = (Rank)1;
                     return HasStraight(sortedCards);
                 }
-            }
-            if (RankCounter >= 4) {
-                return true;
             }
             return false;
         }
@@ -176,8 +175,8 @@ namespace Poker_Game.Game {
             return false;
         }
 
-
-        private List<Card> FlushSuit(List<Card> cards) {
+        // Checks if the cards in hand / street forms a correct straight house
+        private List<Card> FullHouse(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
@@ -201,6 +200,7 @@ namespace Poker_Game.Game {
             }
         }
         
+
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
             for(int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {

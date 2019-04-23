@@ -13,8 +13,11 @@ namespace Poker_Game {
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void buttonStartGame_Click(object sender, EventArgs e) {
-            if(TESTING || textboxName.Text != "" && textboxName.Text != "Enter Name") {
+        private void buttonStartGame_Click(object sender, EventArgs e)
+        // Makes sure you've entered a name before continueing
+        {
+            if (TESTING || nameChanged)
+            {
                 this.Hide();
                 GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
                 formGame.ShowDialog();
@@ -24,8 +27,11 @@ namespace Poker_Game {
             }
         }
 
-        private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e) {
-            if(valueJustChanged) {
+        private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        // Links the blind numeric up down with the blind trackbar
+        {
+            if (valueJustChanged)
+            {
                 valueJustChanged = false;
             } else {
                 valueJustChanged = true;
@@ -33,8 +39,11 @@ namespace Poker_Game {
             }
         }
 
-        private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e) {
-            if(valueJustChanged) {
+        private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        // Links the blind trackbar with the blind numeric up down
+        {
+            if (valueJustChanged)
+            {
                 valueJustChanged = false;
             } else {
                 valueJustChanged = true;
@@ -47,8 +56,11 @@ namespace Poker_Game {
             }
         }
 
-        private void potSizeTrackBar_ValueChanged(object sender, EventArgs e) {
-            if(valueJustChanged) {
+        private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        // Links the potsize trackbar with the potsize numeric up down
+        {
+            if (valueJustChanged)
+            {
                 valueJustChanged = false;
             } else {
                 if(trackBarPotSize.Value % 100 != 0) {
@@ -61,8 +73,11 @@ namespace Poker_Game {
             }
         }
 
-        private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e) {
-            if(valueJustChanged) {
+        private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        // Links the potsize numeric up down with the potsize trackbar
+        {
+            if (valueJustChanged)
+            {
                 valueJustChanged = false;
             } else {
                 valueJustChanged = true;
@@ -70,15 +85,21 @@ namespace Poker_Game {
             }
         }
 
-        private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e) {
+        private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
+        // Links the number of players trackbar with the number of players numeric up down
+        {
             numericUpDownNumberOfPlayers.Value = trackBarNumberOfPlayers.Value;
         }
 
-        private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e) {
+        private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
+        // Links the number of players numeric up down with the number of players trackbar
+        {
             trackBarNumberOfPlayers.Value = (int)numericUpDownNumberOfPlayers.Value;
         }
 
-        private void textboxName_Leave(object sender, EventArgs e) {
+        private void textboxName_Leave(object sender, EventArgs e)
+        // Checks if player has Entered a name
+        {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text == "") {
                 txtbox.Text = "Enter Name";
@@ -86,22 +107,29 @@ namespace Poker_Game {
             }
         }
 
-        private void textboxName_Enter(object sender, EventArgs e) {
+        private void textboxName_Enter(object sender, EventArgs e)
+        // Removes the text "Enter Name" when clicked
+        {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text == "Enter Name" && !nameChanged) {
                 txtbox.Text = "";
             }
         }
 
-        private void textbox_CheckChange(object sender, KeyPressEventArgs e) {
+        private void textbox_CheckChange(object sender, KeyPressEventArgs e)
+        // Checks if the Entered name is a Valid option
+        {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text != "" || txtbox.Text != "Enter Name") {
                 nameChanged = true;
             }
         }
 
-        private void timeBasedCheckBox_CheckedChanged(object sender, EventArgs e) {
-            if(checkBoxTimeBased.Checked == true) {
+        private void timeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit time based blind increase
+        {
+            if(checkBoxTimeBased.Checked == true)
+            {
                 checkBoxRoundBased.Checked = false;
 
                 trackBarBlindIncrease.Visible = true;
@@ -119,8 +147,11 @@ namespace Poker_Game {
             }
         }
 
-        private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e) {
-            if(checkBoxRoundBased.Checked == true) {
+        private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit round based blind increase
+        {
+            if (checkBoxRoundBased.Checked == true)
+            {
                 checkBoxTimeBased.Checked = false;
 
                 trackBarBlindIncrease.Visible = true;
@@ -138,11 +169,15 @@ namespace Poker_Game {
             }
         }
 
-        private void blindIncreaseTrackBar_ValueChanged(object sender, EventArgs e) {
+        private void blindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
+        // links blind increase trackbar with blind increase numeric up down
+        {
             numericUpDownBlindIncrease.Value = trackBarBlindIncrease.Value;
         }
 
-        private void blindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e) {
+        private void blindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
+        // links blind increase numeric up down with blind increase trackbar
+        {
             trackBarBlindIncrease.Value = (int)numericUpDownBlindIncrease.Value;
         }
 
