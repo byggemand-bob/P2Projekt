@@ -130,7 +130,8 @@ namespace Poker_Game {
             }
             else if (Game.CurrentRoundNumber() == 5)
             {
-                Showdown(false);
+                Showdown();
+                EndOfHand();
             }
         }
 
@@ -249,10 +250,10 @@ namespace Poker_Game {
         private void buttonFold_Click(object sender, EventArgs e)
         {
             Game.Fold();
-            Showdown(true);
             ChangeActionButtonColor();
             UpdateAll();
             ChangeActionButtonState(false);
+            EndOfHand();
         }
 
 
@@ -288,14 +289,14 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
-        private void Showdown(bool playerHasFolded) // TODO: Make less crowded - more methods!
+        private void Showdown() // TODO: Make less crowded - more methods!
         {
-            if (!playerHasFolded)
-            {
                 // Shows AI's cards on hand if a player has not folded
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
-                ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
-            }
+                ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);           
+        }
+        private void EndOfHand()
+        {
             Game.UpdateState();
             ChangeActionButtonState(false);
             if (Game.IsFinished())
@@ -304,12 +305,17 @@ namespace Poker_Game {
             }
             else
             {
-                // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot, Game.GetWinners(Game.CurrentHand())[0].Score); // More information from GameForm
-                handWinnerForm.ShowDialog();
-                ChangeActionButtonState(true);
-                CreateNewHand();
+                ShowEndOfHandWindow();
             }
+        }
+
+        private void ShowEndOfHandWindow()
+        {
+            // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot, Game.GetWinners(Game.CurrentHand())[0].Score); // More information from GameForm
+            handWinnerForm.ShowDialog();
+            ChangeActionButtonState(true);
+            CreateNewHand();
         }
 
         private string GetWinnerPlayers() // Gets the string of which player has won
