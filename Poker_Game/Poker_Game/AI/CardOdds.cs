@@ -65,9 +65,24 @@ namespace Poker_Game.AI
         public int OutcomesWhereOpponantsGetsTwoOfKind(Rank CardRank)
         // Calculates number outcomes where opponant get to of a kind of CardRank
         {
-            int numberOfSameCardsInPlay;
+            int numberOfSameCardsInHand, numberOfSameCardsOnStreet, numberOfCardsInDeck;
 
-            numberOfSameCardsInPlay = NumberOfSameCardranksInList(street, CardRank);
+            numberOfSameCardsInHand = NumberOfSameCardranksInList(street, CardRank);
+            numberOfSameCardsOnStreet = NumberOfSameCardranksInList(hand, CardRank);
+            numberOfCardsInDeck = deckSize;
+
+            if (numberOfSameCardsInHand + numberOfSameCardsOnStreet > 1)
+                result = totalNumberOfOutcomes;
+
+            else if(numberOfSameCardsOnStreet + numberOfSameCardsInHand == 1)
+            {
+
+            }
+
+            else
+            {
+
+            }
 
 
 
