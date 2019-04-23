@@ -55,7 +55,7 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            return AllChecked() || Turns.Count > Players.Count - 1 && AllCalled(); // TODO: Rework
+            return AllChecked() || Turns.Count > Players.Count && AllCalled(); // TODO: Rework
         }
 
         private bool AllChecked() {
