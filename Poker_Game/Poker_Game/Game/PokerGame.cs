@@ -13,7 +13,6 @@ namespace Poker_Game.Game {
         public int DealerButtonPosition { get; set; }
         public bool HandInProgress { get; private set; }
         public bool RoundInProgress { get; private set; }
-
         public List<Player> Players { get; set; }
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }

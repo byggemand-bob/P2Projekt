@@ -53,7 +53,7 @@ namespace Poker_Game
             // 
             this.labelWinningPlayerName.AutoSize = true;
             this.labelWinningPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWinningPlayerName.Location = new System.Drawing.Point(53, 65);
+            this.labelWinningPlayerName.Location = new System.Drawing.Point(34, 65);
             this.labelWinningPlayerName.Name = "labelWinningPlayerName";
             this.labelWinningPlayerName.Size = new System.Drawing.Size(165, 20);
             this.labelWinningPlayerName.TabIndex = 1;
@@ -63,7 +63,7 @@ namespace Poker_Game
             // 
             this.labelPotSizeWon.AutoSize = true;
             this.labelPotSizeWon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPotSizeWon.Location = new System.Drawing.Point(53, 95);
+            this.labelPotSizeWon.Location = new System.Drawing.Point(34, 95);
             this.labelPotSizeWon.Name = "labelPotSizeWon";
             this.labelPotSizeWon.Size = new System.Drawing.Size(162, 20);
             this.labelPotSizeWon.TabIndex = 2;
@@ -73,7 +73,7 @@ namespace Poker_Game
             // 
             this.labelWincondition.AutoSize = true;
             this.labelWincondition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWincondition.Location = new System.Drawing.Point(53, 125);
+            this.labelWincondition.Location = new System.Drawing.Point(34, 125);
             this.labelWincondition.Name = "labelWincondition";
             this.labelWincondition.Size = new System.Drawing.Size(266, 20);
             this.labelWincondition.TabIndex = 3;
@@ -94,7 +94,7 @@ namespace Poker_Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 219);
+            this.ClientSize = new System.Drawing.Size(308, 219);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.labelWincondition);
             this.Controls.Add(this.labelPotSizeWon);
