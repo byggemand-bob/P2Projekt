@@ -306,7 +306,7 @@ namespace Poker_Game {
             else
             {
                 // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot); // More information from GameForm
+                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot, Game.GetWinners(Game.CurrentHand())[0].Score); // More information from GameForm
                 handWinnerForm.ShowDialog();
                 ChangeActionButtonState(true);
                 CreateNewHand();

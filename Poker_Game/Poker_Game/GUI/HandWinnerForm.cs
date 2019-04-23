@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.Game;
 
 // Kan det laves bedre? Det kan det sikkert...
 
@@ -7,12 +8,13 @@ namespace Poker_Game
 {
     partial class HandWinnerForm : Form
     {
-        public HandWinnerForm(string winners, int potsizeWon)
+        public HandWinnerForm(string winners, int potsizeWon, Score score)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             FindWinnerName(winners);
             UpdatePotSizeLabel(potsizeWon);
+            UpdateWincondition(score);
         }
 
         private void FindWinnerName(string winners) 
@@ -25,10 +27,10 @@ namespace Poker_Game
             labelPotSizeWon.Text = "Pot Size Won: $" + potSize;
         }
 
-        private void UpdateWincondition()
+        private void UpdateWincondition(Score score)
         {
             // Do this mehtod when winconditions are okay
-            labelWincondition.Text = "2 pairs";
+            labelWincondition.Text = "Wincondition: " + Convert.ToString(score);
         }
         private void buttonContinue_Click(object sender, EventArgs e)
         {
