@@ -15,7 +15,7 @@ namespace Poker_Game.Game {
     class Player : IComparable, ICloneable {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
-        public int BetSize { get; set; }
+        public int BetSize { get; set; } // For use in GameForm, (betsize for each player)
         public int CurrentBet { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
@@ -39,8 +39,8 @@ namespace Poker_Game.Game {
         #region Actions
 
         public void GetScore() {
-            WinConditions wc = new WinConditions(); // TODO: Give variable a better name...
-            Score = wc.Evaluate(Cards);
+            WinConditions winCondition = new WinConditions(); 
+            Score = winCondition.Evaluate(Cards);
         }
 
         public void Reset() { // Reset a player-state for each new hand

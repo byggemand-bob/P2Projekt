@@ -296,7 +296,6 @@ namespace Poker_Game {
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);
             }
-            //TODO: Show winner and score
             Game.UpdateState();
             ChangeActionButtonState(false);
             if (Game.IsFinished())
@@ -306,7 +305,7 @@ namespace Poker_Game {
             else
             {
                 // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot); // More information from GameForm
+                HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot, Game.GetWinners(Game.CurrentHand())[0].Score); // More information from GameForm
                 handWinnerForm.ShowDialog();
                 ChangeActionButtonState(true);
                 CreateNewHand();
