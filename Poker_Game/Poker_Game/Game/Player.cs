@@ -15,6 +15,7 @@ namespace Poker_Game.Game {
     class Player : IComparable, ICloneable {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
+        public int BetSize { get; set; }
         public int CurrentBet { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
