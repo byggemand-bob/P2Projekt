@@ -48,6 +48,7 @@ namespace Poker_Game {
             this.labelPlayerBlind = new System.Windows.Forms.Label();
             this.labelRoundName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,7 +58,8 @@ namespace Poker_Game {
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -331,6 +333,8 @@ namespace Poker_Game {
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -345,6 +349,15 @@ namespace Poker_Game {
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(188, 207);
             this.panel1.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(2, 138);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "label10";
             // 
             // label9
             // 
@@ -428,14 +441,23 @@ namespace Poker_Game {
             this.label1.TabIndex = 0;
             this.label1.Text = "Diagnostics";
             // 
-            // label10
+            // label11
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(2, 138);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "label10";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(2, 151);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "label11";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(2, 164);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "label12";
             // 
             // GameForm
             // 
@@ -524,5 +546,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }

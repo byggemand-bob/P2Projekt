@@ -352,6 +352,8 @@ namespace Poker_Game {
             label8.Text = "Player Stack: " + Game.Players[0].Stack;
             label9.Text = "CycleStep: " + Game.CurrentRound().CycleStep;
             label10.Text = "Bets: " + Game.CurrentRound().Bets;
+            label11.Text = "CurrentPlayerIndex: " + Game.CurrentPlayerIndex;
+            label12.Text = "TopBidderIndex: " + Game.CurrentRound().TopBidderIndex;
         }
 
         #endregion

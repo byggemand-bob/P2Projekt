@@ -69,7 +69,8 @@ namespace Poker_Game.Game {
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
                 // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex], (Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
+                //System.Windows.Forms.MessageBox.Show(Players[CurrentRound().TopBidderIndex].CurrentBet + " - " + Players[CurrentPlayerIndex].CurrentBet);
+                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
                 // Create functions for this.
                 CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
@@ -185,6 +186,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanCall() {
+            //System.Windows.Forms.MessageBox.Show(Players[CurrentRound().TopBidderIndex].CurrentBet + " - " + Players[CurrentPlayerIndex].CurrentBet + " != 0");
             return Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
         }
 

@@ -35,12 +35,8 @@ namespace Poker_Game.Game {
         #region Actions
 
         public void ChangeTopBidder(int playerIndex) { // Validation needed. Cannot bet more than 3 times
-            for(int i = 0; i < Players.Count; i++) {
-                if(Players[i].CompareTo(Players[playerIndex]) == 0) {
-                    TopBidderIndex = i;
-                    CycleStep = 0;
-                }
-            }
+            TopBidderIndex = playerIndex;
+            CycleStep = 0;
 
             Bets++;
         }
@@ -55,7 +51,8 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            return AllChecked() || Turns.Count > Players.Count && AllCalled(); // TODO: Rework
+            //System.Windows.Forms.MessageBox.Show(AllChecked() + " || (" + (Turns.Count > Players.Count) + " && " + AllCalled() + ")");
+            return AllChecked() || (Turns.Count > Players.Count && AllCalled()); // TODO: Rework
         }
 
         private bool AllChecked() {
@@ -69,19 +66,22 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            if (Bets == 3 && CycleFinished()) {
+            //System.Windows.Forms.MessageBox.Show((Bets == 3) + " && " + CycleFinished());
+            if(Bets == 3 && CycleFinished()) {
                 for (int i = 0; i < Players.Count; i++) {
                     if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
                         return false;
                     }
                 }
+
+                return true;
             }
 
-            return true;
+            return false;
         }
 
-        private bool CycleFinished() { // One cycle is one round for each player
-            return CycleStep == Players.Count;
+        private bool CycleFinished() { // One cycle is one turn for each player
+            return CycleStep > Players.Count;
         }
 
         #endregion
