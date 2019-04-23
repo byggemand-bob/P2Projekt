@@ -11,7 +11,7 @@ namespace Poker_Game.AI
         public List<Card> street, hand;
         private Calculator calc = new Calculator();
         public int totalNumberOfOutcomes;
-        private int result, i, n, deckSize, combinedHandStreetCount;
+        private int result, i, n, x, deckSize, combinedHandStreetCount;
 
         public CardOdds(List<Card> Street, List<Card> Hand)
         {
@@ -63,7 +63,7 @@ namespace Poker_Game.AI
         }
 
         public int OutcomesWhereOpponantsGetsTwoOfKind(Rank CardRank)
-        // Calculates number outcomes where opponant get to of a kind of CardRank
+        // Calculates number outcomes where opponant get to of a kind of CardRank, not including 3 or 4 of a kind
         {
             int numberOfSameCardsInHand, numberOfSameCardsOnStreet, numberOfCardsInDeck;
 
@@ -71,21 +71,56 @@ namespace Poker_Game.AI
             numberOfSameCardsOnStreet = NumberOfSameCardranksInList(hand, CardRank);
             numberOfCardsInDeck = deckSize;
 
+            if (numberOfSameCardsOnStreet > 1)
+                throw new Exception("Already 2 of a kind on street");
+
             if (numberOfSameCardsInHand + numberOfSameCardsOnStreet > 1)
                 result = totalNumberOfOutcomes;
 
             else if(numberOfSameCardsOnStreet + numberOfSameCardsInHand == 1)
             {
-
+                x = 3 * 2;
+                deckSize -= 3;
+                for(n = street.Count; n <= 5; n++)
+                {
+                    x *= deckSize;
+                    deckSize--;
+                }
+                result = x;
             }
 
             else
             {
-
+                x = 4 * 3;
+                deckSize -= 4;
+                for (n = street.Count; n <= 5; n++)
+                {
+                    x *= deckSize;
+                    deckSize--;
+                }
+                result = x;
             }
+            
 
+            result -= FlushPossibilities();
+            result -= StraightPossibilities();
+            result -= PossibilitiesWhereYouStillWin();
 
+            return result;
+        }
 
+        public int StraightPossibilities()
+        {
+            return result;
+        }
+
+        public int PossibilitiesWhereYouStillWin()
+        {
+            return result;
+        }
+
+        public int FlushPossibilities()
+        {
             return result;
         }
     }
