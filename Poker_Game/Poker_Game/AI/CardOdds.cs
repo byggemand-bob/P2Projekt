@@ -11,7 +11,7 @@ namespace Poker_Game.AI
         public List<Card> street, hand;
         private Calculator calc = new Calculator();
         public int totalNumberOfOutcomes;
-        private int result, i, n, x, deckSize, combinedHandStreetCount;
+        private int i, n, x, deckSize, combinedHandStreetCount, result;
 
         public CardOdds(List<Card> Street, List<Card> Hand)
         {
@@ -65,42 +65,32 @@ namespace Poker_Game.AI
         public int OutcomesWhereOpponantsGetsTwoOfKind(Rank CardRank)
         // Calculates number outcomes where opponant get to of a kind of CardRank, not including 3 or 4 of a kind
         {
-            int numberOfSameCardsInHand, numberOfSameCardsOnStreet, numberOfCardsInDeck;
+            int numberOfSameRanksInPlay, numberOfSameCardsOnStreet, numberOfCardsInDeck;
+            ulong outcomes;
 
-            numberOfSameCardsInHand = NumberOfSameCardranksInList(street, CardRank);
-            numberOfSameCardsOnStreet = NumberOfSameCardranksInList(hand, CardRank);
+            numberOfSameRanksInPlay = 4 - NumberOfSameCardranksInList(hand, CardRank);
+            numberOfSameCardsOnStreet = NumberOfSameCardranksInList(street, CardRank);
             numberOfCardsInDeck = deckSize;
 
             if (numberOfSameCardsOnStreet > 1)
+            {
                 throw new Exception("Already 2 of a kind on street");
-
-            if (numberOfSameCardsInHand + numberOfSameCardsOnStreet > 1)
-                result = totalNumberOfOutcomes;
-
-            else if(numberOfSameCardsOnStreet + numberOfSameCardsInHand == 1)
-            {
-                x = 3 * 2;
-                deckSize -= 3;
-                for(n = street.Count; n <= 5; n++)
-                {
-                    x *= deckSize;
-                    deckSize--;
-                }
-                result = x;
-            }
-
-            else
-            {
-                x = 4 * 3;
-                deckSize -= 4;
-                for (n = street.Count; n <= 5; n++)
-                {
-                    x *= deckSize;
-                    deckSize--;
-                }
-                result = x;
             }
             
+            outcomes = (ulong) numberOfSameRanksInPlay * (ulong)(numberOfSameRanksInPlay - 1);
+            deckSize -= numberOfSameRanksInPlay;
+
+            for (n = street.Count; n < 5; n++)
+            {
+                outcomes *= (ulong) deckSize;
+                deckSize--;
+            }
+
+            outcomes /= (ulong) (7 - street.Count) * (ulong) (6 - street.Count) / 2;
+
+            result = x;
+
+            Console.WriteLine("{0}", outcomes);
 
             result -= FlushPossibilities();
             result -= StraightPossibilities();
