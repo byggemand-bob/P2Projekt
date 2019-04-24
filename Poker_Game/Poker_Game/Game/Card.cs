@@ -12,7 +12,7 @@ namespace Poker_Game.Game {
         //Random random = new Random();
         private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
         public Suit Suit { get; set; }
-        public Rank Rank { get; set; }
+        public Rank Rank { get; set; } //CRASH STACK OVERFLOW NÅR JEG IKKE SKRIVER TIL FILE OG RANDOM
         public Image Image { get; set; }
 
         public Card(Suit suit, Rank rank) {
@@ -77,9 +77,9 @@ namespace Poker_Game.Game {
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
-            if(Rank.CompareTo(otherCard.Rank) < 0) {
+            if (Rank.CompareTo(otherCard.Rank) < 0) { //CRASHER OFTE HER
                 return -1;
-            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) { //CRASHER NOGLE GANGE HER3
                 return 1;
             } else {
                 if(Suit.CompareTo(otherCard.Suit) < 0) {
