@@ -14,7 +14,7 @@ namespace Poker_Game {
 
          // TODO: Make prettier and show who wins and how much at showdown
          // TODO: buttonRaise or Game.Raise() does NOT work properly - Can't check when another raises.
-
+        
         #region Initialization
 
         public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { // Think about making Settings in settingsform and has it as a parameter. 
@@ -214,8 +214,7 @@ namespace Poker_Game {
         {
             ChangeActionButtonState(id == 0);
         }
-
-
+ 
         #endregion
 
         #region ButtonEvents
@@ -295,6 +294,7 @@ namespace Poker_Game {
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);           
         }
+
         private void EndOfHand()
         {
             Game.UpdateState();
@@ -312,13 +312,59 @@ namespace Poker_Game {
         private void ShowEndOfHandWindow()
         {
             // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayers(), Game.CurrentHand().Pot, Game.GetWinners(Game.CurrentHand())[0].Score); // More information from GameForm
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore()); // More information from GameForm
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
             CreateNewHand();
         }
 
-        private string GetWinnerPlayers() // Gets the string of which player has won
+        private string GetWinningPlayersScore()
+        {
+            int numericScore;
+            if (Game.GetWinners(Game.CurrentHand()).Count == 1)
+            {
+                if (Int32.TryParse(ConvertScoreToString(0), out numericScore))
+                {
+                    if (numericScore > 10)
+                    {
+                        return GiveScoreName(numericScore);
+                    }
+                    return numericScore + " (Highest Card)";
+                }
+                return ConvertScoreToString(0);
+            }
+            else
+            {
+                return ConvertScoreToString(0) + " & " + ConvertScoreToString(1);
+            }
+        }
+
+        private string GiveScoreName(int numericScore)
+        {
+            if (numericScore == 11)
+            {
+                return "Jack (Highest Card)";
+            }
+            else if (numericScore == 12)
+            {
+                return "Queen (Highest Card)";
+            }
+            else if (numericScore == 13)
+            {
+                return "King (Highest Card)";
+            }
+            else
+            {
+                return "Ace (Highest Card)";
+            }
+        }
+
+        private string ConvertScoreToString(int index)
+        {
+            return Convert.ToString(Game.GetWinners(Game.CurrentHand())[index].Score);
+        }
+
+        private string GetWinnerPlayersName() // Gets the string of which player has won
         {
             List<Player> players = Game.GetWinners(Game.CurrentHand());
             string winners = null;

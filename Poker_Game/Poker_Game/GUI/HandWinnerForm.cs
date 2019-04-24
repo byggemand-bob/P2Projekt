@@ -8,7 +8,7 @@ namespace Poker_Game
 {
     partial class HandWinnerForm : Form
     {
-        public HandWinnerForm(string winners, int potsizeWon, Score score)
+        public HandWinnerForm(string winners, int potsizeWon, string score)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
@@ -27,10 +27,10 @@ namespace Poker_Game
             labelPotSizeWon.Text = "Pot Size Won: $" + potSize;
         }
 
-        private void UpdateWincondition(Score score)
+        private void UpdateWincondition(String score)
         {
             // Do this mehtod when winconditions are okay
-            labelWincondition.Text = "Wincondition: " + Convert.ToString(score);
+            labelWincondition.Text = "Wincondition: " + score;
         }
         private void buttonContinue_Click(object sender, EventArgs e)
         {
