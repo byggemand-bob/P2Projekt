@@ -19,6 +19,9 @@ namespace Poker_Game.Game {
             Suit = suit;
             Rank = rank;
         }
+        public Card(int i) {
+            MakeCard(i);
+        }
 
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
@@ -44,31 +47,31 @@ namespace Poker_Game.Game {
         //}
         public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
-            string cardName = rankInt.ToString();
-            if(rankInt == 14) {
-                cardName = "A";
-            } else if(rankInt == 11) {
-                cardName = "J";
-            } else if(rankInt == 12) {
-                cardName = "Q";
-            } else if(rankInt == 13) {
-                cardName = "K";
-            }
+            //string cardName = rankInt.ToString();
+            //if(rankInt == 14) {
+            //    cardName = "A";
+            //} else if(rankInt == 11) {
+            //    cardName = "J";
+            //} else if(rankInt == 12) {
+            //    cardName = "Q";
+            //} else if(rankInt == 13) {
+            //    cardName = "K";
+            //}
             if(cardNumber <= 12) {
                 Suit = Suit.Clubs;
-                cardName += "C";
+                //cardName += "C";
             } else if(cardNumber <= 25) {
                 Suit = Suit.Diamond;
-                cardName += "D";
+                //cardName += "D";
             } else if(cardNumber <= 38) {
                 Suit = Suit.Hearts;
-                cardName += "H";
+                //cardName += "H";
             } else if(cardNumber <= 51) {
                 Suit = Suit.Spades;
-                cardName += "S";
+                //cardName += "S";
             }
             Rank = (Rank)rankInt;
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+            //Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
 
