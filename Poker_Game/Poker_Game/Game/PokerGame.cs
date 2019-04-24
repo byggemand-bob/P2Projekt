@@ -132,7 +132,6 @@ namespace Poker_Game.Game {
             List<Player> players = GetUnfoldedPlayers(hand.Players);
 
 
-            System.Windows.Forms.MessageBox.Show(players.Count.ToString());
             if(players.Count == 1) {
                 return winners;
             } else if(players.Count == 0) {
