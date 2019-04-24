@@ -68,8 +68,7 @@ namespace Poker_Game.Game {
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
-                // Needs to be cut down
-                //System.Windows.Forms.MessageBox.Show(Players[CurrentRound().TopBidderIndex].CurrentBet + " - " + Players[CurrentPlayerIndex].CurrentBet);
+                // Needs to be cut dow
                 Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
                 // Create functions for this.
@@ -131,8 +130,18 @@ namespace Poker_Game.Game {
         public List<Player> GetWinners(Hand hand) {
             WinConditions wc = new WinConditions();
             List<Player> winners = new List<Player>();
+            List<Player> players = GetUnfoldedPlayers(hand.Players);
 
-            foreach(Player player in hand.Players) {
+
+            System.Windows.Forms.MessageBox.Show(players.Count.ToString());
+            if(players.Count == 1) {
+                return winners;
+            } else if(players.Count == 0) {
+                // Errorhandlign 
+
+            }
+
+            foreach(Player player in players) {
                 player.GetScore();
                 if(winners.Count == 0) {
                     winners.Add(player);
@@ -150,6 +159,17 @@ namespace Poker_Game.Game {
                 } 
             }
             return winners;
+        }
+
+        private List<Player> GetUnfoldedPlayers(List<Player> players) {
+            List<Player> playersLeft = new List<Player>();
+            foreach(Player player in players) {
+                if(player.Action != PlayerAction.Fold) {
+                    playersLeft.Add(player);
+                }
+            }
+
+            return playersLeft;
         }
 
         private bool IsRoundInProgress() {

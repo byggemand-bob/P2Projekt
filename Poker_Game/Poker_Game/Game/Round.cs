@@ -51,7 +51,6 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            //System.Windows.Forms.MessageBox.Show(AllChecked() + " || (" + (Turns.Count > Players.Count) + " && " + AllCalled() + ")");
             return AllChecked() || (Turns.Count > Players.Count && AllCalled()); // TODO: Rework
         }
 
@@ -66,7 +65,6 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            //System.Windows.Forms.MessageBox.Show((Bets == 3) + " && " + CycleFinished());
             if(Bets == 3 && CycleFinished()) {
                 for (int i = 0; i < Players.Count; i++) {
                     if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
