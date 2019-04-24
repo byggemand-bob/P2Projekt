@@ -11,7 +11,7 @@ namespace Poker_Game.Game {
     class Card : IComparable, ICloneable {
         //Random random = new Random();
         private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
-        public Suit Suit { get; set; }
+        public Suit Suit { get; set; } //CRASH STACK OVERFLOW NÅR JEG IKKE SKRIVER TIL FILE OG RANDOM
         public Rank Rank { get; set; } //CRASH STACK OVERFLOW NÅR JEG IKKE SKRIVER TIL FILE OG RANDOM
         public Image Image { get; set; }
 
@@ -19,9 +19,9 @@ namespace Poker_Game.Game {
             Suit = suit;
             Rank = rank;
         }
-        public Card(int i) {
-            MakeCard(i);
-        }
+        //public Card(int i) {
+        //    MakeCard(i);
+        //}
 
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);

@@ -89,12 +89,12 @@ namespace Poker_Game {
                 //h.Deck.Add(new Card(Suit.Clubs, Rank.King));
                 //h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
 
-                h.Deck.Sort();
+                //h.Deck.Sort();
                 TAELLER++;
-                for (int j = 0; j < h.Deck.Count; j++) {
-                    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
-                }
-                Console.WriteLine("");
+                //for (int j = 0; j < h.Deck.Count; j++) {
+                //    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
+                //}
+                //Console.WriteLine("");
 
                 if (w.HasRoyalFlush(h.Deck)) {
                     royalflush++;
