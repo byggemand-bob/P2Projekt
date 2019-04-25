@@ -11,42 +11,32 @@ namespace Poker_Game {
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
-
-         // TODO: Make prettier and show who wins and how much at showdown
-         // TODO: buttonRaise or Game.Raise() does NOT work properly - Can't check when another raises.
         
         #region Initialization
 
-        public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { // Think about making Settings in settingsform and has it as a parameter. 
+        public GameForm(Settings settings) { // Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
-
+            Settings = settings;
             // Initilization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
-
-            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
 
             // Diagnostics window for (bad) debugging
             panel1.Visible = DiagnosticsMode;
 
             // Creates the game with usersettings
             Game = new PokerGame(Settings);
-            Game.Players[0].Name = inputPlayerName;
+            Game.Players[0].Name = Settings.PlayerName;
             Game.Players[1].Name = "AI";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
-            labelPlayerName.Text = inputPlayerName;
+            labelPlayerName.Text = Settings.PlayerName;
 
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
             UpdateAll();
-        }
-
-        
-        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) { // Help-method to declare settings class for the game
-            Settings =  new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
 
         private void Form1_Load(object sender, EventArgs e) { 
@@ -101,11 +91,12 @@ namespace Poker_Game {
 
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
+            UpdateLabelCurrentBet(Game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
-            UpdatePlayerBlind(Game.Players[0]);
+            UpdatePlayerBlindLabels(Game.Players[0]);
             UpdateButtons();
             UpdateCards();
             if (DiagnosticsMode) {UpdateTest();}
@@ -188,7 +179,7 @@ namespace Poker_Game {
             labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
         }
 
-        private void UpdatePlayerBlind(Player player) // Updates blind-labels for each player
+        private void UpdatePlayerBlindLabels(Player player) // Updates blind-labels for each player
         {
             if (player.IsBigBlind)
             {
@@ -215,17 +206,26 @@ namespace Poker_Game {
             ChangeActionButtonState(id == 0);
         }
 
-        private void UpdateCurrent(Player player, Label label)
+        private void UpdateLabelCurrentBet(List<Player> players)
         {
-            label.Text = "Current betsize: " + player.CurrentBet;
+            if (Game.CurrentRoundNumber() == 1)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
+                labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
+            }
         }
  
         #endregion
 
         #region ButtonEvents
-
-        // TODO: Fix Fold (Doesn't give the pot to the right player)
-        // TODO: Fix disables of buttons, so that you cant check when a player has raised
 
         private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
@@ -237,6 +237,30 @@ namespace Poker_Game {
         {
             Game.Call();
             UpdateAll();
+        }
+
+        private void buttonCall_MouseEnter(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet; 
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet;
+            }
+        }
+
+        private void buttonCall_MouseLeave(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
+            }
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
@@ -251,6 +275,30 @@ namespace Poker_Game {
             UpdateAll();
         }
 
+        private void buttonRaise_MouseEnter(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+            }
+        }
+
+        private void buttonRaise_MouseLeave(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
+            }
+        }
+
         private void buttonFold_Click(object sender, EventArgs e)
         {
             Game.Fold();
@@ -260,8 +308,7 @@ namespace Poker_Game {
             EndOfHand();
         }
 
-
-        #endregion
+        #endregion  
 
         #region Utility
 
@@ -412,6 +459,10 @@ namespace Poker_Game {
             label12.Text = "TopBidderIndex: " + Game.CurrentRound().TopBidderIndex;
         }
 
+        private Player GetCurrentTopBidderIndex()
+        {
+            return Game.Players[Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].TopBidderIndex];
+        }
         #endregion
     }
 }
