@@ -317,7 +317,7 @@ namespace Poker_Game {
         private void ShowEndOfHandWindow()
         {
             // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore()); // More information from GameForm
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
             CreateNewHand();

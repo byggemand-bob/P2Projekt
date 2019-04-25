@@ -1,40 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Poker_Game.Game;
 
-// Kan det laves bedre? Det kan det sikkert...
+namespace Poker_Game {
+    partial class HandWinnerForm : Form {
+        private int _timeLeft = 10;
 
-namespace Poker_Game
-{
-    partial class HandWinnerForm : Form
-    {
-        public HandWinnerForm(string winners, int potsizeWon, string score)
-        {
+        public HandWinnerForm(string winners, int potSizeWon, string score, bool timerEnabled) {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            FindWinnerName(winners);
-            UpdatePotSizeLabel(potsizeWon);
-            UpdateWincondition(score);
+            labelMessage.Text = GenerateMessage(winners, potSizeWon, score);
+            if(timerEnabled) {
+                timer1.Enabled = true;
+                buttonContinue.Text = "Continue .. " + _timeLeft;
+            } else {
+                buttonContinue.Text = "Continue";
+            }
         }
 
-        private void FindWinnerName(string winners) 
-        {
-            labelWinningPlayerName.Text = "Playername: " + winners;
+        private string GenerateMessage(string winners, int moneyWon, string score) {
+            if(!winners.Contains("&"))
+                return winners + " won over their opponent with " +
+                       Environment.NewLine + "a " + score + ". They gained $" + moneyWon;
+
+            string[] winnersArray = winners.Split('&');
+            return winnersArray[0] + " & " + winnersArray[1] + " tied with" + Environment.NewLine +
+                   "a " + score + "They both get $" + moneyWon;
         }
 
-        private void UpdatePotSizeLabel(int potSize)
-        {
-            labelPotSizeWon.Text = "Pot Size Won: $" + potSize;
+        private void buttonContinue_Click(object sender, EventArgs e) {
+            Close();
         }
 
-        private void UpdateWincondition(String score)
-        {
-            // Do this mehtod when winconditions are okay
-            labelWincondition.Text = "Wincondition: " + score;
-        }
-        private void buttonContinue_Click(object sender, EventArgs e)
-        {
-            this.Close();
+        private void timer1_Tick(object sender, EventArgs e) {
+            buttonContinue.Text = "Continue .. " + --_timeLeft;
+            if(_timeLeft == 0) {
+                Close();
+            }
         }
     }
 }
