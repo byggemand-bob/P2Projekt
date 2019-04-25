@@ -133,7 +133,7 @@ namespace Poker_Game.Game {
 
             System.Windows.Forms.MessageBox.Show(players.Count.ToString());
             if(players.Count == 1) {
-                return winners;
+                return players;
             } else if(players.Count == 0) {
                 // Errorhandlign 
 
