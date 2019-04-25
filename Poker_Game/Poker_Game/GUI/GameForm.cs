@@ -210,16 +210,16 @@ namespace Poker_Game {
         {
             if (Game.CurrentRoundNumber() == 1)
             {
-                labelPlayerCurrentBet.Text = "Current betsize: " + players[0].CurrentBet;
-                labelAICurrentBet.Text = "Current betsize: " + players[1].CurrentBet;
+                labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
+                labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
             }
             else if (Game.CurrentPlayerIndex == 0)
             {
-                labelPlayerCurrentBet.Text = "Current betsize: " + players[0].CurrentBet;
+                labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
             }
             else if (Game.CurrentPlayerIndex == 1)
             {
-                labelAICurrentBet.Text = "Current betsize: " + players[1].CurrentBet;
+                labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
             }
         }
  
@@ -239,6 +239,30 @@ namespace Poker_Game {
             UpdateAll();
         }
 
+        private void buttonCall_MouseEnter(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet; 
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet;
+            }
+        }
+
+        private void buttonCall_MouseLeave(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
+            }
+        }
+
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             Game.Check();
@@ -251,6 +275,30 @@ namespace Poker_Game {
             UpdateAll();
         }
 
+        private void buttonRaise_MouseEnter(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+            }
+        }
+
+        private void buttonRaise_MouseLeave(object sender, EventArgs e)
+        {
+            if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
+            }
+        }
+
         private void buttonFold_Click(object sender, EventArgs e)
         {
             Game.Fold();
@@ -259,7 +307,6 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
             EndOfHand();
         }
-
 
         #endregion  
 
@@ -412,6 +459,10 @@ namespace Poker_Game {
             label12.Text = "TopBidderIndex: " + Game.CurrentRound().TopBidderIndex;
         }
 
+        private Player GetCurrentTopBidderIndex()
+        {
+            return Game.Players[Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].TopBidderIndex];
+        }
         #endregion
     }
 }

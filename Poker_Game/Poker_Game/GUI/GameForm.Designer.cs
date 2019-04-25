@@ -84,6 +84,7 @@ namespace Poker_Game {
             this.buttonQuitToMenu.Name = "buttonQuitToMenu";
             this.buttonQuitToMenu.Size = new System.Drawing.Size(146, 37);
             this.buttonQuitToMenu.TabIndex = 0;
+            this.buttonQuitToMenu.TabStop = false;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
             this.buttonQuitToMenu.UseVisualStyleBackColor = false;
             this.buttonQuitToMenu.Click += new System.EventHandler(this.buttonQuitToMenu_Click);
@@ -98,10 +99,12 @@ namespace Poker_Game {
             this.buttonRaise.Location = new System.Drawing.Point(417, 588);
             this.buttonRaise.Name = "buttonRaise";
             this.buttonRaise.Size = new System.Drawing.Size(110, 59);
-            this.buttonRaise.TabIndex = 1;
+            this.buttonRaise.TabIndex = 2;
             this.buttonRaise.Text = "Raise";
             this.buttonRaise.UseVisualStyleBackColor = false;
             this.buttonRaise.Click += new System.EventHandler(this.buttonRaise_Click);
+            this.buttonRaise.MouseEnter += new System.EventHandler(this.buttonRaise_MouseEnter);
+            this.buttonRaise.MouseLeave += new System.EventHandler(this.buttonRaise_MouseLeave);
             // 
             // buttonCall
             // 
@@ -113,10 +116,12 @@ namespace Poker_Game {
             this.buttonCall.Location = new System.Drawing.Point(301, 588);
             this.buttonCall.Name = "buttonCall";
             this.buttonCall.Size = new System.Drawing.Size(110, 59);
-            this.buttonCall.TabIndex = 2;
+            this.buttonCall.TabIndex = 1;
             this.buttonCall.Text = "Call";
             this.buttonCall.UseVisualStyleBackColor = false;
             this.buttonCall.Click += new System.EventHandler(this.buttonCall_Click);
+            this.buttonCall.MouseEnter += new System.EventHandler(this.buttonCall_MouseEnter);
+            this.buttonCall.MouseLeave += new System.EventHandler(this.buttonCall_MouseLeave);
             // 
             // buttonFold
             // 
@@ -130,6 +135,7 @@ namespace Poker_Game {
             this.buttonFold.Name = "buttonFold";
             this.buttonFold.Size = new System.Drawing.Size(110, 59);
             this.buttonFold.TabIndex = 3;
+            this.buttonFold.TabStop = false;
             this.buttonFold.Text = "Fold";
             this.buttonFold.UseVisualStyleBackColor = false;
             this.buttonFold.Click += new System.EventHandler(this.buttonFold_Click);
@@ -144,7 +150,7 @@ namespace Poker_Game {
             this.buttonCheck.Location = new System.Drawing.Point(184, 588);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(110, 59);
-            this.buttonCheck.TabIndex = 4;
+            this.buttonCheck.TabIndex = 0;
             this.buttonCheck.Text = "Check";
             this.buttonCheck.UseVisualStyleBackColor = false;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
