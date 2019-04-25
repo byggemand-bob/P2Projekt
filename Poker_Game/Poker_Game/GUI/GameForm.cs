@@ -171,7 +171,7 @@ namespace Poker_Game {
         private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
-            labelAIStack.Text = "AI" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+            labelAIStack.Text = "Deep Peer" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
         }
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
