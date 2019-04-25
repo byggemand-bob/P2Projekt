@@ -472,23 +472,23 @@ namespace Poker_Game {
             this.labelPlayerCurrentBet.AutoSize = true;
             this.labelPlayerCurrentBet.BackColor = System.Drawing.Color.Transparent;
             this.labelPlayerCurrentBet.Cursor = System.Windows.Forms.Cursors.Default;
-            this.labelPlayerCurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayerCurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPlayerCurrentBet.ForeColor = System.Drawing.Color.Red;
-            this.labelPlayerCurrentBet.Location = new System.Drawing.Point(364, 542);
+            this.labelPlayerCurrentBet.Location = new System.Drawing.Point(297, 541);
             this.labelPlayerCurrentBet.Name = "labelPlayerCurrentBet";
-            this.labelPlayerCurrentBet.Size = new System.Drawing.Size(60, 20);
+            this.labelPlayerCurrentBet.Size = new System.Drawing.Size(224, 24);
             this.labelPlayerCurrentBet.TabIndex = 23;
-            this.labelPlayerCurrentBet.Text = "label13";
+            this.labelPlayerCurrentBet.Text = "labelPlayerCurrentBetsize";
             // 
             // labelAICurrentBet
             // 
             this.labelAICurrentBet.AutoSize = true;
             this.labelAICurrentBet.BackColor = System.Drawing.Color.Transparent;
-            this.labelAICurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAICurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAICurrentBet.ForeColor = System.Drawing.Color.Red;
-            this.labelAICurrentBet.Location = new System.Drawing.Point(388, 85);
+            this.labelAICurrentBet.Location = new System.Drawing.Point(400, 86);
             this.labelAICurrentBet.Name = "labelAICurrentBet";
-            this.labelAICurrentBet.Size = new System.Drawing.Size(60, 20);
+            this.labelAICurrentBet.Size = new System.Drawing.Size(70, 24);
             this.labelAICurrentBet.TabIndex = 24;
             this.labelAICurrentBet.Text = "label14";
             // 
