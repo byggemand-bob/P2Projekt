@@ -214,6 +214,11 @@ namespace Poker_Game {
         {
             ChangeActionButtonState(id == 0);
         }
+
+        private void UpdateCurrent(Player player, Label label)
+        {
+            label.Text = "Current betsize: " + player.CurrentBet;
+        }
  
         #endregion
 
@@ -320,10 +325,9 @@ namespace Poker_Game {
 
         private string GetWinningPlayersScore()
         {
-            int numericScore;
             if (Game.GetWinners(Game.CurrentHand()).Count == 1)
             {
-                if (Int32.TryParse(ConvertScoreToString(0), out numericScore))
+                if (Int32.TryParse(ConvertScoreToString(0), out int numericScore))
                 {
                     if (numericScore > 10)
                     {
@@ -333,10 +337,11 @@ namespace Poker_Game {
                 }
                 return ConvertScoreToString(0);
             }
-            else
+            else if (Game.GetWinners(Game.CurrentHand()).Count == 2)
             {
                 return ConvertScoreToString(0) + " & " + ConvertScoreToString(1);
             }
+            return null; // TODO: error handling
         }
 
         private string GiveScoreName(int numericScore)

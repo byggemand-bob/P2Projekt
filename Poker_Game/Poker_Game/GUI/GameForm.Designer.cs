@@ -48,6 +48,8 @@ namespace Poker_Game {
             this.labelPlayerBlind = new System.Windows.Forms.Label();
             this.labelRoundName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -58,8 +60,8 @@ namespace Poker_Game {
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.labelPlayerCurrentBet = new System.Windows.Forms.Label();
+            this.labelAICurrentBet = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -303,7 +305,7 @@ namespace Poker_Game {
             this.labelAIBlind.BackColor = System.Drawing.Color.Transparent;
             this.labelAIBlind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAIBlind.ForeColor = System.Drawing.Color.White;
-            this.labelAIBlind.Location = new System.Drawing.Point(427, 25);
+            this.labelAIBlind.Location = new System.Drawing.Point(114, 137);
             this.labelAIBlind.Name = "labelAIBlind";
             this.labelAIBlind.Size = new System.Drawing.Size(100, 23);
             this.labelAIBlind.TabIndex = 18;
@@ -314,7 +316,7 @@ namespace Poker_Game {
             this.labelPlayerBlind.BackColor = System.Drawing.Color.Transparent;
             this.labelPlayerBlind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPlayerBlind.ForeColor = System.Drawing.Color.White;
-            this.labelPlayerBlind.Location = new System.Drawing.Point(702, 529);
+            this.labelPlayerBlind.Location = new System.Drawing.Point(702, 520);
             this.labelPlayerBlind.Name = "labelPlayerBlind";
             this.labelPlayerBlind.Size = new System.Drawing.Size(100, 23);
             this.labelPlayerBlind.TabIndex = 19;
@@ -349,6 +351,24 @@ namespace Poker_Game {
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(188, 207);
             this.panel1.TabIndex = 22;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(2, 164);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 13);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "label12";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(2, 151);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "label11";
             // 
             // label10
             // 
@@ -441,23 +461,30 @@ namespace Poker_Game {
             this.label1.TabIndex = 0;
             this.label1.Text = "Diagnostics";
             // 
-            // label11
+            // labelPlayerCurrentBet
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(2, 151);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "label11";
+            this.labelPlayerCurrentBet.AutoSize = true;
+            this.labelPlayerCurrentBet.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayerCurrentBet.Cursor = System.Windows.Forms.Cursors.Default;
+            this.labelPlayerCurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayerCurrentBet.ForeColor = System.Drawing.Color.Red;
+            this.labelPlayerCurrentBet.Location = new System.Drawing.Point(364, 542);
+            this.labelPlayerCurrentBet.Name = "labelPlayerCurrentBet";
+            this.labelPlayerCurrentBet.Size = new System.Drawing.Size(60, 20);
+            this.labelPlayerCurrentBet.TabIndex = 23;
+            this.labelPlayerCurrentBet.Text = "label13";
             // 
-            // label12
+            // labelAICurrentBet
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(2, 164);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "label12";
+            this.labelAICurrentBet.AutoSize = true;
+            this.labelAICurrentBet.BackColor = System.Drawing.Color.Transparent;
+            this.labelAICurrentBet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAICurrentBet.ForeColor = System.Drawing.Color.Red;
+            this.labelAICurrentBet.Location = new System.Drawing.Point(388, 85);
+            this.labelAICurrentBet.Name = "labelAICurrentBet";
+            this.labelAICurrentBet.Size = new System.Drawing.Size(60, 20);
+            this.labelAICurrentBet.TabIndex = 24;
+            this.labelAICurrentBet.Text = "label14";
             // 
             // GameForm
             // 
@@ -468,6 +495,8 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.labelAICurrentBet);
+            this.Controls.Add(this.labelPlayerCurrentBet);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelRoundName);
             this.Controls.Add(this.labelPlayerBlind);
@@ -548,5 +577,7 @@ namespace Poker_Game {
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelPlayerCurrentBet;
+        private System.Windows.Forms.Label labelAICurrentBet;
     }
 }
