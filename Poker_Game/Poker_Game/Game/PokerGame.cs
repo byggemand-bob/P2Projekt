@@ -130,6 +130,7 @@ namespace Poker_Game.Game {
             WinConditions wc = new WinConditions();
             List<Player> winners = new List<Player>();
             List<Player> players = GetUnfoldedPlayers(hand.Players);
+
             if(players.Count == 1) {
                 return players;
             } else if(players.Count == 0) {

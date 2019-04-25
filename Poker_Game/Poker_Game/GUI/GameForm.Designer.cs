@@ -62,6 +62,7 @@ namespace Poker_Game {
             this.label1 = new System.Windows.Forms.Label();
             this.labelPlayerCurrentBet = new System.Windows.Forms.Label();
             this.labelAICurrentBet = new System.Windows.Forms.Label();
+            this.checkboxEnableTimer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -492,6 +493,19 @@ namespace Poker_Game {
             this.labelAICurrentBet.TabIndex = 24;
             this.labelAICurrentBet.Text = "labelAICurrentBetsize";
             // 
+            // checkboxEnableTimer
+            // 
+            this.checkboxEnableTimer.AutoSize = true;
+            this.checkboxEnableTimer.BackColor = System.Drawing.Color.Transparent;
+            this.checkboxEnableTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkboxEnableTimer.ForeColor = System.Drawing.Color.Red;
+            this.checkboxEnableTimer.Location = new System.Drawing.Point(829, 54);
+            this.checkboxEnableTimer.Name = "checkboxEnableTimer";
+            this.checkboxEnableTimer.Size = new System.Drawing.Size(149, 20);
+            this.checkboxEnableTimer.TabIndex = 26;
+            this.checkboxEnableTimer.Text = "Enable Result Timer";
+            this.checkboxEnableTimer.UseVisualStyleBackColor = false;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,6 +515,7 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.checkboxEnableTimer);
             this.Controls.Add(this.labelAICurrentBet);
             this.Controls.Add(this.labelPlayerCurrentBet);
             this.Controls.Add(this.panel1);
@@ -585,5 +600,6 @@ namespace Poker_Game {
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label labelPlayerCurrentBet;
         private System.Windows.Forms.Label labelAICurrentBet;
+        private System.Windows.Forms.CheckBox checkboxEnableTimer;
     }
 }

@@ -10,7 +10,7 @@ namespace Poker_Game {
         private readonly PokerGame Game;
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
-        private const bool DiagnosticsMode = true;
+        private const bool DiagnosticsMode = false;
         
         #region Initialization
 
@@ -364,7 +364,7 @@ namespace Poker_Game {
         private void ShowEndOfHandWindow()
         {
             // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore()); // More information from GameForm
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
             CreateNewHand();
