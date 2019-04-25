@@ -11,9 +11,6 @@ namespace Poker_Game {
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private const bool DiagnosticsMode = true;
-
-         // TODO: Make prettier and show who wins and how much at showdown
-         // TODO: buttonRaise or Game.Raise() does NOT work properly - Can't check when another raises.
         
         #region Initialization
 
@@ -44,7 +41,6 @@ namespace Poker_Game {
             UpdateAll();
         }
 
-        
         private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) { // Help-method to declare settings class for the game
             Settings =  new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
@@ -101,11 +97,12 @@ namespace Poker_Game {
 
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
+            UpdateLabelCurrentBet(Game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
-            UpdatePlayerBlind(Game.Players[0]);
+            UpdatePlayerBlindLabels(Game.Players[0]);
             UpdateButtons();
             UpdateCards();
             if (DiagnosticsMode) {UpdateTest();}
@@ -188,7 +185,7 @@ namespace Poker_Game {
             labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
         }
 
-        private void UpdatePlayerBlind(Player player) // Updates blind-labels for each player
+        private void UpdatePlayerBlindLabels(Player player) // Updates blind-labels for each player
         {
             if (player.IsBigBlind)
             {
@@ -215,9 +212,21 @@ namespace Poker_Game {
             ChangeActionButtonState(id == 0);
         }
 
-        private void UpdateCurrent(Player player, Label label)
+        private void UpdateLabelCurrentBet(List<Player> players)
         {
-            label.Text = "Current betsize: " + player.CurrentBet;
+            if (Game.CurrentRoundNumber() == 1)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: " + players[0].CurrentBet;
+                labelAICurrentBet.Text = "Current betsize: " + players[1].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: " + players[0].CurrentBet;
+            }
+            else if (Game.CurrentPlayerIndex == 1)
+            {
+                labelAICurrentBet.Text = "Current betsize: " + players[1].CurrentBet;
+            }
         }
  
         #endregion
