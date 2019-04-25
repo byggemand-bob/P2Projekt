@@ -27,7 +27,7 @@ namespace Poker_Game {
             // Creates the game with usersettings
             Game = new PokerGame(Settings);
             Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "AI";
+            Game.Players[1].Name = "Deep Peer";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
