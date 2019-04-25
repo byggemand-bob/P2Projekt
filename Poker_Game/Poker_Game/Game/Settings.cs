@@ -1,6 +1,6 @@
 ﻿namespace Poker_Game.Game {
     enum BlindType { Time, Rounds } // namechange
-    class Settings {
+    public class Settings {
         public int NumberOfPlayers { get; set; }
         public int StackSize { get; set; }
         public int BlindSize { get; set; }

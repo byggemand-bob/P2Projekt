@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class SettingsForm : Form {
@@ -19,7 +20,8 @@ namespace Poker_Game {
             if (TESTING || nameChanged)
             {
                 this.Hide();
-                GameForm formGame = new GameForm(textboxName.Text, trackBarPotSize.Value, trackBarBlindSize.Value, trackBarBlindIncrease.Value, checkBoxRoundBased.Checked);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, checkBoxRoundBased.Checked, trackBarBlindIncrease.Value, textboxName.Text);
+                GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 this.Close();
             } else {

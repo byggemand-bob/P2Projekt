@@ -14,35 +14,29 @@ namespace Poker_Game {
         
         #region Initialization
 
-        public GameForm(string inputPlayerName, int inputStackSize, int inputBlindSize, int blindIncrease, bool blindIsRoundBased) { // Think about making Settings in settingsform and has it as a parameter. 
+        public GameForm(Settings settings) { // Think about making Settings in settingsform and has it as a parameter. 
             InitializeComponent();
-
+            Settings = settings;
             // Initilization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
-
-            CreateGameSettings(inputPlayerName, inputStackSize, inputBlindSize, blindIncrease, blindIsRoundBased);
 
             // Diagnostics window for (bad) debugging
             panel1.Visible = DiagnosticsMode;
 
             // Creates the game with usersettings
             Game = new PokerGame(Settings);
-            Game.Players[0].Name = inputPlayerName;
+            Game.Players[0].Name = Settings.PlayerName;
             Game.Players[1].Name = "AI";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
-            labelPlayerName.Text = inputPlayerName;
+            labelPlayerName.Text = Settings.PlayerName;
 
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
             ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
             UpdateAll();
-        }
-
-        private void CreateGameSettings(string playerName, int stackSize, int blindSize, int blindIncrease, bool blindIsRoundBased) { // Help-method to declare settings class for the game
-            Settings =  new Settings(2, stackSize, blindSize, blindIsRoundBased, blindIncrease, playerName);
         }
 
         private void Form1_Load(object sender, EventArgs e) { 
@@ -233,9 +227,6 @@ namespace Poker_Game {
 
         #region ButtonEvents
 
-        // TODO: Fix Fold (Doesn't give the pot to the right player)
-        // TODO: Fix disables of buttons, so that you cant check when a player has raised
-
         private void buttonQuitToMenu_Click(object sender, EventArgs e)
         {
             QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
@@ -270,7 +261,7 @@ namespace Poker_Game {
         }
 
 
-        #endregion
+        #endregion  
 
         #region Utility
 
