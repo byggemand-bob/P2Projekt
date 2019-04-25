@@ -10,7 +10,7 @@ namespace Poker_Game.Game {
 
     class Card : IComparable, ICloneable {
         //Random random = new Random();
-        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gør dette?
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
