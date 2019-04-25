@@ -488,9 +488,9 @@ namespace Poker_Game {
             this.labelAICurrentBet.ForeColor = System.Drawing.Color.Red;
             this.labelAICurrentBet.Location = new System.Drawing.Point(400, 86);
             this.labelAICurrentBet.Name = "labelAICurrentBet";
-            this.labelAICurrentBet.Size = new System.Drawing.Size(70, 24);
+            this.labelAICurrentBet.Size = new System.Drawing.Size(189, 24);
             this.labelAICurrentBet.TabIndex = 24;
-            this.labelAICurrentBet.Text = "label14";
+            this.labelAICurrentBet.Text = "labelAICurrentBetsize";
             // 
             // GameForm
             // 
