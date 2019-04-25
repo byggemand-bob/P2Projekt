@@ -1,5 +1,11 @@
 ﻿using System.IO;
 
+/*
+ * Potsize, player bets(preflop, flop, turn, river), player action, cards, player stack, om spiller sidder small eller big
+ * 
+ */
+
+
 namespace Poker_Game.Game {
 
     // This class saves the information of the different hands played in the game
@@ -75,8 +81,6 @@ namespace Poker_Game.Game {
         }
         #endregion
 
-        #region Actions
-
         #region MyRegion
 
         // Work in progress
@@ -99,9 +103,6 @@ namespace Poker_Game.Game {
         }
 
         #endregion
-
-        #endregion
-
 
 
         // _streamWriter = new StreamWriter(_folderPath + _fileName);
