@@ -23,19 +23,19 @@ namespace Poker_Game {
                 //}
                 h.Deck.Clear();
                 //Console.WriteLine(TAELLER);
-                for (int i = 0; i < NumberOfCards; i++) {
-                    h.Deck.Add(new Card(h.Deck));
-                    //Console.ReadKey();
-                }
+                //for (int i = 0; i < NumberOfCards; i++) {
+                //    h.Deck.Add(new Card(h.Deck));
+                //    //Console.ReadKey();
+                //}
 
-                ////royalflush
-                //h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
-                //h.Deck.Add(new Card(Suit.Clubs, Rank.King));
-                //h.Deck.Add(new Card(Suit.Clubs, Rank.Jack));
-                //h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
-                //h.Deck.Add(new Card(Suit.Spades, (Rank)3));
-                //h.Deck.Add(new Card(Suit.Clubs, Rank.King));
-                //h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
+                //royalflush
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)4));
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)6));
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)7));
+                h.Deck.Add(new Card(Suit.Diamond, (Rank)5));
+                h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
 
                 h.Deck.Sort();
                 TAELLER++;
@@ -66,7 +66,7 @@ namespace Poker_Game {
                 } else if (w.HasPair(h.Deck)) {
                     pair++;
                 }
-            } while (royalflush < 100);
+            } while (false);
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             stopWatch.Stop();
             Console.WriteLine("TÆLLER: " + TAELLER);
