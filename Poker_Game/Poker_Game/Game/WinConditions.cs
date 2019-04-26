@@ -47,12 +47,12 @@ namespace Poker_Game.Game {
             }
         }
         
-        // Finds the best of 2 cards
+        // Finds the best of 2 cards - 26/4/2019 check
         private Score GetBestCard(List<Card> playerHand) {
             return (playerHand[0].Rank > playerHand[1].Rank) ? (Score)playerHand[0].Rank : (Score)playerHand[1].Rank;
         }
-        
-        // Checks if the player has a pair
+
+        // Checks if the player has a pair - 26/4/2019 check
         public bool HasPair(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
@@ -62,7 +62,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Check if the player has two pairs
+        // Check if the player has two pairs - 26/4/2019 check
         public bool HasTwoPairs(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
 
@@ -74,7 +74,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks for three of a kind
+        // Checks for three of a kind - 26/4/2019 check
         public bool HasThreeOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -84,19 +84,20 @@ namespace Poker_Game.Game {
             }
             return false;
         }
-        
-        // Checks for a full house
+
+        // Checks for a full house - 26/4/2019 check
         public bool HasFullHouse(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i < sortedCards.Count - 1; i++) {
-                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
-                    return HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank) {
+                    return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
                 }
             }
             return false;
         }
 
-        // Checks for four of a kind
+        // Checks for four of a kind - 26/4/2019 check
         public bool HasFourOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 3; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -108,7 +109,7 @@ namespace Poker_Game.Game {
             return false; 
         }
 
-        // Checks for straight flush
+        // Checks for straight flush - 26/4/2019 check
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
@@ -117,7 +118,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks if the player has a royal straight flush
+        // Checks if the player has a royal straight flush - 26/4/2019 check
         public bool HasRoyalFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
@@ -136,8 +137,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks if the player has a straight
-
+        // Checks if the player has a straight 
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
@@ -155,7 +155,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks if the player has a flush 
+        // Checks if the player has a flush - 26/4/2019 check
         public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
@@ -175,7 +175,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks if the cards in hand / street forms a correct straight house
+        // Checks if the cards in hand / street forms a correct straight house - 26/4/2019 check
         private List<Card> FullHouse(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
@@ -199,8 +199,8 @@ namespace Poker_Game.Game {
                 return RemoveUnfitSuit(cards, Suit.Spades);
             }
         }
-        
 
+        //Removes all cards which is not of a given suit - 26/4/2019 check
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
             for(int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {
@@ -210,9 +210,20 @@ namespace Poker_Game.Game {
             return cards;
         }
 
+        //Removes all cards which is of a given rank - 26/4/2019 check
         private List<Card> RemoveUnfitRank(List<Card> cards, Rank rank) {
             for (int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Rank == rank) {
+                    cards.Remove(cards[index]);
+                }
+            }
+            return cards;
+        }
+
+        //Removes all dublicate ranks
+        private List<Card> RemoveDublicateRank(List<Card> cards) {
+            for (int index = cards.Count - 1; index >= 0; index--) {
+                if (cards[index].Rank == cards[index - 1].Rank) {
                     cards.Remove(cards[index]);
                 }
             }
