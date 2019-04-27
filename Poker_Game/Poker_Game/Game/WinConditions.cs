@@ -221,13 +221,13 @@ namespace Poker_Game.Game {
         }
 
         //Removes all dublicate ranks
-        private List<Card> RemoveDublicateRank(List<Card> cards) {
-            for (int index = cards.Count - 1; index >= 0; index--) {
-                if (cards[index].Rank == cards[index - 1].Rank) {
-                    cards.Remove(cards[index]);
-                }
+        private List<Card> RemoveDublicateRank(List<Card> cards, int index) {
+            if (cards[index].Rank == cards[index + 1].Rank) {
+                cards.Remove(cards[index + 1]);
+                return RemoveDublicateRank(cards, index);
+            } else {
+                return RemoveDublicateRank(cards, index + 1);
             }
-            return cards;
         }
 
         public Player SameScore(Player player1, Player player2) {
