@@ -137,7 +137,7 @@ namespace Poker_Game.Game {
             return false;
         }
 
-        // Checks if the player has a straight 
+        // Checks if the player has a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
@@ -252,6 +252,8 @@ namespace Poker_Game.Game {
             }
             return null;
         }
+
+        //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public Player BestStraight(Player player1, Player player2) {
             List<Card> player1cards = DeckDuper3000(player1.Cards);
             List<Card> player2cards = DeckDuper3000(player2.Cards);
@@ -288,23 +290,25 @@ namespace Poker_Game.Game {
             }
             return null;
         }
-        //private Player BestFullHouse(Player player1, Player player2) {
-        //    List<Card> player1cards = DeckDuper3000(player1.Cards);
-        //    List<Card> player2cards = DeckDuper3000(player2.Cards);
-        //    player1cards.Sort();
-        //    player2cards.Sort();
-        //    for (int i = 0; i < player1cards.Count - 1; i++) {
-        //        if (player1cards[i].Rank == player1cards[i + 1].Rank) {
-        //            for (int i = 0; i < player1cards.Count - 1; i++) {
-        //                if (player1cards[i].Rank == player1cards[i + 1].Rank) {
-        //                    return null;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
-        //    return null;
-        //}
+        private Player BestFullHouse(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            for (int i = 0; i < player1cards.Count - 1; i++) {
+                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+                    player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
+                    for (int j = 0; j < player2cards.Count - 1; j++) {
+                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+                            player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
+                            return BestPair();
+                        }
+                    }
+                }
+            }
+            HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+            return null;
+        }
         private Player BestFlush(Player player1, Player player2) {
             return null;
         }
@@ -312,9 +316,23 @@ namespace Poker_Game.Game {
             return null;
         }
         private Player BestTwoPairs(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+
             return null;
         }
         private Player BestPair(Player player1, Player player2) {
+            for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank) {
+                    for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                        if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
+                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                        }
+                    }
+                }
+            }
             return null;
         }
     }
