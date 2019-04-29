@@ -12,6 +12,7 @@ namespace Poker_Game.AI
         private Calculator calc = new Calculator();
         public int totalNumberOfOutcomes;
         private int i, n, x, deckSize, combinedHandStreetCount, result;
+        private Card testCard1, testCard2;
 
         public CardOdds(List<Card> Street, List<Card> Hand)
         {
@@ -45,6 +46,7 @@ namespace Poker_Game.AI
             return result;
         }
 
+        /* Old attempt
         private int NumberOfSameCardranksInList(List<Card> TestList, Rank TestRank)
         // Counts the number of cards with the rank = TestRank in TestList.
         {
@@ -112,6 +114,81 @@ namespace Poker_Game.AI
         public int FlushPossibilities()
         {
             return 0;
+        }
+        end of Old Attempt section*/
+
+        public int TotalOdds()
+        {
+            int totalWinScenarios = 0;
+
+            for (x = 0; x < 52; x++)
+            {
+                for(i = 0; i < 52; i++)
+                {
+                    if(i == x)
+                    {
+                        i++;
+                    }
+                    testCard1.MakeCard(x);
+                    testCard2.MakeCard(i);
+
+                    totalWinScenarios += OddsAgainst(testCard1, testCard2);
+                }
+            }
+
+            return 0;
+        }
+
+        public int OddsAgainst(Card OppanantCard1, Card OppanantCard2)
+        {
+            if(street.Count == 0)
+            {
+                return OddsAgainstPreFlop(OppanantCard1, OppanantCard2);
+            }
+            if (street.Count == 3)
+            {
+                return OddsAgainstPostFlop(OppanantCard1, OppanantCard2);
+            }
+            if (street.Count == 4)
+            {
+                return OddsAgainstDuringRiver(OppanantCard1, OppanantCard2);
+            }
+
+            return 0;
+        }
+
+        private int OddsAgainstPreFlop(Card OppanantCard1, Card OppanantCard2)
+        {
+            bool isAiWinning;
+
+            isAiWinning = IsAiWinning(OppanantCard1, OppanantCard2);
+
+            if (isAiWinning)
+            {
+
+            }
+
+            else
+            {
+
+            }
+
+            return 0;
+        }
+
+        private int OddsAgainstPostFlop(Card OppanantCard1, Card OppanantCard2)
+        {
+            return 0;
+        }
+
+        private int OddsAgainstDuringRiver(Card OppanantCard1, Card OppanantCard2)
+        {
+            return 0;
+        }
+
+        private bool IsAiWinning(Card OppanantCard1, Card OppanantCard2)
+        {
+            return false;
         }
     }
 }
