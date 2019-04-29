@@ -12,8 +12,8 @@ namespace Poker_Game.AI
         private Calculator calc = new Calculator();
         public int totalNumberOfOutcomes;
         private int i, n, x, deckSize, combinedHandStreetCount, result;
-        private Card testCard1, testCard2;
-
+        private Card testCard1 = new Card(Suit.Clubs, (Rank)2), testCard2 = new Card(Suit.Clubs, (Rank)3);
+        
         public CardOdds(List<Card> Street, List<Card> Hand)
         {
             street = Street;
@@ -22,6 +22,9 @@ namespace Poker_Game.AI
             combinedHandStreetCount = street.Count + hand.Count;
             deckSize = 52 - combinedHandStreetCount;
             totalNumberOfOutcomes = TotalNumberOfOutcomesCalc(street.Count);
+
+            //testCard1 = new Card(Suit.Clubs, (Rank)2);
+            //testCard2 = new Card(Suit.Clubs, (Rank)3);
         }
 
         private int TotalNumberOfOutcomesCalc(int StreetSize)
@@ -117,23 +120,44 @@ namespace Poker_Game.AI
         }
         end of Old Attempt section*/
 
-        public int TotalOdds()
+        public double TotalOdds()
         {
-            int totalWinScenarios = 0;
+            long totalWinScenarios = 0;
 
             for (x = 0; x < 52; x++)
             {
-                for(i = 0; i < 52; i++)
+                testCard1.MakeCard(x);
+
+                while(testCard1 == hand[0] || testCard1 == hand[1])
+                {
+                    x++;
+                    testCard1.MakeCard(x);
+                }
+
+                for (i = 0; i < 52; i++)
                 {
                     if(i == x)
                     {
                         i++;
                     }
-                    testCard1.MakeCard(x);
+
                     testCard2.MakeCard(i);
 
-                    totalWinScenarios += OddsAgainst(testCard1, testCard2);
+                    while (testCard2 == hand[0] || testCard2 == hand[1])
+                    {
+                        i++;
+                        testCard2.MakeCard(i);
+                    }
+
+                    totalWinScenarios += (long) OddsAgainst(testCard1, testCard2);
+
+                    Console.WriteLine("{0}", totalWinScenarios);
                 }
+            }
+
+            if(street.Count == 0)
+            {
+                return totalWinScenarios / 503417376000; //returns 0 for some reason, possibly an overflow issue
             }
 
             return 0;
@@ -159,13 +183,14 @@ namespace Poker_Game.AI
 
         private int OddsAgainstPreFlop(Card OppanantCard1, Card OppanantCard2)
         {
-            bool isAiWinning;
-
-            isAiWinning = IsAiWinning(OppanantCard1, OppanantCard2);
-
-            if (isAiWinning)
+            if (IsAiWinning(OppanantCard1, OppanantCard2))
             {
+                //205.476.480 total outcomes if both player and ai has set cards
+                //58.865.400 outcomes will draw a card of matching rank of one of the 2 in hand
+                //117.730.800 for both.
 
+                //not correct! 
+                return 117730800;
             }
 
             else
@@ -188,7 +213,7 @@ namespace Poker_Game.AI
 
         private bool IsAiWinning(Card OppanantCard1, Card OppanantCard2)
         {
-            return false;
+            return true;
         }
     }
 }
