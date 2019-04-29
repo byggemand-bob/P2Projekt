@@ -88,7 +88,7 @@ namespace Poker_Game.Game {
         // Checks for a full house - 26/4/2019 check
         public bool HasFullHouse(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
-            for (int i = 0; i < sortedCards.Count - 1; i++) {
+            for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank == sortedCards[i + 2].Rank) {
                     return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));

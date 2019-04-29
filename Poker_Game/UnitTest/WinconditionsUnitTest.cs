@@ -16,14 +16,34 @@ namespace UnitTest
         WinConditions winConditions = new WinConditions();
 
         [TestMethod]
-        public void Wincondition_Pair_Test()
+        public void TestForHighestCard()
         {
             // Arrange
             List<Card> cards = new List<Card>();
-                // Pair
+            cards.Add(new Card(Suit.Clubs, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, Rank.King));
+            cards.Add(new Card(Suit.Diamond, (Rank)4));
+            cards.Add(new Card(Suit.Spades, (Rank)8));
+            cards.Add(new Card(Suit.Spades, (Rank)9));
+            cards.Add(new Card(Suit.Diamond, Rank.Jack));
+            cards.Add(new Card(Suit.Hearts, Rank.Queen));
+            Score expected = (Score) Rank.King;
+
+            // Act
+            Score score = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(score, expected);
+        }
+        [TestMethod]
+        public void TestForPair()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Pair
             cards.Add(new Card(Suit.Clubs, (Rank)2));
             cards.Add(new Card(Suit.Hearts, (Rank)2));
-                // Filler
+            // Filler
             cards.Add(new Card(Suit.Hearts, (Rank)3));
             cards.Add(new Card(Suit.Spades, (Rank)8));
             cards.Add(new Card(Suit.Spades, (Rank)9));
@@ -43,12 +63,12 @@ namespace UnitTest
         {
             // Arrange
             List<Card> cards = new List<Card>();
-                // Pairs
+            // Pairs
             cards.Add(new Card(Suit.Clubs, (Rank)2));
             cards.Add(new Card(Suit.Hearts, (Rank)2));
             cards.Add(new Card(Suit.Hearts, (Rank)3));
             cards.Add(new Card(Suit.Spades, (Rank)3));
-                // Filler
+            // Filler
             cards.Add(new Card(Suit.Spades, (Rank)9));
             cards.Add(new Card(Suit.Hearts, Rank.Jack));
             cards.Add(new Card(Suit.Hearts, Rank.Queen));
