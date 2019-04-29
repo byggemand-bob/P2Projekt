@@ -270,6 +270,8 @@ namespace Poker_Game.Game {
             }
             return null;
         }
+
+        //Think it works, but need testing
         private Player BestFourOfAKind(Player player1, Player player2) {
             List<Card> player1cards = DeckDuper3000(player1.Cards);
             List<Card> player2cards = DeckDuper3000(player2.Cards);
@@ -290,6 +292,8 @@ namespace Poker_Game.Game {
             }
             return null;
         }
+
+        //Need input on this one since it is drastically different to the bool version (HasFullHouse)
         private Player BestFullHouse(Player player1, Player player2) {
             List<Card> player1cards = DeckDuper3000(player1.Cards);
             List<Card> player2cards = DeckDuper3000(player2.Cards);
@@ -301,20 +305,41 @@ namespace Poker_Game.Game {
                     for (int j = 0; j < player2cards.Count - 1; j++) {
                         if (player2cards[j].Rank == player2cards[j + 1].Rank &&
                             player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
-                            return BestPair();
+                            return null;//BestPair();
                         }
                     }
                 }
             }
-            HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+            //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
             return null;
         }
+
+        //Think it works, but need testing
         private Player BestFlush(Player player1, Player player2) {
-            return null;
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            return FullHouse(player1cards)[player1cards.Count - 1].Rank < FullHouse(player2cards)[player2cards.Count - 1].Rank ? player2 : player1;
         }
+
+        //Think it works, but need testing
         private Player BestThreeOfAKind(Player player1, Player player2) {
+            for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
+                    player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
+                    for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                        if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
+                            player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
+                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                        }
+                    }
+                }
+            }
             return null;
         }
+
+        //Same problem as BestFullHouse
         private Player BestTwoPairs(Player player1, Player player2) {
             List<Card> player1cards = DeckDuper3000(player1.Cards);
             List<Card> player2cards = DeckDuper3000(player2.Cards);
@@ -323,6 +348,8 @@ namespace Poker_Game.Game {
 
             return null;
         }
+
+        //Think it works, but need testing
         private Player BestPair(Player player1, Player player2) {
             for (int i = 0; i < player1.Cards.Count - 1; i++) {
                 if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank) {
