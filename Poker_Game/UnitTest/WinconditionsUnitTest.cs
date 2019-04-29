@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.Game;
-using Poker_Game;
 using System.Collections.Generic;
 
 namespace UnitTest
@@ -15,7 +13,6 @@ namespace UnitTest
     [TestClass]
     public class WinconditionsUnitTest
     {
-        PokerGame Game;
         WinConditions winConditions = new WinConditions();
 
         [TestMethod]
