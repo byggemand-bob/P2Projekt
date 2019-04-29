@@ -208,7 +208,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentRound().Bets < 3;
+            return CurrentRound().Bets < 3 && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
         }
 
         public int CurrentHandNumber() {
@@ -232,13 +232,10 @@ namespace Poker_Game.Game {
             foreach (Player player in Players) {
                 if (player.Stack < 1) {
                     playersLeft++;
-                    if (playersLeft > 1) {
-                        return true;
-                    }
                 }
             }
 
-            return false;
+            return playersLeft == 1;
         }
 
         #endregion
