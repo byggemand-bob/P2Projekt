@@ -19,16 +19,16 @@ namespace Poker_Game.Game {
             Suit = suit;
             Rank = rank;
         }
-        //public Card(int i) {
-        //    MakeCard(i);
-        //}
+        public Card(int i) {
+            MakeCard(i);
+        }
 
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
 
         private int DrawRandomCard() {
-            return _random.Next(0, 51);
+            return _random.Next(0, 52);
         }
 
         public void DrawCards(List<Card> cards) {
@@ -48,16 +48,16 @@ namespace Poker_Game.Game {
         public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
             //string cardName = rankInt.ToString();
-            //if(rankInt == 14) {
+            //if (rankInt == 14) {
             //    cardName = "A";
-            //} else if(rankInt == 11) {
+            //} else if (rankInt == 11) {
             //    cardName = "J";
-            //} else if(rankInt == 12) {
+            //} else if (rankInt == 12) {
             //    cardName = "Q";
-            //} else if(rankInt == 13) {
+            //} else if (rankInt == 13) {
             //    cardName = "K";
             //}
-            if(cardNumber <= 12) {
+            if (cardNumber <= 12) {
                 Suit = Suit.Clubs;
                 //cardName += "C";
             } else if(cardNumber <= 25) {
