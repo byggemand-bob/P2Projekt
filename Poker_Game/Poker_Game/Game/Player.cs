@@ -4,7 +4,7 @@ using System.Collections.Generic;
 // TODO: create GetHashCode()
 
 namespace Poker_Game.Game {
-    enum PlayerAction {
+    public enum PlayerAction {
         None,
         Check,
         Call,
@@ -12,7 +12,7 @@ namespace Poker_Game.Game {
         Fold
     }
 
-    class Player : IComparable, ICloneable {
+    public class Player : IComparable, ICloneable {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
         public int CurrentBet { get; set; }

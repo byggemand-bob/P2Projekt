@@ -4,11 +4,11 @@ using System.Drawing;
 using Poker_Game;
 
 namespace Poker_Game.Game {
-    enum Suit { Clubs, Diamond, Hearts, Spades };
-    enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
+    public enum Suit { Clubs, Diamond, Hearts, Spades };
+    public enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
-    class Card : IComparable, ICloneable {
+    public class Card : IComparable, ICloneable {
         //Random random = new Random();
         private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gør dette?
         public Suit Suit { get; set; }

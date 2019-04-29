@@ -3,7 +3,7 @@
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
-    class Hand {
+    public class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize

@@ -8,7 +8,7 @@ using Poker_Game.Game;
 
 
 namespace Poker_Game.Game {
-    class PokerGame {
+    public class PokerGame {
         public int CurrentPlayerIndex { get; set; }
         public int DealerButtonPosition { get; set; }
         public bool HandInProgress { get; private set; }

@@ -1,5 +1,5 @@
 ﻿namespace Poker_Game.Game {
-    class Turn {
+    public class Turn {
         public PlayerAction Action { get; set; }
         public int Bet { get; set; }
         public int PotSize { get; set; }

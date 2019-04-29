@@ -3,13 +3,13 @@
 // TODO: Make a method for when both players has no winning hand -> Slit the pot
 
 namespace Poker_Game.Game {
-    enum Score {
+    public enum Score {
         None, Pair = 15, TwoPairs, ThreeOfAKind,
         Straight, Flush, FullHouse, FourOfAKind, StraightFlush,
         RoyalFlush
     }
 
-    class WinConditions {
+    public class WinConditions {
 
         public List<Card> DeckDuper3000(List<Card> cards) {
             List<Card> dupeCards = new List<Card>();

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Poker_Game.Game {
-    class CompareBySuit : IComparer<Card> {
+    public class CompareBySuit : IComparer<Card> {
         public int Compare(Card x, Card y) {
             if(x.Suit.CompareTo(y.Suit) < 0) {
                 return -1;

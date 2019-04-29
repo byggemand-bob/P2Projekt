@@ -3,7 +3,7 @@
 namespace Poker_Game.Game {
 
     // This class saves the information of the different hands played in the game
-    class StatisticsIO {
+    public class StatisticsIO {
         private StreamWriter _streamWriter;
         private StreamReader _streamReader;
         private readonly string _folderPath;
