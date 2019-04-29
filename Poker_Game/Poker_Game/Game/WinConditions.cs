@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 // TODO: Make a method for when both players has no winning hand -> Slit the pot
 
