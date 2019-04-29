@@ -192,11 +192,10 @@ namespace Poker_Game.Game {
             return -1; // TODO: Do error-handling
         }
 
-
-
         #endregion
 
         #region Utillity
+
         public bool CanCheck() {
             return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
                    Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;

@@ -340,6 +340,18 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
+        private bool CheckPlayerStack(List<Player> players)
+        {
+            foreach (Player player in players)
+            {
+                if (player.Stack <= 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void Showdown() // TODO: Make less crowded - more methods!
         {
                 // Shows AI's cards on hand if a player has not folded
