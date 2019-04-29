@@ -58,25 +58,25 @@ namespace Poker_Game {
                                             }
 
 
-                                            //if (w.HasRoyalFlush(h.Deck)) {
-                                            //    royalflush++;
-                                            //} else if (w.HasStraightFlush(h.Deck)) {
-                                            //    straightflush++;
-                                            //} else if (w.HasFourOfAKind(h.Deck)) {
-                                            //    four++;
-                                            //} else if (w.HasFullHouse(h.Deck)) {
-                                            //    fullhouse++;
-                                            //} else if (w.HasFlush(h.Deck)) {
-                                            //    flush++;
-                                            //} else if (w.HasStraight(h.Deck)) {
-                                            //    straight++;
-                                            //} else if (w.HasThreeOfAKind(h.Deck)) {
-                                            //    three++;
-                                            //} else if (w.HasTwoPairs(h.Deck)) {
-                                            //    twopair++;
-                                            //} else if (w.HasPair(h.Deck)) {
-                                            //    pair++;
-                                            //}
+                                            if (w.HasRoyalFlush(h.Deck)) {
+                                                royalflush++;
+                                            } else if (w.HasStraightFlush(h.Deck)) {
+                                                straightflush++;
+                                            } else if (w.HasFourOfAKind(h.Deck)) {
+                                                four++;
+                                            } else if (w.HasFullHouse(h.Deck)) {
+                                                fullhouse++;
+                                            } else if (w.HasFlush(h.Deck)) {
+                                                flush++;
+                                            } else if (w.HasStraight(h.Deck)) {
+                                                straight++;
+                                            } else if (w.HasThreeOfAKind(h.Deck)) {
+                                                three++;
+                                            } else if (w.HasTwoPairs(h.Deck)) {
+                                                twopair++;
+                                            } else if (w.HasPair(h.Deck)) {
+                                                pair++;
+                                            }
                                         }
                                     }
                                 }
