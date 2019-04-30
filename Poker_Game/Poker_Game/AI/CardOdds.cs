@@ -134,13 +134,8 @@ namespace Poker_Game.AI
                     testCard1.MakeCard(x);
                 }
 
-                for (i = 0; i < 52; i++)
+                for (i = x + 1; i < 52; i++)
                 {
-                    if(i == x)
-                    {
-                        i++;
-                    }
-
                     testCard2.MakeCard(i);
 
                     while (testCard2 == hand[0] || testCard2 == hand[1])
@@ -157,7 +152,7 @@ namespace Poker_Game.AI
 
             if(street.Count == 0)
             {
-                return totalWinScenarios / 503417376000; //returns 0 for some reason, possibly an overflow issue
+                return (double) totalWinScenarios / (double) 2097572400; //returns 0 for some reason, possibly an overflow issue
             }
 
             return 0;
@@ -189,8 +184,13 @@ namespace Poker_Game.AI
                 //58.865.400 outcomes will draw a card of matching rank of one of the 2 in hand
                 //117.730.800 for both.
 
+                //1.712.304 combinations of outcomes if both player an ai has a specefic set of cards.
+                //1.225 number of 2 card combinations from a deck of 50 cards
+                //1.712.304 x 1225 = 2.097.572.400
+
+
                 //not correct! 
-                return 117730800;
+                return 1086088;
             }
 
             else
