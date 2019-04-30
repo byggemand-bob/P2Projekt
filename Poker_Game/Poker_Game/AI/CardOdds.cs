@@ -191,10 +191,6 @@ namespace Poker_Game.AI
         {
             if (IsAiWinning(OppanantCard1, OppanantCard2))
             {
-                //205.476.480 total outcomes if both player and ai has set cards
-                //58.865.400 outcomes will draw a card of matching rank of one of the 2 in hand
-                //117.730.800 for both.
-
                 //1.712.304 combinations of outcomes if both player an ai has a specefic set of cards.
                 //1.225 number of 2 card combinations from a deck of 50 cards
                 //1.712.304 x 1225 = 2.097.572.400
