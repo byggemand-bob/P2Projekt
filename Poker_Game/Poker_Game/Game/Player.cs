@@ -41,6 +41,8 @@ namespace Poker_Game.Game {
         public void GetScore() {
             WinConditions winCondition = new WinConditions(); 
             Score = winCondition.Evaluate(Cards);
+            // if (player.Score == otherPlayerScore)
+            //      Do something;
         }
 
         public void Reset() { // Reset a player-state for each new hand

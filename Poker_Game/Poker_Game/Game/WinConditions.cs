@@ -142,6 +142,7 @@ namespace Poker_Game.Game {
         // Checks if the player has a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
+            sortedCards.Sort();
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
                 if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
@@ -173,12 +174,12 @@ namespace Poker_Game.Game {
             }
             if (C > 4 || D > 4 || H > 4 || S > 4) {
                 return true;
-            }
+           }
             return false;
         }
 
         // Checks if the cards in hand / street forms a correct straight house - 26/4/2019 check
-        private List<Card> FullHouse(List<Card> cards) {
+        private List<Card> FullHouse(List<Card> cards)  { // This is a flush
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
@@ -232,7 +233,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        public Player SameScore(Player player1, Player player2) {
+        public Player SameScore(Player player1, Player player2) {  // Missing implementation
             if (player1.Score == Score.RoyalFlush) {
                 return null;
             } else if (player1.Score == Score.StraightFlush) {

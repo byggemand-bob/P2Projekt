@@ -15,7 +15,7 @@ namespace UnitTest
     {
         WinConditions winConditions = new WinConditions();
 
-        #region MiddleCases 
+        #region NormalTestScore 
 
         [TestMethod]
         public void TestForHighestCard()
@@ -29,7 +29,7 @@ namespace UnitTest
             cards.Add(new Card(Suit.Spades, (Rank)9));
             cards.Add(new Card(Suit.Diamond, Rank.Jack));
             cards.Add(new Card(Suit.Hearts, Rank.Queen));
-            Score expected = (Score) Rank.King;
+            Score expected = (Score)Rank.King;
 
             // Act
             Score actual = winConditions.Evaluate(cards);
@@ -52,7 +52,7 @@ namespace UnitTest
             cards.Add(new Card(Suit.Spades, (Rank)9));
             cards.Add(new Card(Suit.Hearts, Rank.Jack));
             cards.Add(new Card(Suit.Hearts, Rank.Queen));
-            Score expected = (Score) 15;
+            Score expected = (Score)15;
 
             // Act
             Score actual = winConditions.Evaluate(cards);
@@ -89,11 +89,11 @@ namespace UnitTest
         {
             // Arrange
             List<Card> cards = new List<Card>();
-                // Three of a kind
+            // Three of a kind
             cards.Add(new Card(Suit.Clubs, (Rank)2));
             cards.Add(new Card(Suit.Hearts, (Rank)2));
             cards.Add(new Card(Suit.Spades, (Rank)2));
-                // Filler
+            // Filler
             cards.Add(new Card(Suit.Spades, (Rank)8));
             cards.Add(new Card(Suit.Spades, (Rank)9));
             cards.Add(new Card(Suit.Hearts, Rank.Jack));
@@ -159,10 +159,10 @@ namespace UnitTest
             // Arrange
             List<Card> cards = new List<Card>();
             // FullHouse
-            cards.Add(new Card(Suit.Clubs, (Rank)2));
+            cards.Add(new Card(Suit.Diamond, (Rank)2));
             cards.Add(new Card(Suit.Hearts, (Rank)2));
             cards.Add(new Card(Suit.Spades, (Rank)2));
-            cards.Add(new Card(Suit.Spades, (Rank)3));
+            cards.Add(new Card(Suit.Diamond, (Rank)3));
             cards.Add(new Card(Suit.Clubs, (Rank)3));
             // Filler
             cards.Add(new Card(Suit.Hearts, Rank.Jack));
@@ -207,7 +207,7 @@ namespace UnitTest
             // StraightFlush
             cards.Add(new Card(Suit.Spades, (Rank)9));
             cards.Add(new Card(Suit.Spades, (Rank)8));
-            cards.Add(new Card(Suit.Spades, (Rank) 10));
+            cards.Add(new Card(Suit.Spades, (Rank)10));
             cards.Add(new Card(Suit.Spades, Rank.Jack));
             cards.Add(new Card(Suit.Spades, Rank.Queen));
             // Filler
@@ -222,7 +222,7 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod] 
+        [TestMethod]
         public void TestForRoyalFlush()
         {
             // Arrange
@@ -247,10 +247,10 @@ namespace UnitTest
 
         #endregion
 
-        
-        #region EdgeCases
 
-        [TestMethod] 
+        #region SpecialTestScores
+
+        [TestMethod]
         public void TestAlmostFlush_GetHighestCard()
         {
             // Arrange
@@ -264,7 +264,7 @@ namespace UnitTest
             // Filler
             cards.Add(new Card(Suit.Clubs, Rank.Jack));
             cards.Add(new Card(Suit.Hearts, Rank.Queen));
-            Score expected = (Score) Rank.King;
+            Score expected = (Score)Rank.King;
 
             // Act
             Score actual = winConditions.Evaluate(cards);
@@ -296,7 +296,6 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        
 
         [TestMethod]
         public void TestAlmostStraight_GetHighestCard()
@@ -311,8 +310,8 @@ namespace UnitTest
             cards.Add(new Card(Suit.Spades, (Rank)7)); // 1 rank too high
             // Filler
             cards.Add(new Card(Suit.Hearts, Rank.Jack));
-            cards.Add(new Card(Suit.Hearts, Rank.Queen)); 
-            Score expected = (Score) Rank.Queen;
+            cards.Add(new Card(Suit.Hearts, Rank.Queen));
+            Score expected = (Score)Rank.Queen;
 
             // Act
             Score actual = winConditions.Evaluate(cards);
@@ -344,6 +343,53 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+
+        [TestMethod]
+        public void TestStraight_AceAsOne()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Straight
+            cards.Add(new Card(Suit.Spades, Rank.Ace));
+            cards.Add(new Card(Suit.Clubs, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, (Rank)3));
+            cards.Add(new Card(Suit.Spades, (Rank)4));
+            cards.Add(new Card(Suit.Spades, (Rank)5));
+            // Filler
+            cards.Add(new Card(Suit.Hearts, (Rank)7));
+            cards.Add(new Card(Suit.Hearts, Rank.Queen));
+            Score expected = Score.Straight;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestStraight_AceAsFourteen()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Straight
+            cards.Add(new Card(Suit.Clubs, (Rank)10));
+            cards.Add(new Card(Suit.Hearts, Rank.Jack));
+            cards.Add(new Card(Suit.Spades, Rank.Queen));
+            cards.Add(new Card(Suit.Spades, Rank.King));
+            cards.Add(new Card(Suit.Spades, Rank.Ace));
+            // Filler
+            cards.Add(new Card(Suit.Hearts, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, (Rank)5));
+            Score expected = Score.Straight;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
 
         #endregion
