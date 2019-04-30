@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Poker_Game.Game;
 
 // TODO: Make a method for when both players has no winning hand -> Slit the pot
 
@@ -43,13 +44,13 @@ namespace Poker_Game.Game {
             } else if (HasPair(sortedCards)) {
                 return Score.Pair;
             } else {
-                return GetBestCard(cards);
+                return GetBestCard(sortedCards);
             }
         }
-        
+
         // Finds the best of 2 cards - 26/4/2019 check
-        private Score GetBestCard(List<Card> playerHand) {
-            return (playerHand[0].Rank > playerHand[1].Rank) ? (Score)playerHand[0].Rank : (Score)playerHand[1].Rank;
+        private Score GetBestCard(List<Card> sortedCards) {
+            return (Score) sortedCards[sortedCards.Count - 1].Rank;
         }
 
         // Checks if the player has a pair - 26/4/2019 check

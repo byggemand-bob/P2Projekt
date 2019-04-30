@@ -32,10 +32,10 @@ namespace UnitTest
             Score expected = (Score) Rank.King;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -55,10 +55,10 @@ namespace UnitTest
             Score expected = (Score) 15;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -78,10 +78,10 @@ namespace UnitTest
             Score expected = Score.TwoPairs;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(expected, score);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -101,10 +101,10 @@ namespace UnitTest
             Score expected = Score.ThreeOfAKind;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -124,10 +124,10 @@ namespace UnitTest
             Score expected = Score.Straight;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -147,10 +147,10 @@ namespace UnitTest
             Score expected = Score.Flush;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -170,10 +170,10 @@ namespace UnitTest
             Score expected = Score.FullHouse;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -193,10 +193,10 @@ namespace UnitTest
             Score expected = Score.FourOfAKind;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -216,10 +216,10 @@ namespace UnitTest
             Score expected = Score.StraightFlush;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod] 
@@ -239,16 +239,15 @@ namespace UnitTest
             Score expected = Score.RoyalFlush;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(score, expected);
+            Assert.AreEqual(expected, actual);
         }
 
         #endregion
 
         
-
         #region EdgeCases
 
         [TestMethod] 
@@ -268,11 +267,84 @@ namespace UnitTest
             Score expected = (Score) Rank.King;
 
             // Act
-            Score score = winConditions.Evaluate(cards);
+            Score actual = winConditions.Evaluate(cards);
 
             // Assert
-            Assert.AreEqual(expected, score);
+            Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestAlmostFlush_GetPair()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Almost Flush
+            cards.Add(new Card(Suit.Spades, (Rank)2));
+            cards.Add(new Card(Suit.Spades, (Rank)8));
+            cards.Add(new Card(Suit.Spades, Rank.King));
+            cards.Add(new Card(Suit.Spades, (Rank)5));
+            cards.Add(new Card(Suit.Hearts, (Rank)6)); // Wrong suit
+            // Pair
+            cards.Add(new Card(Suit.Clubs, (Rank)9));
+            cards.Add(new Card(Suit.Hearts, (Rank)9));
+            Score expected = Score.Pair;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        
+
+        [TestMethod]
+        public void TestAlmostStraight_GetHighestCard()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Straight
+            cards.Add(new Card(Suit.Clubs, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, (Rank)3));
+            cards.Add(new Card(Suit.Spades, (Rank)4));
+            cards.Add(new Card(Suit.Spades, (Rank)5));
+            cards.Add(new Card(Suit.Spades, (Rank)7)); // 1 rank too high
+            // Filler
+            cards.Add(new Card(Suit.Hearts, Rank.Jack));
+            cards.Add(new Card(Suit.Hearts, Rank.Queen)); 
+            Score expected = (Score) Rank.Queen;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestAlmostStraight_GetPair()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Straight
+            cards.Add(new Card(Suit.Clubs, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, (Rank)3));
+            cards.Add(new Card(Suit.Spades, (Rank)4));
+            cards.Add(new Card(Suit.Spades, (Rank)5));
+            cards.Add(new Card(Suit.Spades, (Rank)7)); // 1 rank too high
+            // Pair
+            cards.Add(new Card(Suit.Hearts, Rank.Jack));
+            cards.Add(new Card(Suit.Diamond, Rank.Jack));
+            Score expected = Score.Pair;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
 
         #endregion
     }

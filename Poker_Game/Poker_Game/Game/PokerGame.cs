@@ -27,6 +27,11 @@ namespace Poker_Game.Game {
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
+    
+        public PokerGame() // For testing purpose only
+        {
+            Hands = new List<Hand>();
+        }
 
         private List<Player> InitializePlayers() {
             List<Player> players = new List<Player>();

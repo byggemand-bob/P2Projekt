@@ -26,6 +26,7 @@ namespace Poker_Game.Game {
         #region Initialization
 
         public Player(int id,  int stackSize) {
+            Id = id;
             Cards = new List<Card>();
             Stack = stackSize;
             Action = PlayerAction.None;
