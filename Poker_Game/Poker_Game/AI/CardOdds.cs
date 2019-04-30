@@ -188,6 +188,8 @@ namespace Poker_Game.AI
                 //1.225 number of 2 card combinations from a deck of 50 cards
                 //1.712.304 x 1225 = 2.097.572.400
 
+                //1.086.088 outcomes where the opponant doesn't draw an additional matching card
+
 
                 //not correct! 
                 return 1086088;
@@ -195,10 +197,8 @@ namespace Poker_Game.AI
 
             else
             {
-
+                return 626216;
             }
-
-            return 0;
         }
 
         private int OddsAgainstPostFlop(Card OppanantCard1, Card OppanantCard2)
@@ -213,6 +213,42 @@ namespace Poker_Game.AI
 
         private bool IsAiWinning(Card OppanantCard1, Card OppanantCard2)
         {
+            //bool AiWinning;
+
+            //if the street is currently empty
+            if (street.Count == 0)
+            {
+                //checks if the opponant or ai has a pocket pair, and if both does returns the one with the highs ranked pair
+                if (OppanantCard1.Rank == OppanantCard2.Rank)
+                {
+                    if(hand[0].Rank == hand[1].Rank)
+                    {
+                        if(hand[0].Rank < OppanantCard1.Rank)
+                        {
+                            return false;
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+
+                if (hand[0].Rank == hand[1].Rank)
+                {
+                    return true;
+                }
+
+                //if no one has a pocket pair return the one holding the highest ranked card
+                if(hand[0].Rank < OppanantCard1.Rank || hand[0].Rank < OppanantCard2.Rank)
+                {
+                    if (hand[1].Rank < OppanantCard1.Rank || hand[1].Rank < OppanantCard2.Rank)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return true;
+            }
+
             return true;
         }
     }
