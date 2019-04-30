@@ -9,6 +9,8 @@ namespace Poker_Game
 {
     class Odds_test
     {
+        public double inputNumber;
+        public string outputNumber;
 
         static void Main()
         {
@@ -33,5 +35,15 @@ namespace Poker_Game
             //Console.WriteLine("{0}", Calc.Faculty(100));
             Console.ReadKey();
         }
+
+        public string PutDot()
+        {
+            inputNumber.ToString(outputNumber);
+
+            String.Format("{0:0,0.0}", outputNumber);
+
+            return outputNumber;
+        }
+
     }
 }
