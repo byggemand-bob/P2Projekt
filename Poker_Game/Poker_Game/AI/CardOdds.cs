@@ -27,6 +27,17 @@ namespace Poker_Game.AI
             //testCard2 = new Card(Suit.Clubs, (Rank)3);
         }
 
+        public string PutDot(double inputNumber)
+        {
+            string outputNumber;
+
+            outputNumber = inputNumber.ToString();
+
+            String.Format("{0:0,0,0.0}", outputNumber);
+
+            return outputNumber;
+        }
+
         private int TotalNumberOfOutcomesCalc(int StreetSize)
         {
             int devideBy = 1;
