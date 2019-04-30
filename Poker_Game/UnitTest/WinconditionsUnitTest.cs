@@ -15,6 +15,7 @@ namespace UnitTest
     {
         WinConditions winConditions = new WinConditions();
 
+        #region MiddleCases 
         [TestMethod]
         public void TestForHighestCard()
         {
@@ -241,5 +242,12 @@ namespace UnitTest
             // Assert
             Assert.AreEqual(score, expected);
         }
+
+        #endregion
+
+        #region EdgeCases
+
+
+        #endregion
     }
 }
