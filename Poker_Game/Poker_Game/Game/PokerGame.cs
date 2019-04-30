@@ -17,6 +17,10 @@ namespace Poker_Game.Game {
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
+
+        //
+        private const int MaxBetsPerRound = 3;
+
         #region Initialization
 
         public PokerGame(Settings settings) {
@@ -73,6 +77,7 @@ namespace Poker_Game.Game {
                 // Create functions for this.
                 CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
                 NewTurn();
+                CurrentTurn().Bet = Settings.BlindSize * 2;
                 UpdateState();
                 CurrentRound().CycleStep++;
             }
@@ -208,7 +213,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentRound().Bets < 3 && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
+            return CurrentRound().Bets < MaxBetsPerRound && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
         }
 
         public int CurrentHandNumber() {
@@ -217,6 +222,14 @@ namespace Poker_Game.Game {
 
         public int CurrentRoundNumber() {
             return Hands[CurrentHandNumber() - 1].CurrentRoundNumber();
+        }
+
+        public int CurrentTurnNumber() {
+            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
+        }
+
+        public Turn CurrentTurn() {
+            return CurrentRound().Turns[CurrentTurnNumber() - 1];
         }
 
         public Round CurrentRound() {

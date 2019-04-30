@@ -272,7 +272,10 @@ namespace Poker_Game {
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             Game.Raise();
+            StatisticsIO SIO = new StatisticsIO(Game);
+            SIO.SaveTurn(Game.CurrentTurn());
             UpdateAll();
+
         }
 
         private void buttonRaise_MouseEnter(object sender, EventArgs e)
