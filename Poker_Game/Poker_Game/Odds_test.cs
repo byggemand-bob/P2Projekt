@@ -31,8 +31,6 @@ namespace Poker_Game
 
             Console.WriteLine("{0}", cardodds.TotalOdds());
 
-            Console.WriteLine("{0}", cardodds.PutDot(1000000000.16));
-
             //Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
             //Console.WriteLine("{0}", Calc.Faculty(100));
             Console.ReadKey();
