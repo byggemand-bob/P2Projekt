@@ -27,7 +27,7 @@ namespace UnitTest
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Pair of 3
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)10));
+            player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
 
             player2.Cards.Add(new Card(Suit.Clubs, (Rank)7)); // Pair of 7
             player2.Cards.Add(new Card(Suit.Clubs, (Rank)8));
@@ -106,16 +106,20 @@ namespace UnitTest
             Card tableCard5 = new Card(Suit.Spades, Rank.Queen);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Straight - 3, 4, 5, 6, 7
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)10));
+            player1.Cards.Add(new Card(Suit.Spades, Rank.King));
+            player1.Cards.Add(tableCard1);
+            player1.Cards.Add(tableCard2);
+            player1.Cards.Add(tableCard3);
+            player1.Cards.Add(tableCard4);
+            player1.Cards.Add(tableCard5);
 
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7)); // Straight - 4, 5, 6, 7, 8
-            player2.Cards.Add(new Card(Suit.Hearts, (Rank)8));
-
-            hand.Deck.Add(tableCard1);
-            hand.Deck.Add(tableCard2);
-            hand.Deck.Add(tableCard3);
-            hand.Deck.Add(tableCard4);
-            hand.Deck.Add(tableCard5);
+            player2.Cards.Add(new Card(Suit.Clubs, (Rank)2)); // Straight - 4, 5, 6, 7, 8
+            player2.Cards.Add(new Card(Suit.Hearts, (Rank)8)); 
+            player2.Cards.Add(tableCard1);
+            player2.Cards.Add(tableCard2);
+            player2.Cards.Add(tableCard3);
+            player2.Cards.Add(tableCard4);
+            player2.Cards.Add(tableCard5);
 
             List<Player> expected = new List<Player> { player2 };
 
