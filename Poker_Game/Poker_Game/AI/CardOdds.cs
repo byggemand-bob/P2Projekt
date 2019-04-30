@@ -29,13 +29,11 @@ namespace Poker_Game.AI
 
         public string PutDot(double inputNumber)
         {
-            string outputNumber;
+          string outputNumber;
 
-            outputNumber = inputNumber.ToString();
+          outputNumber = inputNumber.ToString("#,##0.00");
 
-            String.Format("{0:0,0,0.0}", outputNumber);
-
-            return outputNumber;
+          return outputNumber;
         }
 
         private int TotalNumberOfOutcomesCalc(int StreetSize)

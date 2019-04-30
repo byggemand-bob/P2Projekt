@@ -9,8 +9,8 @@ namespace Poker_Game
 {
     class Odds_test
     {
-        public double test;
-        public string outputNumber;
+       // public double test;
+       // public string outputNumber;
 
         static void Main()
         {
@@ -31,7 +31,7 @@ namespace Poker_Game
 
             Console.WriteLine("{0}", cardodds.TotalOdds());
 
-            Console.WriteLine("{0}", cardodds.PutDot(10000.16));
+            Console.WriteLine("{0}", cardodds.PutDot(1000000000.16));
 
             //Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
             //Console.WriteLine("{0}", Calc.Faculty(100));
