@@ -16,6 +16,7 @@ namespace UnitTest
         WinConditions winConditions = new WinConditions();
 
         #region MiddleCases 
+
         [TestMethod]
         public void TestForHighestCard()
         {
@@ -36,6 +37,7 @@ namespace UnitTest
             // Assert
             Assert.AreEqual(score, expected);
         }
+
         [TestMethod]
         public void TestForPair()
         {
@@ -245,8 +247,32 @@ namespace UnitTest
 
         #endregion
 
+        
+
         #region EdgeCases
 
+        [TestMethod] 
+        public void TestAlmostFlush_GetHighestCard()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Flush
+            cards.Add(new Card(Suit.Spades, (Rank)2));
+            cards.Add(new Card(Suit.Spades, (Rank)8));
+            cards.Add(new Card(Suit.Spades, Rank.King));
+            cards.Add(new Card(Suit.Spades, (Rank)5));
+            cards.Add(new Card(Suit.Hearts, (Rank)6)); // Wrong suit for flush.
+            // Filler
+            cards.Add(new Card(Suit.Clubs, Rank.Jack));
+            cards.Add(new Card(Suit.Hearts, Rank.Queen));
+            Score expected = (Score) Rank.King;
+
+            // Act
+            Score score = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, score);
+        }
 
         #endregion
     }
