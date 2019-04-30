@@ -114,7 +114,7 @@ namespace Poker_Game.Game {
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                return HasStraight(FullHouse(sortedCards));
+                return HasStraight(FlushSuit(sortedCards));
             }
             return false;
         }
@@ -123,7 +123,7 @@ namespace Poker_Game.Game {
         public bool HasRoyalFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
-                FullHouse(sortedCards);
+                FlushSuit(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
@@ -177,7 +177,7 @@ namespace Poker_Game.Game {
         }
 
         // Checks if the cards in hand / street forms a correct straight house - 26/4/2019 check
-        private List<Card> FullHouse(List<Card> cards) {
+        private List<Card> FlushSuit(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
@@ -239,7 +239,7 @@ namespace Poker_Game.Game {
             } else if (player1.Score == Score.FourOfAKind) {
                 return BestFourOfAKind(player1, player2);
             } else if (player1.Score == Score.FullHouse) {
-                //return BestFullHouse(player1, player2);
+                return BestFullHouse(player1, player2);
             } else if (player1.Score == Score.Flush) {
                 return BestFlush(player1, player2);
             } else if (player1.Score == Score.Straight) {
@@ -264,7 +264,11 @@ namespace Poker_Game.Game {
                 if(player1cards[i].Rank - 5 == player1cards[i + 5].Rank) {
                     for (int j = 0; j < player2cards.Count - 5; j++) {
                         if (player2cards[j].Rank - 5 == player2cards[j + 5].Rank) {
-                            return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            if (player1cards[i].Rank == player2cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            }
                         }
                     }
                 }
@@ -286,7 +290,11 @@ namespace Poker_Game.Game {
                         if (player1cards[j].Rank == player1cards[j + 1].Rank &&
                             player1cards[j + 1].Rank == player1cards[j + 2].Rank &&
                             player1cards[j + 2].Rank == player1cards[j + 3].Rank) {
-                            return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            if (player1cards[i].Rank == player2cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            }
                         }
                     }
                 }
@@ -319,9 +327,15 @@ namespace Poker_Game.Game {
         private Player BestFlush(Player player1, Player player2) {
             List<Card> player1cards = DeckDuper3000(player1.Cards);
             List<Card> player2cards = DeckDuper3000(player2.Cards);
+            FlushSuit(player1cards);
+            FlushSuit(player2cards);
             player1cards.Sort();
             player2cards.Sort();
-            return FullHouse(player1cards)[player1cards.Count - 1].Rank  < FullHouse(player2cards)[player2cards.Count - 1].Rank ? player2 : player1;
+            if (player1cards[player1cards.Count - 1].Rank == player2cards[player2cards.Count - 1].Rank) {
+                return null;
+            } else {
+                return (player1cards[player1cards.Count - 1].Rank > player2cards[player2cards.Count - 1].Rank ? player1 : player2);
+            }
         }
 
         //Think it works, but need testing
@@ -332,7 +346,11 @@ namespace Poker_Game.Game {
                     for (int j = 0; j < player2.Cards.Count - 1; j++) {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                             player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
-                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            }
                         }
                     }
                 }
@@ -356,7 +374,11 @@ namespace Poker_Game.Game {
                 if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank) {
                     for (int j = 0; j < player2.Cards.Count - 1; j++) {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
-                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            }
                         }
                     }
                 }
