@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Poker_Game.Game;
+using System.Linq;
 
 // TODO: Make a method for when both players has no winning hand -> Slit the pot
 
@@ -321,7 +322,7 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
-            return FullHouse(player1cards)[player1cards.Count - 1].Rank < FullHouse(player2cards)[player2cards.Count - 1].Rank ? player2 : player1;
+            return FullHouse(player1cards)[player1cards.Count - 1].Rank  < FullHouse(player2cards)[player2cards.Count - 1].Rank ? player2 : player1;
         }
 
         //Think it works, but need testing

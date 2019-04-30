@@ -44,6 +44,7 @@ namespace Poker_Game.Game {
         //}
         public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
+            Suit = (Suit)(cardNumber / 13);
             string cardName = rankInt.ToString();
             if(rankInt == 14) {
                 cardName = "A";
