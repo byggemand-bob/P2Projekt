@@ -306,9 +306,9 @@ namespace Poker_Game.Game {
                     player1cards[i + 1].Rank == player1cards[i + 2].Rank &&
                     player1cards[i + 2].Rank == player1cards[i + 3].Rank) {
                     for (int j = 0; i < player1cards.Count - 3; j++) {
-                        if (player1cards[j].Rank == player1cards[j + 1].Rank &&
-                            player1cards[j + 1].Rank == player1cards[j + 2].Rank &&
-                            player1cards[j + 2].Rank == player1cards[j + 3].Rank) {
+                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+                            player2cards[j + 1].Rank == player2cards[j + 2].Rank &&
+                            player2cards[j + 2].Rank == player2cards[j + 3].Rank) {
                             if (player1cards[i].Rank == player2cards[j].Rank) {
                                 return null;
                             } else {
