@@ -26,6 +26,8 @@ namespace Poker_Game
             //street.Add(new Card(Suit.Spades, Rank.Jack));
             //street.Add(new Card(Suit.Spades, (Rank)5));
 
+            MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
+
             CardOdds cardodds = new CardOdds(street, hand);
 
             Console.WriteLine("{0}", cardodds.street.Count);
