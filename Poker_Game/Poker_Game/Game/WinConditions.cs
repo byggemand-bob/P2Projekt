@@ -327,17 +327,33 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
-            for (int i = 0; i < player1cards.Count - 1; i++) {
-                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
-                    player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
-                    for (int j = 0; j < player2cards.Count - 1; j++) {
-                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
-                            player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
-                            return null;//BestPair();
-                        }
-                    }
+            if (BestThreeOfAKind(player1, player2) != null) {
+                return BestThreeOfAKind(player1, player2);
+            } else {
+                for (int i  = 0; i < player1cards.Count - 1; i++) {
+                    
                 }
             }
+
+
+
+
+
+
+
+            //for (int i = 0; i < player1cards.Count - 1; i++) {
+            //    if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+            //        player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
+            //        for (int j = 0; j < player2cards.Count - 1; j++) {
+            //            if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+            //                player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
+            //                if () {
+
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
             return null;
         }
