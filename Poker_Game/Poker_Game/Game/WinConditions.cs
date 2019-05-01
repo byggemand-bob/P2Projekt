@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Poker_Game.Game;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System;
 
-namespace Poker_Game {
-    enum Score {
+// TODO: Make a method for when both players has no winning hand -> Slit the pot
+
+namespace Poker_Game.Game {
+    public enum Score {
         None, Pair = 15, TwoPairs, ThreeOfAKind,
         Straight, Flush, FullHouse, FourOfAKind, StraightFlush,
         RoyalFlush
     }
 
-    class WinConditions {
+    public class WinConditions {
 
         public List<Card> DeckDuper3000(List<Card> cards) {
-            List<Card> DupeCards = new List<Card>();
+            List<Card> dupeCards = new List<Card>();
             foreach (Card element in cards) {
-                DupeCards.Add(element);
+                dupeCards.Add((Card)element.Clone());
             }
-            return DupeCards;
+            return dupeCards;
         }
-
+        
+        // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             sortedCards.Sort();
@@ -46,10 +46,16 @@ namespace Poker_Game {
             } else if (HasPair(sortedCards)) {
                 return Score.Pair;
             } else {
-                return Score.None;
+                return GetBestCard(sortedCards);
             }
         }
 
+        // Finds the best of 2 cards - 26/4/2019 check
+        private Score GetBestCard(List<Card> sortedCards) {
+            return (Score) sortedCards[sortedCards.Count - 1].Rank;
+        }
+
+        // Checks if the player has a pair - 26/4/2019 check
         public bool HasPair(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
@@ -59,6 +65,7 @@ namespace Poker_Game {
             return false;
         }
 
+        // Check if the player has two pairs - 26/4/2019 check
         public bool HasTwoPairs(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
 
@@ -70,6 +77,7 @@ namespace Poker_Game {
             return false;
         }
 
+        // Checks for three of a kind - 26/4/2019 check
         public bool HasThreeOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -80,16 +88,19 @@ namespace Poker_Game {
             return false;
         }
 
+        // Checks for a full house - 26/4/2019 check
         public bool HasFullHouse(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
-            for (int i = 0; i < sortedCards.Count - 1; i++) {
-                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
-                    return HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+            for (int i = 0; i < sortedCards.Count - 2; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank) {
+                    return HasPair(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
                 }
             }
             return false;
         }
 
+        // Checks for four of a kind - 26/4/2019 check
         public bool HasFourOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 3; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
@@ -101,6 +112,7 @@ namespace Poker_Game {
             return false; 
         }
 
+        // Checks for straight flush - 26/4/2019 check
         public bool HasStraightFlush(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
@@ -109,10 +121,13 @@ namespace Poker_Game {
             return false;
         }
 
-        public bool HasRoyalFlush(List<Card> sortedCards) {
+        // Checks if the player has a royal straight flush - 26/4/2019 check
+        public bool HasRoyalFlush(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
             if (HasFlush(sortedCards)) {
+                FlushSuit(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
                         sortedCards[i+1].Rank == Rank.King &&
                         sortedCards[i+2].Rank == Rank.Queen &&
@@ -120,32 +135,32 @@ namespace Poker_Game {
                         sortedCards[i+4].Rank == (Rank)10) {
                         return true;
                     }
-                } 
+                }
             }
             return false;
         }
 
-        // straight is when 5 of cards are in order by rank
+        // Checks if the player has a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
-            int RankCounter = 0;
-            for (int i = 0; i <= sortedCards.Count - 2; i++) {
-                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank) {
-                    RankCounter++;
+            sortedCards.Sort();
+            RemoveDublicateRank(sortedCards, 0);
+            for (int i = 0; i <= sortedCards.Count - 5; i++) {
+                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
+                    sortedCards[i + 2].Rank + 1 == sortedCards[i + 3].Rank &&
+                    sortedCards[i + 3].Rank + 1 == sortedCards[i + 4].Rank) {
+                    return true;
                 }
-                if (sortedCards[i + 1].Rank == Rank.Ace) {
-                    sortedCards[i + 1].Rank = (Rank)1;
+                if (sortedCards[i + 4].Rank == Rank.Ace) {
+                    sortedCards[i + 4].Rank = (Rank)1;
                     return HasStraight(sortedCards);
                 }
             }
-            if (RankCounter >= 4) {
-                return true;
-            }
             return false;
         }
 
-
-        // flush is when 5 of the cards are of the same suit
+        // Checks if the player has a flush - 26/4/2019 check
         public bool HasFlush(List<Card> hand) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in hand) {
@@ -161,10 +176,11 @@ namespace Poker_Game {
             }
             if (C > 4 || D > 4 || H > 4 || S > 4) {
                 return true;
-            }
+           }
             return false;
         }
 
+        // Checks if the cards in hand / street forms a correct straight house - 26/4/2019 check
         private List<Card> FlushSuit(List<Card> cards) {
             int C = 0, D = 0, H = 0, S = 0;
             foreach (Card element in cards) {
@@ -188,7 +204,8 @@ namespace Poker_Game {
                 return RemoveUnfitSuit(cards, Suit.Spades);
             }
         }
-        
+
+        //Removes all cards which is not of a given suit - 26/4/2019 check
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
             for(int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {
@@ -198,6 +215,7 @@ namespace Poker_Game {
             return cards;
         }
 
+        //Removes all cards which is of a given rank - 26/4/2019 check
         private List<Card> RemoveUnfitRank(List<Card> cards, Rank rank) {
             for (int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Rank == rank) {
@@ -205,6 +223,186 @@ namespace Poker_Game {
                 }
             }
             return cards;
+        }
+
+        //Removes all dublicate ranks
+        public List<Card> RemoveDublicateRank(List<Card> cards, int index) {
+            if (cards.Count - 1 > index) {
+                if (cards[index].Rank == cards[index + 1].Rank) {
+                    cards.Remove(cards[index + 1]);
+                    return RemoveDublicateRank(cards, index);
+                } else {
+                    return RemoveDublicateRank(cards, index + 1);
+                } 
+            }
+            return null;
+        }
+
+        public Player SameScore(Player player1, Player player2) {  // Missing implementation
+            if (player1.Score == Score.RoyalFlush) {
+                return null;
+            } else if (player1.Score == Score.StraightFlush) {
+                return BestStraight(player1, player2);
+            } else if (player1.Score == Score.FourOfAKind) {
+                return BestFourOfAKind(player1, player2);
+            } else if (player1.Score == Score.FullHouse) {
+                return BestFullHouse(player1, player2);
+            } else if (player1.Score == Score.Flush) {
+                return BestFlush(player1, player2);
+            } else if (player1.Score == Score.Straight) {
+                return BestStraight(player1, player2);
+            } else if (player1.Score == Score.ThreeOfAKind) {
+                return BestThreeOfAKind(player1, player2);
+            } else if (player1.Score == Score.TwoPairs) {
+                return BestTwoPairs(player1, player2);
+            } else if (player1.Score == Score.Pair) {
+                return BestPair(player1, player2);
+            } else {
+                return GetBestHighestCard(player1, player2);
+            }
+        }
+
+        private Player GetBestHighestCard(Player player1, Player player2) {
+            for (int i  = 0; i < player1.Cards.Count - 1 && i < player2.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank != player2.Cards[i].Rank) {
+                    return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
+                }
+            }
+            return null;
+        }
+
+        //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
+        public Player BestStraight(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            RemoveDublicateRank(player1cards, 0);
+            RemoveDublicateRank(player2cards, 0);
+            for (int i = 0; i < player1cards.Count - 5; i++) {
+                if(player1cards[i].Rank + 4 == player1cards[i + 4].Rank) {
+                    for (int j = 0; j < player2cards.Count - 5; j++) {
+                        if (player2cards[j].Rank + 4 == player2cards[j + 4].Rank) {
+                            if (player1cards[i].Rank == player2cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        //Think it works, but need testing
+        private Player BestFourOfAKind(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            for (int i = 0; i < player1cards.Count - 3; i++) {
+                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+                    player1cards[i + 1].Rank == player1cards[i + 2].Rank &&
+                    player1cards[i + 2].Rank == player1cards[i + 3].Rank) {
+                    for (int j = 0; i < player1cards.Count - 3; j++) {
+                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+                            player2cards[j + 1].Rank == player2cards[j + 2].Rank &&
+                            player2cards[j + 2].Rank == player2cards[j + 3].Rank) {
+                            if (player1cards[i].Rank == player2cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        //Need input on this one since it is drastically different to the bool version (HasFullHouse)
+        private Player BestFullHouse(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            for (int i = 0; i < player1cards.Count - 1; i++) {
+                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+                    player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
+                    for (int j = 0; j < player2cards.Count - 1; j++) {
+                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+                            player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
+                            return null;//BestPair();
+                        }
+                    }
+                }
+            }
+            //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
+            return null;
+        }
+
+        //Think it works, but need testing
+        private Player BestFlush(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            FlushSuit(player1cards);
+            FlushSuit(player2cards);
+            player1cards.Sort();
+            player2cards.Sort();
+            if (player1cards[player1cards.Count - 1].Rank == player2cards[player2cards.Count - 1].Rank) {
+                return null;
+            } else {
+                return (player1cards[player1cards.Count - 1].Rank > player2cards[player2cards.Count - 1].Rank ? player1 : player2);
+            }
+        }
+
+        //Think it works, but need testing
+        private Player BestThreeOfAKind(Player player1, Player player2) {
+            for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
+                    player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
+                    for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                        if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
+                            player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
+                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        //Same problem as BestFullHouse
+        private Player BestTwoPairs(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
+
+            return null;
+        }
+
+        //Think it works, but need testing
+        private Player BestPair(Player player1, Player player2) {
+            for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank) {
+                    for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                        if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
+                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                return null;
+                            } else {
+                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

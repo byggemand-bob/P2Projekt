@@ -1,25 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using Poker_Game;
 
-namespace Poker_Game {
-    enum Suit { Clubs, Diamond, Hearts, Spades };
-    enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
+namespace Poker_Game.Game {
+    public enum Suit { Clubs, Diamond, Hearts, Spades };
+    public enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
-    class Card : IComparable, ICloneable {
-        Random random = new Random();
+    public class Card : IComparable, ICloneable {
+        //Random random = new Random();
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad g�r dette?
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
 
-
         public Card(Suit suit, Rank rank) {
-            //Image = image;
             Suit = suit;
             Rank = rank;
         }
@@ -30,20 +26,28 @@ namespace Poker_Game {
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
-        private int DrawRandCard() {
-            return random.Next(0, 51);
+
+        private int DrawRandomCard() {
+            return _random.Next(0, 51);
         }
+
         public void DrawCards(List<Card> cards) {
-            MakeCard(DrawRandCard());
-            foreach(Card element in cards) {
-                if(element.CompareTo(this) == 0) {
+            MakeCard(DrawRandomCard());
+            foreach (Card element in cards) {
+                if (element.CompareTo(this) == 0) {
                     DrawCards(cards);
                     break;
                 }
             }
         }
-        public void MakeCard(int cardNumber) {
+        //public void DrawCards(List<Card> cards) {
+        //    do {
+        //        MakeCard(DrawRandCard());
+        //    } while (cards.Contains(this));
+        //}
+        public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
+            Suit = (Suit)(cardNumber / 13);
             string cardName = rankInt.ToString();
             if(rankInt == 14) {
                 cardName = "A";
@@ -68,11 +72,16 @@ namespace Poker_Game {
                 cardName += "S";
             }
             Rank = (Rank)rankInt;
-            //Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
+        //public void MakeCard(int cardNumber) {
+        //    Rank = (Rank)((cardNumber % 13) + 2);
+        //    Suit = (Suit)((cardNumber / 13) + 1);
+        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardNumber + ".png");
+        //}
 
-        public int CompareTo(object other) { // Sort after suit, then rank
+        public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
             if(Rank.CompareTo(otherCard.Rank) < 0) {
                 return -1;

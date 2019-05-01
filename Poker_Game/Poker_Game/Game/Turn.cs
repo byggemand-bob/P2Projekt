@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Poker_Game.Game {
+    public class Turn {
+        public PlayerAction Action { get; set; }
+        public int Bet { get; set; }
+        public int PotSize { get; set; }
 
-namespace Poker_Game {
-    class Turn {
-        public Player CurrentPlayer { get; private set; }
+        #region Initialization
 
-        public Turn(Player player) {
-            CurrentPlayer = (Player)player.Clone();
+        public Turn(Player player, int potSize) {
+            Action = player.Action;
+            Bet = player.CurrentBet;
+            PotSize = potSize;
         }
+
+        #endregion
     }
 }
