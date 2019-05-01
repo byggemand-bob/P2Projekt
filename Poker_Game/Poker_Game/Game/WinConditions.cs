@@ -281,23 +281,8 @@ namespace Poker_Game.Game {
             RemoveDublicateRank(player2cards, 0);
             for (int i = 0; i < player1cards.Count - 5; i++) {
                 if(player1cards[i].Rank + 5 == player1cards[i + 5].Rank) {
-                    for (int k = 0; k < 5; k++) {
-                        Console.WriteLine("Players Cards:" + player1cards[k+i].Rank + " " + player1cards[k+i].Suit);
-                    }
-
-                    Console.WriteLine("");
-
                     for (int j = 0; j < player2cards.Count - 5; j++) {
                         if (player2cards[j].Rank + 5 == player2cards[j + 5].Rank) {
-                            for (int h = 0; h < 5; h++) {
-                                Console.WriteLine("Players Cards:" + player2cards[h + j].Rank + " " + player2cards[h + j].Suit);
-                            }
-
-                            Console.WriteLine("");
-
-                            Console.WriteLine("Players Cards:" + player1cards[i].Rank + " " + player1cards[i].Suit);
-                            Console.WriteLine("Players Cards:" + player2cards[j].Rank + " " + player2cards[j].Suit);
-
                             if (player1cards[i].Rank == player2cards[j].Rank) {
                                 return null;
                             } else {
