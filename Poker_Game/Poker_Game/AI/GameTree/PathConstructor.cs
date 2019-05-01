@@ -15,8 +15,12 @@ namespace Poker_Game.AI.GameTree {
 
 
         public Node<INodeType> ConstructPath(string path) {
-
+            Node<INodeType> currentRootNode
         }
+
+        private 
+
+        
 
     }
 }
