@@ -17,13 +17,21 @@ namespace Poker_Game.Game {
             return System.Windows.Forms.Application.StartupPath + "\\VPIPData\\" + playerName + ".vpip";
         }
 
+
+        // checks if the StreamWriter has the correct filePath to write to, and writes info to the file
+        public bool HasExistingData() {
+            return File.Exists(_filePath);
+        }
+
+
         public VPIPData ReaData() {
             StreamReader sr = new StreamReader(_filePath);
-            return new VPIPData(sr.ReadLine(),
+            VPIPData result = new VPIPData(sr.ReadLine(),
                 Int32.Parse(sr.ReadLine()), 
                 Int32.Parse(sr.ReadLine()), 
                 Int32.Parse(sr.ReadLine()));
             sr.Close();
+            return result;
         }
     }
 }
