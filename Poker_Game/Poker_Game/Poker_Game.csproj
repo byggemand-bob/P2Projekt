@@ -468,6 +468,5 @@
     </BootstrapperPackage>
     <None Include="Resources\PokerBord.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

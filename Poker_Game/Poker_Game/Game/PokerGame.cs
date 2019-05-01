@@ -8,7 +8,7 @@ using Poker_Game.Game;
 
 
 namespace Poker_Game.Game {
-    class PokerGame {
+    public class PokerGame {
         public int CurrentPlayerIndex { get; set; }
         public int DealerButtonPosition { get; set; }
         public bool HandInProgress { get; private set; }
@@ -30,6 +30,11 @@ namespace Poker_Game.Game {
             DealerButtonPosition = 0;
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
+        }
+    
+        public PokerGame() // For testing purpose only
+        {
+            Hands = new List<Hand>();
         }
 
         private List<Player> InitializePlayers() {
@@ -136,14 +141,15 @@ namespace Poker_Game.Game {
             List<Player> winners = new List<Player>();
             List<Player> players = GetUnfoldedPlayers(hand.Players);
 
+
             if(players.Count == 1) {
                 return players;
             } else if(players.Count == 0) {
                 // Errorhandlign 
-
             }
 
             foreach(Player player in players) {
+                player.Cards.Sort();
                 player.GetScore();
                 if(winners.Count == 0) {
                     winners.Add(player);
@@ -151,13 +157,16 @@ namespace Poker_Game.Game {
                     winners.Clear();
                     winners.Add(player);
                 } else if(player.Score == winners[0].Score) {
-                    //Player tPlayer = new Player//wc.SameScore(winners[0], player);
-                    //if(tPlayer == null) {
-                    //    winners.Add(player);
-                    //} else {
-                    //    winners.Clear();
-                    //    winners.Add(tPlayer);
-                    //}
+                    Player tPlayer = wc.SameScore(winners[0], player);
+                    if (tPlayer == null)
+                    {
+                        winners.Add(player);
+                    }
+                    else
+                    {
+                        winners.Clear();
+                        winners.Add(tPlayer);
+                    }
                 } 
             }
             return winners;
@@ -197,11 +206,10 @@ namespace Poker_Game.Game {
             return -1; // TODO: Do error-handling
         }
 
-
-
         #endregion
 
         #region Utillity
+
         public bool CanCheck() {
             return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
                    Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;

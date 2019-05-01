@@ -3,7 +3,7 @@
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
-    class Hand {
+    public class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize
@@ -12,6 +12,13 @@ namespace Poker_Game.Game {
         
         // Allocation and initialization for the various elements of a hand
         #region Initialization
+
+        public Hand(List<Player> players) // For testing purposes only
+        {
+            Players = players;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+        }
         public Hand(List<Player> players, int dealerButtonPosition) {
             Pot = 0;
             Deck = new List<Card>();

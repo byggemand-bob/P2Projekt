@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Poker_Game.Game {
-    class Round {
+    public class Round {
         public int TopBidderIndex { get; set; }
         public int CycleStep { get; set; }
         public int Bets { get; set; }

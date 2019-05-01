@@ -1,7 +1,5 @@
-﻿using System.Windows.Forms;
-
-namespace Poker_Game.Game {
-    class Turn {
+﻿namespace Poker_Game.Game {
+    public class Turn {
         public PlayerAction Action { get; set; }
         public int Bet { get; set; }
         public int PotSize { get; set; }

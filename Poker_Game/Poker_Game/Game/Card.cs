@@ -4,13 +4,13 @@ using System.Drawing;
 using Poker_Game;
 
 namespace Poker_Game.Game {
-    enum Suit { Clubs, Diamond, Hearts, Spades };
-    enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
+    public enum Suit { Clubs, Diamond, Hearts, Spades };
+    public enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
-    class Card : IComparable, ICloneable {
+    public class Card : IComparable, ICloneable {
         //Random random = new Random();
-        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gør dette?
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -44,6 +44,7 @@ namespace Poker_Game.Game {
         //}
         public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
             int rankInt = (cardNumber % 13) + 2;
+            Suit = (Suit)(cardNumber / 13);
             string cardName = rankInt.ToString();
             if(rankInt == 14) {
                 cardName = "A";
@@ -71,6 +72,11 @@ namespace Poker_Game.Game {
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
+        //public void MakeCard(int cardNumber) {
+        //    Rank = (Rank)((cardNumber % 13) + 2);
+        //    Suit = (Suit)((cardNumber / 13) + 1);
+        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardNumber + ".png");
+        //}
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 // TODO: create GetHashCode()
 
 namespace Poker_Game.Game {
-    enum PlayerAction {
+    public enum PlayerAction {
         None,
         Check,
         Call,
@@ -12,7 +12,7 @@ namespace Poker_Game.Game {
         Fold
     }
 
-    class Player : IComparable, ICloneable {
+    public class Player : IComparable, ICloneable {
         public int Id { get; set; }
         public int Stack { get; set; } // Needs validation
         public int CurrentBet { get; set; }
@@ -26,6 +26,7 @@ namespace Poker_Game.Game {
         #region Initialization
 
         public Player(int id,  int stackSize) {
+            Id = id;
             Cards = new List<Card>();
             Stack = stackSize;
             Action = PlayerAction.None;
@@ -40,6 +41,8 @@ namespace Poker_Game.Game {
         public void GetScore() {
             WinConditions winCondition = new WinConditions(); 
             Score = winCondition.Evaluate(Cards);
+            // if (player.Score == otherPlayerScore)
+            //      Do something;
         }
 
         public void Reset() { // Reset a player-state for each new hand
