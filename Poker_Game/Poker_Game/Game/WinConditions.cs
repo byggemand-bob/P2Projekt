@@ -268,7 +268,7 @@ namespace Poker_Game.Game {
                     return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("GetBestHighestCard exited loop");
         }
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
@@ -292,7 +292,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestStraight exited loop");
         }
 
         //Think it works, but need testing
@@ -318,7 +318,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestFourOfAKind exited loop");
         }
 
         //Need input on this one since it is drastically different to the bool version (HasFullHouse)
@@ -330,8 +330,16 @@ namespace Poker_Game.Game {
             if (BestThreeOfAKind(player1, player2) != null) {
                 return BestThreeOfAKind(player1, player2);
             } else {
-                for (int i  = 0; i < player1cards.Count - 1; i++) {
-                    
+                for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                    if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
+                        player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
+                        for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                            if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
+                                player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
+                                return BestPair(RemoveUnfitRank(player1cards, player1cards[i].Rank), RemoveUnfitRank(player2cards,  player2cards[j].Rank));
+                            }
+                        }
+                    }
                 }
             }
 
@@ -355,7 +363,7 @@ namespace Poker_Game.Game {
             //    }
             //}
             //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
-            return null;
+            throw new System.InvalidOperationException("BestFullHouse exited loop");
         }
 
         //Think it works, but need testing
@@ -390,7 +398,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestThreeOfAKind exited loop");
         }
 
         //Same problem as BestFullHouse
@@ -418,7 +426,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestPair exited loop");
         }
     }
 }
