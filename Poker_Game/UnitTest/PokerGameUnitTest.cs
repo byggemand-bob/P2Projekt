@@ -455,13 +455,13 @@ namespace UnitTest
             // 3 of a kind
             Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
             Card tableCard2 = new Card(Suit.Hearts, Rank.Jack);
-            Card tableCard3 = new Card(Suit.Spades, Rank.Jack);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)7);
             // Filler for pair
             Card tableCard4 = new Card(Suit.Diamond, Rank.King);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, Rank.King)); // Full house - 3x Jack + 2x King
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
+            player1.Cards.Add(new Card(Suit.Spades, Rank.King));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
             player1.Cards.Add(tableCard3);
@@ -469,7 +469,7 @@ namespace UnitTest
             player1.Cards.Add(tableCard5);
 
             player2.Cards.Add(new Card(Suit.Clubs, (Rank)7));  // FullHouse - 3x Jack + 2x 7
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)10));
+            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7));
             player2.Cards.Add(tableCard1);
             player2.Cards.Add(tableCard2);
             player2.Cards.Add(tableCard3);
