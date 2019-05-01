@@ -74,8 +74,15 @@
     <Compile Include="AI\CalcEquity.cs" />
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\FindOuts.cs" />
+    <Compile Include="AI\GameTree\ILeafNode.cs" />
+    <Compile Include="AI\GameTree\INodeType.cs" />
+    <Compile Include="AI\GameTree\IRootNode.cs" />
+    <Compile Include="AI\GameTree\ISelectorNode.cs" />
+    <Compile Include="AI\GameTree\PathConstructor.cs" />
+    <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\IsNashEq.cs" />
     <Compile Include="AI\IsParetoOptimal.cs" />
+    <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\PotOdds.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
