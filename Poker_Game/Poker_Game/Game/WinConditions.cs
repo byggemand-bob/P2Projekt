@@ -45,13 +45,13 @@ namespace Poker_Game.Game {
             } else if (HasPair(sortedCards)) {
                 return Score.Pair;
             } else {
-                return GetBestCard(cards);
+                return GetBestCard(sortedCards);
             }
         }
 
         // Finds the best of 2 cards - 26/4/2019 check
-        private Score GetBestCard(List<Card> cards) {
-            return cards[0].Rank < cards[1].Rank ? (Score)cards[1].Rank : (Score)cards[0].Rank;
+        private Score GetBestCard(List<Card> sortedCards) {
+            return (Score) sortedCards[sortedCards.Count - 1].Rank;
         }
 
         // Checks if the player has a pair - 26/4/2019 check
