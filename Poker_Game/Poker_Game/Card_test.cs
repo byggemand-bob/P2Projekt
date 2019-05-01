@@ -42,11 +42,12 @@ namespace Poker_Game {
                 //if (w.HasFullHouse(h.Deck)) {
                 //    fullhouse++;
                 //}
+                
                 for (int j = 0; j < h.Deck.Count; j++) {
                     Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
                 }
                 Console.WriteLine("");
-
+                w.RemoveDublicateRank(h.Deck, 0);
                 //if (w.HasRoyalFlush(h.Deck)) {
                 //    royalflush++;
                 //} else if (w.HasStraightFlush(h.Deck)) {
