@@ -280,9 +280,9 @@ namespace Poker_Game.Game {
             RemoveDublicateRank(player1cards, 0);
             RemoveDublicateRank(player2cards, 0);
             for (int i = 0; i < player1cards.Count - 5; i++) {
-                if(player1cards[i].Rank + 5 == player1cards[i + 5].Rank) {
+                if(player1cards[i].Rank + 4 == player1cards[i + 4].Rank) {
                     for (int j = 0; j < player2cards.Count - 5; j++) {
-                        if (player2cards[j].Rank + 5 == player2cards[j + 5].Rank) {
+                        if (player2cards[j].Rank + 4 == player2cards[j + 4].Rank) {
                             if (player1cards[i].Rank == player2cards[j].Rank) {
                                 return null;
                             } else {
