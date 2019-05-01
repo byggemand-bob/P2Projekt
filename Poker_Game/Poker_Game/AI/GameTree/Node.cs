@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Poker_Game;
 
 namespace Poker_Game.AI.GameTree {
     class Node<T> where T : INodeType {
