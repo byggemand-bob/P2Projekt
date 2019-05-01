@@ -410,7 +410,7 @@ namespace Poker_Game.Game {
                     for (int j = 0; j < player2.Cards.Count - 1; j++) {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                return null;
+                                return null; // Should check for highestCard here.
                             } else {
                                 return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                             }
