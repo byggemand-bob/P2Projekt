@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Poker_Game.AI;
 using Poker_Game.Game;
+using System.Diagnostics;
 
 namespace Poker_Game
 {
@@ -18,9 +19,11 @@ namespace Poker_Game
             List<Card> hand = new List<Card>();
             List<Card> street = new List<Card>();
             Calculator Calc = new Calculator();
+            Stopwatch stopwatch = new Stopwatch();
+            TimeSpan time;
 
-            hand.Add(new Card(Suit.Clubs, Rank.Queen));
-            hand.Add(new Card(Suit.Clubs, (Rank)10));
+            hand.Add(new Card(Suit.Hearts, Rank.Ace));
+            hand.Add(new Card(Suit.Clubs, Rank.Ace));
 
             //street.Add(new Card(Suit.Clubs, Rank.King));
             //street.Add(new Card(Suit.Spades, Rank.Jack));
@@ -28,11 +31,14 @@ namespace Poker_Game
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
-            CardOdds cardodds = new CardOdds(street, hand);
+            stopwatch.Start();
+            Console.WriteLine("wins: {0}%", MonteCarlo.RunTrails(2000));
+            stopwatch.Stop();
 
-            Console.WriteLine("{0}", cardodds.street.Count);
+            time = stopwatch.Elapsed;
 
-            Console.WriteLine("{0}", cardodds.TotalOdds());
+            Console.WriteLine("time elapsed: {0}", String.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds / 10));
+            
 
             //Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
             //Console.WriteLine("{0}", Calc.Faculty(100));

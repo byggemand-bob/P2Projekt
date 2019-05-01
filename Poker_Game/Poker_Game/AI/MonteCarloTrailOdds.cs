@@ -10,7 +10,7 @@ namespace Poker_Game.AI
     class MonteCarloTrailOdds
     {
         Random rndNr = new Random();
-        private List<Card> aiHand, street, deck;
+        private List<Card> aiHand, street, deck = new List<Card>();
         int x;
 
         public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
@@ -38,7 +38,8 @@ namespace Poker_Game.AI
 
                 for (n = 0; n < missingCardsOnStreet; n++)
                 {
-                    NewCard.DrawCards(CardsInPlay);
+                    //NewCard.DrawCards(CardsInPlay);
+                    NewCard = new Card(CardsInPlay);
                     CardsInPlay.Add(NewCard);
                     trailStreet.Add(NewCard);
                 }
@@ -48,7 +49,8 @@ namespace Poker_Game.AI
 
                 for (n = 0; n < 2; n++)
                 {
-                    NewCard.DrawCards(CardsInPlay);
+                    //NewCard.DrawCards(CardsInPlay);
+                    NewCard = new Card(CardsInPlay);
                     CardsInPlay.Add(NewCard);
                     opponantTrailCards.Add(NewCard);
                 }
@@ -57,7 +59,7 @@ namespace Poker_Game.AI
                 {
                     loses++;
                 }
-                else if (winCalc.Evaluate(opponantTrailCards) > winCalc.Evaluate(aiTrailCards))
+                else if (winCalc.Evaluate(opponantTrailCards) < winCalc.Evaluate(aiTrailCards))
                 {
                     wins++;
                 }
@@ -65,9 +67,16 @@ namespace Poker_Game.AI
                 {
                     draws++;
                 }
+
+                trailStreet.Clear();
+                CardsInPlay.Clear();
+                opponantTrailCards.Clear();
+                aiTrailCards.Clear();
             }
 
-            return wins / NumberOfTrails * 100;
+            Console.WriteLine("wins: {0}, draws: {1}, loses: {2}", wins, draws, loses);
+
+            return (double)wins / (double)NumberOfTrails * (double)100;
         }
     } 
 }
