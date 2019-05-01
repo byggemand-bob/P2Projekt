@@ -72,6 +72,11 @@ namespace Poker_Game.Game {
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
+        //public void MakeCard(int cardNumber) {
+        //    Rank = (Rank)((cardNumber % 13) + 2);
+        //    Suit = (Suit)((cardNumber / 13) + 1);
+        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardNumber + ".png");
+        //}
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;

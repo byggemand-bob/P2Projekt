@@ -224,13 +224,16 @@ namespace Poker_Game.Game {
         }
 
         //Removes all dublicate ranks
-        private List<Card> RemoveDublicateRank(List<Card> cards, int index) {
-            if (cards[index].Rank == cards[index + 1].Rank) {
-                cards.Remove(cards[index + 1]);
-                return RemoveDublicateRank(cards, index);
-            } else {
-                return RemoveDublicateRank(cards, index + 1);
+        public List<Card> RemoveDublicateRank(List<Card> cards, int index) {
+            if (cards.Count - 1 > index) {
+                if (cards[index].Rank == cards[index + 1].Rank) {
+                    cards.Remove(cards[index + 1]);
+                    return RemoveDublicateRank(cards, index);
+                } else {
+                    return RemoveDublicateRank(cards, index + 1);
+                } 
             }
+            return null;
         }
 
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
@@ -257,9 +260,11 @@ namespace Poker_Game.Game {
             }
         }
 
-        private Score GetBestHighestCard(List<Card> sortedCards) {
-            for () {
-
+        private Player GetBestHighestCard(Player player1, Player player2) {
+            for (int i  = 0; i < player1.Cards.Count - 1 && i < player2.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank != player2.Cards[i].Rank) {
+                    return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
+                }
             }
             return null;
         }
