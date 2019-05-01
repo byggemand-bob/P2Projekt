@@ -19,7 +19,7 @@ namespace Poker_Game.Game {
 
 
         //
-        private const int MaxBetsPerRound = 3;
+        private const int MaxBetsPerRound = 1;
 
         #region Initialization
 
@@ -213,7 +213,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentRound().Bets < MaxBetsPerRound && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
+            return CurrentPlayer().BetsTaken < MaxBetsPerRound && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
         }
 
         public int CurrentHandNumber() {
