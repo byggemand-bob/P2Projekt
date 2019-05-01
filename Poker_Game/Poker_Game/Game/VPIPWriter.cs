@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace Poker_Game.Game {
     class VPIPWriter {
         private readonly string _filePath;
-
-
+        
         public VPIPWriter(string playerName) {
             _filePath = CreateFilePath(playerName);
             EnsureDirectoryExists(System.Windows.Forms.Application.StartupPath + "\\VPIPData\\");

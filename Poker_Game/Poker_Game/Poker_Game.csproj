@@ -76,6 +76,9 @@
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\IsNashEq.cs" />
     <Compile Include="AI\IsParetoOptimal.cs" />
+    <Compile Include="Game\VPIPData.cs" />
+    <Compile Include="Game\VPIPReader.cs" />
+    <Compile Include="Game\VPIPWriter.cs" />
     <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
