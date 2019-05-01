@@ -248,6 +248,9 @@ namespace Poker_Game.Game {
             return Hands[CurrentHandNumber() - 1];
         }
 
+        public Player CurrentPlayer() {
+            return Players[CurrentPlayerIndex];
+        }
         public bool IsFinished() { // Checks if players still has $ in stack
             int playersLeft = 0;
             foreach (Player player in Players) {

@@ -74,13 +74,13 @@ namespace Poker_Game {
         #region CardDrawing
 
         private void ShowCardImage(PictureBox obj, Card card) // Changes image of a tablecard. Both image and object are parameters
-        {
+        {   
+            card.LoadImage();
             obj.Image = card.Image;
         }
 
         private void ResetCards() { // Reset of tablecard images to default
-            foreach (PictureBox pictureBox in PictureBoxes)
-            {
+            foreach (PictureBox pictureBox in PictureBoxes) {
                 pictureBox.Image = Properties.Resources.z_Back_of_card2;
             }
         }
@@ -272,8 +272,6 @@ namespace Poker_Game {
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             Game.Raise();
-            StatisticsIO SIO = new StatisticsIO(Game);
-            SIO.SaveTurn(Game.CurrentTurn());
             UpdateAll();
 
         }

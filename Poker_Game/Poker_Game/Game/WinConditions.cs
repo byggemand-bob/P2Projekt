@@ -166,7 +166,7 @@ namespace Poker_Game.Game {
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
                     C++;
-                } else if (element.Suit == Suit.Diamond) {
+                } else if (element.Suit == Suit.Diamonds) {
                     D++;
                 } else if (element.Suit == Suit.Hearts) {
                     H++;
@@ -186,7 +186,7 @@ namespace Poker_Game.Game {
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
                     C++;
-                } else if (element.Suit == Suit.Diamond) {
+                } else if (element.Suit == Suit.Diamonds) {
                     D++;
                 } else if (element.Suit == Suit.Hearts) {
                     H++;
@@ -197,7 +197,7 @@ namespace Poker_Game.Game {
             if (C > D && C > H && C > S) {
                 return RemoveUnfitSuit(cards, Suit.Clubs);
             } else if (D > C && D > H && D > S) {
-                return RemoveUnfitSuit(cards, Suit.Diamond);
+                return RemoveUnfitSuit(cards, Suit.Diamonds);
             } else if (H > C && H > D && H > S) {
                 return RemoveUnfitSuit(cards, Suit.Hearts);
             } else  {
