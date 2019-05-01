@@ -153,7 +153,7 @@ namespace UnitTest
             Card tableCard2 = new Card(Suit.Hearts, (Rank)5);
             Card tableCard3 = new Card(Suit.Spades, (Rank)6);
             Card tableCard4 = new Card(Suit.Diamond, (Rank)7);
-            Card tableCard5 = new Card(Suit.Spades, Rank.Queen);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)5);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Straight - 3, 4, 5, 6, 7
             player1.Cards.Add(new Card(Suit.Spades, Rank.Jack));

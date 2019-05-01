@@ -131,7 +131,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestForFlush()
+        public void TestForFlushSpades()
         {
             // Arrange
             List<Card> cards = new List<Card>();
@@ -144,6 +144,29 @@ namespace UnitTest
             // Filler
             cards.Add(new Card(Suit.Clubs, Rank.Jack));
             cards.Add(new Card(Suit.Hearts, Rank.Queen));
+            Score expected = Score.Flush;
+
+            // Act
+            Score actual = winConditions.Evaluate(cards);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestForFlushHearts()
+        {
+            // Arrange
+            List<Card> cards = new List<Card>();
+            // Flush
+            cards.Add(new Card(Suit.Hearts, (Rank)2));
+            cards.Add(new Card(Suit.Hearts, (Rank)8));
+            cards.Add(new Card(Suit.Hearts, Rank.King));
+            cards.Add(new Card(Suit.Hearts, (Rank)5));
+            cards.Add(new Card(Suit.Hearts, (Rank)6));
+            // Filler
+            cards.Add(new Card(Suit.Clubs, Rank.Jack));
+            cards.Add(new Card(Suit.Spades, Rank.Queen));
             Score expected = Score.Flush;
 
             // Act
