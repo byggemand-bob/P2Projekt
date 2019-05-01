@@ -143,6 +143,7 @@ namespace Poker_Game.Game {
         public bool HasStraight(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
             sortedCards.Sort();
+            RemoveDublicateRank(sortedCards, 0);
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
                 if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
@@ -275,6 +276,8 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
+            RemoveDublicateRank(player1cards, 0);
+            RemoveDublicateRank(player2cards, 0);
             for (int i = 0; i < player1cards.Count - 5; i++) {
                 if(player1cards[i].Rank - 5 == player1cards[i + 5].Rank) {
                     for (int j = 0; j < player2cards.Count - 5; j++) {
