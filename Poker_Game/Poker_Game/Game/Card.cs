@@ -23,6 +23,10 @@ namespace Poker_Game {
             Suit = suit;
             Rank = rank;
         }
+        public Card(int CardValue)
+        {
+            MakeCard(CardValue);
+        }
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
