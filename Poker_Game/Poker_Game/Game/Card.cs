@@ -1,50 +1,58 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using Poker_Game;
 
-namespace Poker_Game {
+namespace Poker_Game.Game {
     enum Suit { Clubs, Diamond, Hearts, Spades };
     enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
     class Card : IComparable, ICloneable {
-        static Random random = new Random();
+        //Random random = new Random();
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gør dette?
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
-        public Card(Image image, Suit suit, Rank rank) {
-            Image = image;
+
+        public Card(Suit suit, Rank rank) {
             Suit = suit;
             Rank = rank;
         }
+
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
-        private int DrawRandCard() {
-            return random.Next(0, 52);
+
+        private int DrawRandomCard() {
+            return _random.Next(0, 51);
         }
+
         public void DrawCards(List<Card> cards) {
-        remake: //if card have already been made
-            MakeCard(DrawRandCard());
-            foreach(Card element in cards) {
-                if(element.Rank == this.Rank && element.Suit == this.Suit/*element.CompareTo(this) == 0*/) {
-                    goto remake;
+            MakeCard(DrawRandomCard());
+            foreach (Card element in cards) {
+                if (element.CompareTo(this) == 0) {
+                    DrawCards(cards);
+                    break;
                 }
             }
         }
-        private void MakeCard(int cardNumber) {
-            int RankInt = (cardNumber % 13) + 2;
-            string cardName = RankInt.ToString();
-            if(RankInt == 14) {
+        //public void DrawCards(List<Card> cards) {
+        //    do {
+        //        MakeCard(DrawRandCard());
+        //    } while (cards.Contains(this));
+        //}
+        public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
+            int rankInt = (cardNumber % 13) + 2;
+            Suit = (Suit)(cardNumber / 13);
+            string cardName = rankInt.ToString();
+            if(rankInt == 14) {
                 cardName = "A";
-            } else if(RankInt == 11) {
+            } else if(rankInt == 11) {
                 cardName = "J";
-            } else if(RankInt == 12) {
+            } else if(rankInt == 12) {
                 cardName = "Q";
-            } else if(RankInt == 13) {
+            } else if(rankInt == 13) {
                 cardName = "K";
             }
             if(cardNumber <= 12) {
@@ -60,21 +68,21 @@ namespace Poker_Game {
                 Suit = Suit.Spades;
                 cardName += "S";
             }
-            Rank = (Rank)RankInt;
+            Rank = (Rank)rankInt;
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
 
-        public int CompareTo(object other) { // Sort after suit, then rank
+        public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
-            if(Suit.CompareTo(otherCard.Suit) < 0) {
+            if(Rank.CompareTo(otherCard.Rank) < 0) {
                 return -1;
-            } else if(Suit.CompareTo(otherCard.Suit) > 0) {
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
                 return 1;
             } else {
-                if(Rank.CompareTo(otherCard.Rank) < 0) {
+                if(Suit.CompareTo(otherCard.Suit) < 0) {
                     return 1;
-                } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+                } else if(Suit.CompareTo(otherCard.Suit) > 0) {
                     return -1;
                 }
             }
@@ -82,7 +90,7 @@ namespace Poker_Game {
         }
 
         public object Clone() {
-            return new Card(Image, Suit, Rank);
+            return new Card(Suit, Rank);
         }
     }
 }

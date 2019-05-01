@@ -1,61 +1,43 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Text;
-
-/*
- * Potsize, player bets(preflop, flop, turn, river), player action, cards, player stack, om spiller sidder small eller big
- * 
- */
-
+﻿using System.IO;
 
 namespace Poker_Game.Game {
 
     // This class saves the information of the different hands played in the game
     class StatisticsIO {
+        private StreamWriter _streamWriter;
+        private StreamReader _streamReader;
+        private readonly string _folderPath;
         private readonly string _fileName;
         private readonly string _filePath;
 
         private int _currentLineNumber;
 
-        // File info
+        //File info
         private string _playerName;
         private int _numberOfGames;
         private int _numberOfHands;
 
-        // Information separators
-        private const char RankSuitSeparator = '-';
-        private const char CardSeparator = '|';
-        private const char DataSeparator = ',';
-
-        // 
-        private List<string> doucment;
-
-
         #region Initialization
 
         // Creates the path and path name and adding the players name for identification
-        public StatisticsIO(PokerGame game) {
-            string folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
-            _fileName = game.Settings.PlayerName + ".stats";
-            _filePath = folderPath + _fileName;
-            _numberOfHands = 0;
-            _numberOfHands = 0;
-            
-            EnsureDirectoryExists(folderPath);
-            EnsureFileExists(folderPath + _fileName, game.Settings.PlayerName);
-            GetInfoFromFile(folderPath + _fileName);
+        public StatisticsIO(string playerName) {
+            _folderPath = System.Windows.Forms.Application.StartupPath + "\\Statistics\\";
+            _fileName = playerName + ".stats";
+            _filePath = _folderPath + _fileName;
             _currentLineNumber = GetCurrentLine(_filePath);
+
+            EnsureDirectoryExists(_folderPath);
+            EnsureFileExists(_folderPath + _fileName, playerName);
+            GetInfoFromFile(_folderPath + _fileName);
         }
 
         // Finds the line where the StreamReader should read from in the code
         private int GetCurrentLine(string filePath) {
-            StreamReader sr = new StreamReader(filePath);
+            _streamReader = new StreamReader(filePath);
             int lineCount = 0;
-            while(sr.ReadLine() != null) {
+            while(_streamReader.ReadLine() != null) {
                 lineCount++;
             }
-            sr.Close();
 
             return lineCount;
         }
@@ -63,7 +45,7 @@ namespace Poker_Game.Game {
         //Checks if the FileInfo has been created
         private void EnsureDirectoryExists(string folderPath) {
             FileInfo fileInfo = new FileInfo(folderPath);
-            if(fileInfo.Directory != null && !fileInfo.Directory.Exists) {
+            if(!fileInfo.Directory.Exists) {
                 System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
             }
         }
@@ -71,44 +53,38 @@ namespace Poker_Game.Game {
         // checks if the StreamWriter has the correct filePath to write to, and writes info to the file
         private void EnsureFileExists(string filePath, string playerName) {
             if(!File.Exists(filePath)) {
-                StreamWriter sw = new StreamWriter(filePath);
-                sw.WriteLine(playerName + DataSeparator + 
-                                        _numberOfGames + DataSeparator + 
-                                        _numberOfHands);
-                sw.Close();
+                _streamWriter = new StreamWriter(filePath);
+                _streamWriter.WriteLine(playerName + ";" + _numberOfGames + ";" + _numberOfHands);
+                _streamWriter.Close();
             }
         }
 
-        // Work in progress - (Split into more methods) - retrieves needed info from a file path 
+        // Work in progres - (Split into more methods) - retrieves needed info from a file path 
         private void GetInfoFromFile(string filePath) {
-            StreamReader sr = new StreamReader(filePath);
-
-            string buffer = sr.ReadLine();
+            string[] info = new string[2];
+            _streamReader = new StreamReader(filePath);
+            string buffer = _streamReader.ReadLine();
             if(buffer != null) {
-                string[] info = buffer.Split(DataSeparator);
-                _playerName = info[0];
-                _numberOfGames = int.Parse(info[1]);
-                _numberOfHands = int.Parse(info[2]);
+                info = buffer.Split(';');
             } else { /* Error-handling */ }
-            sr.Close();
+            _streamReader.Close();
+
+            _playerName = info[0];
+            _numberOfGames = int.Parse(info[1]);
+            _numberOfHands = int.Parse(info[2]);
         }
         #endregion
 
-        #region Saving
+        #region Actions
+
+        #region MyRegion
 
         // Work in progress
 
         public void SaveGame(PokerGame game) {
-            foreach(Hand hand in game.Hands) {
-                SaveHand(hand);
-            }
         }
 
         private void SaveHand(Hand hand) {
-
-            foreach(Round round in hand.Rounds) {
-                SaveRound(round);
-            }
 
         }
 
@@ -139,6 +115,14 @@ namespace Poker_Game.Game {
                                     turn.Stack);
             sw.Close();
         }
+        }
+
+        private void SaveTurn(Turn turn) {
+            _streamWriter = new StreamWriter(_filePath);
+            _streamWriter.WriteLine("");
+        }
+
+        #endregion
 
         #endregion
 

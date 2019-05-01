@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Poker_Game {
+// TODO: create GetHashCode()
+
+namespace Poker_Game.Game {
     enum PlayerAction {
-        TBD, // To be decided
+        None,
         Check,
         Call,
         Raise,
@@ -14,69 +13,77 @@ namespace Poker_Game {
     }
 
     class Player : IComparable, ICloneable {
-        public int ID { get; set; }
-        public int Stack { get; set; }
-        //public int Stack {
-        //    get {
-        //        return Stack;
-        //    }
-        //    set {
-        //        if(value > 0 && value < int.MaxValue / 2) { // Minimum and maximum stacksizes not defined yet
-        //            Stack = value;
-        //        } else {
-        //            throw new ArgumentOutOfRangeException("{0} is not an accepted value for this property.", value.ToString());
-        //        }
-        //    }
-        //}
+        public int Id { get; set; }
+        public int Stack { get; set; } // Needs validation
+        public int CurrentBet { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
-        public bool HasFolded { get; set; } // Obsolete
-        public List<Card> Cards { get; set; }
-        public int CurrentBet { get; set; }
+        public string Name { get; set; }
         public PlayerAction Action { get; set; }
+        public Score Score { get; set; }
+        public List<Card> Cards { get; set; }
+
+        #region Initialization
 
         public Player(int id,  int stackSize) {
             Cards = new List<Card>();
             Stack = stackSize;
-            Action = PlayerAction.TBD;
+            Action = PlayerAction.None;
+            Score = Score.None;
             Reset();
         }
 
-        public void Reset() {
+        #endregion
+
+        #region Actions
+
+        public void GetScore() {
+            WinConditions winCondition = new WinConditions(); 
+            Score = winCondition.Evaluate(Cards);
+        }
+
+        public void Reset() { // Reset a player-state for each new hand
             CurrentBet = 0;
             IsBigBlind = false;
             IsSmallBlind = false;
-            HasFolded = false;
-            Action = PlayerAction.TBD;
-            RemoveCards();
+            Action = PlayerAction.None;
+            Score = Score.None;
+            Cards.Clear();
         }
 
-        public void RemoveCards() {
-            for(int i = Cards.Count - 1; i >= 0; i--) {
-                Cards.Remove(Cards[i]);
+
+        public void DrawNewCardHand(List<Card> existingCards) {
+            Cards.Clear();
+            for (int i = 0; i < 2; i++) {
+                Card tCard = new Card(existingCards);
+                Cards.Add(tCard);
+                existingCards.Add(tCard);
             }
         }
 
-        public int CompareTo(object other) {
-            return ID.CompareTo(((Player)other).ID);
+        #endregion
+
+        #region Utility
+        public int CompareTo(object other) { // Compares players
+            return Id.CompareTo(((Player)other).Id);
         }
 
-        public object Clone() {
-            Player player = new Player(ID, Stack);
+        public object Clone() { // Clones players
+            Player player = new Player(Id, Stack);
             player.IsBigBlind = IsBigBlind;
             player.IsSmallBlind = IsSmallBlind;
             player.Action = Action;
             player.Stack = Stack;
-            player.ID = ID;
+            player.Id = Id;
             player.CurrentBet = CurrentBet;
-            player.HasFolded = HasFolded;
 
             foreach(Card card in Cards) {
                 player.Cards.Add((Card)card.Clone());
             }
-
             return player;
         }
+
+        #endregion
 
     }
 }
