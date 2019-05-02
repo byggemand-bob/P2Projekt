@@ -262,7 +262,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        private Player GetBestHighestCard(Player player1, Player player2) {
+        private Player BestHighestCard(Player player1, Player player2) {
             for (int i = player1.Cards.Count - 1; i >= 0; i--) {
                 if (player1.Cards[i].Rank != player2.Cards[i].Rank) {
                     return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
