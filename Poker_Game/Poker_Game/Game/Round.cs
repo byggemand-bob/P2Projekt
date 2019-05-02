@@ -9,14 +9,23 @@ namespace Poker_Game.Game {
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
 
+
+        private readonly int _maxBets;
+
         #region Initialization
-        public Round(List<Player> players) {
+        public Round(Settings settings, List<Player> players) {
             Turns = new List<Turn>();
             Players = players;
             //Players = GetActivePlayers(players);
             TopBidderIndex = 0;
             CycleStep = 0;
             Bets = 0;
+            _maxBets = settings.MaxBetsPerRound;
+
+            Players.ForEach(x => x.BetsTaken = 0);
+                
+            
+
         }
 
         private List<Player> GetActivePlayers(List<Player> players) // Returns a List of players who has not folded.
@@ -65,7 +74,7 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            if(Bets == 3 && CycleFinished()) {
+            if(Bets == _maxBets * 2 && CycleFinished()) {
                 for (int i = 0; i < Players.Count; i++) {
                     if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
                         return false;
@@ -79,12 +88,15 @@ namespace Poker_Game.Game {
         }
 
         private bool CycleFinished() { // One cycle is one turn for each player
-            return CycleStep > Players.Count;
+            return CycleStep == Players.Count - 1;
         }
 
         public int CurrentTurnNumber() {
             return Turns.Count;
         }
+
+
+        
 
         #endregion
 
