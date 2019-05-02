@@ -15,7 +15,6 @@ namespace UnitTest
     {
         WinConditions winConditions = new WinConditions();
 
-        #region NormalTestScore 
 
         [TestMethod]
         public void TestForHighestCard()
@@ -268,10 +267,6 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        #endregion
-
-
-        #region SpecialTestScores
 
         [TestMethod]
         public void TestAlmostFlush_GetHighestCard()
@@ -414,7 +409,5 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
-
-        #endregion
     }
 }
