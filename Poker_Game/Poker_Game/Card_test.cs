@@ -13,7 +13,7 @@ namespace Poker_Game {
             Console.WriteLine("Hello World!");
             List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) }; 
             Hand h = new Hand(players, 1);
-            int NumberOfCards = 51, TAELLER = 0;
+            int NumberOfCards = 52, TAELLER = 0;
             WinConditions w = new WinConditions();
             int flush = 0, straight = 0, royalflush = 0, straightflush = 0, four = 0, fullhouse = 0, three = 0, twopair = 0, pair = 0;
             Stopwatch stopWatch = new Stopwatch();
@@ -39,44 +39,44 @@ namespace Poker_Game {
                                 for (int m = l + 1; m < NumberOfCards; m++) {
                                     for (int n = m + 1; n < NumberOfCards; n++) {
                                         for (int o = n + 1; o < NumberOfCards; o++) {
-                                            h.Deck.Clear();
+                                            //h.Deck.Clear();
 
-                                            h.Deck.Add(new Card(i));
-                                            h.Deck.Add(new Card(j));
-                                            h.Deck.Add(new Card(k));
-                                            h.Deck.Add(new Card(l));
-                                            h.Deck.Add(new Card(m));
-                                            h.Deck.Add(new Card(n));
-                                            h.Deck.Add(new Card(o));
+                                            //h.Deck.Add(new Card(i));
+                                            //h.Deck.Add(new Card(j));
+                                            //h.Deck.Add(new Card(k));
+                                            //h.Deck.Add(new Card(l));
+                                            //h.Deck.Add(new Card(m));
+                                            //h.Deck.Add(new Card(n));
+                                            //h.Deck.Add(new Card(o));
 
-                                            h.Deck.Sort();
+                                            //h.Deck.Sort();
                                             TAELLER++;
 
 
-                                            if(TAELLER % 1000000 == 1) {
-                                                Console.WriteLine(TAELLER + " " + stopWatch.ElapsedMilliseconds.ToString());
-                                            }
+                                            //if(TAELLER % 1000000 == 1) {
+                                            //    Console.WriteLine(TAELLER + " " + stopWatch.ElapsedMilliseconds.ToString());
+                                            //}
 
 
-                                            if (w.HasRoyalFlush(h.Deck)) {
-                                                royalflush++;
-                                            } else if (w.HasStraightFlush(h.Deck)) {
-                                                straightflush++;
-                                            } else if (w.HasFourOfAKind(h.Deck)) {
-                                                four++;
-                                            } else if (w.HasFullHouse(h.Deck)) {
-                                                fullhouse++;
-                                            } else if (w.HasFlush(h.Deck)) {
-                                                flush++;
-                                            } else if (w.HasStraight(h.Deck)) {
-                                                straight++;
-                                            } else if (w.HasThreeOfAKind(h.Deck)) {
-                                                three++;
-                                            } else if (w.HasTwoPairs(h.Deck)) {
-                                                twopair++;
-                                            } else if (w.HasPair(h.Deck)) {
-                                                pair++;
-                                            }
+                                            //if (w.HasRoyalFlush(h.Deck)) {
+                                            //    royalflush++;
+                                            //} else if (w.HasStraightFlush(h.Deck)) {
+                                            //    straightflush++;
+                                            //} else if (w.HasFourOfAKind(h.Deck)) {
+                                            //    four++;
+                                            //} else if (w.HasFullHouse(h.Deck)) {
+                                            //    fullhouse++;
+                                            //} else if (w.HasFlush(h.Deck)) {
+                                            //    flush++;
+                                            //} else if (w.HasStraight(h.Deck)) {
+                                            //    straight++;
+                                            //} else if (w.HasThreeOfAKind(h.Deck)) {
+                                            //    three++;
+                                            //} else if (w.HasTwoPairs(h.Deck)) {
+                                            //    twopair++;
+                                            //} else if (w.HasPair(h.Deck)) {
+                                            //    pair++;
+                                            //}
                                         }
                                     }
                                 }
@@ -86,15 +86,15 @@ namespace Poker_Game {
                 }
 
                 //royalflush
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)6));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)7));
-                h.Deck.Add(new Card(Suit.Diamonds, (Rank)5));
-                h.Deck.Add(new Card(Suit.Diamonds, Rank.Jack));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)6));
+                //h.Deck.Add(new Card(Suit.Clubs, (Rank)7));
+                //h.Deck.Add(new Card(Suit.Diamonds, (Rank)5));
+                //h.Deck.Add(new Card(Suit.Diamonds, Rank.Jack));
 
-                //h.Deck.Sort();
+                ////h.Deck.Sort();
                 //TAELLER++;
                 //for (int j = 0; j < h.Deck.Count; j++) {
                 //    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);

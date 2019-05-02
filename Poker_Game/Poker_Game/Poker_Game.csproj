@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Poker_Game.CardTest</StartupObject>
+    <StartupObject>Poker_Game.MultiThreadCardTest</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -80,6 +80,7 @@
     <Compile Include="Game\VPIPData.cs" />
     <Compile Include="Game\VPIPReader.cs" />
     <Compile Include="Game\VPIPWriter.cs" />
+    <Compile Include="MultiThreadCardTest.cs" />
     <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
