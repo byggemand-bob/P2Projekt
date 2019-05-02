@@ -7,37 +7,45 @@ using System.Threading.Tasks;
 
 namespace Poker_Game.AI.GameTree {
     class PathConstructor {
-      //"R-RE-C-R-RE-C-R-RE-C"
+        //"R-RE-C-R-RE-C-R-RE-C"
 
         public Node ConstructPath(Node parent, string path, double expectedValue) {
             string[] separatedPath = SeparatePath(path);
             Node startNode = parent;
             Node prevNode = startNode;
-            
-            foreach (string action in separatedPath) {
-                prevNode.Children.Add(separatedPath.Last() == action
-                    ? new Node(prevNode, action, expectedValue)
-                    : new Node(prevNode, action));
-            }
 
+
+            for(int i = 0; i < separatedPath.Length; i++) {
+                if(i == separatedPath.Length - 1) {
+                    prevNode.Children.Add(new Node(prevNode, separatedPath[i], expectedValue));
+                } else {
+                    if(!NodeExists(ref prevNode, separatedPath[i])) {
+                        Node tempNode = new Node(prevNode, separatedPath[i]);
+                        prevNode.Children.Add(tempNode);
+                        prevNode = tempNode;
+                    }
+                    
+                }
+            }
             return startNode;
         }
-
-        private Node NodeExists(Node parent, string action) {
+        
+        private bool NodeExists(ref Node parent, string action) {
             foreach(Node child in parent.Children) {
                 if(child.Action == action) {
-                    return child;
+                    parent = child;
+                    return true;
                 }
             }
 
-            return new Node(parent, action);
+            return false;
         }
 
 
         private string[] SeparatePath(string path) {
             return path.Split('-');
         }
-        
+
 
     }
 }

@@ -4,7 +4,7 @@ using Poker_Game;
 
 
 namespace Poker_Game.AI.GameTree {
-    class Node {
+    public class Node {
         public Node Parent { get; set; }
         public List<Node> Children { get; set; }
         public double ExpectedValue { get; set; }

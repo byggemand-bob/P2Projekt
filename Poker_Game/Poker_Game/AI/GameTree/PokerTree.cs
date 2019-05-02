@@ -16,23 +16,7 @@ namespace Poker_Game.AI.GameTree {
 
             ph.ConstructPath(Root,"R-RE-C-R-RE-C-R-RE-C", 5.0);
 
-            WriteAll(Root);
-        }
-
-
-        private void WriteAll(Node node) {
-            if(node.Children.Count != 0) {
-                WriteAll(node.Children[0]);
-                Console.WriteLine(node.Children[0].Action);
-            } else {
-                Console.WriteLine(node.Action);
-            }
-
             
         }
-        
-
-
-
     }
 }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2B55B119-4064-477D-BD7F-334C0F0470E4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Poker_Game</RootNamespace>
     <AssemblyName>Poker_Game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -74,6 +74,12 @@
     <Compile Include="AI\AI.cs" />
     <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CardOdds.cs" />
+    <Compile Include="AI\GameTree\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AI\GameTree\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
@@ -130,6 +136,9 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
+    <EmbeddedResource Include="AI\GameTree\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
