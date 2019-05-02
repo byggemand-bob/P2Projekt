@@ -336,7 +336,7 @@ namespace Poker_Game.Game {
                         for (int j = 0; j < player2.Cards.Count - 1; j++) {
                             if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                                 player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
-                                return BestPair(RemoveUnfitRank(player1cards, player1cards[i].Rank), RemoveUnfitRank(player2cards,  player2cards[j].Rank));
+                                return BestPair(player1, player2);
                             }
                         }
                     }
