@@ -27,7 +27,7 @@ namespace Poker_Game {
             // Creates the game with usersettings
             Game = new PokerGame(Settings);
             Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "AI";
+            Game.Players[1].Name = "Deep Peer";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -74,13 +74,13 @@ namespace Poker_Game {
         #region CardDrawing
 
         private void ShowCardImage(PictureBox obj, Card card) // Changes image of a tablecard. Both image and object are parameters
-        {
+        {   
+            card.LoadImage();
             obj.Image = card.Image;
         }
 
         private void ResetCards() { // Reset of tablecard images to default
-            foreach (PictureBox pictureBox in PictureBoxes)
-            {
+            foreach (PictureBox pictureBox in PictureBoxes) {
                 pictureBox.Image = Properties.Resources.z_Back_of_card2;
             }
         }
@@ -171,7 +171,7 @@ namespace Poker_Game {
         private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
-            labelAIStack.Text = "AI" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+            labelAIStack.Text = "Deep Peer" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
         }
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
@@ -273,6 +273,7 @@ namespace Poker_Game {
         {
             Game.Raise();
             UpdateAll();
+
         }
 
         private void buttonRaise_MouseEnter(object sender, EventArgs e)

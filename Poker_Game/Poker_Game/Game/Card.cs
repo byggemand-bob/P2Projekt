@@ -4,7 +4,7 @@ using System.Drawing;
 using Poker_Game;
 
 namespace Poker_Game.Game {
-    public enum Suit { Clubs, Diamond, Hearts, Spades };
+    public enum Suit { Clubs, Diamonds, Hearts, Spades };
     public enum Rank { Jack = 11, Queen = 12, King = 13, Ace = 14 };
 
 
@@ -45,41 +45,44 @@ namespace Poker_Game.Game {
         //        MakeCard(DrawRandCard());
         //    } while (cards.Contains(this));
         //}
-        public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
-            int rankInt = (cardNumber % 13) + 2;
+        //public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
+        //    int rankInt = (cardNumber % 13) + 2;
+        //    Suit = (Suit)(cardNumber / 13);
+        //    string cardName = rankInt.ToString();
+        //    if(rankInt == 14) {
+        //        cardName = "A";
+        //    } else if(rankInt == 11) {
+        //        cardName = "J";
+        //    } else if(rankInt == 12) {
+        //        cardName = "Q";
+        //    } else if(rankInt == 13) {
+        //        cardName = "K";
+        //    }
+        //    if(cardNumber <= 12) {
+        //        Suit = Suit.Clubs;
+        //        cardName += "C";
+        //    } else if(cardNumber <= 25) {
+        //        Suit = Suit.Diamonds;
+        //        cardName += "D";
+        //    } else if(cardNumber <= 38) {
+        //        Suit = Suit.Hearts;
+        //        cardName += "H";
+        //    } else if(cardNumber <= 51) {
+        //        Suit = Suit.Spades;
+        //        cardName += "S";
+        //    }
+        //    Rank = (Rank)rankInt;
+        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
+        //}
+
+        public void MakeCard(int cardNumber) {
+            Rank = (Rank)(cardNumber % 13 + 2);
             Suit = (Suit)(cardNumber / 13);
-            string cardName = rankInt.ToString();
-            if(rankInt == 14) {
-                cardName = "A";
-            } else if(rankInt == 11) {
-                cardName = "J";
-            } else if(rankInt == 12) {
-                cardName = "Q";
-            } else if(rankInt == 13) {
-                cardName = "K";
-            }
-            if(cardNumber <= 12) {
-                Suit = Suit.Clubs;
-                cardName += "C";
-            } else if(cardNumber <= 25) {
-                Suit = Suit.Diamond;
-                cardName += "D";
-            } else if(cardNumber <= 38) {
-                Suit = Suit.Hearts;
-                cardName += "H";
-            } else if(cardNumber <= 51) {
-                Suit = Suit.Spades;
-                cardName += "S";
-            }
-            Rank = (Rank)rankInt;
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardName + ".png");
         }
 
-        //public void MakeCard(int cardNumber) {
-        //    Rank = (Rank)((cardNumber % 13) + 2);
-        //    Suit = (Suit)((cardNumber / 13) + 1);
-        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + cardNumber + ".png");
-        //}
+        public void LoadImage() {
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
+        }
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;

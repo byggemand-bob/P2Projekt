@@ -166,7 +166,7 @@ namespace Poker_Game.Game {
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
                     C++;
-                } else if (element.Suit == Suit.Diamond) {
+                } else if (element.Suit == Suit.Diamonds) {
                     D++;
                 } else if (element.Suit == Suit.Hearts) {
                     H++;
@@ -186,7 +186,7 @@ namespace Poker_Game.Game {
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
                     C++;
-                } else if (element.Suit == Suit.Diamond) {
+                } else if (element.Suit == Suit.Diamonds) {
                     D++;
                 } else if (element.Suit == Suit.Hearts) {
                     H++;
@@ -197,7 +197,7 @@ namespace Poker_Game.Game {
             if (C > D && C > H && C > S) {
                 return RemoveUnfitSuit(cards, Suit.Clubs);
             } else if (D > C && D > H && D > S) {
-                return RemoveUnfitSuit(cards, Suit.Diamond);
+                return RemoveUnfitSuit(cards, Suit.Diamonds);
             } else if (H > C && H > D && H > S) {
                 return RemoveUnfitSuit(cards, Suit.Hearts);
             } else  {
@@ -327,17 +327,33 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
-            for (int i = 0; i < player1cards.Count - 1; i++) {
-                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
-                    player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
-                    for (int j = 0; j < player2cards.Count - 1; j++) {
-                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
-                            player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
-                            return null;//BestPair();
-                        }
-                    }
+            if (BestThreeOfAKind(player1, player2) != null) {
+                return BestThreeOfAKind(player1, player2);
+            } else {
+                for (int i  = 0; i < player1cards.Count - 1; i++) {
+                    
                 }
             }
+
+
+
+
+
+
+
+            //for (int i = 0; i < player1cards.Count - 1; i++) {
+            //    if (player1cards[i].Rank == player1cards[i + 1].Rank &&
+            //        player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
+            //        for (int j = 0; j < player2cards.Count - 1; j++) {
+            //            if (player2cards[j].Rank == player2cards[j + 1].Rank &&
+            //                player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
+            //                if () {
+
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
             return null;
         }
