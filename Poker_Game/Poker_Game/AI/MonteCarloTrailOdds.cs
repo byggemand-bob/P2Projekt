@@ -85,21 +85,27 @@ namespace Poker_Game.AI
             {
                 workers[x] = new Thread(() => { winProcent[x] = RunTrails(NumberOfTrails / 4); });
                 workers[x].Start();
+                Thread.Sleep(100);
             }
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 workers[x].Join();
+                //Thread.Sleep(100);
             }
+
+            
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 results += winProcent[x];
+                //Thread.Sleep(100);
             }
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 Console.WriteLine("{0}", winProcent[x]);
+                //Thread.Sleep(100);
             }
 
             return results / NUMOFTHREADS;
