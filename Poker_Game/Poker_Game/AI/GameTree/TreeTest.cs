@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Poker_Game.AI.GameTree {
-    interface IRootNode : INodeType {
+    class TreeTest {
+
+        static void Main() {
+            PokerTree pt = new PokerTree();
+            Console.ReadKey();
+        }
+
     }
 }

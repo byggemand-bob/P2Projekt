@@ -1,24 +1,30 @@
 ﻿using System.Collections.Generic;
 using Poker_Game;
 
+
+
 namespace Poker_Game.AI.GameTree {
-    class Node<T> where T : INodeType {
-        public Node<INodeType> Parent { get; set; }
-        public List<Node<INodeType>> Children { get; set; }
+    class Node {
+        public Node Parent { get; set; }
+        public List<Node> Children { get; set; }
         public double ExpectedValue { get; set; }
-        public char Action { get; set; }
+        public string Action { get; set; }
 
-        // For Root-nodes
-        public Node() {
-            Parent = null;
+        public Node(Node parent, string action) {
+            Parent = parent;
+            Children = new List<Node>();
+            Action = action;
+            ExpectedValue = 0;
         }
 
-        public Node(Node<INodeType> parent) {
-            Parent = new Node<INodeType>();
-            Children = new List<Node<INodeType>>();
+        public Node(Node parent, string action, double expectedValue) {
+            Parent = parent;
+            Children = new List<Node>();
+            Action = action;
+            ExpectedValue = expectedValue;
         }
 
-        
+
 
     }
 }
