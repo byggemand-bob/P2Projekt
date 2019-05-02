@@ -351,17 +351,13 @@ namespace Poker_Game.Game {
 
         //Think it works, but need testing
         private Player BestFlush(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
-            FlushSuit(player1cards);
-            FlushSuit(player2cards);
-            player1cards.Sort();
-            player2cards.Sort();
-            if (player1cards[player1cards.Count - 1].Rank == player2cards[player2cards.Count - 1].Rank) {
-                return null;
-            } else {
-                return (player1cards[player1cards.Count - 1].Rank > player2cards[player2cards.Count - 1].Rank ? player1 : player2);
-            }
+            Player player1clone = (Player)player1.Clone();
+            Player player2clone = (Player)player2.Clone();
+            FlushSuit(player1clone.Cards);
+            FlushSuit(player2clone.Cards);
+            player1clone.Cards.Sort();
+            player2clone.Cards.Sort();
+            return GetBestHighestCard(player1clone, player2clone);
         }
 
         //Think it works, but need testing
