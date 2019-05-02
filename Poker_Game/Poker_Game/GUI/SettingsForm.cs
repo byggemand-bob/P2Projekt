@@ -186,5 +186,14 @@ namespace Poker_Game {
         private void SettingsForm_Load(object sender, EventArgs e) {
 
         }
+
+        private void textboxName_KeyDown(object sender, KeyEventArgs e)
+        //Enables the user to press "Enter" and start the game from the Player Name textbox.
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonStartGame.PerformClick();
+            }
+        }
     }
 }
