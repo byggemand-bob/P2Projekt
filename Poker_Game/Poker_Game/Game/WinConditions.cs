@@ -336,33 +336,16 @@ namespace Poker_Game.Game {
                         for (int j = 0; j < player2.Cards.Count - 1; j++) {
                             if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                                 player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
-                                return BestPair(RemoveUnfitRank(player1cards, player1cards[i].Rank), RemoveUnfitRank(player2cards,  player2cards[j].Rank));
+                                Player player1clone = (Player)player1.Clone();
+                                Player player2clone = (Player)player2.Clone();
+                                player1clone.Cards = RemoveUnfitRank(player1clone.Cards, player1clone.Cards[i].Rank);
+                                player2clone.Cards = RemoveUnfitRank(player2clone.Cards, player2clone.Cards[j].Rank);
+                                return BestPair(player1clone, player2clone);
                             }
                         }
                     }
                 }
             }
-
-
-
-
-
-
-
-            //for (int i = 0; i < player1cards.Count - 1; i++) {
-            //    if (player1cards[i].Rank == player1cards[i + 1].Rank &&
-            //        player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
-            //        for (int j = 0; j < player2cards.Count - 1; j++) {
-            //            if (player2cards[j].Rank == player2cards[j + 1].Rank &&
-            //                player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
-            //                if () {
-
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
             throw new System.InvalidOperationException("BestFullHouse exited loop");
         }
 
