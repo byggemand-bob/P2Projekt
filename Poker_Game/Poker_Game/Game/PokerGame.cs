@@ -55,7 +55,8 @@ namespace Poker_Game.Game {
 
         public void Check() { // Method used for coding a press of Check-button in GameForm.
             if (CanCheck()) { // Needs fixing
-                Players[CurrentPlayerIndex].Action = PlayerAction.Check;
+                CurrentPlayer().Action = PlayerAction.Check;
+                CurrentPlayer().BetsTaken++;
                 NewTurn();
                 UpdateState();
                 CurrentRound().CycleStep++;

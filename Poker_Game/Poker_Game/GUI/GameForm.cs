@@ -399,7 +399,7 @@ namespace Poker_Game {
             }
             else if (Game.GetWinners(Game.CurrentHand()).Count == 2)
             {
-                return ConvertScoreToString(0) + " & " + ConvertScoreToString(1);
+                return ConvertScoreToString(0);
             }
             return null; // TODO: error handling
         }
