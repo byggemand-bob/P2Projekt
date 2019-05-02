@@ -15,15 +15,13 @@ namespace UnitTest
             // Arrange
             Player player1 = new Player(1, 100);
             Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
+            List<Player> players = new List<Player> { player1, player2 };
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Jack);
             Card tableCard2 = new Card(Suit.Hearts, Rank.King);
             Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, Rank.Queen)); // HighestCard: Queen
@@ -63,10 +61,10 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Queen);
             Card tableCard2 = new Card(Suit.Hearts, Rank.King);
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Pair of 3
@@ -109,7 +107,7 @@ namespace UnitTest
             Card tableCard1 = new Card(Suit.Spades, Rank.Queen);
             Card tableCard2 = new Card(Suit.Spades, Rank.King);
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3));
@@ -149,10 +147,10 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, (Rank)4);
+            Card tableCard1 = new Card(Suit.Diamonds, (Rank)4);
             Card tableCard2 = new Card(Suit.Hearts, (Rank)5);
             Card tableCard3 = new Card(Suit.Spades, (Rank)6);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)7);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)7);
             Card tableCard5 = new Card(Suit.Spades, (Rank)5);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Straight - 3, 4, 5, 6, 7
@@ -192,15 +190,15 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
             // Filler
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Queen);
             Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             // Combinations
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
             Card tableCard5 = new Card(Suit.Spades, (Rank)4);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // 3 of 3's
-            player1.Cards.Add(new Card(Suit.Diamond, (Rank)3));
+            player1.Cards.Add(new Card(Suit.Diamonds, (Rank)3));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
             player1.Cards.Add(tableCard3);
@@ -236,10 +234,10 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Jack);
             Card tableCard2 = new Card(Suit.Hearts, (Rank)5);
             Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)4);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)4);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // HighestCard: Ace
@@ -279,10 +277,10 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Jack);
             Card tableCard2 = new Card(Suit.Hearts, Rank.King);
             Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)4);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)4);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // HighestCard: 3
@@ -322,10 +320,10 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Queen);
             Card tableCard2 = new Card(Suit.Hearts, Rank.King);
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)4)); // Pair of 4
@@ -337,7 +335,7 @@ namespace UnitTest
             player1.Cards.Add(tableCard5);
 
             player2.Cards.Add(new Card(Suit.Hearts, (Rank)4)); // Pair of 4
-            player2.Cards.Add(new Card(Suit.Diamond, (Rank)4));
+            player2.Cards.Add(new Card(Suit.Diamonds, (Rank)4));
             player2.Cards.Add(tableCard1);
             player2.Cards.Add(tableCard2);
             player2.Cards.Add(tableCard3);
@@ -365,7 +363,7 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
             // Filler
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Queen);
             // Combinations
             Card tableCard2 = new Card(Suit.Hearts, (Rank)3);
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
@@ -373,7 +371,7 @@ namespace UnitTest
             Card tableCard5 = new Card(Suit.Spades, (Rank)4);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // 4 of 3's
-            player1.Cards.Add(new Card(Suit.Diamond, (Rank)3));
+            player1.Cards.Add(new Card(Suit.Diamonds, (Rank)3));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
             player1.Cards.Add(tableCard3);
@@ -409,11 +407,11 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
             // Filler
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Jack);
             // 2 Pairs
             Card tableCard2 = new Card(Suit.Hearts, (Rank)4);
             Card tableCard3 = new Card(Suit.Spades, (Rank)5);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)6);
+            Card tableCard4 = new Card(Suit.Diamonds, (Rank)6);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
             player1.Cards.Add(new Card(Suit.Clubs, (Rank)5)); // Pair of 5's and 6's
@@ -453,14 +451,14 @@ namespace UnitTest
             players.Add(player2);
             Hand hand = new Hand(players);
             // 3 of a kind
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Jack);
             Card tableCard2 = new Card(Suit.Hearts, Rank.Jack);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)7);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)8);
             // Filler for pair
-            Card tableCard4 = new Card(Suit.Diamond, Rank.King);
+            Card tableCard4 = new Card(Suit.Diamonds, Rank.King);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
 
-            player1.Cards.Add(new Card(Suit.Clubs, Rank.King)); // Full house - 3x Jack + 2x King
+            player1.Cards.Add(new Card(Suit.Clubs, Rank.King)); // Full house - 2x Jack + 3x King
             player1.Cards.Add(new Card(Suit.Spades, Rank.King));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
@@ -468,7 +466,7 @@ namespace UnitTest
             player1.Cards.Add(tableCard4);
             player1.Cards.Add(tableCard5);
 
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7));  // FullHouse - 3x Jack + 2x 7
+            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7));  // FullHouse - 2x Jack + 3x 7
             player2.Cards.Add(new Card(Suit.Clubs, (Rank)7));
             player2.Cards.Add(tableCard1);
             player2.Cards.Add(tableCard2);
