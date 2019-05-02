@@ -22,19 +22,19 @@ namespace Poker_Game {
         private string GenerateMessage(string winners, int moneyWon, string score) {
 
             if (score.CompareTo("None") == 0)  {
-                return winners + " won, because their opponent folded" +
-                       Environment.NewLine + "They gained $" + moneyWon;
+                return winners + " won, because their opponent folded." +
+                       Environment.NewLine + winners + " gained $" + moneyWon;
             }
 
             else if (!winners.Contains("&"))  {
                 return winners + " won over their opponent with " +
-                    Environment.NewLine + "a " + score + ". They gained $" + moneyWon;
+                    Environment.NewLine + "a " + score + ". " + winners + " won $" + moneyWon;
             }
 
             else  {
                 string[] winnersArray = winners.Split('&');
-                return winnersArray[0] + " & " + winnersArray[1] + " tied with" + Environment.NewLine +
-                       "a " + score + "They both get $" + moneyWon;
+                return winnersArray[0] + "and" + winnersArray[1] + " tied with" + Environment.NewLine +
+                       "a " + score + ". They split $" + moneyWon;
             }
         }
 
