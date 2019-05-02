@@ -20,13 +20,22 @@ namespace Poker_Game {
         }
 
         private string GenerateMessage(string winners, int moneyWon, string score) {
-            if(!winners.Contains("&"))
-                return winners + " won over their opponent with " +
-                       Environment.NewLine + "a " + score + ". They gained $" + moneyWon;
 
-            string[] winnersArray = winners.Split('&');
-            return winnersArray[0] + " & " + winnersArray[1] + " tied with" + Environment.NewLine +
-                   "a " + score + "They both get $" + moneyWon;
+            if (score.CompareTo("None") == 0)  {
+                return winners + " won, because their opponent folded." +
+                       Environment.NewLine + winners + " gained $" + moneyWon;
+            }
+
+            else if (!winners.Contains("&"))  {
+                return winners + " won over their opponent with " +
+                    Environment.NewLine + "a " + score + ". " + winners + " won $" + moneyWon;
+            }
+
+            else  {
+                string[] winnersArray = winners.Split('&');
+                return winnersArray[0] + "and" + winnersArray[1] + " tied with" + Environment.NewLine +
+                       "a " + score + ". They split $" + moneyWon;
+            }
         }
 
         private void buttonContinue_Click(object sender, EventArgs e) {

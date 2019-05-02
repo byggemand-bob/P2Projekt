@@ -10,8 +10,9 @@ namespace Poker_Game {
     class CardTest {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
-            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) }; 
-            Hand h = new Hand(players, 1);
+            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) };
+            Settings settings = new Settings(2,1000,1,true, 10, "Jonas", 1);
+            Hand h = new Hand(settings, players, 1);
             int NumberOfCards = 7, TAELLER = 0;
             WinConditions w = new WinConditions();
             int flush = 0, straight = 0, royalflush = 0, straightflush = 0, four = 0, fullhouse = 0, three = 0, twopair = 0, pair = 0;
@@ -30,42 +31,43 @@ namespace Poker_Game {
 
                 //royalflush
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)3));
-                h.Deck.Add(new Card(Suit.Clubs, (Rank)4));
+                h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)6));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)7));
-                h.Deck.Add(new Card(Suit.Diamond, (Rank)5));
-                h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
+                h.Deck.Add(new Card(Suit.Diamonds, (Rank)5));
+                h.Deck.Add(new Card(Suit.Diamonds, Rank.Jack));
 
                 h.Deck.Sort();
                 TAELLER++;
                 //if (w.HasFullHouse(h.Deck)) {
                 //    fullhouse++;
                 //}
-                //for (int j = 0; j < h.Deck.Count; j++) {
-                //    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
-                //}
-                //Console.WriteLine("");
-
-                if (w.HasRoyalFlush(h.Deck)) {
-                    royalflush++;
-                } else if (w.HasStraightFlush(h.Deck)) {
-                    straightflush++;
-                } else if (w.HasFourOfAKind(h.Deck)) {
-                    four++;
-                } else if (w.HasFullHouse(h.Deck)) {
-                    fullhouse++;
-                } else if (w.HasFlush(h.Deck)) {
-                    flush++;
-                } else if (w.HasStraight(h.Deck)) {
-                    straight++;
-                } else if (w.HasThreeOfAKind(h.Deck)) {
-                    three++;
-                } else if (w.HasTwoPairs(h.Deck)) {
-                    twopair++;
-                } else if (w.HasPair(h.Deck)) {
-                    pair++;
+                
+                for (int j = 0; j < h.Deck.Count; j++) {
+                    Console.WriteLine("Players Cards:" + h.Deck[j].Rank + " " + h.Deck[j].Suit);
                 }
+                Console.WriteLine("");
+                w.RemoveDublicateRank(h.Deck, 0);
+                //if (w.HasRoyalFlush(h.Deck)) {
+                //    royalflush++;
+                //} else if (w.HasStraightFlush(h.Deck)) {
+                //    straightflush++;
+                //} else if (w.HasFourOfAKind(h.Deck)) {
+                //    four++;
+                //} else if (w.HasFullHouse(h.Deck)) {
+                //    fullhouse++;
+                //} else if (w.HasFlush(h.Deck)) {
+                //    flush++;
+                //} else if (w.HasStraight(h.Deck)) {
+                //    straight++;
+                //} else if (w.HasThreeOfAKind(h.Deck)) {
+                //    three++;
+                //} else if (w.HasTwoPairs(h.Deck)) {
+                //    twopair++;
+                //} else if (w.HasPair(h.Deck)) {
+                //    pair++;
+                //}
             } while (false);
             Console.WriteLine("Time: " + stopWatch.ElapsedMilliseconds.ToString());
             stopWatch.Stop();
