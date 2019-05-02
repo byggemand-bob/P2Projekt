@@ -106,14 +106,6 @@ namespace Poker_Game.AI
             return results / NUMOFTHREADS;
         }
 
-        public int Threadtest(int loops)
-        {
-            int x;
-
-            for (x = 0; x < loops; x++) { }
-            return x;
-        }
-
         public double DrawResults()
         {
             return (double)draws / (double)(wins + draws + loses) * 100;
