@@ -268,7 +268,7 @@ namespace Poker_Game.Game {
                     return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
                 }
             }
-            throw new System.InvalidOperationException("GetBestHighestCard exited loop");
+            return null;
         }
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
