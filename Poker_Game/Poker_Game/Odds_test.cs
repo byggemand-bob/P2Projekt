@@ -25,23 +25,23 @@ namespace Poker_Game
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));
 
-            //street.Add(new Card(Suit.Clubs, Rank.King));
-            //street.Add(new Card(Suit.Spades, Rank.Jack));
-            //street.Add(new Card(Suit.Spades, (Rank)5));
+            street.Add(new Card(Suit.Clubs, Rank.King));
+            street.Add(new Card(Suit.Spades, Rank.Jack));
+            street.Add(new Card(Suit.Spades, (Rank)5));
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
             stopwatch.Start();
-            Console.WriteLine("wins: {0}%", MonteCarlo.RunTrails(2000));
+
+            MonteCarlo.RunTrails(1000);
+            MonteCarlo.PrintResults();
+
             stopwatch.Stop();
 
             time = stopwatch.Elapsed;
 
             Console.WriteLine("time elapsed: {0}", String.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds / 10));
             
-
-            //Console.WriteLine("{0}, {1}, {2}", cardodds.totalNumberOfOutcomes, cardodds.street.Count, cardodds.hand.Count);
-            //Console.WriteLine("{0}", Calc.Faculty(100));
             Console.ReadKey();
         }
 
