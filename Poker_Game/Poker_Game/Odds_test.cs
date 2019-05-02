@@ -21,13 +21,14 @@ namespace Poker_Game
             Calculator Calc = new Calculator();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
+            int NumberOftrails = 200000;
 
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));
 
-            street.Add(new Card(Suit.Clubs, Rank.King));
-            street.Add(new Card(Suit.Spades, Rank.Jack));
-            street.Add(new Card(Suit.Spades, (Rank)5));
+            //street.Add(new Card(Suit.Clubs, Rank.King));
+            //street.Add(new Card(Suit.Spades, Rank.Jack));
+            //street.Add(new Card(Suit.Spades, (Rank)5));
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
@@ -36,7 +37,7 @@ namespace Poker_Game
             //MonteCarlo.RunTrails(10000);
             //MonteCarlo.PrintResults();
 
-            Console.WriteLine("{0}", MonteCarlo.MultiThreadMonteCarlo(40000));
+            Console.WriteLine("in {1} trails the total win procent is: {0}%", MonteCarlo.MultiThreadMonteCarlo(NumberOftrails), NumberOftrails);
 
             stopwatch.Stop();
 

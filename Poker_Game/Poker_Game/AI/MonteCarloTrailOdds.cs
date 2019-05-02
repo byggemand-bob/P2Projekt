@@ -91,21 +91,16 @@ namespace Poker_Game.AI
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 workers[x].Join();
-                //Thread.Sleep(100);
             }
 
-            
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                Console.WriteLine("thread {0} returned: {1}", x, winProcent[x]);
+            }
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 results += winProcent[x];
-                //Thread.Sleep(100);
-            }
-
-            for (x = 0; x < NUMOFTHREADS; x++)
-            {
-                Console.WriteLine("{0}", winProcent[x]);
-                //Thread.Sleep(100);
             }
 
             return results / NUMOFTHREADS;
