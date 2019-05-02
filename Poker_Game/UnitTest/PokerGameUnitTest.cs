@@ -46,7 +46,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -89,7 +90,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -132,7 +134,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -175,7 +178,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -219,7 +223,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -262,7 +267,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -299,13 +305,14 @@ namespace UnitTest
             player2.Cards.Add(tableCard4);
             player2.Cards.Add(tableCard5);
 
-            List<Player> expected = new List<Player> { player1, player2 };
+            List<Player> expected = new List<Player> { player2 };
 
             // Act
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -348,7 +355,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -392,7 +400,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -436,7 +445,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
 
 
@@ -480,7 +490,8 @@ namespace UnitTest
             List<Player> actual = Game.GetWinners(hand);
 
             // Assert
-            Assert.AreEqual(expected[0].Id == actual[0].Id, expected.Count == actual.Count);
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
         }
     }
 }
