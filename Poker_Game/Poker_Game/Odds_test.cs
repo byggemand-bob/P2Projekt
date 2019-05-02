@@ -33,8 +33,10 @@ namespace Poker_Game
 
             stopwatch.Start();
 
-            MonteCarlo.RunTrails(1000);
-            MonteCarlo.PrintResults();
+            //MonteCarlo.RunTrails(10000);
+            //MonteCarlo.PrintResults();
+
+            Console.WriteLine("{0}", MonteCarlo.MultiThreadMonteCarlo(40000));
 
             stopwatch.Stop();
 

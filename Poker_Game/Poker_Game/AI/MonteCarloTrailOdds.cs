@@ -21,9 +21,10 @@ namespace Poker_Game.AI
             street = Street;
         }
 
-        public void RunTrails(int NumberOfTrails)
+        public double RunTrails(int NumberOfTrails)
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
+            int wins = 0, loses = 0, draws = 0;
             WinConditions winCalc = new WinConditions();
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
@@ -69,19 +70,47 @@ namespace Poker_Game.AI
             }
 
             Console.WriteLine("wins: {0}, draws: {1}, loses: {2}", wins, draws, loses);
+
+            return (double)wins / (double)NumberOfTrails * 100;
         }
 
         public double MultiThreadMonteCarlo (int NumberOfTrails)
         {
-            int wins = 1, x;
+            int x;
+            double[] winProcent = new double[NUMOFTHREADS];
+            double results = 0;
             Thread[] workers = new Thread[NUMOFTHREADS];
 
             for(x = 0; x < NUMOFTHREADS; x++)
             {
-                //workers[x] = new Thread();
+                workers[x] = new Thread(() => { winProcent[x] = RunTrails(NumberOfTrails / 4); });
+                workers[x].Start();
             }
 
-            return wins / NumberOfTrails * 100;
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                workers[x].Join();
+            }
+
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                results += winProcent[x];
+            }
+
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                Console.WriteLine("{0}", winProcent[x]);
+            }
+
+            return results / NUMOFTHREADS;
+        }
+
+        public int Threadtest(int loops)
+        {
+            int x;
+
+            for (x = 0; x < loops; x++) { }
+            return x;
         }
 
         public double DrawResults()
