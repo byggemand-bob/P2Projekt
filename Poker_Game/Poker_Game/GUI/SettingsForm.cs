@@ -4,9 +4,9 @@ using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class SettingsForm : Form {
-        private const bool TESTING = true;
-        private bool nameChanged = false;
-        private bool valueJustChanged = false;
+        private const bool Testing = true;
+        private bool _nameChanged = false;
+        private bool _valueJustChanged = false;
 
         public SettingsForm() {
             InitializeComponent();
@@ -17,10 +17,10 @@ namespace Poker_Game {
         private void buttonStartGame_Click(object sender, EventArgs e)
         // Makes sure you've entered a name before continueing
         {
-            if (TESTING || nameChanged)
+            if (Testing || _nameChanged)
             {
                 this.Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, checkBoxRoundBased.Checked, trackBarBlindIncrease.Value, textboxName.Text);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, checkBoxRoundBased.Checked, trackBarBlindIncrease.Value, textboxName.Text, 1);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 this.Close();
@@ -32,11 +32,11 @@ namespace Poker_Game {
         private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the blind numeric up down with the blind trackbar
         {
-            if (valueJustChanged)
+            if (_valueJustChanged)
             {
-                valueJustChanged = false;
+                _valueJustChanged = false;
             } else {
-                valueJustChanged = true;
+                _valueJustChanged = true;
                 trackBarBlindSize.Value = (int)numericUpDownBlindSize.Value;
             }
         }
@@ -44,14 +44,14 @@ namespace Poker_Game {
         private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the blind trackbar with the blind numeric up down
         {
-            if (valueJustChanged)
+            if (_valueJustChanged)
             {
-                valueJustChanged = false;
+                _valueJustChanged = false;
             } else {
-                valueJustChanged = true;
+                _valueJustChanged = true;
 
                 if(trackBarBlindSize.Value % 10 != 0) {
-                    valueJustChanged = true;
+                    _valueJustChanged = true;
                     trackBarBlindSize.Value = trackBarBlindSize.Value - (trackBarBlindSize.Value % 10);
                 }
                 numericUpDownBlindSize.Value = trackBarBlindSize.Value;
@@ -61,15 +61,15 @@ namespace Poker_Game {
         private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the potsize trackbar with the potsize numeric up down
         {
-            if (valueJustChanged)
+            if (_valueJustChanged)
             {
-                valueJustChanged = false;
+                _valueJustChanged = false;
             } else {
                 if(trackBarPotSize.Value % 100 != 0) {
-                    valueJustChanged = true;
+                    _valueJustChanged = true;
                     trackBarPotSize.Value = trackBarPotSize.Value - (trackBarPotSize.Value % 100);
                 }
-                valueJustChanged = true;
+                _valueJustChanged = true;
 
                 numericUpDownPotSize.Value = trackBarPotSize.Value;
             }
@@ -78,11 +78,11 @@ namespace Poker_Game {
         private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the potsize numeric up down with the potsize trackbar
         {
-            if (valueJustChanged)
+            if (_valueJustChanged)
             {
-                valueJustChanged = false;
+                _valueJustChanged = false;
             } else {
-                valueJustChanged = true;
+                _valueJustChanged = true;
                 trackBarPotSize.Value = (int)numericUpDownPotSize.Value;
             }
         }
@@ -105,7 +105,7 @@ namespace Poker_Game {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text == "") {
                 txtbox.Text = "Enter Name";
-                nameChanged = false;
+                _nameChanged = false;
             }
         }
 
@@ -113,7 +113,7 @@ namespace Poker_Game {
         // Removes the text "Enter Name" when clicked
         {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text == "Enter Name" && !nameChanged) {
+            if(txtbox.Text == "Enter Name" && !_nameChanged) {
                 txtbox.Text = "";
             }
         }
@@ -123,7 +123,7 @@ namespace Poker_Game {
         {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text != "" || txtbox.Text != "Enter Name") {
-                nameChanged = true;
+                _nameChanged = true;
             }
         }
 
