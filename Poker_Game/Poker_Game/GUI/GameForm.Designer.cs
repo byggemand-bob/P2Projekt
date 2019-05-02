@@ -206,7 +206,7 @@ namespace Poker_Game {
             this.labelAIStack.Name = "labelAIStack";
             this.labelAIStack.Size = new System.Drawing.Size(134, 88);
             this.labelAIStack.TabIndex = 8;
-            this.labelAIStack.Text = "AI";
+            this.labelAIStack.Text = "Deep Peer";
             // 
             // pictureTableCard1
             // 

@@ -82,6 +82,10 @@ namespace Poker_Game.Game {
             return CycleStep > Players.Count;
         }
 
+        public int CurrentTurnNumber() {
+            return Turns.Count;
+        }
+
         #endregion
 
     }

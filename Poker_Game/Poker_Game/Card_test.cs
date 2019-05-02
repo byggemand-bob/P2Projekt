@@ -34,8 +34,8 @@ namespace Poker_Game {
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)5));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)6));
                 h.Deck.Add(new Card(Suit.Clubs, (Rank)7));
-                h.Deck.Add(new Card(Suit.Diamond, (Rank)5));
-                h.Deck.Add(new Card(Suit.Diamond, Rank.Jack));
+                h.Deck.Add(new Card(Suit.Diamonds, (Rank)5));
+                h.Deck.Add(new Card(Suit.Diamonds, Rank.Jack));
 
                 h.Deck.Sort();
                 TAELLER++;
