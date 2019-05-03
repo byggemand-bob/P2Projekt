@@ -71,7 +71,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\ABPruning.cs" />
     <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\CalcEV.cs" />
+    <Compile Include="AI\CalcOuts.cs" />
+    <Compile Include="AI\CalcProbability.cs" />
     <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\GameTree\Form1.cs">
@@ -80,10 +84,16 @@
     <Compile Include="AI\GameTree\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AI\GameTree\PathGenerator.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\TreeTest.cs" />
+    <Compile Include="AI\MinMax.cs" />
+    <Compile Include="AI\PFR.cs" />
+    <Compile Include="AI\PotOdds.cs" />
+    <Compile Include="AI\PreFlop.cs" />
+    <Compile Include="AI\VPIP.cs" />
     <Compile Include="Game\VPIPData.cs" />
     <Compile Include="Game\VPIPReader.cs" />
     <Compile Include="Game\VPIPWriter.cs" />

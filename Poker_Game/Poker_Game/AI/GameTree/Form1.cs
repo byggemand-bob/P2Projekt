@@ -33,17 +33,21 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private void Button1_Click(object sender, EventArgs e) {
-            List<Tuple<string, double>> pathInfo = TextToPathInfo(textBox1.Lines);
+           //List<Tuple<string, double>> pathInfo = TextToPathInfo(textBox1.Lines);
+
+
 
 
             TreeNode rootTreeNode = new TreeNode("Root");
-            ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
+            //ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
+            ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
             treeView3.Nodes.Add(rootTreeNode);
 
             treeView3.ExpandAll();
 
         }
 
+        
         private List<Tuple<string, double>> TextToPathInfo(string[] textBoxStrings) {
             List<Tuple<string, double>> result = new List<Tuple<string, double>>();
             foreach(string line in textBoxStrings) {
@@ -62,6 +66,22 @@ namespace Poker_Game.AI.GameTree {
             }
 
             return rootNode;
+        }
+
+        private List<Tuple<string, double>> CreateFullTreePath() {
+            PathGenerator ph = new PathGenerator();
+            string[] paths = ph.GeneratePaths();
+            List<Tuple<string, double>> result = new List<Tuple<string, double>>();
+            StringBuilder sb = new StringBuilder();
+
+            foreach(string path in paths) {
+                result.Add(new Tuple<string, double>(path, 1));
+                sb.AppendLine(path + ",1");
+            }
+
+            textBox1.Text = sb.ToString();
+
+            return result;
         }
 
     }
