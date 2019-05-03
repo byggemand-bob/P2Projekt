@@ -24,6 +24,7 @@ namespace Poker_Game.Game
             public int[] cardsSummed;
             public bool hasFlush;
             public int nrOfHighestCard, valueOfHigestCard, nrOfSecoundHighestCard, ValueOfSecoundHeigestCard, highestCardInStraight;
+            public Suit flushSuit;
 
             public evaluatedcards(List<Card> cards)
             {
@@ -35,6 +36,7 @@ namespace Poker_Game.Game
                 nrOfSecoundHighestCard = 0;
                 ValueOfSecoundHeigestCard = 0;
                 highestCardInStraight = 0;
+                flushSuit = (Suit) 0;
 
                 EvaluationCalc(cards);
             }
@@ -55,6 +57,7 @@ namespace Poker_Game.Game
                     if (nrOfSuits[x] >= 5)
                     {
                         hasFlush = true;
+                        flushSuit = (Suit) nrOfSuits[x];
                     }
                 }
 
@@ -222,7 +225,7 @@ namespace Poker_Game.Game
             }
         }
 
-        private void hasStraightFlush(List<Card> cards, int Result)
+        private void hasStraightFlush(List<Card> cards, int Result) //needs to be rewritten to take advantage of FlushSuit in EvalCards
         {
             int ConsequtiveCardsOfSameSuitAndRank = 0;
 
@@ -244,6 +247,11 @@ namespace Poker_Game.Game
                     }
                 }
             }
+        }
+
+        private int CompareFlushes()
+        {
+            return 0;
         }
     }
 }
