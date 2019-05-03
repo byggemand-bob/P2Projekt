@@ -256,7 +256,7 @@ namespace Poker_Game.Game {
                 }
             }
 
-            return playersLeft == 1;
+            return playersLeft > 1;
         }
 
         #endregion
