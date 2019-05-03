@@ -21,7 +21,33 @@ namespace Poker_Game.AI
             street = Street;
         }
 
-        public double RunTrails(int NumberOfTrails)
+        public struct Odds
+        {
+            public double WinOdds, LoseOdds, DrawOdds;
+
+            public Odds(double winOdds, double loseOdds, double drawOdds)
+            {
+                WinOdds = winOdds;
+                LoseOdds = loseOdds;
+                DrawOdds = drawOdds;
+            }
+
+            public void Add(Odds AddX)
+            {
+                WinOdds += AddX.WinOdds;
+                LoseOdds += AddX.LoseOdds;
+                DrawOdds += AddX.DrawOdds;
+            }
+
+            public void DevideAllBy(double DevideBy)
+            {
+                WinOdds /= DevideBy;
+                LoseOdds /= DevideBy;
+                DrawOdds /= DevideBy;
+            }
+        }
+
+        public Odds RunTrails(int NumberOfTrails)
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
             int wins = 0, loses = 0, draws = 0;
@@ -69,21 +95,25 @@ namespace Poker_Game.AI
                 aiTrailCards.Clear();
             }
 
-            Console.WriteLine("wins: {0}, draws: {1}, loses: {2}", wins, draws, loses);
+            Odds Results = new Odds((double)wins / (double)NumberOfTrails * 100,
+                                    (double)loses / (double)NumberOfTrails * 100,
+                                    (double)draws / (double)NumberOfTrails * 100);
 
-            return (double)wins / (double)NumberOfTrails * 100;
+            PrintResults(Results);
+
+            return Results;
         }
 
-        public double MultiThreadMonteCarlo (int NumberOfTrails)
+        public Odds MultiThreadMonteCarlo (int NumberOfTrails)
         {
             int x;
-            double[] winProcent = new double[NUMOFTHREADS];
-            double results = 0;
+            Odds[] trailResults = new Odds[NUMOFTHREADS];
+            Odds totalResults = new Odds(0, 0, 0);
             Thread[] workers = new Thread[NUMOFTHREADS];
 
             for(x = 0; x < NUMOFTHREADS; x++)
             {
-                workers[x] = new Thread(() => { winProcent[x] = RunTrails(NumberOfTrails / 4); });
+                workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / 4); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
@@ -91,39 +121,26 @@ namespace Poker_Game.AI
             for (x = 0; x < NUMOFTHREADS; x++)
             {
                 workers[x].Join();
+                totalResults.Add(trailResults[x]);
             }
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
-                Console.WriteLine("thread {0} returned: {1}", x, winProcent[x]);
+                //totalResults.Add(trailResults[x]);
             }
 
-            for (x = 0; x < NUMOFTHREADS; x++)
-            {
-                results += winProcent[x];
-            }
+            totalResults.DevideAllBy(4);
 
-            return results / NUMOFTHREADS;
+            Console.Write("\nTotal Results: ");
+
+            PrintResults(totalResults);
+
+            return totalResults;
         }
 
-        public double DrawResults()
+        public void PrintResults(Odds results)
         {
-            return (double)draws / (double)(wins + draws + loses) * 100;
-        }
-
-        public double LoseResults()
-        {
-            return (double)loses / (double)(wins + draws + loses) * 100;
-        }
-
-        public double WinResults()
-        {
-            return (double)wins / (double)(wins + draws + loses) * 100;
-        }
-
-        public void PrintResults()
-        {
-            Console.WriteLine("total games: {0}, wins: {4}/{1:0.00}%, loses; {5}/{2:0.00}%, draws: {6}/{3:0.00}%", (wins + draws + loses), WinResults(), LoseResults(), DrawResults(), wins, loses, draws);
+            Console.WriteLine("wins: {0:0.00}%, loses; {1:0.00}%, draws: {2:0.00}%", results.WinOdds, results.LoseOdds, results.DrawOdds);
         }
     } 
 }
