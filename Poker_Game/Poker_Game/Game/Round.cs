@@ -18,16 +18,6 @@ namespace Poker_Game.Game {
             Bets = 0;
         }
 
-        private List<Player> GetActivePlayers(List<Player> players) // Returns a List of players who has not folded.
-        {
-            List<Player> activePlayers = new List<Player>();
-            foreach(Player player in players) {
-                if (player.Action != PlayerAction.Fold) {
-                    activePlayers.Add(player);
-                }
-            }
-            return activePlayers;
-        }
 
         #endregion
 

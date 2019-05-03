@@ -133,5 +133,25 @@ namespace UnitTest
             // Assert
             Assert.AreEqual(expected, actual[0].Id);
         }
+
+
+        [TestMethod] 
+        public void TestRaiseFunctionallity()
+        {
+            // Arrange
+            CreatePropperties();
+            // Round 1
+            Game.Raise();
+            Game.Call();
+            Game.Check();
+
+            var expected = 400;
+            
+            // Act
+            var actual = Game.Hands[Game.CurrentHandNumber() - 1].Pot;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

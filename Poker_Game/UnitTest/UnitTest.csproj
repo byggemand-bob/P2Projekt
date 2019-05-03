@@ -53,6 +53,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameFormUnitTest.cs" />
     <Compile Include="MultiblePlayersWinconditionUnitTest.cs" />
     <Compile Include="PokerGameUnitTest.cs" />
     <Compile Include="WinconditionsUnitTest.cs" />

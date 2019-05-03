@@ -48,16 +48,6 @@ namespace Poker_Game.Game {
             return initPlayers;
         }
 
-        // Finds Active Players - stack > 0
-        private List<Player> GetActivePlayers(List<Player> players) {
-            List<Player> output = new List<Player>();
-            foreach(Player player in players) {
-                if(player.Stack > 0) {
-                    output.Add(player);
-                }
-            }
-            return output;
-        }
         #endregion
 
         #region Actions
