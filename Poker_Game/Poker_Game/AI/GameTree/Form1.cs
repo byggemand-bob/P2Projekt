@@ -40,6 +40,8 @@ namespace Poker_Game.AI.GameTree {
             ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
             treeView3.Nodes.Add(rootTreeNode);
 
+            treeView3.ExpandAll();
+
         }
 
         private List<Tuple<string, double>> TextToPathInfo(string[] textBoxStrings) {

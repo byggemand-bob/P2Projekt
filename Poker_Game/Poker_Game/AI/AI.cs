@@ -22,6 +22,7 @@ namespace Poker_Game.AI {
         public void MakeDecision() {
 
         }
+
         private double CalcFaculty(double number) {
 
 

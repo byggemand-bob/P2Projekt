@@ -23,9 +23,6 @@ namespace Poker_Game.Game {
             _maxBets = settings.MaxBetsPerRound;
 
             Players.ForEach(x => x.BetsTaken = 0);
-                
-            
-
         }
 
         private List<Player> GetActivePlayers(List<Player> players) // Returns a List of players who has not folded.
