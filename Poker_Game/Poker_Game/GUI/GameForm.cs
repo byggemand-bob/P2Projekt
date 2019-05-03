@@ -364,8 +364,8 @@ namespace Poker_Game {
         {
             // Checks if the game is finished, and makes the buttons un-pressable.
             Game.UpdateState();
-            ChangeActionButtonState(false);
             ShowEndOfHandWindow();
+            ChangeActionButtonState(false);
         }
 
         private void ShowEndOfHandWindow()

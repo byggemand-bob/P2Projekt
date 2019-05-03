@@ -21,7 +21,7 @@ namespace Poker_Game {
 
         private string GenerateMessage(bool gameFinished, string winners, int moneyWon, string score) {
 
-            if (gameFinished == false) {
+            if (gameFinished == true) {
                 return "Congratulations " + winners + "." +
                     Environment.NewLine + "You have won the game with a " + score;
             }
