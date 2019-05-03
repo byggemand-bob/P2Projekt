@@ -51,6 +51,7 @@ namespace Poker_Game.AI
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
             int wins = 0, loses = 0, draws = 0;
+            Score aiScore, opponentScore;
             WinConditions winCalc = new WinConditions();
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
@@ -77,11 +78,14 @@ namespace Poker_Game.AI
                     opponantTrailCards.Add(NewCard);
                 }
 
-                if (winCalc.Evaluate(opponantTrailCards) > winCalc.Evaluate(aiTrailCards))
+                opponentScore = winCalc.Evaluate(opponantTrailCards);
+                aiScore = winCalc.Evaluate(aiTrailCards);
+
+                if (opponentScore > aiScore)
                 {
                     loses++;
                 }
-                else if (winCalc.Evaluate(opponantTrailCards) < winCalc.Evaluate(aiTrailCards))
+                else if (opponentScore < aiScore)
                 {
                     wins++;
                 }
@@ -124,15 +128,9 @@ namespace Poker_Game.AI
                 totalResults.Add(trailResults[x]);
             }
 
-            for (x = 0; x < NUMOFTHREADS; x++)
-            {
-                //totalResults.Add(trailResults[x]);
-            }
-
             totalResults.DevideAllBy(4);
 
             Console.Write("\nTotal Results: ");
-
             PrintResults(totalResults);
 
             return totalResults;
