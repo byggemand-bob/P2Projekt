@@ -256,7 +256,11 @@ namespace Poker_Game.Game {
                 }
             }
 
-            return playersLeft > 1;
+            return playersLeft < 2;
+        }
+
+        public bool MoneyLeft(Player player) {
+            return player.Stack != 0;
         }
 
         #endregion
