@@ -7,17 +7,20 @@
         public bool RoundBased { get; set; }
         public int BlindIncrease { get; set; }
         public string PlayerName { get; set; }
+        public int MaxBetsPerRound { get; set; }
+
 
         #region Initialization
-        
+
         // Initializes the values of the settings, depending on GUI player input
-        public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int blindIncrease, string playerName) {
+        public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int blindIncrease, string playerName, int maxBetsPerRound) {
             NumberOfPlayers = numberOfPlayers;
             StackSize = stackSize;
             BlindSize = blindSize;
             RoundBased = roundBased;
             BlindIncrease = blindIncrease;
             PlayerName = playerName;
+            MaxBetsPerRound = maxBetsPerRound;
         }
 
         #endregion

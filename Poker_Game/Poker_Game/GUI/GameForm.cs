@@ -10,24 +10,24 @@ namespace Poker_Game {
         private readonly PokerGame Game;
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
-        private const bool DiagnosticsMode = false;
+        private const bool DiagnosticsMode = true;
         
         #region Initialization
 
-        public GameForm(Settings settings) { // Think about making Settings in settingsform and has it as a parameter. 
+        public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
             InitializeComponent();
             Settings = settings;
-            // Initilization of List for more readable and homogeneous code
+            // Initialization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
 
             // Diagnostics window for (bad) debugging
             panel1.Visible = DiagnosticsMode;
 
-            // Creates the game with usersettings
+            // Creates the game with user settings
             Game = new PokerGame(Settings);
             Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "Deep Peer";
+            Game.Players[1].Name = "Deep Per";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -399,7 +399,7 @@ namespace Poker_Game {
             }
             else if (Game.GetWinners(Game.CurrentHand()).Count == 2)
             {
-                return ConvertScoreToString(0) + " & " + ConvertScoreToString(1);
+                return ConvertScoreToString(0);
             }
             return null; // TODO: error handling
         }
