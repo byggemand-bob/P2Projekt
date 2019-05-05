@@ -28,7 +28,7 @@ namespace Poker_Game.Game {
         }
 
         private int DrawRandomCard() {
-            return _random.Next(0, 51);
+            return _random.Next(0, 52);
         }
 
         public void DrawCards(List<Card> cards) {
@@ -86,9 +86,9 @@ namespace Poker_Game.Game {
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
-            if(Rank.CompareTo(otherCard.Rank) < 0) {
+            if (Rank.CompareTo(otherCard.Rank) < 0) { //CRASHER OFTE HER
                 return -1;
-            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) { //CRASHER NOGLE GANGE HER3
                 return 1;
             } else {
                 if(Suit.CompareTo(otherCard.Suit) < 0) {
