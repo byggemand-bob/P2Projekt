@@ -3,16 +3,26 @@
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
-    class Hand {
+    public class Hand {
         public int Pot { get; set; }
         public List<Card> Deck { get; set; }
         public List<Card> Street { get; set; }  // optimize
         public List<Round> Rounds { get; set; }
         public List<Player> Players { get; set; }
-        
+
+        private readonly Settings _settings;
         // Allocation and initialization for the various elements of a hand
         #region Initialization
-        public Hand(List<Player> players, int dealerButtonPosition) {
+
+        public Hand(Settings settings, List<Player> players) // For testing purposes only
+        {
+            Players = players;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+            _settings = settings;
+        }
+        public Hand(Settings settings,List<Player> players, int dealerButtonPosition) {
+            _settings = settings;
             Pot = 0;
             Deck = new List<Card>();
             Street = new List<Card>();
@@ -58,7 +68,7 @@ namespace Poker_Game.Game {
         //Function to start the round, which resets the actions of the previous rounds
         public void StartRound(int dealerButtonPosition) {
             UpdateStreet();
-            Rounds.Add(new Round(Players));
+            Rounds.Add(new Round(_settings, Players));
             ResetActions();
         }
 
