@@ -17,10 +17,6 @@ namespace Poker_Game.Game {
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
-
-        //
-        private const int MaxBetsPerRound = 1;
-
         #region Initialization
 
         public PokerGame(Settings settings) {
@@ -32,8 +28,7 @@ namespace Poker_Game.Game {
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
     
-        public PokerGame() // For testing purpose only
-        {
+        public PokerGame() {
             Hands = new List<Hand>();
         }
 
@@ -60,7 +55,8 @@ namespace Poker_Game.Game {
 
         public void Check() { // Method used for coding a press of Check-button in GameForm.
             if (CanCheck()) { // Needs fixing
-                Players[CurrentPlayerIndex].Action = PlayerAction.Check;
+                CurrentPlayer().Action = PlayerAction.Check;
+                CurrentPlayer().BetsTaken++;
                 NewTurn();
                 UpdateState();
                 CurrentRound().CycleStep++;
@@ -79,6 +75,8 @@ namespace Poker_Game.Game {
                 // Needs to be cut dow
                 Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
+                CurrentPlayer().BetsTaken++;
+
                 // Create functions for this.
                 CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
                 NewTurn();
@@ -99,7 +97,7 @@ namespace Poker_Game.Game {
         public void NewHand() {
             if(!HandInProgress) {
                 DealerButtonPosition = ++DealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-                Hands.Add(new Hand(Players, DealerButtonPosition));
+                Hands.Add(new Hand(Settings, Players, DealerButtonPosition));
                 PayBlinds();
                 HandInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
@@ -216,12 +214,11 @@ namespace Poker_Game.Game {
         }
 
         public bool CanCall() {
-            //System.Windows.Forms.MessageBox.Show(Players[CurrentRound().TopBidderIndex].CurrentBet + " - " + Players[CurrentPlayerIndex].CurrentBet + " != 0");
             return Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
         }
 
         public bool CanRaise() {
-            return CurrentPlayer().BetsTaken < MaxBetsPerRound && Players[CurrentPlayerIndex].Stack >= Settings.BlindSize * 2;
+            return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
         }
 
         public int CurrentHandNumber() {

@@ -10,8 +10,9 @@ namespace Poker_Game {
     class CardTest {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
-            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) }; 
-            Hand h = new Hand(players, 1);
+            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) };
+            Settings settings = new Settings(2,1000,1,true, 10, "Jonas", 1);
+            Hand h = new Hand(settings, players, 1);
             int NumberOfCards = 7, TAELLER = 0;
             WinConditions w = new WinConditions();
             int flush = 0, straight = 0, royalflush = 0, straightflush = 0, four = 0, fullhouse = 0, three = 0, twopair = 0, pair = 0;

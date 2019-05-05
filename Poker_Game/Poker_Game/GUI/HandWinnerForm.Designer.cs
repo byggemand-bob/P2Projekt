@@ -43,28 +43,31 @@ namespace Poker_Game
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelHeader.AutoSize = true;
             this.labelHeader.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHeader.Location = new System.Drawing.Point(105, 9);
+            this.labelHeader.Location = new System.Drawing.Point(140, 11);
+            this.labelHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelHeader.Name = "labelHeader";
-            this.labelHeader.Size = new System.Drawing.Size(164, 39);
+            this.labelHeader.Size = new System.Drawing.Size(202, 47);
             this.labelHeader.TabIndex = 5;
             this.labelHeader.Text = "Results";
             // 
             // labelMessage
             // 
-            this.labelMessage.AutoSize = true;
             this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMessage.Location = new System.Drawing.Point(12, 66);
+            this.labelMessage.Location = new System.Drawing.Point(6, 58);
+            this.labelMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(74, 20);
+            this.labelMessage.Size = new System.Drawing.Size(488, 81);
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "message";
+            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // buttonContinue
             // 
             this.buttonContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonContinue.Location = new System.Drawing.Point(129, 116);
+            this.buttonContinue.Location = new System.Drawing.Point(172, 143);
+            this.buttonContinue.Margin = new System.Windows.Forms.Padding(4);
             this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(117, 36);
+            this.buttonContinue.Size = new System.Drawing.Size(156, 44);
             this.buttonContinue.TabIndex = 0;
             this.buttonContinue.Text = "Continue";
             this.buttonContinue.UseVisualStyleBackColor = true;
@@ -77,13 +80,14 @@ namespace Poker_Game
             // 
             // HandWinnerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 173);
+            this.ClientSize = new System.Drawing.Size(500, 199);
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.labelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HandWinnerForm";
             this.Text = "Hand Winner";
             this.ResumeLayout(false);
