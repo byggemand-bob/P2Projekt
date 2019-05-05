@@ -8,6 +8,7 @@ using Poker_Game.Game;
 using System.IO;
 
 namespace Poker_Game {
+    /*
     class CardTest {
         static void Main(string[] args) {
             Console.WriteLine("Hello World!");
@@ -161,4 +162,5 @@ namespace Poker_Game {
             Console.ReadKey();
         }
     }
+    */
 }

@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 
 namespace Poker_Game {
+    /*
     class MultiThreadCardTest {
         static void Main(string[] args) {
             int NumberOfThreads = 8;
@@ -155,4 +156,5 @@ namespace Poker_Game {
             return WinConValues;
         }
     }
+    */
 }

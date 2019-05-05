@@ -131,12 +131,17 @@ namespace Poker_Game.AI
                 aiTrailCards = aiHand.Concat(trailStreet).ToList();
                 opponantTrailCards = trailStreet;
 
+                /*
                 for (n = 0; n < 2; n++)
                 {
                     NewCard = new Card(CardsInPlay);
                     CardsInPlay.Add(NewCard);
                     opponantTrailCards.Add(NewCard);
                 }
+                */
+
+                opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
+                opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
 
                 result = winCalc.WhoWins(aiTrailCards, opponantTrailCards);
 
