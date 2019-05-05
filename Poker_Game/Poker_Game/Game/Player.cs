@@ -4,7 +4,7 @@ using System.Collections.Generic;
 // TODO: create GetHashCode()
 
 namespace Poker_Game.Game {
-    enum PlayerAction {
+    public enum PlayerAction {
         None,
         Check,
         Call,
