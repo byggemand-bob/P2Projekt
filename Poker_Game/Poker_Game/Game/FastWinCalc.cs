@@ -57,7 +57,7 @@ namespace Poker_Game.Game
                     if (nrOfSuits[x] >= 5)
                     {
                         hasFlush = true;
-                        flushSuit = (Suit) nrOfSuits[x];
+                        flushSuit = (Suit) x;
                     }
                 }
 
@@ -92,15 +92,199 @@ namespace Poker_Game.Game
             }
         }
 
-        public WinnerResults WhoWins(List<Card> AiCards, List<Card> PlayerCards)
+        public int WhoWins(List<Card> AiCards, List<Card> PlayerCards)
+        //return -1 for ai win, 1 for player win, 0 for draw
         {
-            evaluatedcards AiEvalCards = new evaluatedcards(AiCards), PlayerEvalCards = new evaluatedcards(AiCards);
+            evaluatedcards AiEvalCards = new evaluatedcards(AiCards), PlayerEvalCards = new evaluatedcards(PlayerCards);
             int aiHighestCardInStraightFlush = 0, playerHighestCardInStraightFlush = 0;
 
+            //check for flushes
             if (AiEvalCards.hasFlush)
             {
                 if (PlayerEvalCards.hasFlush)
                 {
+                    //checks for straight flush
+                    if (AiEvalCards.highestCardInStraight > 0)
+                    {
+                        hasStraightFlush(AiCards, aiHighestCardInStraightFlush);
+
+                        if (aiHighestCardInStraightFlush > 0)
+                        {
+                            hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+
+                            if (aiHighestCardInStraightFlush > playerHighestCardInStraightFlush)
+                            {
+                                return -1;
+                            }
+                            else if (playerHighestCardInStraightFlush > aiHighestCardInStraightFlush)
+                            {
+                                return 1;
+                            }
+                            else if(playerHighestCardInStraightFlush == aiHighestCardInStraightFlush)
+                            {
+                                return 0;
+                            }
+                        }
+                    }
+
+                    if (PlayerEvalCards.highestCardInStraight > 0)
+                    {
+                        hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+
+                        if (playerHighestCardInStraightFlush > 0)
+                        {
+                            return 1;
+                        }
+                    }
+
+                    //four of a ind checks
+                    if(AiEvalCards.nrOfHighestCard == 4)
+                    {
+                        if (PlayerEvalCards.nrOfHighestCard == 4)
+                        {
+                            if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return 1;
+                            }
+                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return -1;
+                            }
+                            return 0;
+                        }
+                        return -1;
+                    }
+
+                    if (PlayerEvalCards.nrOfHighestCard == 4)
+                    {
+                        return 0;
+                    }
+
+                    //check for highest full house
+                    if(AiEvalCards.nrOfSecoundHighestCard >= 2 && AiEvalCards.nrOfHighestCard == 3)
+                    {
+                        if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
+                        {
+                            if(PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                            {
+                                return 1;
+                            }
+                            else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                            {
+                                return -1;
+                            }
+                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return 1;
+                            }
+                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return -1;
+                            }
+                            return 0;
+                        }
+                        return -1;
+                    }
+
+                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
+                    {
+                        return 1;
+                    }
+
+                    //check for highest card in flush
+                    return CompareFlushes(AiCards, AiEvalCards.flushSuit, PlayerCards, PlayerEvalCards.flushSuit);
+                }
+
+                return -1;
+            }
+
+            if (PlayerEvalCards.hasFlush)
+            {
+                return 1;
+            }
+
+            //checks for straight
+            if(AiEvalCards.highestCardInStraight > 0 || PlayerEvalCards.highestCardInStraight > 0)
+            {
+                if(AiEvalCards.highestCardInStraight > PlayerEvalCards.highestCardInStraight)
+                {
+                    return -1;
+                }
+                else if(AiEvalCards.highestCardInStraight < PlayerEvalCards.highestCardInStraight)
+                {
+                    return 1;
+                }
+                return 0;
+            }
+
+            if (PlayerEvalCards.nrOfHighestCard > AiEvalCards.nrOfHighestCard)
+            {
+                return 1;
+            }
+            else if (PlayerEvalCards.nrOfHighestCard < AiEvalCards.nrOfHighestCard)
+            {
+                return -1;
+            }
+            else
+            {
+                if (AiEvalCards.nrOfSecoundHighestCard >= 2)
+                {
+                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                        {
+                            return 1;
+                        }
+                        else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                        {
+                            return -1;
+                        }
+
+                        return 0;
+
+                    }
+
+                    return -1;
+                }
+
+                if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                {
+                    return 1;
+                }
+
+                //Check for high cards
+                if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                {
+                    return 1;
+                }
+                else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                {
+                    return -1;
+                }
+                else if (PlayerEvalCards.nrOfHighestCard >= 2 && PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                {
+                    return 1;
+                }
+                else if (AiEvalCards.nrOfHighestCard >= 2 && PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                {
+                    return -1;
+                }
+
+                return 0;
+            }
+        }
+
+        public WinnerResults OldWhoWins(List<Card> AiCards, List<Card> PlayerCards)
+        {
+            evaluatedcards AiEvalCards = new evaluatedcards(AiCards), PlayerEvalCards = new evaluatedcards(PlayerCards);
+            int aiHighestCardInStraightFlush = 0, playerHighestCardInStraightFlush = 0, result;
+            
+            //check for flushes
+            if (AiEvalCards.hasFlush)
+            {
+                if (PlayerEvalCards.hasFlush)
+                {
+                    //checks for straight flush
                     if (AiEvalCards.highestCardInStraight > 0)
                     {
                         hasStraightFlush(AiCards, aiHighestCardInStraightFlush);
@@ -117,7 +301,7 @@ namespace Poker_Game.Game
                             {
                                 return new WinnerResults("Player", "StraightFlush");
                             }
-                            else
+                            else if(playerHighestCardInStraightFlush == aiHighestCardInStraightFlush)
                             {
                                 return new WinnerResults("Draw", "StraightFlushs");
                             }
@@ -134,36 +318,48 @@ namespace Poker_Game.Game
                         }
                     }
 
-                    if(AiEvalCards.nrOfHighestCard >= 3 && AiEvalCards.nrOfSecoundHighestCard >= 2)
+                    //check for 4 of a kind
+                    if (AiEvalCards.nrOfHighestCard == 4)
+                    {
+                        if (PlayerEvalCards.nrOfHighestCard == 4 && PlayerEvalCards.valueOfHigestCard >= AiEvalCards.valueOfHigestCard)
+                        {
+                            if (PlayerEvalCards.valueOfHigestCard == AiEvalCards.valueOfHigestCard)
+                            {
+                                return new WinnerResults("Draw", "Four of a kind");
+                            }
+                            return new WinnerResults("Player", "Four of a kind");
+                        }
+                        return new WinnerResults("Ai", "Four of a kind");
+                    }
+
+                    if (PlayerEvalCards.nrOfSecoundHighestCard == 4)
+                    {
+                        return new WinnerResults("Player", "Four of a kind");
+                    }
+
+                    //check for highest full house
+                    if (AiEvalCards.nrOfHighestCard >= 3 && AiEvalCards.nrOfSecoundHighestCard >= 2)
                     {
                         if (PlayerEvalCards.nrOfHighestCard >= 3 && PlayerEvalCards.nrOfSecoundHighestCard >= 2)
                         {
-                            if(AiEvalCards.nrOfHighestCard == 4)
+                            if(PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
                             {
-                                if (PlayerEvalCards.nrOfHighestCard == 4 && PlayerEvalCards.valueOfHigestCard >= AiEvalCards.valueOfHigestCard)
-                                {
-                                    if(PlayerEvalCards.valueOfHigestCard == AiEvalCards.valueOfHigestCard)
-                                    {
-                                        return new WinnerResults("Draw", "Four of a kind");
-                                    }
-                                    return new WinnerResults("Player", "Four of a kind");
-                                }
-                                return new WinnerResults("Ai", "Four of a kind");
+                                return new WinnerResults("Player", "Full house");
                             }
-
-                            if(PlayerEvalCards.nrOfSecoundHighestCard == 4)
+                            else if(PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
                             {
-                                return new WinnerResults("Player", "Four of a kind");
+                                return new WinnerResults("Ai", "Full house");
                             }
-
-                            //impliment check for highest full house
+                            else if(PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return new WinnerResults("Player", "Full house");
+                            }
+                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                            {
+                                return new WinnerResults("Ai", "Full house");
+                            }
+                            return new WinnerResults("Draw", "Full house");
                         }
-
-                        if(AiEvalCards.nrOfHighestCard == 4)
-                        {
-                            return new WinnerResults("Ai", "Four of a kind");
-                        }
-                        return new WinnerResults("Ai", "Full House");
                     }
 
                     if (PlayerEvalCards.nrOfHighestCard >= 3 && PlayerEvalCards.nrOfSecoundHighestCard >= 2)
@@ -176,6 +372,17 @@ namespace Poker_Game.Game
                     }
 
                     //check for highest card in flush
+                    result = CompareFlushes(AiCards, AiEvalCards.flushSuit, PlayerCards, PlayerEvalCards.flushSuit);
+
+                    if(result < 0)
+                    {
+                        return new WinnerResults("Ai", "Flush");
+                    }
+                    else if(result > 0)
+                    {
+                        return new WinnerResults("Player", "Flush");
+                    }
+                    return new WinnerResults("Draw", "Flush");
                 }
 
                 return new WinnerResults("Ai", "Flush");
@@ -208,20 +415,215 @@ namespace Poker_Game.Game
                 return new WinnerResults("Player", "Flush");
             }
 
-            if(PlayerEvalCards.nrOfHighestCard > AiEvalCards.nrOfHighestCard)
+            if (AiEvalCards.highestCardInStraight > 0 || PlayerEvalCards.highestCardInStraight > 0)
             {
-                //player Wins Return correct value
-                return new WinnerResults("Player", "...");
+                if (AiEvalCards.highestCardInStraight > PlayerEvalCards.highestCardInStraight)
+                {
+                    return new WinnerResults("Ai", "straight");
+                }
+                else if (AiEvalCards.highestCardInStraight < PlayerEvalCards.highestCardInStraight)
+                {
+                    return new WinnerResults("Player", "straight");
+                }
+                return new WinnerResults("Draw", "straight");
+            }
+
+            if (PlayerEvalCards.nrOfHighestCard > AiEvalCards.nrOfHighestCard)
+            {
+                if(PlayerEvalCards.nrOfHighestCard == 4)
+                {
+                    return new WinnerResults("Player", "Four of a kind");
+                }
+                else if (PlayerEvalCards.nrOfHighestCard == 3)
+                {
+                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        return new WinnerResults("Player", "Full house");
+                    }
+                    return new WinnerResults("Player", "Three of a kind");
+                }
+                else if (PlayerEvalCards.nrOfHighestCard == 2)
+                {
+                    if (PlayerEvalCards.nrOfSecoundHighestCard == 2)
+                    {
+                        return new WinnerResults("Player", "Two pairs");
+                    }
+                    return new WinnerResults("Player", "Pair");
+                }
+
+                throw new Exception("ERROR: either the algoritm found > 4 of a kind for the player or < 0 for the Ai");
             }
             else if(PlayerEvalCards.nrOfHighestCard < AiEvalCards.nrOfHighestCard)
             {
-                //Ai Wins Return correct value
-                return new WinnerResults("Ai", "...");
+                if (AiEvalCards.nrOfHighestCard == 4)
+                {
+                    return new WinnerResults("Ai", "Four of a kind");
+                }
+                else if (AiEvalCards.nrOfHighestCard == 3)
+                {
+                    if (AiEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        return new WinnerResults("Ai", "Full house");
+                    }
+                    return new WinnerResults("Ai", "Three of a kind");
+                }
+                else if (AiEvalCards.nrOfHighestCard == 2)
+                {
+                    if(AiEvalCards.nrOfSecoundHighestCard == 2)
+                    {
+                        return new WinnerResults("Ai", "Two pairs");
+                    }
+                    return new WinnerResults("Ai", "Pair");
+                }
+
+                throw new Exception("ERROR: either the algoritm found > 4 of a kind for the Ai or < 0 for the Player");
             }
             else
             {
+                if(AiEvalCards.nrOfSecoundHighestCard >= 2)
+                {
+                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        if(PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                        {
+                            if(PlayerEvalCards.nrOfHighestCard == 3)
+                            {
+                                return new WinnerResults("Player", "Three of a kind, with high card");
+                            }
+                            return new WinnerResults("Player", "Two pairs, with high card");
+                        }
+                        else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                        {
+                            if (AiEvalCards.nrOfHighestCard == 3)
+                            {
+                                return new WinnerResults("Ai", "Three of a kind, with high card");
+                            }
+                            return new WinnerResults("Ai", "Two pairs, with high card");
+                        }
+
+                        if (AiEvalCards.nrOfHighestCard == 3)
+                        {
+                            return new WinnerResults("Draw", "Three of a kind");
+                        }
+                        return new WinnerResults("Draw", "Two pairs");
+
+                    }
+
+                    if (AiEvalCards.nrOfHighestCard == 3)
+                    {
+                        return new WinnerResults("Ai", "Full house");
+                    }
+
+                    if (AiEvalCards.nrOfHighestCard == 2)
+                    {
+                        return new WinnerResults("Ai", "Two pairs");
+                    }
+                }
+
+                if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                {
+                    if (AiEvalCards.nrOfHighestCard == 3)
+                    {
+                        return new WinnerResults("Player", "Full house");
+                    }
+
+                    if (AiEvalCards.nrOfHighestCard == 2)
+                    {
+                        return new WinnerResults("Player", "Two pairs");
+                    }
+                }
+
+                //Check for high cards
+                if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                {
+                    if (PlayerEvalCards.nrOfHighestCard == 4)
+                    {
+                        return new WinnerResults("Player", "Four of a kind, with high card");
+                    }
+                    else if (PlayerEvalCards.nrOfHighestCard == 3)
+                    {
+                        if (PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                        {
+                            return new WinnerResults("Player", "Full house, with high card");
+                        }
+                        return new WinnerResults("Player", "Three of a kind, with high card");
+                    }
+                    else if (PlayerEvalCards.nrOfHighestCard == 2)
+                    {
+                        if (PlayerEvalCards.nrOfSecoundHighestCard == 2)
+                        {
+                            return new WinnerResults("Player", "Two pairs, with high card");
+                        }
+                        return new WinnerResults("Player", "Pair, with high card");
+                    }
+
+                    return new WinnerResults("Player", "High Card");
+                }
+                else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                {
+                    if (AiEvalCards.nrOfHighestCard == 4)
+                    {
+                        return new WinnerResults("Ai", "Four of a kind");
+                    }
+                    else if (AiEvalCards.nrOfHighestCard == 3)
+                    {
+                        if (AiEvalCards.nrOfSecoundHighestCard >= 2)
+                        {
+                            return new WinnerResults("Ai", "Full house");
+                        }
+                        return new WinnerResults("Ai", "Three of a kind");
+                    }
+                    else if (AiEvalCards.nrOfHighestCard == 2)
+                    {
+                        if (AiEvalCards.nrOfSecoundHighestCard == 2)
+                        {
+                            return new WinnerResults("Ai", "Two pairs");
+                        }
+                        return new WinnerResults("Ai", "Pair");
+                    }
+
+                    return new WinnerResults("Ai", "High Card");
+                }
+                else if(PlayerEvalCards.nrOfHighestCard >= 2 && PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                {
+                    if(PlayerEvalCards.nrOfHighestCard == 3)
+                    {
+                        return new WinnerResults("Player", "Full House");
+                    }
+                    return new WinnerResults("Player", "Two pairs");
+                }
+                else if (AiEvalCards.nrOfHighestCard >= 2 && PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                {
+                    if (AiEvalCards.nrOfHighestCard == 3)
+                    {
+                        return new WinnerResults("Ai", "Full House");
+                    }
+                    return new WinnerResults("Ai", "Two pairs");
+                }
+
                 //Draw
-                return new WinnerResults("Draw", "...");
+                if (AiEvalCards.nrOfHighestCard == 4)
+                {
+                    return new WinnerResults("Draw", "Four of a kind");
+                }
+                else if (AiEvalCards.nrOfHighestCard == 3)
+                {
+                    if (AiEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        return new WinnerResults("Draw", "Full house");
+                    }
+                    return new WinnerResults("Draw", "Three of a kind");
+                }
+                else if (AiEvalCards.nrOfHighestCard == 2)
+                {
+                    if (AiEvalCards.nrOfSecoundHighestCard == 2)
+                    {
+                        return new WinnerResults("Draw", "Two pairs");
+                    }
+                    return new WinnerResults("Draw", "Pair");
+                }
+
+                return new WinnerResults("Draw", "High Card");
             }
         }
 
@@ -249,8 +651,43 @@ namespace Poker_Game.Game
             }
         }
 
-        private int CompareFlushes()
+        private int CompareFlushes(List<Card> Player1Cards, Suit Player1FlushSuit, List<Card> Player2Cards, Suit Player2FlushSuit)
+        //returns 1 if player1 won, -1 if player 2 or 0 if a draw
         {
+            List<Card> Player1Flush = new List<Card>(), Player2Flush = new List<Card>();
+
+            foreach (Card card in Player1Cards)
+            {
+                if(card.Suit == Player1FlushSuit)
+                {
+                    Player1Flush.Add(card);
+                }
+            }
+
+            foreach (Card card in Player2Cards)
+            {
+                if (card.Suit == Player2FlushSuit)
+                {
+                    Player2Flush.Add(card);
+                }
+            }
+
+            Player1Flush.Sort();
+            Player2Flush.Sort();
+
+            for(int x = 0; x < 5; x++)
+            {
+                if (Player1Flush[x].Rank > Player2Flush[x].Rank)
+                {
+                    return -1;
+                }
+
+                else if (Player1Flush[x].Rank < Player2Flush[x].Rank)
+                {
+                    return 1;
+                }
+            }
+
             return 0;
         }
     }

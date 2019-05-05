@@ -108,6 +108,65 @@ namespace Poker_Game.AI
             return Results;
         }
 
+        public Odds TestRunTrails(int NumberOfTrails)
+        {
+            int x, n, missingCardsOnStreet = 5 - street.Count;
+            int wins = 0, loses = 0, draws = 0, result;
+            FastWinCalc winCalc = new FastWinCalc();
+            Card NewCard = new Card(0);
+            List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
+
+            for (x = 0; x < NumberOfTrails; x++)
+            {
+                trailStreet = new List<Card>(street);
+                CardsInPlay = street.Concat(aiHand).ToList();
+
+                for (n = 0; n < missingCardsOnStreet; n++)
+                {
+                    NewCard = new Card(CardsInPlay);
+                    CardsInPlay.Add(NewCard);
+                    trailStreet.Add(NewCard);
+                }
+
+                aiTrailCards = aiHand.Concat(trailStreet).ToList();
+                opponantTrailCards = trailStreet;
+
+                for (n = 0; n < 2; n++)
+                {
+                    NewCard = new Card(CardsInPlay);
+                    CardsInPlay.Add(NewCard);
+                    opponantTrailCards.Add(NewCard);
+                }
+
+                result = winCalc.WhoWins(aiTrailCards, opponantTrailCards);
+
+                if (result == 1)
+                {
+                    loses++;
+                }
+                else if (result == -1)
+                {
+                    wins++;
+                }
+                else
+                {
+                    draws++;
+                }
+
+                CardsInPlay.Clear();
+                opponantTrailCards.Clear();
+                aiTrailCards.Clear();
+            }
+
+            Odds Results = new Odds((double)wins / (double)NumberOfTrails * 100,
+                                    (double)loses / (double)NumberOfTrails * 100,
+                                    (double)draws / (double)NumberOfTrails * 100);
+
+            PrintResults(Results);
+
+            return Results;
+        }
+
         public Odds MultiThreadMonteCarlo (int NumberOfTrails)
         {
             int x;
@@ -118,6 +177,34 @@ namespace Poker_Game.AI
             for(x = 0; x < NUMOFTHREADS; x++)
             {
                 workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / 4); });
+                workers[x].Start();
+                Thread.Sleep(100);
+            }
+
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                workers[x].Join();
+                totalResults.Add(trailResults[x]);
+            }
+
+            totalResults.DevideAllBy(4);
+
+            Console.Write("\nTotal Results: ");
+            PrintResults(totalResults);
+
+            return totalResults;
+        }
+
+        public Odds TestMultiThreadMonteCarlo(int NumberOfTrails)
+        {
+            int x;
+            Odds[] trailResults = new Odds[NUMOFTHREADS];
+            Odds totalResults = new Odds(0, 0, 0);
+            Thread[] workers = new Thread[NUMOFTHREADS];
+
+            for (x = 0; x < NUMOFTHREADS; x++)
+            {
+                workers[x] = new Thread(() => { trailResults[x] = TestRunTrails(NumberOfTrails / 4); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
