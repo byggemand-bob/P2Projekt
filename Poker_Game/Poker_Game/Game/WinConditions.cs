@@ -386,14 +386,14 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
-            for (int i = player1.Cards.Count - 1; i > 0; i--) {
-                if (player1.Cards[i].Rank == player1.Cards[i - 1].Rank) {
-                    for (int j = player2.Cards.Count - 1; j > 0; j--) {
-                        if (player2.Cards[j].Rank == player2.Cards[j - 1].Rank) {
-                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+            for (int i = player1cards.Count - 1; i > 0; i--) {
+                if (player1cards[i].Rank == player1cards[i - 1].Rank) {
+                    for (int j = player2cards.Count - 1; j > 0; j--) {
+                        if (player2cards[j].Rank == player2cards[j - 1].Rank) {
+                            if (player1cards[i].Rank == player2cards[j].Rank) {
                                 return BestPair(player1,player2);
                             } else {
-                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
                             }
                         }
                     }
