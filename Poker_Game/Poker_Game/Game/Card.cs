@@ -45,6 +45,7 @@ namespace Poker_Game.Game {
         //        MakeCard(DrawRandCard());
         //    } while (cards.Contains(this));
         //}
+
         //public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
         //    int rankInt = (cardNumber % 13) + 2;
         //    Suit = (Suit)(cardNumber / 13);
