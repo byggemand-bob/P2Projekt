@@ -258,7 +258,7 @@ namespace Poker_Game.Game {
             } else if (player1.Score == Score.Pair) {
                 return BestPair(player1, player2);
             } else {
-                return GetBestHighestCard(player1, player2);
+                return null;
             }
         }
 
@@ -417,7 +417,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            throw new System.InvalidOperationException("BestPair exited loop");
+            return GetBestHighestCard(player1, player2);//new System.InvalidOperationException("BestPair exited loop");
         }
     }
 }
