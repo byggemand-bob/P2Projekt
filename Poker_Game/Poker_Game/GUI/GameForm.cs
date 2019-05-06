@@ -27,7 +27,7 @@ namespace Poker_Game {
             // Creates the game with user settings
             Game = new PokerGame(Settings);
             Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "Deep Per";
+            Game.Players[1].Name = "Deep Peer";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -380,15 +380,14 @@ namespace Poker_Game {
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);           
         }
-
+        
         private void EndOfHand()
         {
             // Checks if the game is finished, and makes the buttons un-pressable.
             Game.UpdateState();
             ShowEndOfHandWindow();
-            if (!CheckPlayerStack(Game.Players))
-            {
-                ChangeActionButtonState(true);
+            if (Game.IsFinished() == true && GetWinningPlayersScore().CompareTo("None") != 0) { //viker ikke
+                ChangeActionButtonState(false);
             }
         }
 
