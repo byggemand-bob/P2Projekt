@@ -32,7 +32,7 @@ namespace Poker_Game
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
-            /*
+            
             stopwatch.Start();
 
             MonteCarlo.MultiThreadMonteCarlo(NumberOftrails);
@@ -46,13 +46,13 @@ namespace Poker_Game
 
 
 
-            Console.WriteLine("\n ------------------------------------------------------- \n\n");
+            Console.WriteLine("\n------------------------------------------------------- \n\n");
 
 
 
 
             stopwatch.Reset();
-            */
+            
 
             stopwatch.Start();
 
