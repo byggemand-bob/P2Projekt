@@ -30,14 +30,14 @@ namespace Poker_Game {
                             Final[i] = 0;
             }
 
-            workers[0] = new Thread(() => { results1 = CardTestMulti(0, 6); });
-            workers[1] = new Thread(() => { results2 = CardTestMulti(6, 12); });
-            workers[2] = new Thread(() => { results3 = CardTestMulti(12, 18); });
-            workers[3] = new Thread(() => { results4 = CardTestMulti(18, 24); });
-            workers[4] = new Thread(() => { results5 = CardTestMulti(24, 31); });
-            workers[5] = new Thread(() => { results6 = CardTestMulti(31, 38); });
-            workers[6] = new Thread(() => { results7 = CardTestMulti(38, 45); });
-            workers[7] = new Thread(() => { results8 = CardTestMulti(45, 52); });
+            workers[0] = new Thread(() => { results1 = CardTestMulti(0, 1); });
+            workers[1] = new Thread(() => { results2 = CardTestMulti(1, 2); });
+            workers[2] = new Thread(() => { results3 = CardTestMulti(2, 3); });
+            workers[3] = new Thread(() => { results4 = CardTestMulti(3, 4); });
+            workers[4] = new Thread(() => { results5 = CardTestMulti(4, 6); });
+            workers[5] = new Thread(() => { results6 = CardTestMulti(6, 8); });
+            workers[6] = new Thread(() => { results7 = CardTestMulti(8, 12); });
+            workers[7] = new Thread(() => { results8 = CardTestMulti(12, 52); });
 
             for (int i = 0; i < NumberOfThreads; i++) {
                 workers[i].Start();
@@ -67,6 +67,15 @@ namespace Poker_Game {
                 Final[i] += results7[i];
                 Final[i] += results8[i];
             }
+            //Console.WriteLine("tæller1: " + results1[10]);
+            //Console.WriteLine("tæller2: " + results2[10]);
+            //Console.WriteLine("tæller3: " + results3[10]);
+            //Console.WriteLine("tæller4: " + results4[10]);
+            //Console.WriteLine("tæller5: " + results5[10]);
+            //Console.WriteLine("tæller6: " + results6[10]);
+            //Console.WriteLine("tæller7: " + results7[10]);
+            //Console.WriteLine("tæller8: " + results8[10]);
+
 
             PrintFile.Add("Tid: " + Final[9]);
             PrintFile.Add("TÆLLER: " + Final[10]);
