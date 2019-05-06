@@ -21,7 +21,7 @@ namespace Poker_Game
             Calculator Calc = new Calculator();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
-            int NumberOftrails = 100000;
+            int NumberOftrails = 1000000;
 
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));
@@ -32,7 +32,7 @@ namespace Poker_Game
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
-            
+            /*
             stopwatch.Start();
 
             MonteCarlo.MultiThreadMonteCarlo(NumberOftrails);
@@ -52,7 +52,7 @@ namespace Poker_Game
 
 
             stopwatch.Reset();
-            
+            */
 
             stopwatch.Start();
 
