@@ -78,7 +78,7 @@ namespace Poker_Game.Game {
         }
 
         public void LoadImage() {
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank.ToString() + Suit.ToString() + ".png");
         }
 
         public int CompareTo(object other) { // Sort after rank, then suit
