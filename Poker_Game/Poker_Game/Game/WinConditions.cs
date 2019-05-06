@@ -421,3 +421,15 @@ namespace Poker_Game.Game {
         }
     }
 }
+/*
+TÆLLER: 133784560
+royalflush: 4324
+straightflush: 37260
+four: 224848
+fullhouse: 3473184
+flush: 4047644
+straight: 6180020
+three: 6461620
+twopair: 31433400
+pair: 58627800
+ */
