@@ -51,10 +51,10 @@ namespace Poker_Game.AI
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
             int wins = 0, loses = 0, draws = 0;
-            Score aiScore, opponentScore;
             WinConditions winCalc = new WinConditions();
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
+            Player Ai = new Player(0, 0), Player = new Player(1, 0), winner;
 
             for (x = 0; x < NumberOfTrails; x++)
             {
@@ -78,20 +78,36 @@ namespace Poker_Game.AI
                     opponantTrailCards.Add(NewCard);
                 }
 
-                opponentScore = winCalc.Evaluate(opponantTrailCards);
-                aiScore = winCalc.Evaluate(aiTrailCards);
+                Ai.Score = winCalc.Evaluate(opponantTrailCards);
+                Player.Score = winCalc.Evaluate(aiTrailCards);
 
-                if (opponentScore > aiScore)
+                if (Player.Score > Ai.Score)
                 {
                     loses++;
                 }
-                else if (opponentScore < aiScore)
+                else if (Player.Score < Ai.Score)
                 {
                     wins++;
                 }
                 else
                 {
-                    draws++;
+                    Ai.Cards = aiTrailCards;
+                    Player.Cards = opponantTrailCards;
+
+                    winner = winCalc.SameScore(Player, Ai);
+
+                    if(winner == null)
+                    {
+                        draws++;
+                    }
+                    else if(winner.Id == Ai.Id)
+                    {
+                        wins++;
+                    }
+                    else
+                    {
+                        loses++;
+                    }
                 }
                 
                 CardsInPlay.Clear();
