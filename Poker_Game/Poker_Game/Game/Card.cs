@@ -104,5 +104,6 @@ namespace Poker_Game.Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
     }
 }
