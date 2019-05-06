@@ -129,6 +129,7 @@ namespace Poker_Game {
 
         private void ShowAllCards()
         {
+            Game.Hands[Game.CurrentHandNumber() - 1].DrawCards(5);
             Showdown();
             ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
             ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)

@@ -7,6 +7,7 @@ namespace Poker_Game.Game {
         public int Bets { get; set; }
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
+        public int Count { get; set; }
 
 
         private readonly int _maxBets;

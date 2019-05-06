@@ -28,7 +28,7 @@ namespace Poker_Game.Game {
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
     
-        public PokerGame() {
+        public PokerGame() { // For testing purpose only
             Hands = new List<Hand>();
         }
 
