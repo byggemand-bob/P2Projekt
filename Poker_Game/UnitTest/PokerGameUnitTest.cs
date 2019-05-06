@@ -1,400 +1,157 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.Game;
+using Poker_Game;
+
 
 namespace UnitTest
 {
     [TestClass]
     public class PokerGameUnitTest
     {
-        PokerGame Game = new PokerGame();
+        public Settings Settings;
+        public PokerGame Game;
+
+        public void CreatePropperties()
+        {
+            Settings = new Settings(2, 1000, 50, true, 50, "bob", 2);
+            Game = new PokerGame(Settings);
+        }
 
         [TestMethod]
-        public void TestWinnerHighestCardOnTable()
+        public void TestNumberOfPlayers()
         {
             // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
-            Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, Rank.Queen)); // HighestCard: 3
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)8)); // HighestCard: 10
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)10));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player1 };
+            CreatePropperties();
+            int expected = 2;
 
             // Act
-            List<Player> actual = Game.GetWinners(hand);
+            int actual = Game.Players.Count;
 
             // Assert
-            Assert.AreEqual(expected.Count, actual.Count);
+            Assert.AreEqual(expected, actual);
         }
 
 
         [TestMethod]
-        public void TestWinnerOfHighestPair()
+        public void TestRoundIncrements()
         {
             // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
+            CreatePropperties();
+            // Round 1
+            Game.Call();
+            Game.Check();
+            // Round 2
+            Game.Check();
+            Game.Check();
+            // Round 3
+            Game.Check();
+            Game.Check();
+            // Round 4
+            Game.Check();
+            Game.Check();
+            // Round 5
+            Game.Check();
+            Game.Check();
 
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
-            Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Pair of 3
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7)); // Pair of 7
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)8));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player2 };
+            var expected = 5;
 
             // Act
-            List<Player> actual = Game.GetWinners(hand);
+            var actual = Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber();
 
             // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected, actual);
         }
 
 
         [TestMethod]
-        public void TestWinnerOfHighestFlush()
+        public void TestHandIncrements()
         {
             // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
+            CreatePropperties();
+            // Hand 1
+            // Round 1
+            Game.Call();
+            Game.Check();
+            // Round 2
+            Game.Check();
+            Game.Check();
+            // Round 3
+            Game.Check();
+            Game.Check();
+            // Round 4
+            Game.Check();
+            Game.Check();
+            // Round 5
+            Game.Check();
+            Game.Check();
 
-            Card tableCard1 = new Card(Suit.Spades, Rank.Queen);
-            Card tableCard2 = new Card(Suit.Spades, Rank.King);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
+            Game.NewHand();
 
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3));
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)10));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Hearts, (Rank)7));
-            player2.Cards.Add(new Card(Suit.Spades, (Rank)8));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player1 };
+            // Hand 2
+            // Round 1
+            Game.Call();
+            Game.Check();
+            // Round 2
+            Game.Check();
+            Game.Check();
+            // Round 3
+            Game.Check();
+            Game.Check();
+            // Round 4
+            Game.Check();
+            Game.Check();
+            // Round 5
+            Game.Check();
+            Game.Check();
+            var expected = 2;
 
             // Act
-            List<Player> actual = Game.GetWinners(hand);
+            var actual = Game.CurrentHandNumber();
 
             // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected, actual);
         }
 
 
         [TestMethod]
-        public void TestWinnerOfHighestStraight()
+        public void TestWinnerIfPlayerFolds()
         {
             // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
+            CreatePropperties();
+            // Round 1
+            Game.Call();
+            Game.Check();
+            // Round 2
+            Game.Fold();
 
-            Card tableCard1 = new Card(Suit.Diamond, (Rank)4);
-            Card tableCard2 = new Card(Suit.Hearts, (Rank)5);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)6);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)7);
-            Card tableCard5 = new Card(Suit.Spades, Rank.Queen);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Straight - 3, 4, 5, 6, 7
-            player1.Cards.Add(new Card(Suit.Spades, Rank.Jack));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)8)); // Straight - 4, 5, 6, 7, 8
-            player2.Cards.Add(new Card(Suit.Hearts, Rank.King));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player2 };
+            var expected = Game.Players[1].Id;
 
             // Act
-            List<Player> actual = Game.GetWinners(hand);
+            var actual = Game.GetWinners(Game.Hands[Game.CurrentHandNumber() - 1]);
 
             // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected, actual[0].Id);
         }
 
 
-        [TestMethod]
-        public void TestWinnerOfHighestThreeOfAKind()
+        [TestMethod] 
+        public void TestRaiseFunctionallity()
         {
             // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-            // Filler
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
-            Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
-            // Combinations
-            Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)4);
+            CreatePropperties();
+            // Round 1
+            Game.Raise();
+            Game.Call();
+            Game.Check();
 
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // 3 of 3's
-            player1.Cards.Add(new Card(Suit.Diamond, (Rank)3));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)4)); // 3 of 4's
-            player2.Cards.Add(new Card(Suit.Hearts, (Rank)4));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player2 };
-
+            var expected = 400;
+            
             // Act
-            List<Player> actual = Game.GetWinners(hand);
+            var actual = Game.Hands[Game.CurrentHandNumber() - 1].Pot;
 
             // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
-        }
-
-
-        [TestMethod]
-        public void TestWinnerOfHighestCardOnHandWithSamePairOnTable()
-        {
-            // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
-            Card tableCard2 = new Card(Suit.Hearts, (Rank)5);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // HighestCard: Ace
-            player1.Cards.Add(new Card(Suit.Spades, Rank.Ace));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)6)); // HighestCard: 10
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)10));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player1 };
-
-            // Act
-            List<Player> actual = Game.GetWinners(hand);
-
-            // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
-        }
-
-
-        [TestMethod]
-        public void TestWinnerOfHighestCardWithSamePairOnTable()
-        {
-            // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Jack);
-            Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // HighestCard: 3
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)6)); // HighestCard: 10
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)10));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player1, player2 };
-
-            // Act
-            List<Player> actual = Game.GetWinners(hand);
-
-            // Assert
-            Assert.AreEqual(expected.Count, actual.Count);
-        }
-
-
-        [TestMethod]
-        public void TestWinnerSameScoresPair()
-        {
-            // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
-            Card tableCard2 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Diamond, (Rank)5);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)4)); // Pair of 4
-            player1.Cards.Add(new Card(Suit.Spades, (Rank)4));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Hearts, (Rank)4)); // Pair of 4
-            player2.Cards.Add(new Card(Suit.Diamond, (Rank)4));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player1, player2 };
-
-            // Act
-            List<Player> actual = Game.GetWinners(hand);
-
-            // Assert
-            Assert.AreEqual(expected.Count, actual.Count);
-        }
-
-
-        [TestMethod]
-        public void TestWinnerHighestFourOfAKind()
-        {
-            // Arrange
-            Player player1 = new Player(1, 100);
-            Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            Hand hand = new Hand(players);
-            // Filler
-            Card tableCard1 = new Card(Suit.Diamond, Rank.Queen);
-            // Combinations
-            Card tableCard2 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)4);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // 4 of 3's
-            player1.Cards.Add(new Card(Suit.Diamond, (Rank)3));
-            player1.Cards.Add(tableCard1);
-            player1.Cards.Add(tableCard2);
-            player1.Cards.Add(tableCard3);
-            player1.Cards.Add(tableCard4);
-            player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)4)); // 4 of 4's
-            player2.Cards.Add(new Card(Suit.Hearts, (Rank)4));
-            player2.Cards.Add(tableCard1);
-            player2.Cards.Add(tableCard2);
-            player2.Cards.Add(tableCard3);
-            player2.Cards.Add(tableCard4);
-            player2.Cards.Add(tableCard5);
-
-            List<Player> expected = new List<Player> { player2 };
-
-            // Act
-            List<Player> actual = Game.GetWinners(hand);
-
-            // Assert
-            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

@@ -263,7 +263,7 @@ namespace Poker_Game.Game {
         }
 
         private Player GetBestHighestCard(Player player1, Player player2) {
-            for (int i  = 0; i < player1.Cards.Count - 1 && i < player2.Cards.Count - 1; i++) {
+            for (int i = player1.Cards.Count - 1; i >= 0; i--) {
                 if (player1.Cards[i].Rank != player2.Cards[i].Rank) {
                     return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
                 }
@@ -292,7 +292,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestStraight exited loop");
         }
 
         //Think it works, but need testing
@@ -318,7 +318,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestFourOfAKind exited loop");
         }
 
         //Need input on this one since it is drastically different to the bool version (HasFullHouse)
@@ -330,47 +330,34 @@ namespace Poker_Game.Game {
             if (BestThreeOfAKind(player1, player2) != null) {
                 return BestThreeOfAKind(player1, player2);
             } else {
-                for (int i  = 0; i < player1cards.Count - 1; i++) {
-                    
+                for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                    if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
+                        player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
+                        for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                            if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
+                                player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
+                                Player player1clone = (Player)player1.Clone();
+                                Player player2clone = (Player)player2.Clone();
+                                player1clone.Cards = RemoveUnfitRank(player1clone.Cards, player1clone.Cards[i].Rank);
+                                player2clone.Cards = RemoveUnfitRank(player2clone.Cards, player2clone.Cards[j].Rank);
+                                return BestPair(player1clone, player2clone);
+                            }
+                        }
+                    }
                 }
             }
-
-
-
-
-
-
-
-            //for (int i = 0; i < player1cards.Count - 1; i++) {
-            //    if (player1cards[i].Rank == player1cards[i + 1].Rank &&
-            //        player1cards[i + 1].Rank == player1cards[i + 2].Rank) {
-            //        for (int j = 0; j < player2cards.Count - 1; j++) {
-            //            if (player2cards[j].Rank == player2cards[j + 1].Rank &&
-            //                player2cards[j + 1].Rank == player2cards[j + 2].Rank) {
-            //                if () {
-
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //HasThreeOfAKind(RemoveUnfitRank(sortedCards, sortedCards[i].Rank));
-            return null;
+            throw new System.InvalidOperationException("BestFullHouse exited loop");
         }
 
         //Think it works, but need testing
         private Player BestFlush(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
-            FlushSuit(player1cards);
-            FlushSuit(player2cards);
-            player1cards.Sort();
-            player2cards.Sort();
-            if (player1cards[player1cards.Count - 1].Rank == player2cards[player2cards.Count - 1].Rank) {
-                return null;
-            } else {
-                return (player1cards[player1cards.Count - 1].Rank > player2cards[player2cards.Count - 1].Rank ? player1 : player2);
-            }
+            Player player1clone = (Player)player1.Clone();
+            Player player2clone = (Player)player2.Clone();
+            FlushSuit(player1clone.Cards);
+            FlushSuit(player2clone.Cards);
+            player1clone.Cards.Sort();
+            player2clone.Cards.Sort();
+            return GetBestHighestCard(player1clone, player2clone);
         }
 
         //Think it works, but need testing
@@ -390,7 +377,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestThreeOfAKind exited loop");
         }
 
         //Same problem as BestFullHouse
@@ -399,8 +386,20 @@ namespace Poker_Game.Game {
             List<Card> player2cards = DeckDuper3000(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
-
-            return null;
+            for (int i = player1.Cards.Count - 1; i > 0; i--) {
+                if (player1.Cards[i].Rank == player1.Cards[i - 1].Rank) {
+                    for (int j = player2.Cards.Count - 1; j > 0; j--) {
+                        if (player2.Cards[j].Rank == player2.Cards[j - 1].Rank) {
+                            if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                return BestPair(player1,player2);
+                            } else {
+                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                            }
+                        }
+                    }
+                }
+            }
+            throw new System.InvalidOperationException("BestPair exited loop");
         }
 
         //Think it works, but need testing
@@ -410,7 +409,7 @@ namespace Poker_Game.Game {
                     for (int j = 0; j < player2.Cards.Count - 1; j++) {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                return null;
+                                return GetBestHighestCard(player1, player2); // Should check for highestCard here.
                             } else {
                                 return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                             }
@@ -418,7 +417,7 @@ namespace Poker_Game.Game {
                     }
                 }
             }
-            return null;
+            throw new System.InvalidOperationException("BestPair exited loop");
         }
     }
 }

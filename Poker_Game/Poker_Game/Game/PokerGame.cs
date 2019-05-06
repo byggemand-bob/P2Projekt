@@ -249,14 +249,13 @@ namespace Poker_Game.Game {
             return Players[CurrentPlayerIndex];
         }
         public bool IsFinished() { // Checks if players still has $ in stack
-            int playersLeft = 0;
             foreach (Player player in Players) {
                 if (player.Stack < 1) {
-                    playersLeft++;
+                    return true; //If there is only one player left, return true
                 }
             }
-
-            return playersLeft < 2;
+           
+            return false;
         }
 
         public bool MoneyLeft(Player player) {
