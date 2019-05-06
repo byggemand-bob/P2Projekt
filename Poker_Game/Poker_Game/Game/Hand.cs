@@ -14,7 +14,14 @@ namespace Poker_Game.Game {
         // Allocation and initialization for the various elements of a hand
         #region Initialization
 
-        public Hand(Settings settings, List<Player> players) // For testing purposes only
+        public Hand(List<Player> players) // for testing purpose only
+        {
+            Players = players;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+        }
+        
+        public Hand(Settings settings, List<Player> players)
         {
             Players = players;
             Deck = new List<Card>();

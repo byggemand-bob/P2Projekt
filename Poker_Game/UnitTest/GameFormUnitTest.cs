@@ -11,15 +11,5 @@ using System.Windows.Forms;
 
 namespace UnitTest
 {
-    [TestClass]
-    public class GameFormUnitTest
-    {
-        GameForm GameForm;
 
-        [TestMethod]
-        public void EatDick()
-        {
-           
-        }
-    }
 }

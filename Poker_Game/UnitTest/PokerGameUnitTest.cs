@@ -14,7 +14,7 @@ namespace UnitTest
 
         public void CreatePropperties()
         {
-            Settings = new Settings(2, 1000, 50, true, 50, "bob");
+            Settings = new Settings(2, 1000, 50, true, 50, "bob", 2);
             Game = new PokerGame(Settings);
         }
 
