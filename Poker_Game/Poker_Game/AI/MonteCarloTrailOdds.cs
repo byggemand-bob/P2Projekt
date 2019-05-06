@@ -78,6 +78,9 @@ namespace Poker_Game.AI
                     opponantTrailCards.Add(NewCard);
                 }
 
+                Ai.Cards.Sort();
+                Player.Cards.Sort();
+
                 Ai.Score = winCalc.Evaluate(opponantTrailCards);
                 Player.Score = winCalc.Evaluate(aiTrailCards);
 
