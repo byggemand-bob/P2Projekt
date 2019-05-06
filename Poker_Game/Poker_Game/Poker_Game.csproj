@@ -87,7 +87,6 @@
     <Compile Include="Game\Hand.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\PokerGame.cs" />
-    <Compile Include="Game\StatisticsIO.cs" />
     <Compile Include="GUI\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
