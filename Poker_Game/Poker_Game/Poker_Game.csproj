@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Poker_Game.Odds_test</StartupObject>
+    <StartupObject>Poker_Game.UserTest</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -132,6 +132,7 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
+    <Compile Include="UserTest.cs" />
     <EmbeddedResource Include="GUI\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
