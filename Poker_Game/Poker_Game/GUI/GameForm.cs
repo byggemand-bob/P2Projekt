@@ -386,15 +386,15 @@ namespace Poker_Game {
             // Checks if the game is finished, and makes the buttons un-pressable.
             Game.UpdateState();
             ShowEndOfHandWindow();
-            if (Game.IsFinished() == true && GetWinningPlayersScore().CompareTo("None") != 0) { //viker ikke
+            if (CheckPlayerStack(Game.Players) == true && GetWinningPlayersScore().CompareTo("None") != 0) { //viker ikke
                 ChangeActionButtonState(false);
             }
         }
 
         private void ShowEndOfHandWindow()
         {
-            // Shows new window with information about who won, how much and how. (IsGameFinished, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(Game.IsFinished(), GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
+            // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
+            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStack(Game.Players), GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
             CreateNewHand();

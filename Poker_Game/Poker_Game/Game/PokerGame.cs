@@ -248,15 +248,6 @@ namespace Poker_Game.Game {
         public Player CurrentPlayer() {
             return Players[CurrentPlayerIndex];
         }
-        public bool IsFinished() { // Checks if players still has $ in stack
-            foreach (Player player in Players) {
-                if (player.Stack < 1) {
-                    return true; //If there is only one player left, return true
-                }
-            }
-           
-            return false;
-        }
 
         public bool MoneyLeft(Player player) {
             return player.Stack != 0;
