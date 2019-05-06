@@ -15,6 +15,14 @@ namespace Poker_Game.Game {
         #region Initialization
 
         public Hand(Settings settings, List<Player> players) 
+        public Hand(List<Player> players) // for testing purpose only
+        {
+            Players = players;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+        }
+        
+        public Hand(Settings settings, List<Player> players)
         {
             Players = players;
             Deck = new List<Card>();
@@ -51,16 +59,6 @@ namespace Poker_Game.Game {
             return initPlayers;
         }
 
-        // Finds Active Players - stack > 0
-        private List<Player> GetActivePlayers(List<Player> players) {
-            List<Player> output = new List<Player>();
-            foreach(Player player in players) {
-                if(player.Stack > 0) {
-                    output.Add(player);
-                }
-            }
-            return output;
-        }
         #endregion
 
         #region Actions
