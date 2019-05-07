@@ -150,7 +150,7 @@ namespace Poker_Game.Game
                             {
                                 return -1;
                             }
-                            return WhoHasHighCard(AiCards, PlayerCards);
+                            return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
                         }
                         return -1;
                     }
@@ -226,7 +226,7 @@ namespace Poker_Game.Game
                         return -1;
                     }
 
-                    return WhoHasHighCard(AiCards, PlayerCards);
+                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
                 }
                 return -1;
             }
@@ -298,7 +298,7 @@ namespace Poker_Game.Game
             {
                 if(PlayerEvalCards.nrOfHighestCard == 3)
                 {
-                    return WhoHasHighCard(AiCards, PlayerCards);
+                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
                 }
 
                 if (AiEvalCards.nrOfSecoundHighestCard == 2)
@@ -322,7 +322,7 @@ namespace Poker_Game.Game
                             return -1;
                         }
 
-                        return WhoHasHighCard(AiCards, PlayerCards);
+                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
 
                     }
 
@@ -336,7 +336,7 @@ namespace Poker_Game.Game
 
                 //Check for high cards
                 
-                return WhoHasHighCard(AiCards, PlayerCards);
+                return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
             }
         }
 
@@ -693,12 +693,24 @@ namespace Poker_Game.Game
             }
         }
 
-        private int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards)
+        private int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards, int nrOfHighestValueCards, int nrOfSecoundHighestValueCards)
         {
+            int y = 1;
+
             AiCards.Sort();
             PlayerCards.Sort();
 
-            for (int x = 6; x > 1; x--)
+            if(nrOfHighestValueCards > 1)
+            {
+                y += nrOfHighestValueCards;
+            }
+
+            if (nrOfSecoundHighestValueCards > 1)
+            {
+                y += nrOfSecoundHighestValueCards;
+            }
+
+            for (int x = 6; x > y; x--)
             {
                 if (AiCards[x].Rank > PlayerCards[x].Rank)
                 {

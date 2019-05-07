@@ -21,7 +21,7 @@ namespace Poker_Game
             Calculator Calc = new Calculator();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
-            int NumberOftrails = 2000000;
+            int NumberOftrails = 100000;
 
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));
