@@ -57,14 +57,15 @@ namespace Poker_Game.AI
 
         public List<string> UpdateOpponent( List<string> Turns )
         {
-            List<string> VPIP5 = new List<string>() { "88+", "ATs+", "KQs", "AKo" };
-            List<string> VPIP10 = new List<string>() { "77+", "A9s+", "KTs+", "QTs+", "AJo+" };
-            List<string> VPIP15 = new List<string>() { "77+", "A7s+", "K9s+", "QTs+", "JTs", "ATo+", "KTo+", "QJo" };
-            List<string> VPIP20 = new List<string>() { "66+", "A4s+", "K7s+", "Q9s+", "J9s+", "T9s", "A9o+", "KTo+", "QTo+", "JTo" };
+            List<string> VPIP5 = new List<string>() { "99+", "AJs+", "KQs", "AKo" };
+            List<string> VPIP10 = new List<string>() { "88+", "A9s+", "KTs+", "QTs+", "AJo+,KQo" };
+            List<string> VPIP15 = new List<string>() { "77+", "A7s+", "K9s+", "QTs+", "JTs", "ATo+","KTo+", "QJo" };
+            List<string> VPIP20 = new List<string>() { "66+", "A4s+", "K8s+", "Q9s+", "J9s+", "T9s","A9o+", "KTo+", "QTo+", "JTo" };
             List<string> VPIP25 = new List<string>() { "66+", "A2s+", "K6s+", "Q8s+", "J8s+", "T8s+", "A7o+", "K9o+", "QTo+", "JTo" };
-            List<string> VPIP35 = new List<string>() { "55+", "A2s+", "K3s+", "Q5s+", "JTs+", "T7s", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o", "T9o" };
-            List<string> VPIP50 = new List<string>() { "33+", "A2s+", "K2s+", "Q2s+", "J4s+", "T6s+", "96s+", "86s+", "76s", "65s", "A2o+", "K5o+", "Q7o+", "J7o", "T7o+", "98o" };
-            List<string> VPIP75 = new List<string>() { "22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T2s+", "92s+", "83s+", "73s+", "63+s", "52s+", "43s", "A2o+", "K2o+", "Q2o+", "J4o+", "T6o+", "96o+", "86o+", "75o+", "65o" };
+
+            List<string> VPIP35 = new List<string>() { "55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T7s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o" };
+            List<string> VPIP50 = new List<string>() { "33+", "A2s+", "K2s+", "Q2s+", "J4s+", "T6s+", "96s+", "86s+", "76s", "65s", "A2o+", "K5o+", "Q7o+", "J7o+", "T8o+", "98o" };
+            List<string> VPIP75 = new List<string>() { "22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T2s+", "92s+", "83s+", "73s+", "63s+", "52s+", "43s", "A2o+", "K2o+", "Q2o+", "J4o+", "T6o+", "96o+"," 86o +", "75o+", "65o" };
 
             
 
