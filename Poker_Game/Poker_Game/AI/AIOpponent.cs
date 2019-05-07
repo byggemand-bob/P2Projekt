@@ -54,6 +54,10 @@ namespace Poker_Game.AI
 
         }
 
+        public double GetPFR()
+        {
+            return PFR;
+        }
 
         public List<string> UpdateOpponent( List<Turn> Turns )
         {
