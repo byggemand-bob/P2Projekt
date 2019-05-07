@@ -55,7 +55,7 @@ namespace Poker_Game.AI
         }
 
 
-        public List<string> UpdateOpponent( List<string> Turns )
+        public List<string> UpdateOpponent( List<Turn> Turns )
         {
             List<string> VPIP5 = new List<string>() { "99+", "AJs+", "KQs", "AKo" };
             List<string> VPIP10 = new List<string>() { "88+", "A9s+", "KTs+", "QTs+", "AJo+,KQo" };
@@ -111,26 +111,61 @@ namespace Poker_Game.AI
         }
         
 
-        public int GetCall(List<string> Turn)
+        public int GetCall(List<Turn> Turn)
         {
-            int Input = 0;
+            int Input = 0, i = 0;
 
-            if(Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].Turns[0].Action == PlayerAction.Call)
+           if(Turn[0].Id == 0)
             {
-                return ++Input;
+                for(i = 0; i < Turn.Count; i += 2)
+                {
+                    if(Turn[i].Action == PlayerAction.Call)
+                    {
+                        return ++Input;
+                    }
+                }
             }
+            else
+            {
+                for (i = 1; i < Turn.Count; i += 2)
+                {
+                    if (Turn[i].Action == PlayerAction.Call)
+                    {
+                        return ++Input;
+                    }
+                }
+
+            }
+
 
             return 0;
         }
 
-        public int GetRaise(List<string> Turn)
+        public int GetRaise(List<Turn> Turn)
         {
-            int Input = 0;
+            int Input = 0, i = 0;
 
-            if (Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].Turns[0].Action == PlayerAction.Raise)
-             {
-                return ++Input;
-             }
+            if(Turn[0].Id == 0)
+            {
+                for (i = 0; i < Turn.Count; i += 2)
+                {
+                    if (Turn[i].Action == PlayerAction.Raise)
+                    {
+                        return ++Input;
+                    }
+                }
+            }
+            else
+            {
+                for (i = 1; i < Turn.Count; i += 2)
+                {
+                    if (Turn[i].Action == PlayerAction.Raise)
+                    {
+                        return ++Input;
+                    }
+                }
+
+            }
 
             return 0;
         }
