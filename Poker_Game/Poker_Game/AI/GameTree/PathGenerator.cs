@@ -47,7 +47,7 @@ namespace Poker_Game.AI
             string[] temp = MakePath().Split('\n');
             string[] result = new string[temp.Length - 2];
             Array.Copy(temp, result, temp.Length - 2);
-            return result
+            return result;
         }
     }
 }
