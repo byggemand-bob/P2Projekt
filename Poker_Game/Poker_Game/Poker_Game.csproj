@@ -89,11 +89,11 @@
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\TreeTest.cs" />
+    <Compile Include="AI\GeneratePath.cs" />
     <Compile Include="AI\MinMax.cs" />
-    <Compile Include="AI\PFR.cs" />
+    <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />
     <Compile Include="AI\PreFlop.cs" />
-    <Compile Include="AI\VPIP.cs" />
     <Compile Include="Game\VPIPData.cs" />
     <Compile Include="Game\VPIPReader.cs" />
     <Compile Include="Game\VPIPWriter.cs" />
