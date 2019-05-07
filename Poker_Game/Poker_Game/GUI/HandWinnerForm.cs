@@ -7,10 +7,10 @@ namespace Poker_Game {
     partial class HandWinnerForm : Form {
         private int _timeLeft = 10;
 
-        public HandWinnerForm(string winners, int potSizeWon, string score, bool timerEnabled) {
+        public HandWinnerForm(bool gameFinished, string winners, int potSizeWon, string score, bool timerEnabled) {
             InitializeComponent();
-            StartPosition = FormStartPosition.CenterScreen;
-            labelMessage.Text = GenerateMessage(winners, potSizeWon, score);
+            //StartPosition = FormStartPosition.CenterScreen;
+            labelMessage.Text = GenerateMessage(gameFinished, winners, potSizeWon, score);
             if(timerEnabled) {
                 timer1.Enabled = true;
                 buttonContinue.Text = "Continue .. " + _timeLeft;
@@ -19,9 +19,14 @@ namespace Poker_Game {
             }
         }
 
-        private string GenerateMessage(string winners, int moneyWon, string score) {
+        private string GenerateMessage(bool gameFinished, string winners, int moneyWon, string score) {
 
-            if (score.CompareTo("None") == 0)  {
+            if (gameFinished == true) {
+                return "Congratulations " + winners + "." +
+                    Environment.NewLine + "You have won the game with a " + score;
+            }
+
+            else if (score.CompareTo("None") == 0)  {
                 return winners + " won, because their opponent folded." +
                        Environment.NewLine + winners + " gained $" + moneyWon;
             }

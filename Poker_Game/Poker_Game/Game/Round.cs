@@ -5,9 +5,9 @@ namespace Poker_Game.Game {
         public int TopBidderIndex { get; set; }
         public int CycleStep { get; set; }
         public int Bets { get; set; }
-
         public List<Turn> Turns { get; set; }
         public List<Player> Players { get; set; }
+        public int Count { get; set; }
 
 
         private readonly int _maxBets;
@@ -25,16 +25,6 @@ namespace Poker_Game.Game {
             Players.ForEach(x => x.BetsTaken = 0);
         }
 
-        private List<Player> GetActivePlayers(List<Player> players) // Returns a List of players who has not folded.
-        {
-            List<Player> activePlayers = new List<Player>();
-            foreach(Player player in players) {
-                if (player.Action != PlayerAction.Fold) {
-                    activePlayers.Add(player);
-                }
-            }
-            return activePlayers;
-        }
 
         #endregion
 

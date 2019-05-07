@@ -10,7 +10,7 @@ namespace Poker_Game.Game {
 
     public class Card : IComparable, ICloneable {
         //Random random = new Random();
-        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gør dette?
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad gï¿½r dette?
         public Suit Suit { get; set; }
         public Rank Rank { get; set; }
         public Image Image { get; set; }
@@ -19,13 +19,16 @@ namespace Poker_Game.Game {
             Suit = suit;
             Rank = rank;
         }
+        public Card(int i) {
+            MakeCard(i);
+        }
 
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
 
         private int DrawRandomCard() {
-            return _random.Next(0, 51);
+            return _random.Next(0, 52);
         }
 
         public void DrawCards(List<Card> cards) {
@@ -42,6 +45,7 @@ namespace Poker_Game.Game {
         //        MakeCard(DrawRandCard());
         //    } while (cards.Contains(this));
         //}
+
         //public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
         //    int rankInt = (cardNumber % 13) + 2;
         //    Suit = (Suit)(cardNumber / 13);
@@ -78,14 +82,14 @@ namespace Poker_Game.Game {
         }
 
         public void LoadImage() {
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank.ToString() + Suit.ToString() + ".png");
         }
 
         public int CompareTo(object other) { // Sort after rank, then suit
             Card otherCard = (Card)other;
-            if(Rank.CompareTo(otherCard.Rank) < 0) {
+            if (Rank.CompareTo(otherCard.Rank) < 0) { //CRASHER OFTE HER
                 return -1;
-            } else if(Rank.CompareTo(otherCard.Rank) > 0) {
+            } else if(Rank.CompareTo(otherCard.Rank) > 0) { //CRASHER NOGLE GANGE HER3
                 return 1;
             } else {
                 if(Suit.CompareTo(otherCard.Suit) < 0) {
@@ -100,5 +104,6 @@ namespace Poker_Game.Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
     }
 }

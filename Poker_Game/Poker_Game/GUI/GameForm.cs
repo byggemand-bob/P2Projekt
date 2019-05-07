@@ -27,7 +27,7 @@ namespace Poker_Game {
             // Creates the game with user settings
             Game = new PokerGame(Settings);
             Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "Deep Per";
+            Game.Players[1].Name = "Deep Peer";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -96,9 +96,10 @@ namespace Poker_Game {
             UpdateCurrentPlayer();
             UpdatePlayerStack(Game.Players[0], Game.Players[1]);
             UpdatePotSize(Game.CurrentHand());
-            UpdatePlayerBlindLabels(Game.Players[0]);
+            UpdatePlayerBlindLabels(Game.Players[0]); // Malplaceret. 
             UpdateButtons();
             UpdateCards();
+            CheckForPrematureShowdown(Game.Players);
             if (DiagnosticsMode) {UpdateTest();}
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
@@ -124,6 +125,17 @@ namespace Poker_Game {
                 Showdown();
                 EndOfHand();
             }
+        }
+
+        private void ShowAllCards()
+        {
+            Game.Hands[Game.CurrentHandNumber() - 1].DrawCards(5);
+            Showdown();
+            ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
+            ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
+            ShowCardImage(pictureTableCard3, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
+            ShowCardImage(pictureTableCard4, Game.CurrentHand().Street[3]); // Shows turn card
+            ShowCardImage(pictureTableCard5, Game.CurrentHand().Street[4]); // Shows river 
         }
 
         private void UpdateRoundName() 
@@ -341,6 +353,16 @@ namespace Poker_Game {
         // Un-categorized for now
         #region Other
 
+
+        private void CheckForPrematureShowdown(List<Player> players)
+        {
+            if (CheckPlayerStack(players) && (players[0].CurrentBet == players[1].CurrentBet))
+            {
+                ShowAllCards();
+                EndOfHand();
+            }
+        }
+
         private bool CheckPlayerStack(List<Player> players)
         {
             foreach (Player player in players)
@@ -359,28 +381,25 @@ namespace Poker_Game {
                 ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
                 ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);           
         }
-
+        
         private void EndOfHand()
         {
+            // Checks if the game is finished, and makes the buttons un-pressable.
             Game.UpdateState();
             ChangeActionButtonState(false);
-            if (Game.IsFinished())
-            {
-                MessageBox.Show("GAMEOVER!");
-            }
-            else
-            {
-                ShowEndOfHandWindow();
-            }
+            ShowEndOfHandWindow();
         }
 
         private void ShowEndOfHandWindow()
         {
-            // Shows new window with information about who won, how much and how. (Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
+            // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
+            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStack(Game.Players), GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
             handWinnerForm.ShowDialog();
-            ChangeActionButtonState(true);
-            CreateNewHand();
+            if (!CheckPlayerStack(Game.Players))
+            {
+                ChangeActionButtonState(true);
+                CreateNewHand();
+            }
         }
 
         private string GetWinningPlayersScore()

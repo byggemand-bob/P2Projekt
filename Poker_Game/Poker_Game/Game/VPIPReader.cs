@@ -24,7 +24,7 @@ namespace Poker_Game.Game {
         }
 
 
-        public VPIPData ReaData() {
+        public VPIPData ReadData() {
             StreamReader sr = new StreamReader(_filePath);
             VPIPData result = new VPIPData(sr.ReadLine(),
                 Int32.Parse(sr.ReadLine()), 

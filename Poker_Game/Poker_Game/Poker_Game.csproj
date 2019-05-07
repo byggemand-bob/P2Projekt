@@ -76,6 +76,7 @@
     <Compile Include="AI\CalcEV.cs" />
     <Compile Include="AI\CalcOuts.cs" />
     <Compile Include="AI\CalcProbability.cs" />
+    <Compile Include="AI\AIOpponent.cs" />
     <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\GameTree\Form1.cs">
@@ -171,6 +172,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -180,6 +182,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -203,294 +206,180 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\10Clubs.png">
+    <Content Include="Resources\10Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\10Diamonds.png">
+    </Content>
+    <Content Include="Resources\10Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\10Hearts.png">
+    </Content>
+    <Content Include="Resources\10Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\10Spades.png">
+    </Content>
+    <Content Include="Resources\10Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AceClubs.png">
+    </Content>
+    <Content Include="Resources\2Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AceDiamonds.png">
+    </Content>
+    <Content Include="Resources\2Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AceHearts.png">
+    </Content>
+    <Content Include="Resources\2Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AceSpades.png">
+    </Content>
+    <Content Include="Resources\2Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Back_of_card.jpg">
+    </Content>
+    <Content Include="Resources\3Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Back_of_card2.jpg">
+    </Content>
+    <Content Include="Resources\3Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\coins.ico">
+    </Content>
+    <Content Include="Resources\3Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\coins.png">
+    </Content>
+    <Content Include="Resources\3Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\JackClubs.png">
+    </Content>
+    <Content Include="Resources\4Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\JackDiamonds.png">
+    </Content>
+    <Content Include="Resources\4Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\JackHearts.png">
+    </Content>
+    <Content Include="Resources\4Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\JackSpades.png">
+    </Content>
+    <Content Include="Resources\4Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\KingClubs.png">
+    </Content>
+    <Content Include="Resources\5Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\KingDiamonds.png">
+    </Content>
+    <Content Include="Resources\5Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\KingHearts.png">
+    </Content>
+    <Content Include="Resources\5Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\KingSpades.png">
+    </Content>
+    <Content Include="Resources\5Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PokerBord.jpg">
+    </Content>
+    <Content Include="Resources\6Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\QueenClubs.png">
+    </Content>
+    <Content Include="Resources\6Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\QueenDiamonds.png">
+    </Content>
+    <Content Include="Resources\6Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\QueenHearts.png">
+    </Content>
+    <Content Include="Resources\6Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\QueenSpades.png">
+    </Content>
+    <Content Include="Resources\7Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\z_Back_of_card2.png">
+    </Content>
+    <Content Include="Resources\7Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2Clubs.png">
+    </Content>
+    <Content Include="Resources\7Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2Diamonds.png">
+    </Content>
+    <Content Include="Resources\7Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2Hearts.png">
+    </Content>
+    <Content Include="Resources\8Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2Spades.png">
+    </Content>
+    <Content Include="Resources\8Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\3Clubs.png">
+    </Content>
+    <Content Include="Resources\8Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\3Diamonds.png">
+    </Content>
+    <Content Include="Resources\8Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\3Hearts.png">
+    </Content>
+    <Content Include="Resources\9Clubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\3Spades.png">
+    </Content>
+    <Content Include="Resources\9Diamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4Clubs.png">
+    </Content>
+    <Content Include="Resources\9Hearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4Diamonds.png">
+    </Content>
+    <Content Include="Resources\9Spades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4Hearts.png">
+    </Content>
+    <Content Include="Resources\AceClubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4Spades.png">
+    </Content>
+    <Content Include="Resources\AceDiamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\5Clubs.png">
+    </Content>
+    <Content Include="Resources\AceHearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\5Diamonds.png">
+    </Content>
+    <Content Include="Resources\AceSpades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\5Hearts.png">
+    </Content>
+    <Content Include="Resources\Back_of_card.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\5Spades.png">
+    </Content>
+    <Content Include="Resources\Back_of_card2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\6Clubs.png">
+    </Content>
+    <Content Include="Resources\coins.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\6Diamonds.png">
+    </Content>
+    <Content Include="Resources\coins.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\6Hearts.png">
+    </Content>
+    <Content Include="Resources\JackClubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\6Spades.png">
+    </Content>
+    <Content Include="Resources\JackDiamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7Clubs.png">
+    </Content>
+    <Content Include="Resources\JackHearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7Diamonds.png">
+    </Content>
+    <Content Include="Resources\JackSpades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7Hearts.png">
+    </Content>
+    <Content Include="Resources\KingClubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7Spades.png">
+    </Content>
+    <Content Include="Resources\KingDiamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8Clubs.png">
+    </Content>
+    <Content Include="Resources\KingHearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8Diamonds.png">
+    </Content>
+    <Content Include="Resources\KingSpades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8Hearts.png">
+    </Content>
+    <Content Include="Resources\PokerBord.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8Spades.png">
+    </Content>
+    <Content Include="Resources\QueenClubs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9Clubs.png">
+    </Content>
+    <Content Include="Resources\QueenDiamonds.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9Diamonds.png">
+    </Content>
+    <Content Include="Resources\QueenHearts.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9Hearts.png">
+    </Content>
+    <Content Include="Resources\QueenSpades.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\9Spades.png">
+    </Content>
+    <Content Include="Resources\z_Back_of_card2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
