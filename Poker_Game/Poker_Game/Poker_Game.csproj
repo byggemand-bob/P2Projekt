@@ -94,6 +94,7 @@
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />
     <Compile Include="AI\PreFlop.cs" />
+    <Compile Include="AI\RangeParser.cs" />
     <Compile Include="Game\VPIPData.cs" />
     <Compile Include="Game\VPIPReader.cs" />
     <Compile Include="Game\VPIPWriter.cs" />

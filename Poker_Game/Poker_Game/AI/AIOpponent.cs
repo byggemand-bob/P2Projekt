@@ -71,10 +71,11 @@ namespace Poker_Game.AI {
             VPIP = (PreCalls + PreRaises) / Hands;
             PFR = PreRaises / Hands;
 
+            // Should these be arrays?
             if(Hands < VPIPThreshold) {
                 return new List<string>() { "66+", "A2s+", "K6s+", "Q8s+", "J8s+", "T8s+", "A7o+", "K9o+", "QTo+", "JTo" };
             } else if(VPIP >= 75) {
-                return new List<string>() { "22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T2s+", "92s+", "83s+", "73s+", "63s+", "52s+", "43s", "A2o+", "K2o+", "Q2o+", "J4o+", "T6o+", "96o+", " 86o +", "75o+", "65o" };
+                return new List<string>() { "22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T2s+", "92s+", "83s+", "73s+", "63s+", "52s+", "43s", "A2o+", "K2o+", "Q2o+", "J4o+", "T6o+", "96o+", " 86o+", "75o+", "65o" };
             } else if(VPIP >= 50) {
                 return new List<string>() { "33+", "A2s+", "K2s+", "Q2s+", "J4s+", "T6s+", "96s+", "86s+", "76s", "65s", "A2o+", "K5o+", "Q7o+", "J7o+", "T8o+", "98o" };
             } else if(VPIP >= 35) {
@@ -86,7 +87,7 @@ namespace Poker_Game.AI {
             } else if(VPIP >= 15) {
                 return new List<string>() { "77+", "A7s+", "K9s+", "QTs+", "JTs", "ATo+", "KTo+", "QJo" };
             } else if(VPIP >= 10) {
-                return new List<string>() { "88+", "A9s+", "KTs+", "QTs+", "AJo+,KQo" };
+                return new List<string>() { "88+", "A9s+", "KTs+", "QTs+", "AJo+", "KQo" };
             } else {
                 return new List<string>() { "99+", "AJs+", "KQs", "AKo" };
             }
