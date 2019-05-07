@@ -10,9 +10,13 @@ namespace Poker_Game.AI
     class CalcEV
     {
         public Player players { get; set; }
+        public Turn Turns { get; set; }
 
-        public void CalcEv(Player player) {
+        public void CalcEv(Player player, Turn turns) {
             players = player;
+            Turns = turns;
         }
+
+        
     }
 }
