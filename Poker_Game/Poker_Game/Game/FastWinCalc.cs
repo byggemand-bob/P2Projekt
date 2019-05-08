@@ -286,6 +286,7 @@ namespace Poker_Game.Game
                 return 0;
             }
 
+            //checks for highest 3 of a kind, 2 pairs, and pair
             if (PlayerEvalCards.nrOfHighestCard > AiEvalCards.nrOfHighestCard)
             {
                 return 1;
@@ -294,48 +295,35 @@ namespace Poker_Game.Game
             {
                 return -1;
             }
+            else if(PlayerEvalCards.nrOfSecoundHighestCard > AiEvalCards.nrOfSecoundHighestCard)
+            {
+                return 1;
+            }
+            else if (PlayerEvalCards.nrOfSecoundHighestCard < AiEvalCards.nrOfSecoundHighestCard)
+            {
+                return -1;
+            }
+
+            //if both player have the same kind of hand, check who has the highest value one
+            else if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+            {
+                return 1;
+            }
+            else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+            {
+                return -1;
+            }
+            else if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+            {
+                return 1;
+            }
+            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+            {
+                return -1;
+            }
             else
             {
-                if(PlayerEvalCards.nrOfHighestCard == 3)
-                {
-                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
-                }
-
-                if (AiEvalCards.nrOfSecoundHighestCard == 2)
-                {
-                    if (PlayerEvalCards.nrOfSecoundHighestCard == 2)
-                    {
-                        if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
-                        {
-                            return 1;
-                        }
-                        else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
-                        {
-                            return -1;
-                        }
-                        else if(PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return 1;
-                        }
-                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return -1;
-                        }
-
-                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
-
-                    }
-
-                    return -1;
-                }
-
-                if (PlayerEvalCards.nrOfSecoundHighestCard == 2)
-                {
-                    return 1;
-                }
-
                 //Check for high cards
-                
                 return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
             }
         }
