@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Poker_Game.AI.Opponent {
+namespace Poker_Game.Game {
     class VPIPReader {
         private readonly string _filePath;
 

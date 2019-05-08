@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Poker_Game.AI.GameTree;
-using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
@@ -15,16 +13,12 @@ namespace Poker_Game.AI {
         private readonly List<Hand> _hands;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
-        private readonly VPIPController _vpipController;
-        private readonly PokerTree _pokerTree;
 
         public PokerAI(PokerGame game) {
             _player = game.Players[1]; // AI is always player 1
             _hands = game.Hands;
             _settings = game.Settings;
             _actions = GetActions(game);
-            _vpipController = new VPIPController(_settings.PlayerName);
-            _pokerTree = new PokerTree();
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -36,18 +30,7 @@ namespace Poker_Game.AI {
             };
             return result;
         }
-
-        // Called at the start of a new hand
-        public void PrepareNewHand(PokerGame game) {
-            if(_hands.Count > 1) {
-                _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns); 
-            }
-        }
-
-        public void SaveData() {
-            _vpipController.SaveData();
-        }
-
+        
         public void MakeDecision() {
             switch(Evaluate()) {
                 case PlayerAction.Fold:
@@ -66,27 +49,11 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction Evaluate() {
-            if(_hands.Last().CurrentRoundNumber() == 1) {
-                return Preflop();
-            } else {
-                return AfterPreflop();
-            }
+
+
+        
         }
 
-        private PlayerAction Preflop() {
-            throw new NotImplementedException();
-            double pfr = _vpipController.PFR;
-            // Check PFR chart
-
-
-
-
-        }
-
-        private PlayerAction AfterPreflop() {
-            throw new NotImplementedException();
-
-        }
 
     }
 }
