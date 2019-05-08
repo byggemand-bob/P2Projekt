@@ -20,7 +20,7 @@ namespace Poker_Game.AI
                 List<Card> currentPlayerCards = new List<Card>();    
             }
 
-            public bool IsFlushChance(Player player) {
+            public bool IsClubsFlush(Player player) {
 
                 if (player.Cards[0].Suit == Suit.Clubs && player.Cards[1].Suit == Suit.Clubs) {
                     return true;
@@ -54,7 +54,7 @@ namespace Poker_Game.AI
                 return false;
             }
 
-            public bool IsPair(Player player) {
+            public bool isPair(Player player) {
                 if (player.Cards[0].Rank == (player.Cards[1].Rank)) {
                     return true;
                 }
