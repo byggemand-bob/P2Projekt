@@ -23,9 +23,6 @@ namespace Poker_Game.Game {
             _maxBets = settings.MaxBetsPerRound;
 
             Players.ForEach(x => x.BetsTaken = 0);
-                
-            
-
         }
 
 
