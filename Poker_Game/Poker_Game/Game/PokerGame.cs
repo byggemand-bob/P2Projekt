@@ -17,8 +17,6 @@ namespace Poker_Game.Game {
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
-        #region Initialization
-
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
@@ -39,9 +37,7 @@ namespace Poker_Game.Game {
             }
             return players;
         }
-        #endregion
 
-        #region Actions
         public void Call() { // Method used for coding a press of Call-button in GameForm.
             if (CanCall()) {
                 // Needs to be cut down
@@ -108,11 +104,6 @@ namespace Poker_Game.Game {
             CurrentRound().NewTurn(Players[CurrentPlayerIndex], CurrentHand().Pot);
         }
        
-
-        #endregion
-
-        #region GameState
-
         public void UpdateState() { // WIP. Split up?
             HandInProgress = IsHandInProgress();
             RoundInProgress = IsRoundInProgress();
@@ -124,6 +115,7 @@ namespace Poker_Game.Game {
 
             if(!HandInProgress) {
                 RewardWinners(GetWinners(CurrentHand()));
+
             }
         }
 
@@ -204,9 +196,7 @@ namespace Poker_Game.Game {
             return -1; // TODO: Do error-handling
         }
 
-        #endregion
 
-        #region Utillity
 
         public bool CanCheck() {
             return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
@@ -253,10 +243,6 @@ namespace Poker_Game.Game {
             return player.Stack != 0;
         }
 
-        #endregion
-
-        #region Betting
-
         private void Bet(Player player, int amount) {
             if (player.Stack >= amount) {
                 player.CurrentBet += amount;
@@ -284,8 +270,5 @@ namespace Poker_Game.Game {
                 }
             }
         }
-
-        #endregion
-
     }
 }

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poker_Game.AI.GameTree {
+﻿namespace Poker_Game.AI.GameTree {
     class PathConstructor {
-        //"R-RE-C-R-RE-C-R-RE-C"
-
         public Node ConstructPath(Node parent, string path, double expectedValue) {
             string[] separatedPath = SeparatePath(path);
             Node startNode = parent;
             Node prevNode = startNode;
-
 
             for(int i = 0; i < separatedPath.Length; i++) {
                 if(i == separatedPath.Length - 1) {
@@ -24,7 +14,6 @@ namespace Poker_Game.AI.GameTree {
                         prevNode.Children.Add(tempNode);
                         prevNode = tempNode;
                     }
-                    
                 }
             }
             return startNode;
@@ -37,15 +26,11 @@ namespace Poker_Game.AI.GameTree {
                     return true;
                 }
             }
-
             return false;
         }
-
 
         private string[] SeparatePath(string path) {
             return path.Split('-');
         }
-
-
     }
 }

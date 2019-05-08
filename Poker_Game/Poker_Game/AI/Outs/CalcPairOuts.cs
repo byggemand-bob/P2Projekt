@@ -31,7 +31,7 @@ namespace Poker_Game.AI
 
 
             List<Card> otherPairs = new List<Card>();
-            if (PlayerCardsInHands.isPair(player))
+            if (PlayerCardsInHands.IsPair(player))
             {
                 int moreOfAKind = 0;
 

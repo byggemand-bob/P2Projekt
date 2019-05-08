@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poker_Game.AI.GameTree {
+﻿namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        private Node Root { get; set; }
+        public Node RootNode { get; private set; }
+        public Node CurrentNode { get; private set; }
 
         public PokerTree() {
-            Root = new Node(null, String.Empty);
-            PathConstructor ph = new PathConstructor();
-            
-
-            ph.ConstructPath(Root,"R-RE-C-R-RE-C-R-RE-C", 5.0);
-
-            
+            RootNode = CreateTree();
         }
+
+        private Node CreateTree() {
+            Node result = new Node(null, string.Empty);
+            CurrentNode = RootNode;
+            PathGenerator pg = new PathGenerator();
+            PathConstructor ph = new PathConstructor();
+            string[] paths = pg.GeneratePaths();
+
+            foreach(string path in paths) {
+                ph.ConstructPath(result, path, 5 /*Udbyt med CalcEV*/);
+            }
+            return result;
+        }
+
+
+
     }
 }
