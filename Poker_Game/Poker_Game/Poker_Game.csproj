@@ -72,10 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\ABPruning.cs" />
-    <Compile Include="AI\CalcEV.cs" />
-    <Compile Include="AI\CalcOuts.cs" />
-    <Compile Include="AI\CalcProbability.cs" />
     <Compile Include="AI\AIOpponent.cs" />
+    <Compile Include="AI\CalcEV.cs" />
+    <Compile Include="AI\CalcProbability.cs" />
     <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\GameTree\Form1.cs">
@@ -84,16 +83,21 @@
     <Compile Include="AI\GameTree\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AI\GameTree\PathGenerator.cs" />
-    <Compile Include="AI\GameTree\PathConstructor.cs" />
-    <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
+    <Compile Include="AI\GameTree\PathConstructor.cs" />
+    <Compile Include="AI\GameTree\PathGenerator.cs" />
+    <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\TreeTest.cs" />
     <Compile Include="AI\GeneratePath.cs" />
     <Compile Include="AI\MinMax.cs" />
+    <Compile Include="AI\Outs\CalcFlushOuts.cs" />
+    <Compile Include="AI\Outs\CalcOuts.cs" />
+    <Compile Include="AI\Outs\CalcPairOuts.cs" />
+    <Compile Include="AI\Outs\CalcRSFOuts.cs" />
+    <Compile Include="AI\Outs\CalcStraightOuts.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />
-    <Compile Include="AI\PreFlop.cs" />
+    <Compile Include="AI\Preflop\PlayerCardsInHand.cs" />
     <Compile Include="AI\RangeParser.cs" />
     <Compile Include="Game\VPIPData.cs" />
     <Compile Include="Game\VPIPReader.cs" />
