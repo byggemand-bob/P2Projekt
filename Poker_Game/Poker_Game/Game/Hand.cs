@@ -14,7 +14,15 @@ namespace Poker_Game.Game {
         // Allocation and initialization for the various elements of a hand
         #region Initialization
 
-        public Hand(Settings settings, List<Player> players) // For testing purposes only
+        
+        public Hand(List<Player> players) // for testing purpose only
+        {
+            Players = players;
+            Deck = new List<Card>();
+            Street = new List<Card>();
+        }
+        
+        public Hand(Settings settings, List<Player> players)
         {
             Players = players;
             Deck = new List<Card>();
@@ -51,16 +59,6 @@ namespace Poker_Game.Game {
             return initPlayers;
         }
 
-        // Finds Active Players - stack > 0
-        private List<Player> GetActivePlayers(List<Player> players) {
-            List<Player> output = new List<Player>();
-            foreach(Player player in players) {
-                if(player.Stack > 0) {
-                    output.Add(player);
-                }
-            }
-            return output;
-        }
         #endregion
 
         #region Actions
@@ -98,7 +96,7 @@ namespace Poker_Game.Game {
         }
 
         // Draws number of cards needed for the player / street
-        private void DrawCards(int numberOfCards) {
+        public void DrawCards(int numberOfCards) {
             for (int i = 0; i < numberOfCards; i++) {
                 Card newCard = new Card(Deck);
                 Deck.Add(newCard);
