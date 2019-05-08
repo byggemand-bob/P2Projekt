@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Poker_Game.Game;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace UnitTest
+{
+    [TestClass]
+    public class FastWinCalcTest
+    {
+        FastWinCalc winCalc = new FastWinCalc();
+
+        [TestMethod]
+        public void FastWinCalcTest1()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)6);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)8);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)10);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)4);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)4)); //has pair of 4's
+            Player1Cards.Add(new Card(Suit.Diamonds, Rank.King));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)5)); //has pair of 5's
+            Player2Cards.Add(new Card(Suit.Spades, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+    }
+}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poker_Game.Game
 {
-    class FastWinCalc
+    public class FastWinCalc
     {
         public struct WinnerResults
         {
