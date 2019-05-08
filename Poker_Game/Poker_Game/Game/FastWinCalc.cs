@@ -699,12 +699,12 @@ namespace Poker_Game.Game
                 
                 for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
                 {
-                    if((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard || (int)PlayerCards[PlayerTestCard - x].Rank == valueOfSecoundHighestCard)
+                    while ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard || (int)PlayerCards[PlayerTestCard - x].Rank == valueOfSecoundHighestCard)
                     {
                         PlayerTestCard--;
                     }
 
-                    if ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard || (int)AiCards[AiTestCard - x].Rank == valueOfSecoundHighestCard)
+                    while ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard || (int)AiCards[AiTestCard - x].Rank == valueOfSecoundHighestCard)
                     {
                         AiTestCard--;
                     }
@@ -724,12 +724,12 @@ namespace Poker_Game.Game
             {
                 for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
                 {
-                    if ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard)
+                    while ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard)
                     {
                         PlayerTestCard--;
                     }
 
-                    if ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard)
+                    while ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard)
                     {
                         AiTestCard--;
                     }
@@ -760,7 +760,7 @@ namespace Poker_Game.Game
 
             cards.Sort();
 
-            for(int x = 6; x < 0; x--)
+            for(int x = 0; x > 6; x++)
             {
                 if(cards[x].Suit == cards[x+1].Suit && cards[x].Rank == cards[x + 1].Rank)
                 {
@@ -797,17 +797,16 @@ namespace Poker_Game.Game
             Player1Flush.Sort();
             Player2Flush.Sort();
 
-            Player1Flush.Reverse();
-            Player2Flush.Reverse();
+            int difference = Player2Flush.Count - Player1Flush.Count;
 
-            for (int x = 0; x < 5; x++)
+            for (int x = Player1Flush.Count - 1; x > 0; x--)
             {
-                if (Player1Flush[x].Rank > Player2Flush[x].Rank)
+                if (Player1Flush[x].Rank > Player2Flush[x + difference].Rank)
                 {
                     return -1;
                 }
 
-                else if (Player1Flush[x].Rank < Player2Flush[x].Rank)
+                else if (Player1Flush[x].Rank < Player2Flush[x + difference].Rank)
                 {
                     return 1;
                 }
