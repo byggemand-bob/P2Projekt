@@ -13,7 +13,7 @@ namespace Poker_Game.AI {
         public PlayerCardsInHand PlayerCardsInHands { get; set; }
         public int numberOfOuts { get; set; }
 
-        public void calcOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands) {
+        public CalcFlushOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands) {
             Player = player;
             Street = street;
             PlayerCardsInHands = cardsinhands;
@@ -23,7 +23,7 @@ namespace Poker_Game.AI {
 
             int numberOfOuts = 0;
 
-            if(cardsinhands.IsFlushChance(player) == true) {
+            if (cardsinhands.IsFlushChance(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 

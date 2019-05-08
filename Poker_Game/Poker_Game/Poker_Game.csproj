@@ -93,7 +93,6 @@
     <Compile Include="AI\Outs\CalcFlushOuts.cs" />
     <Compile Include="AI\Outs\CalcOuts.cs" />
     <Compile Include="AI\Outs\CalcPairOuts.cs" />
-    <Compile Include="AI\Outs\CalcRSFOuts.cs" />
     <Compile Include="AI\Outs\CalcStraightOuts.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />
