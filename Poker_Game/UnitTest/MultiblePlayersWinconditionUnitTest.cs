@@ -538,5 +538,49 @@ namespace UnitTest
             Assert.AreEqual(expected[0].Id, actual[0].Id);
             Assert.AreEqual(expected.Count, actual.Count);
         }
+
+
+        [TestMethod]
+        public void TestWinnerHighestCardSameTwoPair()
+        {
+            // Arrange
+            Player player1 = new Player(1, 100);
+            Player player2 = new Player(2, 100);
+            List<Player> players = new List<Player>();
+            players.Add(player1);
+            players.Add(player2);
+            Hand hand = new Hand(players);
+
+            Card tableCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)6);
+            Card tableCard3 = new Card(Suit.Clubs, Rank.Jack);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)6);
+            Card tableCard5 = new Card(Suit.Hearts, (Rank)4);
+
+            player1.Cards.Add(new Card(Suit.Diamonds, (Rank)4)); 
+            player1.Cards.Add(new Card(Suit.Spades, Rank.Jack));
+            player1.Cards.Add(tableCard1);
+            player1.Cards.Add(tableCard2);
+            player1.Cards.Add(tableCard3);
+            player1.Cards.Add(tableCard4);
+            player1.Cards.Add(tableCard5);
+
+            player2.Cards.Add(new Card(Suit.Spades, (Rank)2)); 
+            player2.Cards.Add(new Card(Suit.Hearts, Rank.Jack));
+            player2.Cards.Add(tableCard1);
+            player2.Cards.Add(tableCard2);
+            player2.Cards.Add(tableCard3);
+            player2.Cards.Add(tableCard4);
+            player2.Cards.Add(tableCard5);
+
+            List<Player> expected = new List<Player> { player1 };
+
+            // Act
+            List<Player> actual = Game.GetWinners(hand);
+
+            // Assert
+            Assert.AreEqual(expected[0].Id, actual[0].Id);
+            Assert.AreEqual(expected.Count, actual.Count);
+        }
     }
 }
