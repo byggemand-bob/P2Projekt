@@ -26,9 +26,9 @@ namespace Poker_Game
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));
 
-            //street.Add(new Card(Suit.Clubs, Rank.King));
-            //street.Add(new Card(Suit.Spades, Rank.Jack));
-            //street.Add(new Card(Suit.Spades, (Rank)5));
+            street.Add(new Card(Suit.Clubs, Rank.King));
+            street.Add(new Card(Suit.Spades, (Rank)5));
+            street.Add(new Card(Suit.Spades, Rank.Jack));
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 

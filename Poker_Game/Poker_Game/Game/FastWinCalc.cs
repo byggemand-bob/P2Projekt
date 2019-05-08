@@ -150,7 +150,7 @@ namespace Poker_Game.Game
                             {
                                 return -1;
                             }
-                            return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
+                            return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
                         }
                         return -1;
                     }
@@ -226,7 +226,7 @@ namespace Poker_Game.Game
                         return -1;
                     }
 
-                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
+                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
                 }
                 return -1;
             }
@@ -298,7 +298,7 @@ namespace Poker_Game.Game
             {
                 if(PlayerEvalCards.nrOfHighestCard == 3)
                 {
-                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
+                    return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
                 }
 
                 if (AiEvalCards.nrOfSecoundHighestCard == 2)
@@ -322,7 +322,7 @@ namespace Poker_Game.Game
                             return -1;
                         }
 
-                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
+                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
 
                     }
 
@@ -336,7 +336,7 @@ namespace Poker_Game.Game
 
                 //Check for high cards
                 
-                return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard);
+                return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
             }
         }
 
@@ -693,32 +693,68 @@ namespace Poker_Game.Game
             }
         }
 
-        private int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards, int nrOfHighestValueCards, int nrOfSecoundHighestValueCards)
+        private int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards, int nrOfHighestValueCards, int nrOfSecoundHighestValueCards, int valueOfHighestCard, int valueOfSecoundHighestCard)
         {
-            int y = 1;
+            int y = 5, AiTestCard = 6, PlayerTestCard = 6;
 
             AiCards.Sort();
             PlayerCards.Sort();
 
             if(nrOfHighestValueCards > 1)
             {
-                y += nrOfHighestValueCards;
+                y -= nrOfHighestValueCards;
             }
 
             if (nrOfSecoundHighestValueCards > 1)
             {
-                y += nrOfSecoundHighestValueCards;
-            }
+                y -= nrOfSecoundHighestValueCards;
+                
+                for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
+                {
+                    if((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard || (int)PlayerCards[PlayerTestCard - x].Rank == valueOfSecoundHighestCard)
+                    {
+                        PlayerTestCard--;
+                    }
 
-            for (int x = 6; x > y; x--)
-            {
-                if (AiCards[x].Rank > PlayerCards[x].Rank)
-                {
-                    return -1;
+                    if ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard || (int)AiCards[AiTestCard - x].Rank == valueOfSecoundHighestCard)
+                    {
+                        AiTestCard--;
+                    }
+
+
+                    if (AiCards[AiTestCard - x].Rank > PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return -1;
+                    }
+                    else if (AiCards[AiTestCard - x].Rank < PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return 1;
+                    }
                 }
-                else if (AiCards[x].Rank < PlayerCards[x].Rank)
+            }
+            else
+            {
+                for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
                 {
-                    return 1;
+                    if ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard)
+                    {
+                        PlayerTestCard--;
+                    }
+
+                    if ((int)AiCards[AiTestCard - x].Rank == valueOfHighestCard)
+                    {
+                        AiTestCard--;
+                    }
+
+
+                    if (AiCards[AiTestCard - x].Rank > PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return -1;
+                    }
+                    else if (AiCards[AiTestCard - x].Rank < PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return 1;
+                    }
                 }
             }
 
@@ -736,7 +772,7 @@ namespace Poker_Game.Game
 
             cards.Sort();
 
-            for(int x = 0; x < 6; x++)
+            for(int x = 6; x < 0; x--)
             {
                 if(cards[x].Suit == cards[x+1].Suit && cards[x].Rank == cards[x + 1].Rank)
                 {
@@ -773,7 +809,10 @@ namespace Poker_Game.Game
             Player1Flush.Sort();
             Player2Flush.Sort();
 
-            for(int x = 0; x < 5; x++)
+            Player1Flush.Reverse();
+            Player2Flush.Reverse();
+
+            for (int x = 0; x < 5; x++)
             {
                 if (Player1Flush[x].Rank > Player2Flush[x].Rank)
                 {
