@@ -21,21 +21,21 @@ namespace Poker_Game.AI
         public CalcStraightOuts CalcStraightouts { get; set; }
         public CalcOuts CalculateOuts { get; set; }
         
-        public void CalcEv(Player player, Turn turns, CalcOuts getOuts, List<Card> street, PlayerCardsInHand cardsinhand, CalcFlushOuts flushouts, CalcPairOuts pairouts, CalcStraightOuts straightouts) {
+        public void CalcEv(Player player, Turn turns, CalcOuts getOuts, List<Card> street, PlayerCardsInHand cardsInHand, CalcFlushOuts flushOuts, CalcPairOuts pairOuts, CalcStraightOuts straightOuts) {
             players = player;
             Turns = turns;
             CalculateOuts = getOuts;
             Street = street;
-            PlayerCardsInHand = cardsinhand;
-            CalcFlushOuts = flushouts;
-            CalcPairOuts = pairouts;
-            CalcStraightOuts = straightouts;
+            PlayerCardsInHand = cardsInHand;
+            CalcFlushOuts = flushOuts;
+            CalcPairOuts = pairOuts;
+            CalcStraightOuts = straightOuts;
         }
 
-        public double CalculateEV(Player player, Turn turns, CalcOuts getOuts, List<Card> street, PlayerCardsInHand cardsinhand, CalcFlushOuts flushouts, CalcPairOuts pairouts, CalcStraightOuts straightouts) {
+        public double CalculateEV(Player player, Turn turns, CalcOuts getOuts, List<Card> street, PlayerCardsInHand cardsInHand, CalcFlushOuts flushOuts, CalcPairOuts pairoOuts, CalcStraightOuts straightOuts) {
             double ExpectedValue = 0;
 
-            var WinOdds = 2 * getOuts.compareOuts(player, street, cardsinhand, flushouts, pairouts, straightouts);
+            var WinOdds = 2 * getOuts.compareOuts(player, street, cardsInHand, flushOuts, pairoOuts, straightOuts);
             var LossOdds = 100 - WinOdds;
             ExpectedValue = 
         }
