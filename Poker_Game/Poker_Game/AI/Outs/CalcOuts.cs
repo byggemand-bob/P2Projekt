@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         public Player Player { get; set; }
         public List<Card> Street { get; set; }
         public int Pot { get; set; }
-        public Preflop Preflop { get; set; }
+        public PlayerCardsInHand PlayerCardsInHands { get; set; }
         public int numberOfOuts { get; set; }
         
         public List<Turn> Turns { get; set;}
@@ -21,22 +21,22 @@ namespace Poker_Game.AI
         public WinConditions WinConditions { get; set; }
 
 
-        public void calcOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns, WinConditions winconditions)
+        public void calcOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands, List<Turn> turns, WinConditions winconditions)
         {
             Player = player;
             Street = street;
-            Preflop = preflops;
+            PlayerCardsInHands = cardsinhands;
             Turns = turns;
             WinConditions = winconditions;
 
         }
 
-        public int PlayerFlushOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns,
+        public int PlayerFlushOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands, List<Turn> turns,
             WinConditions winconditions) {
 
             int numberOfOuts = 0;
 
-            if (preflops.IsClubsFlush(player) == true) {
+            if (PlayerCardsInHands.IsFlushChance(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 
@@ -49,56 +49,56 @@ namespace Poker_Game.AI
                 numberOfOuts += (cardsInASuit - (flushClubs.Count() + player.Cards.Count));
             }
 
-            if (preflops.IsDiamondsFlush(player) == true) {
-                int cardsInASuit = 13, suitsInHand = player.Cards.Count;
-                // finds each element in the street that matches the suit that the player holds in his hand
+        //    if (PlayerCardsInHands.IsDiamondsFlush(player) == true) {
+        //        int cardsInASuit = 13, suitsInHand = player.Cards.Count;
+        //        // finds each element in the street that matches the suit that the player holds in his hand
 
-                var flushDiamonds = Street
-                    .Where(x => x.Suit == Suit.Diamonds)
-                    .OrderBy(x => x.Rank);
-
-
-                //Calculates the number of outs for a flush
-                numberOfOuts += (cardsInASuit - (flushDiamonds.Count() + player.Cards.Count));
-            }
-
-            if (preflops.IsHeartsFlush(player) == true) {
-                int cardsInASuit = 13, suitsInHand = player.Cards.Count;
-                // finds each element in the street that matches the suit that the player holds in his hand
-
-                var flushHearts = Street
-                    .Where(x => x.Suit == Suit.Clubs)
-                    .OrderBy(x => x.Rank);
+        //        var flushDiamonds = Street
+        //            .Where(x => x.Suit == Suit.Diamonds)
+        //            .OrderBy(x => x.Rank);
 
 
-                //Calculates the number of outs for a flush
-                numberOfOuts += (cardsInASuit - (flushHearts.Count() + player.Cards.Count));
-            }
+        //        //Calculates the number of outs for a flush
+        //        numberOfOuts += (cardsInASuit - (flushDiamonds.Count() + player.Cards.Count));
+        //    }
 
-            if (preflops.IsSpadesFlush(player) == true) {
-                int cardsInASuit = 13, suitsInHand = player.Cards.Count;
-                // finds each element in the street that matches the suit that the player holds in his hand
+        //    if (PlayerCardsInHands.IsHeartsFlush(player) == true) {
+        //        int cardsInASuit = 13, suitsInHand = player.Cards.Count;
+        //        // finds each element in the street that matches the suit that the player holds in his hand
 
-                var flushSpades = Street
-                    .Where(x => x.Suit == Suit.Spades)
-                    .OrderBy(x => x.Rank);
+        //        var flushHearts = Street
+        //            .Where(x => x.Suit == Suit.Clubs)
+        //            .OrderBy(x => x.Rank);
 
 
-                //Calculates the number of outs for a flush
-                numberOfOuts += (cardsInASuit - (flushSpades.Count() + player.Cards.Count));
-            }
+        //        //Calculates the number of outs for a flush
+        //        numberOfOuts += (cardsInASuit - (flushHearts.Count() + player.Cards.Count));
+        //    }
 
-            return numberOfOuts;
+        //    if (PlayerCardsInHands.IsSpadesFlush(player) == true) {
+        //        int cardsInASuit = 13, suitsInHand = player.Cards.Count;
+        //        // finds each element in the street that matches the suit that the player holds in his hand
+
+        //        var flushSpades = Street
+        //            .Where(x => x.Suit == Suit.Spades)
+        //            .OrderBy(x => x.Rank);
+
+
+        //        //Calculates the number of outs for a flush
+        //        numberOfOuts += (cardsInASuit - (flushSpades.Count() + player.Cards.Count));
+        //    }
+
+           return numberOfOuts;
         }
 
 
 
-        public int calcStraightOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns, WinConditions winconditions) { 
+        public int calcStraightOuts(Player player, List<Card> street, PlayerCardsInHand PlayerCardsInHands, List<Turn> turns, WinConditions winconditions) { 
 
 
         //Checks for cards that are in range of a straight compared to the players hand
 
-            if (preflops.IsStraightChance(player) == true) {
+            if (PlayerCardsInHands.IsStraightChance(player) == true) {
 
                 List<Card> straightCards = new List<Card>();
                
@@ -184,49 +184,49 @@ namespace Poker_Game.AI
             return numberOfOuts;
         }
 
-       public int PlayerPairOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns) {
+       //public int PlayerPairOuts(Player player, List<Card> street, PlayerCardsInHand PlayerCardsInHands, List<Turn> turns) {
 
 
-            List<Card> otherPairs = new List<Card>();
-            if(preflops.isPair(player)) {
-                int moreOfAKind = 0;
+       //     //List<Card> otherPairs = new List<Card>();
+       //     //if(PlayerCardsInHands.isPair(player)) {
+       //     //    int moreOfAKind = 0;
 
-                foreach (var element in Street) {
-                    if (element.Rank == player.Cards[0].Rank) {
-                        moreOfAKind++;
-                    }
-                }
+       //     //    foreach (var element in Street) {
+       //     //        if (element.Rank == player.Cards[0].Rank) {
+       //     //            moreOfAKind++;
+       //     //        }
+       //     //    }
 
-                if (moreOfAKind == 2) {
-                    //FOAK
-                }
+       //         if (moreOfAKind == 2) {
+       //             //FOAK
+       //         }
 
-                else if (moreOfAKind == 1) {
-                    foreach (var element in Street) {
-                        if (element.Rank != player.Cards[0].Rank) {
-                            otherPairs.Add(element);
-                        }
-                    }
-                }
+       //         else if (moreOfAKind == 1) {
+       //             foreach (var element in Street) {
+       //                 if (element.Rank != player.Cards[0].Rank) {
+       //                     otherPairs.Add(element);
+       //                 }
+       //             }
+       //         }
 
-                foreach (var element in otherPairs) {
+       //         foreach (var element in otherPairs) {
                        
-                    }
-                }
+       //             }
+       //         }
 
-            for (int i = 0; i < otherPairs.Count - 1; i++)
-            {
-                if (otherPairs[i].Rank == otherPairs[i + 1].Rank)
-                {
-                    // Two pairs
-                }
+       //     for (int i = 0; i < otherPairs.Count - 1; i++)
+       //     {
+       //         if (otherPairs[i].Rank == otherPairs[i + 1].Rank)
+       //         {
+       //             // Two pairs
+       //         }
 
-            }
+       //     }
            
             
-            return 0;
+       //     return 0;
 
-       }
+       //}
 
 
     }

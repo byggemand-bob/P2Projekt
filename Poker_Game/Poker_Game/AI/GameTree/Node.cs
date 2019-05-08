@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using Poker_Game;
-
-
 
 namespace Poker_Game.AI.GameTree {
     public class Node {
@@ -23,8 +20,5 @@ namespace Poker_Game.AI.GameTree {
             Action = action;
             ExpectedValue = expectedValue;
         }
-
-
-
     }
 }
