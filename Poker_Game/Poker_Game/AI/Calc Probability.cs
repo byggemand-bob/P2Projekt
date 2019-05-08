@@ -11,10 +11,9 @@ namespace Poker_Game.AI
         public List<Card> Street { get; set; }
         public PlayerCardsInHand PlayerCardsInHands { get; set; }
         public int NumberOfOuts { get; set; }
-        public List<Card> flushCards { get; set; }
+        
 
-
-        public void calcProbability(Player player, PlayerCardsInHand cardsinhands, int numberOfOuts, List<Card> flushcards) {
+        public CalcProbability(Player player, PlayerCardsInHand cardsinhands, int numberOfOuts, List<Card> flushcards) {
             Player = player;
             PlayerCardsInHands = cardsinhands;
         }

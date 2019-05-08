@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poker_Game.AI.Outs
+namespace Poker_Game.AI
 {
-    class CalcStraightOuts
+    class IsParetoOptimal
     {
     }
 }
