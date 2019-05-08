@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         public Player Player { get; set; }
         public List<Card> Street { get; set; }
         public int Pot { get; set; }
-        public Preflop Preflop { get; set; }
+        public PlayerCardsInHand PlayerCardsInHands { get; set; }
         public int numberOfOuts { get; set; }
         
         public List<Turn> Turns { get; set;}
@@ -21,22 +21,22 @@ namespace Poker_Game.AI
         public WinConditions WinConditions { get; set; }
 
 
-        public void calcOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns, WinConditions winconditions)
+        public void calcOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands, List<Turn> turns, WinConditions winconditions)
         {
             Player = player;
             Street = street;
-            Preflop = preflops;
+            PlayerCardsInHands = cardsinhands;
             Turns = turns;
             WinConditions = winconditions;
 
         }
 
-        public int PlayerFlushOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns,
+        public int PlayerFlushOuts(Player player, List<Card> street, PlayerCardsInHand cardsinhands, List<Turn> turns,
             WinConditions winconditions) {
 
             int numberOfOuts = 0;
 
-            if (preflops.IsClubsFlush(player) == true) {
+            if (PlayerCardsInHands.IsFlushChance(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 
@@ -49,7 +49,7 @@ namespace Poker_Game.AI
                 numberOfOuts += (cardsInASuit - (flushClubs.Count() + player.Cards.Count));
             }
 
-            if (preflops.IsDiamondsFlush(player) == true) {
+            if (PlayerCardsInHands.IsDiamondsFlush(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 
@@ -62,7 +62,7 @@ namespace Poker_Game.AI
                 numberOfOuts += (cardsInASuit - (flushDiamonds.Count() + player.Cards.Count));
             }
 
-            if (preflops.IsHeartsFlush(player) == true) {
+            if (PlayerCardsInHands.IsHeartsFlush(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 
@@ -75,7 +75,7 @@ namespace Poker_Game.AI
                 numberOfOuts += (cardsInASuit - (flushHearts.Count() + player.Cards.Count));
             }
 
-            if (preflops.IsSpadesFlush(player) == true) {
+            if (PlayerCardsInHands.IsSpadesFlush(player) == true) {
                 int cardsInASuit = 13, suitsInHand = player.Cards.Count;
                 // finds each element in the street that matches the suit that the player holds in his hand
 
@@ -93,12 +93,12 @@ namespace Poker_Game.AI
 
 
 
-        public int calcStraightOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns, WinConditions winconditions) { 
+        public int calcStraightOuts(Player player, List<Card> street, PlayerCardsInHand PlayerCardsInHands, List<Turn> turns, WinConditions winconditions) { 
 
 
         //Checks for cards that are in range of a straight compared to the players hand
 
-            if (preflops.IsStraightChance(player) == true) {
+            if (PlayerCardsInHands.IsStraightChance(player) == true) {
 
                 List<Card> straightCards = new List<Card>();
                
@@ -184,11 +184,11 @@ namespace Poker_Game.AI
             return numberOfOuts;
         }
 
-       public int PlayerPairOuts(Player player, List<Card> street, Preflop preflops, List<Turn> turns) {
+       public int PlayerPairOuts(Player player, List<Card> street, PlayerCardsInHand PlayerCardsInHands, List<Turn> turns) {
 
 
             List<Card> otherPairs = new List<Card>();
-            if(preflops.isPair(player)) {
+            if(PlayerCardsInHands.isPair(player)) {
                 int moreOfAKind = 0;
 
                 foreach (var element in Street) {
