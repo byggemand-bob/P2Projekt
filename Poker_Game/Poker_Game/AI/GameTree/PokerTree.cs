@@ -1,4 +1,7 @@
-﻿namespace Poker_Game.AI.GameTree {
+﻿using System;
+using Poker_Game.Game;
+
+namespace Poker_Game.AI.GameTree {
     class PokerTree {
         public Node RootNode { get; private set; }
         public Node CurrentNode { get; private set; }
@@ -20,6 +23,12 @@
             return result;
         }
 
+        // MinMax
+        public PlayerAction ChoosePath() {
+            throw new NotImplementedException();
+
+
+        }
 
 
     }

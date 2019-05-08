@@ -10,8 +10,15 @@ namespace Poker_Game.AI {
     class AiTest {
 
         static void Main() {
-            TestRangeCount();
+            TestPotSizeCalculator();
 
+        }
+
+        static void TestPotSizeCalculator() {
+            PotSizeCalculator psc = new PotSizeCalculator(new Settings(2, 200, 1,true,1,"Person", 1));
+            int potSize = psc.GetPotsize("R-RE-C-R-RE-C-R-RE-C");
+            Console.WriteLine(potSize);
+            Console.ReadKey();
         }
 
         static void TestRangeCount() {
