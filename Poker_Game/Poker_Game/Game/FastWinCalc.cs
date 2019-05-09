@@ -815,7 +815,9 @@ namespace Poker_Game.Game
             return 0;
         }
 
-        public int WhoWinsV3(List<Card> AiCards, List<Card> PlayerCards)
+        public int WhoWinsV3(List<Card> AiCards, List<Card> PlayerCards) 
+        //function can be optimized by removeing checks for 4 of a kind when we know x player has a flush, as haveing both should be impossible
+        
         //return -1 for ai win, 1 for player win, 0 for draw
         {
             evaluatedcards AiEvalCards = new evaluatedcards(AiCards), PlayerEvalCards = new evaluatedcards(PlayerCards);
@@ -932,7 +934,7 @@ namespace Poker_Game.Game
                     //if nothing above is true check for highest flush
                     return CompareFlushes(AiCards, AiEvalCards.flushSuit, PlayerCards, PlayerEvalCards.flushSuit);
                 }
-                //from here only Ai has flush, checks if Ai has anything that trumps a flush
+                //from here only Ai has flush, checks if Player has anything that trumps a flush
 
                 //checks for 4 of a kind a hull house, for player before declareing ai winner
                 if(PlayerEvalCards.nrOfHighestCard >= 3)
@@ -958,7 +960,7 @@ namespace Poker_Game.Game
                         return 1;
                     }
 
-                    else if(PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                    if(PlayerEvalCards.nrOfSecoundHighestCard >= 2)
                     {
                         if(AiEvalCards.nrOfHighestCard == 4)
                         {
