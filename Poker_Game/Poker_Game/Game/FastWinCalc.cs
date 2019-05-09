@@ -198,9 +198,10 @@ namespace Poker_Game.Game
                 return -1;
             }
 
-            //player straight flush, flush checked later
+            //player flush check
             if (PlayerEvalCards.hasFlush)
             {
+                //checks if player has straight flush
                 if (PlayerEvalCards.highestCardInStraight > 0)
                 {
                     hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
@@ -210,6 +211,54 @@ namespace Poker_Game.Game
                         return 1;
                     }
                 }
+                //check if ai has anything that beats flush
+
+                //four of a kind checks
+                if (AiEvalCards.nrOfHighestCard == 4)
+                {
+                    if (PlayerEvalCards.nrOfHighestCard == 4)
+                    {
+                        if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                        {
+                            return 1;
+                        }
+                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                        {
+                            return -1;
+                        }
+
+                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
+                    }
+                    return -1;
+                }
+
+                //check for highest full house
+                if (AiEvalCards.nrOfSecoundHighestCard >= 2 && AiEvalCards.nrOfHighestCard == 3)
+                {
+                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
+                    {
+                        if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
+                        {
+                            return 1;
+                        }
+                        else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
+                        {
+                            return -1;
+                        }
+                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                        {
+                            return 1;
+                        }
+                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                        {
+                            return -1;
+                        }
+                        return 0;
+                    }
+                    return -1;
+                }
+
+                return 1;
             }
 
             //four of a kind checks
@@ -263,11 +312,6 @@ namespace Poker_Game.Game
             }
 
             if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
-            {
-                return 1;
-            }
-
-            if (PlayerEvalCards.hasFlush)
             {
                 return 1;
             }
