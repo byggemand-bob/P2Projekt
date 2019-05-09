@@ -17,6 +17,8 @@ namespace Poker_Game.Game {
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
 
+        #region Initialization
+
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
@@ -37,8 +39,10 @@ namespace Poker_Game.Game {
             }
             return players;
         }
+        #endregion
 
-        public void Call() { 
+        #region Actions
+        public void Call() { // Method used for coding a press of Call-button in GameForm.
             if (CanCall()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
@@ -49,7 +53,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        public void Check() { 
+        public void Check() { // Method used for coding a press of Check-button in GameForm.
             if (CanCheck()) { // Needs fixing
                 CurrentPlayer().Action = PlayerAction.Check;
                 CurrentPlayer().BetsTaken++;
@@ -104,6 +108,11 @@ namespace Poker_Game.Game {
             CurrentRound().NewTurn(Players[CurrentPlayerIndex], CurrentHand().Pot);
         }
        
+
+        #endregion
+
+        #region GameState
+
         public void UpdateState() { // WIP. Split up?
             HandInProgress = IsHandInProgress();
             RoundInProgress = IsRoundInProgress();
@@ -115,7 +124,6 @@ namespace Poker_Game.Game {
 
             if(!HandInProgress) {
                 RewardWinners(GetWinners(CurrentHand()));
-
             }
         }
 
@@ -196,7 +204,9 @@ namespace Poker_Game.Game {
             return -1; // TODO: Do error-handling
         }
 
+        #endregion
 
+        #region Utillity
 
         public bool CanCheck() {
             return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
@@ -208,8 +218,6 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            System.Windows.Forms.MessageBox.Show(CurrentPlayer().Id + ", " + CurrentPlayer().BetsTaken + " < " +
-                                                 Settings.MaxBetsPerRound + " = " + (CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound));
             return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
         }
 
@@ -245,6 +253,10 @@ namespace Poker_Game.Game {
             return player.Stack != 0;
         }
 
+        #endregion
+
+        #region Betting
+
         private void Bet(Player player, int amount) {
             if (player.Stack >= amount) {
                 player.CurrentBet += amount;
@@ -272,5 +284,8 @@ namespace Poker_Game.Game {
                 }
             }
         }
+
+        #endregion
+
     }
 }

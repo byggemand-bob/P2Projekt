@@ -23,6 +23,9 @@ namespace Poker_Game.Game {
             _maxBets = settings.MaxBetsPerRound;
 
             Players.ForEach(x => x.BetsTaken = 0);
+                
+            
+
         }
 
 
@@ -61,14 +64,17 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            for (int i = 0; i < Players.Count; i++) {
+            if(Bets == _maxBets * 2 && CycleFinished()) {
+                for (int i = 0; i < Players.Count; i++) {
                     if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
                         return false;
                     }
+                }
+
+                return true;
             }
 
-            return true;
-                
+            return false;
         }
 
         private bool CycleFinished() { // One cycle is one turn for each player
