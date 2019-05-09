@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Poker_Game.AI.Outs;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI
@@ -9,13 +10,11 @@ namespace Poker_Game.AI
     {
         public Player Player { get; set; }
         public List<Card> Street { get; set; }
-        public PlayerCardsInHand PlayerCardsInHands { get; set; }
         public int NumberOfOuts { get; set; }
         
 
-        public CalcProbability(Player player, PlayerCardsInHand cardsinhands, int numberOfOuts, List<Card> flushcards) {
+        public CalcProbability(Player player, int numberOfOuts, List<Card> flushcards) {
             Player = player;
-            PlayerCardsInHands = cardsinhands;
         }
 
         private double CalculateProbability(Player player) {

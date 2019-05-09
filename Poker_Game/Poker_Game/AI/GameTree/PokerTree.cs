@@ -23,6 +23,12 @@ namespace Poker_Game.AI.GameTree {
             return result;
         }
 
+        private double[] GetEVs(string[] paths) {
+            throw new NotImplementedException();
+            EVCalculator evCalculator = new EVCalculator();
+            return evCalculator.CalculateAll(paths);
+        }
+
         // MinMax
         public PlayerAction ChoosePath() {
             throw new NotImplementedException();

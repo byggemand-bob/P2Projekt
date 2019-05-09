@@ -74,7 +74,7 @@
     <Compile Include="AI\ABPruning.cs" />
     <Compile Include="AI\AiTest.cs" />
     <Compile Include="AI\Opponent\VPIPController.cs" />
-    <Compile Include="AI\CalcEV.cs" />
+    <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\CalcProbability.cs" />
     <Compile Include="AI\Calculator.cs" />
     <Compile Include="AI\CardOdds.cs" />
@@ -90,14 +90,10 @@
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\TreeTest.cs" />
     <Compile Include="AI\MinMax.cs" />
-    <Compile Include="AI\Outs\CalcFlushOuts.cs" />
     <Compile Include="AI\Outs\CalcOuts.cs" />
-    <Compile Include="AI\Outs\CalcPairOuts.cs" />
-    <Compile Include="AI\Outs\CalcStraightOuts.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />
-    <Compile Include="AI\Preflop\PlayerCardsInHand.cs" />
     <Compile Include="AI\Opponent\RangeParser.cs" />
     <Compile Include="AI\Opponent\VPIPData.cs" />
     <Compile Include="AI\Opponent\VPIPReader.cs" />
