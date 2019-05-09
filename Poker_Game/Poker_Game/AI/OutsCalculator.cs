@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Outs {
+namespace Poker_Game.AI {
     class OutsCalculator {
         public int CompareOuts(List<Card> cardHand, List<Card> street) {
             if(HasFlushChance(cardHand) && HasStraightChance(cardHand)) {
