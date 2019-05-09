@@ -16,7 +16,6 @@ namespace Poker_Game.AI {
         private readonly Settings _settings;
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
-        private readonly PokerTree _pokerTree;
         private readonly PokerGame _pokerGame;
 
         public PokerAI(PokerGame game) {
@@ -26,7 +25,6 @@ namespace Poker_Game.AI {
             _settings = game.Settings;
             _actions = GetActions(game);
             _vpipController = new VPIPController(_settings.PlayerName);
-            _pokerTree = new PokerTree();
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -85,7 +83,7 @@ namespace Poker_Game.AI {
 
         private PlayerAction AfterPreflop() {
             throw new NotImplementedException();
-
+            PokerTree pt = new PokerTree(_player.Cards, _pokerGame.CurrentHand().Street);
         }
 
     }

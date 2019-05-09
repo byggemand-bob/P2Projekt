@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using Poker_Game.AI.Outs;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {

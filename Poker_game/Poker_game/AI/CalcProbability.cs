@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Poker_Game.AI.Outs;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI
