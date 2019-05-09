@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game {
@@ -10,6 +11,7 @@ namespace Poker_Game {
         private readonly PokerGame Game;
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
+        private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
         
         #region Initialization
@@ -29,6 +31,8 @@ namespace Poker_Game {
             Game.Players[0].Name = Settings.PlayerName;
             Game.Players[1].Name = "Deep Peer";
             
+            _ai = new PokerAI(Game);
+
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
             labelPlayerName.Text = Settings.PlayerName;
@@ -101,7 +105,7 @@ namespace Poker_Game {
             UpdateCards();
             CheckForPrematureShowdown(Game.Players);
             if (DiagnosticsMode) {UpdateTest();}
-            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
+            //CheckPlayerTurn(Game.CurrentPlayerIndex);
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -248,7 +252,7 @@ namespace Poker_Game {
         private void buttonCall_Click(object sender, EventArgs e)
         {
             Game.Call();
-            UpdateAll();
+            AiTurn();
         }
 
         private void buttonCall_MouseEnter(object sender, EventArgs e)
@@ -278,14 +282,13 @@ namespace Poker_Game {
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             Game.Check();
-            UpdateAll();
+            AiTurn();
         }
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             Game.Raise();
-            UpdateAll();
-
+            AiTurn();
         }
 
         private void buttonRaise_MouseEnter(object sender, EventArgs e)
@@ -496,5 +499,15 @@ namespace Poker_Game {
             return Game.Players[Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].TopBidderIndex];
         }
         #endregion
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
+            _ai.SaveData();
+        }
+
+        private void AiTurn() {
+            _ai.MakeDecision();
+            UpdateAll();
+        }
+
     }
 }

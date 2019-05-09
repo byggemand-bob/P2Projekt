@@ -545,6 +545,7 @@ namespace Poker_Game {
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Deep Per";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).EndInit();

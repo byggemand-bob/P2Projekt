@@ -50,7 +50,8 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            return AllChecked() || (Turns.Count > Players.Count && AllCalled()); // TODO: Rework
+            //System.Windows.Forms.MessageBox.Show(AllChecked().ToString() + (Turns.Count - 1 >= Players.Count).ToString() + AllCalled());
+            return AllChecked() || (Turns.Count >= Players.Count && AllCalled()); // TODO: Rework
         }
 
         private bool AllChecked() {
@@ -64,17 +65,13 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            if(Bets == _maxBets * 2 && CycleFinished()) {
-                for (int i = 0; i < Players.Count; i++) {
-                    if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
-                        return false;
-                    }
+            for(int i = 0; i < Players.Count; i++) {
+                if(Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
+                    return false;
                 }
-
-                return true;
             }
 
-            return false;
+            return true;
         }
 
         private bool CycleFinished() { // One cycle is one turn for each player
