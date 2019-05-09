@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
-        const int NUMOFTHREADS = 8;
+        const int NUMOFTHREADS = 4;
 
         public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
         {
@@ -50,11 +50,10 @@ namespace Poker_Game.AI
         public Odds RunTrails(int NumberOfTrails)
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
-            int wins = 0, loses = 0, draws = 0;
-            WinConditions winCalc = new WinConditions();
+            int wins = 0, loses = 0, draws = 0, result;
+            FastWinCalc winCalc = new FastWinCalc();
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
-            Player Ai = new Player(0, 0), Player = new Player(1, 0), winner;
 
             for (x = 0; x < NumberOfTrails; x++)
             {
@@ -71,48 +70,35 @@ namespace Poker_Game.AI
                 aiTrailCards = aiHand.Concat(trailStreet).ToList();
                 opponantTrailCards = trailStreet;
 
+                /*
                 for (n = 0; n < 2; n++)
                 {
                     NewCard = new Card(CardsInPlay);
                     CardsInPlay.Add(NewCard);
                     opponantTrailCards.Add(NewCard);
                 }
+                */
 
-                Ai.Cards.Sort();
-                Player.Cards.Sort();
 
-                Ai.Score = winCalc.Evaluate(opponantTrailCards);
-                Player.Score = winCalc.Evaluate(aiTrailCards);
+                //forced to add to opponent hand
+                opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
+                opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
 
-                if (Player.Score > Ai.Score)
+                result = winCalc.WhoWins(aiTrailCards, opponantTrailCards);
+
+                if (result == 1)
                 {
                     loses++;
                 }
-                else if (Player.Score < Ai.Score)
+                else if (result == -1)
                 {
                     wins++;
                 }
                 else
                 {
-                    Ai.Cards = aiTrailCards;
-                    Player.Cards = opponantTrailCards;
-
-                    winner = winCalc.SameScore(Player, Ai);
-
-                    if(winner == null)
-                    {
-                        draws++;
-                    }
-                    else if(winner.Id == Ai.Id)
-                    {
-                        wins++;
-                    }
-                    else
-                    {
-                        loses++;
-                    }
+                    draws++;
                 }
-                
+
                 CardsInPlay.Clear();
                 opponantTrailCards.Clear();
                 aiTrailCards.Clear();
@@ -164,7 +150,7 @@ namespace Poker_Game.AI
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
 
-                result = winCalc.WhoWins(aiTrailCards, opponantTrailCards);
+                result = winCalc.WhoWinsV3(aiTrailCards, opponantTrailCards);
 
                 if (result == 1)
                 {
@@ -213,7 +199,7 @@ namespace Poker_Game.AI
                 totalResults.Add(trailResults[x]);
             }
 
-            totalResults.DevideAllBy(4);
+            totalResults.DevideAllBy(NUMOFTHREADS);
 
             Console.Write("\nTotal Results: ");
             PrintResults(totalResults);
@@ -245,7 +231,6 @@ namespace Poker_Game.AI
 
             Console.Write("\nTotal Results:  ");
             PrintResults(totalResults);
-            Console.WriteLine("Expected value: wins: 87,23%, loses; 11,51%, draws: 1.26%");
 
             return totalResults;
         }

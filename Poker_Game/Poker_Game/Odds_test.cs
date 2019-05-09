@@ -21,18 +21,19 @@ namespace Poker_Game
             Calculator Calc = new Calculator();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
-            int NumberOftrails = 10000000;
+            int NumberOftrails = 5000000;
 
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
-            hand.Add(new Card(Suit.Clubs, Rank.Ace));
+            hand.Add(new Card(Suit.Hearts, Rank.King));
 
-            street.Add(new Card(Suit.Clubs, Rank.King));
-            street.Add(new Card(Suit.Spades, (Rank)5));
-            street.Add(new Card(Suit.Spades, Rank.Jack));
+            //street.Add(new Card(Suit.Clubs, Rank.King));
+            //street.Add(new Card(Suit.Spades, (Rank)5));
+            //street.Add(new Card(Suit.Spades, Rank.Jack));
 
             MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
 
-            /*
+            Console.WriteLine("Number of trails: {0}\n\n------------------------------------------------------- \nFunction 1: \n", PutDot((double)NumberOftrails));
+
             stopwatch.Start();
 
             MonteCarlo.MultiThreadMonteCarlo(NumberOftrails);
@@ -46,13 +47,13 @@ namespace Poker_Game
 
 
 
-            Console.WriteLine("\n------------------------------------------------------- \n\n");
+            Console.WriteLine("\n------------------------------------------------------- \nFunction 2: \n");
 
 
 
 
             stopwatch.Reset();
-            */
+            
 
             stopwatch.Start();
 
@@ -64,10 +65,19 @@ namespace Poker_Game
 
             Console.WriteLine("\ntime elapsed: {0}", String.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds / 10));
 
+            Console.WriteLine("\n\nExpected value: wins: 87,23%, loses; 11,51%, draws: 1.26%");
+
             Console.ReadKey();
         }
 
-        
+        public static string PutDot(double inputNumber)
+        {
+            string outputNumber;
+
+            outputNumber = inputNumber.ToString("#,##0");
+
+            return outputNumber;
+        }
 
     }
 }
