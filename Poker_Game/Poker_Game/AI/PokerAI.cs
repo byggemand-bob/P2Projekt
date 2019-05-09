@@ -17,8 +17,10 @@ namespace Poker_Game.AI {
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
         private readonly PokerTree _pokerTree;
+        private readonly PokerGame _pokerGame;
 
         public PokerAI(PokerGame game) {
+            _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
             _hands = game.Hands;
             _settings = game.Settings;
@@ -74,13 +76,11 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction Preflop() {
-            throw new NotImplementedException();
-            double pfr = _vpipController.PFR;
-            // Check PFR chart
+            if(_pokerGame.CanCall()) {
+                return PlayerAction.Call;
+            }
 
-
-
-
+            return PlayerAction.Check;
         }
 
         private PlayerAction AfterPreflop() {
@@ -90,24 +90,3 @@ namespace Poker_Game.AI {
 
     }
 }
-
-
-//private double CalcFaculty(double number) {
-//double fact, i;
-//fact = number;
-//for(i = number - 1; i >= 1; i--) {
-//    fact = fact * i;
-//}
-
-//return fact;
-//}
-
-//private double CalcBinomial(List<Hand> hands) {
-//double r, n;
-
-//r = CalcFaculty(Hands.Count);
-//n = (52 - Hands.Count);
-
-
-//return n / r * (n - r);
-//}
