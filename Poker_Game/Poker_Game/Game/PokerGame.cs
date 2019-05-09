@@ -38,7 +38,7 @@ namespace Poker_Game.Game {
             return players;
         }
 
-        public void Call() { // Method used for coding a press of Call-button in GameForm.
+        public void Call() { 
             if (CanCall()) {
                 // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
@@ -49,7 +49,7 @@ namespace Poker_Game.Game {
             }
         }
 
-        public void Check() { // Method used for coding a press of Check-button in GameForm.
+        public void Check() { 
             if (CanCheck()) { // Needs fixing
                 CurrentPlayer().Action = PlayerAction.Check;
                 CurrentPlayer().BetsTaken++;
@@ -208,6 +208,8 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
+            System.Windows.Forms.MessageBox.Show(CurrentPlayer().Id + ", " + CurrentPlayer().BetsTaken + " < " +
+                                                 Settings.MaxBetsPerRound + " = " + (CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound));
             return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
         }
 

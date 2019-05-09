@@ -61,17 +61,14 @@ namespace Poker_Game.Game {
         }
 
         private bool AllCalled() {
-            if(Bets == _maxBets * 2 && CycleFinished()) {
-                for (int i = 0; i < Players.Count; i++) {
+            for (int i = 0; i < Players.Count; i++) {
                     if (Players[i].Action != PlayerAction.Call && i != TopBidderIndex) {
                         return false;
                     }
-                }
-
-                return true;
             }
 
-            return false;
+            return true;
+                
         }
 
         private bool CycleFinished() { // One cycle is one turn for each player

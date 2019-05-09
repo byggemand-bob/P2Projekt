@@ -255,6 +255,7 @@ namespace Poker_Game {
         {
             _game.Call();
             UpdateAll();
+            AiTurn();
         }
 
         private void buttonCall_MouseEnter(object sender, EventArgs e)
@@ -285,13 +286,14 @@ namespace Poker_Game {
         {
             _game.Check();
             UpdateAll();
+            AiTurn();
         }
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             _game.Raise();
             UpdateAll();
-
+            AiTurn();
         }
 
         private void buttonRaise_MouseEnter(object sender, EventArgs e)
