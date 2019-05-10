@@ -50,7 +50,6 @@ namespace Poker_Game.Game {
         #region Utility
 
         public bool IsFinished() {
-            //System.Windows.Forms.MessageBox.Show(AllChecked().ToString() + (Turns.Count - 1 >= Players.Count).ToString() + AllCalled());
             return AllChecked() || (Turns.Count >= Players.Count && AllCalled()); // TODO: Rework
         }
 
