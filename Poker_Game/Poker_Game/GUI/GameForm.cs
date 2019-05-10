@@ -105,7 +105,7 @@ namespace Poker_Game {
             UpdateCards();
             CheckForPrematureShowdown(Game.Players);
             if (DiagnosticsMode) {UpdateTest();}
-            //CheckPlayerTurn(Game.CurrentPlayerIndex);
+            CheckPlayerTurn(Game.CurrentPlayerIndex);
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -219,7 +219,12 @@ namespace Poker_Game {
 
         private void CheckPlayerTurn(int id)
         {
-            ChangeActionButtonState(id == 0);
+
+            if(id == 0) {
+                UpdateButtons();
+            } else {
+                AiTurn();
+            }
         }
 
         private void UpdateLabelCurrentBet(List<Player> players)
@@ -252,7 +257,7 @@ namespace Poker_Game {
         private void buttonCall_Click(object sender, EventArgs e)
         {
             Game.Call();
-            AiTurn();
+            UpdateAll();
         }
 
         private void buttonCall_MouseEnter(object sender, EventArgs e)
@@ -282,13 +287,13 @@ namespace Poker_Game {
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             Game.Check();
-            AiTurn();
+            UpdateAll();
         }
 
         private void buttonRaise_Click(object sender, EventArgs e)
         {
             Game.Raise();
-            AiTurn();
+            UpdateAll();
         }
 
         private void buttonRaise_MouseEnter(object sender, EventArgs e)
@@ -505,7 +510,7 @@ namespace Poker_Game {
         }
 
         private void AiTurn() {
-            _ai.MakeDecision();
+            _ai.MakeDecision(Game.Players[0].Action);
             UpdateAll();
         }
 

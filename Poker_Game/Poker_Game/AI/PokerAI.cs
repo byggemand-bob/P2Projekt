@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
@@ -17,6 +13,7 @@ namespace Poker_Game.AI {
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
+        //private readonly PokerTree pt = new PokerTree(_player.Cards, _pokerGame.CurrentHand().Street);
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -48,8 +45,8 @@ namespace Poker_Game.AI {
             _vpipController.SaveData();
         }
 
-        public void MakeDecision() {
-            switch(Evaluate()) {
+        public void MakeDecision(PlayerAction realPlayerAction) {
+            switch(Evaluate(realPlayerAction)) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -65,11 +62,11 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction Evaluate() {
+        private PlayerAction Evaluate(PlayerAction realPlayerAction) {
             if(_hands.Last().CurrentRoundNumber() == 1) {
                 return Preflop();
             } else {
-                return AfterPreflop();
+                return AfterPreflop(realPlayerAction);
             }
         }
 
@@ -81,9 +78,9 @@ namespace Poker_Game.AI {
             return PlayerAction.Check;
         }
 
-        private PlayerAction AfterPreflop() {
+        private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
             throw new NotImplementedException();
-            PokerTree pt = new PokerTree(_player.Cards, _pokerGame.CurrentHand().Street);
+            
         }
 
     }
