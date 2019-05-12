@@ -191,7 +191,7 @@
             this.AiPlayer1GuessLabel.AutoSize = true;
             this.AiPlayer1GuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiPlayer1GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiPlayer1GuessLabel.Location = new System.Drawing.Point(219, 132);
+            this.AiPlayer1GuessLabel.Location = new System.Drawing.Point(229, 134);
             this.AiPlayer1GuessLabel.Name = "AiPlayer1GuessLabel";
             this.AiPlayer1GuessLabel.Size = new System.Drawing.Size(227, 20);
             this.AiPlayer1GuessLabel.TabIndex = 15;
@@ -202,7 +202,7 @@
             this.AiPlayer2GuessLabel.AutoSize = true;
             this.AiPlayer2GuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiPlayer2GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiPlayer2GuessLabel.Location = new System.Drawing.Point(219, 421);
+            this.AiPlayer2GuessLabel.Location = new System.Drawing.Point(229, 423);
             this.AiPlayer2GuessLabel.Name = "AiPlayer2GuessLabel";
             this.AiPlayer2GuessLabel.Size = new System.Drawing.Size(227, 20);
             this.AiPlayer2GuessLabel.TabIndex = 16;
@@ -213,7 +213,7 @@
             this.AiDrawGuessLabel.AutoSize = true;
             this.AiDrawGuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiDrawGuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiDrawGuessLabel.Location = new System.Drawing.Point(219, 281);
+            this.AiDrawGuessLabel.Location = new System.Drawing.Point(229, 283);
             this.AiDrawGuessLabel.Name = "AiDrawGuessLabel";
             this.AiDrawGuessLabel.Size = new System.Drawing.Size(157, 20);
             this.AiDrawGuessLabel.TabIndex = 17;
