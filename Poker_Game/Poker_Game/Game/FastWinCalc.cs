@@ -810,17 +810,26 @@ namespace Poker_Game.Game
 
             cards.Sort();
 
-            for(int x = 0; x > 6; x++)
+            if(cards[0].Rank == Rank.Ace && cards[6].Rank == (Rank) 2 && cards[0].Suit == cards[6].Suit)
             {
-                if(cards[x].Suit == cards[x+1].Suit && cards[x].Rank == cards[x + 1].Rank)
+                ConsequtiveCardsOfSameSuitAndRank++;
+            }
+
+            for(int x = 6; x > 0; x--)
+            {
+                if(cards[x].Suit == cards[x - 1].Suit && cards[x].Rank == cards[x - 1].Rank + 1)
                 {
                     ConsequtiveCardsOfSameSuitAndRank++;
                     if(ConsequtiveCardsOfSameSuitAndRank >= 5)
                     {
-                        Result = (int)cards[x + 1].Rank;
+                        Result = (int)cards[x - 1].Rank;
                     }
                 }
-            }
+                else
+                {
+                    ConsequtiveCardsOfSameSuitAndRank = 0;
+                }
+        }
         }
 
         private int CompareFlushes(List<Card> Player1Cards, Suit Player1FlushSuit, List<Card> Player2Cards, Suit Player2FlushSuit)
