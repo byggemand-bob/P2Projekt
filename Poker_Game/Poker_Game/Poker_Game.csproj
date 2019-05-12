@@ -132,7 +132,6 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
-    <Compile Include="UserTest.cs" />
     <Compile Include="UserTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
