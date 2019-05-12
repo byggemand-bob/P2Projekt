@@ -61,6 +61,11 @@ namespace Poker_Game.Game
                     }
                 }
 
+                if(cardsSummed[14] > 0)
+                {
+                    cardsInRow++;
+                }
+
                 for(int x = 2; x < 15; x++)
                 {
                     if(cardsSummed[x] > 0)
@@ -79,6 +84,7 @@ namespace Poker_Game.Game
                         }
 
                         cardsInRow++;
+
                         if(cardsInRow >= 5)
                         {
                             highestCardInStraight = x;
