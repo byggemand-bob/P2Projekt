@@ -17,6 +17,7 @@ namespace Poker_Game
         List<Card> Player1Cards = new List<Card>(), Player2Cards = new List<Card>(), Street = new List<Card>(), CardsInPlay = new List<Card>();
         Card NewCard;
         int UserResult, AiResult;
+        bool RandomPlayerCards = false;
 
         private void Player2GuessButton_Click(object sender, EventArgs e)
         {
@@ -40,6 +41,20 @@ namespace Poker_Game
                 {
                     AiPlayer2GuessLabel.Visible = true;
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (RandomPlayerCards)
+            {
+                RandomPlayerCards = false;
+                RandomOrStaticButton.Text = "Switch to Random cards";
+            }
+            else
+            {
+                RandomPlayerCards = true;
+                RandomOrStaticButton.Text = "Switch to Static cards";
             }
         }
 
@@ -111,18 +126,33 @@ namespace Poker_Game
             AiPlayer1GuessLabel.Visible = false;
             AiPlayer2GuessLabel.Visible = false;
 
-            for (int x = 0; x < 2; x++)
+            if (RandomPlayerCards)
             {
-                NewCard = new Card(CardsInPlay);
-                CardsInPlay.Add(NewCard);
-                Player1Cards.Add(NewCard);
-            }
+                for (int x = 0; x < 2; x++)
+                {
+                    NewCard = new Card(CardsInPlay);
+                    CardsInPlay.Add(NewCard);
+                    Player1Cards.Add(NewCard);
+                }
 
-            for (int x = 0; x < 2; x++)
+                for (int x = 0; x < 2; x++)
+                {
+                    NewCard = new Card(CardsInPlay);
+                    CardsInPlay.Add(NewCard);
+                    Player2Cards.Add(NewCard);
+                }
+            }
+            else
             {
-                NewCard = new Card(CardsInPlay);
-                CardsInPlay.Add(NewCard);
-                Player2Cards.Add(NewCard);
+                Player1Cards.Add(new Card(Suit.Hearts, Rank.Ace));
+                Player1Cards.Add(new Card(Suit.Spades, Rank.Ace));
+                CardsInPlay.Add(Player1Cards[0]);
+                CardsInPlay.Add(Player1Cards[1]);
+
+                Player2Cards.Add(new Card(Suit.Diamonds, Rank.Ace));
+                Player2Cards.Add(new Card(Suit.Diamonds, Rank.King));
+                CardsInPlay.Add(Player2Cards[0]);
+                CardsInPlay.Add(Player2Cards[1]);
             }
 
             for (int x = 0; x < 5; x++)

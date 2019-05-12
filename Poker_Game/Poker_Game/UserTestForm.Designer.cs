@@ -45,6 +45,7 @@
             this.AiPlayer1GuessLabel = new System.Windows.Forms.Label();
             this.AiPlayer2GuessLabel = new System.Windows.Forms.Label();
             this.AiDrawGuessLabel = new System.Windows.Forms.Label();
+            this.RandomOrStaticButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard1ImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard2ImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard3ImageBox)).BeginInit();
@@ -103,7 +104,7 @@
             // 
             // Player2pictureBox2
             // 
-            this.Player2pictureBox2.Location = new System.Drawing.Point(252, 309);
+            this.Player2pictureBox2.Location = new System.Drawing.Point(318, 309);
             this.Player2pictureBox2.Name = "Player2pictureBox2";
             this.Player2pictureBox2.Size = new System.Drawing.Size(83, 111);
             this.Player2pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -112,7 +113,7 @@
             // 
             // Player2pictureBox1
             // 
-            this.Player2pictureBox1.Location = new System.Drawing.Point(163, 309);
+            this.Player2pictureBox1.Location = new System.Drawing.Point(229, 309);
             this.Player2pictureBox1.Name = "Player2pictureBox1";
             this.Player2pictureBox1.Size = new System.Drawing.Size(83, 111);
             this.Player2pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -121,7 +122,7 @@
             // 
             // Player1pictureBox2
             // 
-            this.Player1pictureBox2.Location = new System.Drawing.Point(252, 18);
+            this.Player1pictureBox2.Location = new System.Drawing.Point(318, 18);
             this.Player1pictureBox2.Name = "Player1pictureBox2";
             this.Player1pictureBox2.Size = new System.Drawing.Size(83, 111);
             this.Player1pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -130,7 +131,7 @@
             // 
             // Player1pictureBox1
             // 
-            this.Player1pictureBox1.Location = new System.Drawing.Point(163, 18);
+            this.Player1pictureBox1.Location = new System.Drawing.Point(229, 18);
             this.Player1pictureBox1.Name = "Player1pictureBox1";
             this.Player1pictureBox1.Size = new System.Drawing.Size(83, 111);
             this.Player1pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -170,7 +171,7 @@
             // Player1Label
             // 
             this.Player1Label.AutoSize = true;
-            this.Player1Label.Location = new System.Drawing.Point(33, 57);
+            this.Player1Label.Location = new System.Drawing.Point(126, 57);
             this.Player1Label.Name = "Player1Label";
             this.Player1Label.Size = new System.Drawing.Size(78, 13);
             this.Player1Label.TabIndex = 13;
@@ -179,7 +180,7 @@
             // Player2Label
             // 
             this.Player2Label.AutoSize = true;
-            this.Player2Label.Location = new System.Drawing.Point(33, 381);
+            this.Player2Label.Location = new System.Drawing.Point(126, 381);
             this.Player2Label.Name = "Player2Label";
             this.Player2Label.Size = new System.Drawing.Size(78, 13);
             this.Player2Label.TabIndex = 14;
@@ -190,7 +191,7 @@
             this.AiPlayer1GuessLabel.AutoSize = true;
             this.AiPlayer1GuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiPlayer1GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiPlayer1GuessLabel.Location = new System.Drawing.Point(153, 132);
+            this.AiPlayer1GuessLabel.Location = new System.Drawing.Point(219, 132);
             this.AiPlayer1GuessLabel.Name = "AiPlayer1GuessLabel";
             this.AiPlayer1GuessLabel.Size = new System.Drawing.Size(227, 20);
             this.AiPlayer1GuessLabel.TabIndex = 15;
@@ -201,7 +202,7 @@
             this.AiPlayer2GuessLabel.AutoSize = true;
             this.AiPlayer2GuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiPlayer2GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiPlayer2GuessLabel.Location = new System.Drawing.Point(153, 421);
+            this.AiPlayer2GuessLabel.Location = new System.Drawing.Point(219, 421);
             this.AiPlayer2GuessLabel.Name = "AiPlayer2GuessLabel";
             this.AiPlayer2GuessLabel.Size = new System.Drawing.Size(227, 20);
             this.AiPlayer2GuessLabel.TabIndex = 16;
@@ -212,17 +213,28 @@
             this.AiDrawGuessLabel.AutoSize = true;
             this.AiDrawGuessLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AiDrawGuessLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.AiDrawGuessLabel.Location = new System.Drawing.Point(153, 281);
+            this.AiDrawGuessLabel.Location = new System.Drawing.Point(219, 281);
             this.AiDrawGuessLabel.Name = "AiDrawGuessLabel";
             this.AiDrawGuessLabel.Size = new System.Drawing.Size(157, 20);
             this.AiDrawGuessLabel.TabIndex = 17;
             this.AiDrawGuessLabel.Text = "Ai Believes its a draw";
+            // 
+            // RandomOrStaticButton
+            // 
+            this.RandomOrStaticButton.Location = new System.Drawing.Point(12, 12);
+            this.RandomOrStaticButton.Name = "RandomOrStaticButton";
+            this.RandomOrStaticButton.Size = new System.Drawing.Size(85, 45);
+            this.RandomOrStaticButton.TabIndex = 18;
+            this.RandomOrStaticButton.Text = "Switch to Random cards";
+            this.RandomOrStaticButton.UseVisualStyleBackColor = true;
+            this.RandomOrStaticButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // UserTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.RandomOrStaticButton);
             this.Controls.Add(this.AiDrawGuessLabel);
             this.Controls.Add(this.AiPlayer2GuessLabel);
             this.Controls.Add(this.AiPlayer1GuessLabel);
@@ -275,5 +287,6 @@
         private System.Windows.Forms.Label AiPlayer1GuessLabel;
         private System.Windows.Forms.Label AiPlayer2GuessLabel;
         private System.Windows.Forms.Label AiDrawGuessLabel;
+        private System.Windows.Forms.Button RandomOrStaticButton;
     }
 }
