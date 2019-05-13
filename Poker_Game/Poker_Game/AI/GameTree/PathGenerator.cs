@@ -11,38 +11,82 @@ namespace Poker_Game.AI.GameTree
 
 
        
-        private string MakePath() {
+        private string MakePath(int CurrentRoundNumber) {
 
-            for(int i = 0; i < _possibleActions.Length; i++) {
-                for(int j = 0; j < _possibleActions.Length; j++) {
-                    for(int k = 0; k < _possibleActions.Length; k++) {
-                        if(_possibleActions[i].Contains("F")) {
-                            _allActions.Append(_possibleActions[i] + "-")
-                                       .Append("\n");
-                            i++;
-                        } else if(_possibleActions[j].Contains("F")) {
-                            _allActions.Append(_possibleActions[i] + "-")
-                                       .Append(_possibleActions[j])
-                                       .Append("\n");
-                            j++;
-                        } else {
-                            _allActions.Append(_possibleActions[i] + "-")
-                                       .Append(_possibleActions[j] + "-")
-                                       .Append(_possibleActions[k])
-                                       .Append("\n");
+            if (CurrentRoundNumber == 2) {
+
+                for (int i = 0; i < _possibleActions.Length; i++) {
+                    for (int j = 0; j < _possibleActions.Length; j++) {
+                        for (int k = 0; k < _possibleActions.Length; k++) {
+                            if (_possibleActions[i].Contains("F")) {
+                                _allActions.Append(_possibleActions[i])
+                                    .Append("\n");
+                                i++;
+                            }
+                            else if (_possibleActions[j].Contains("F")) {
+                                _allActions.Append(_possibleActions[i] + "-")
+                                    .Append(_possibleActions[j])
+                                    .Append("\n");
+                                j++;
+                            }
+                            else {
+                                _allActions.Append(_possibleActions[i] + "-")
+                                    .Append(_possibleActions[j] + "-")
+                                    .Append(_possibleActions[k])
+                                    .Append("\n");
+                            }
                         }
                     }
                 }
+
+                return Convert.ToString(_allActions);
             }
+
+
+            if (CurrentRoundNumber == 3) {
+                for (int i = 0; i < _possibleActions.Length; i++) {
+                    for (int j = 0; j < _possibleActions.Length; j++) {
+                        if (_possibleActions[i].Contains("F")) {
+                            _allActions.Append(_possibleActions[i])
+                                .Append("\n");
+                            i++;
+                        }
+                        else if (_possibleActions[j].Contains("F")) {
+                            _allActions.Append(_possibleActions[i] + "-")
+                                .Append(_possibleActions[j])
+                                .Append("\n");
+                            j++;
+                        }
+                    }
+                }
+
+                return Convert.ToString(_allActions);
+            }
+
+
+            if (CurrentRoundNumber == 4) {
+                for (int i = 0; i < _possibleActions.Length; i++) {
+
+                    if (_possibleActions[i].Contains("F")) {
+                        _allActions.Append(_possibleActions[i])
+                            .Append("\n");
+                        i++;
+                    }
+                }
+
+                return Convert.ToString(_allActions);
+            }
+
             return Convert.ToString(_allActions);
         }
+    
 
-        public string[] GeneratePaths() {
-            string[] temp = MakePath().Split('\n');
+        public string[] GeneratePaths(int CurrentRoundNumber) {
+            string[] temp = MakePath(CurrentRoundNumber).Split('\n');
             string[] result = new string[temp.Length - 2];
             Array.Copy(temp, result, temp.Length - 2);
             return result;
+        
         }
     }
 }
-
