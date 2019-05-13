@@ -101,11 +101,11 @@ namespace Poker_Game.Game
                     //checks for straight flush
                     if (AiEvalCards.highestCardInStraight > 0)
                     {
-                        hasStraightFlush(AiCards, aiHighestCardInStraightFlush);
+                        aiHighestCardInStraightFlush = hasStraightFlush(AiCards, AiEvalCards.flushSuit);
 
                         if (aiHighestCardInStraightFlush > 0)
                         {
-                            hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+                            playerHighestCardInStraightFlush = hasStraightFlush(PlayerCards, PlayerEvalCards.flushSuit);
 
                             if (aiHighestCardInStraightFlush > playerHighestCardInStraightFlush)
                             {
@@ -124,7 +124,7 @@ namespace Poker_Game.Game
 
                     if (PlayerEvalCards.highestCardInStraight > 0)
                     {
-                        hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+                        playerHighestCardInStraightFlush = hasStraightFlush(PlayerCards, PlayerEvalCards.flushSuit);
 
                         if (playerHighestCardInStraightFlush > 0)
                         {
@@ -199,7 +199,7 @@ namespace Poker_Game.Game
                 //checks if player has straight flush
                 if (PlayerEvalCards.highestCardInStraight > 0)
                 {
-                    hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+                    playerHighestCardInStraightFlush = hasStraightFlush(PlayerCards, PlayerEvalCards.flushSuit);
 
                     if(playerHighestCardInStraightFlush > 0)
                     {
@@ -435,9 +435,10 @@ namespace Poker_Game.Game
             return 0;
         }
 
-        private void hasStraightFlush(List<Card> cards, int Result) //needs to be rewritten to take advantage of FlushSuit in EvalCards
+        public int hasStraightFlush(List<Card> cards, Suit FlushSuit) //needs to be rewritten to take advantage of FlushSuit in EvalCards
         {
-            int ConsequtiveCardsOfSameSuitAndRank = 0;
+            int ConsequtiveCardsOfSameSuitAndRank = 0, Result = 0, x = 6;
+            Rank lastRank = 0;
 
             if (cards.Count != 7)
             {
@@ -446,26 +447,40 @@ namespace Poker_Game.Game
 
             cards.Sort();
 
-            if(cards[0].Rank == Rank.Ace && cards[6].Rank == (Rank) 2 && cards[0].Suit == cards[6].Suit)
+            while(cards[x].Rank == Rank.Ace)
             {
-                ConsequtiveCardsOfSameSuitAndRank++;
-            }
-
-            for(int x = 6; x > 0; x--)
-            {
-                if(cards[x].Suit == cards[x - 1].Suit && cards[x].Rank == cards[x - 1].Rank + 1)
+                if(cards[x].Suit == FlushSuit)
                 {
                     ConsequtiveCardsOfSameSuitAndRank++;
-                    if(ConsequtiveCardsOfSameSuitAndRank >= 5)
+                    lastRank = (Rank)1;
+                    break;
+                }
+                x--;
+            }
+
+            for(x = 0; x <= 6; x++)
+            {
+                if(cards[x].Suit == FlushSuit)
+                {
+                    if(cards[x].Rank == lastRank + 1)
                     {
-                        Result = (int)cards[x - 1].Rank;
+                        ConsequtiveCardsOfSameSuitAndRank++;
+                        lastRank = cards[x].Rank;
+
+                        if (ConsequtiveCardsOfSameSuitAndRank >= 5)
+                        {
+                            Result = (int)cards[x].Rank;
+                        }
+                    }
+                    else
+                    {
+                        ConsequtiveCardsOfSameSuitAndRank = 0;
+                        lastRank = cards[x].Rank;
                     }
                 }
-                else
-                {
-                    ConsequtiveCardsOfSameSuitAndRank = 0;
-                }
-        }
+            }
+
+            return Result;
         }
 
         private int CompareFlushes(List<Card> Player1Cards, Suit Player1FlushSuit, List<Card> Player2Cards, Suit Player2FlushSuit)
@@ -525,13 +540,13 @@ namespace Poker_Game.Game
                     //check for straight flush
                     if (AiEvalCards.highestCardInStraight > 0)
                     {
-                        hasStraightFlush(AiCards, aiHighestCardInStraightFlush);
+                        aiHighestCardInStraightFlush = hasStraightFlush(AiCards, AiEvalCards.flushSuit);
 
                         if(aiHighestCardInStraightFlush > 0)
                         {
                             if(PlayerEvalCards.highestCardInStraight > 0)
                             {
-                                hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+                                playerHighestCardInStraightFlush = hasStraightFlush(PlayerCards, PlayerEvalCards.flushSuit);
 
                                 if(playerHighestCardInStraightFlush > 0)
                                 {
@@ -556,7 +571,7 @@ namespace Poker_Game.Game
 
                     if(PlayerEvalCards.highestCardInStraight > 0)
                     {
-                        hasStraightFlush(PlayerCards, playerHighestCardInStraightFlush);
+                        playerHighestCardInStraightFlush = hasStraightFlush(PlayerCards, PlayerEvalCards.flushSuit);
 
                         if(playerHighestCardInStraightFlush > 0)
                         {
