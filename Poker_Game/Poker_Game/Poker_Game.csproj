@@ -89,7 +89,6 @@
     <Compile Include="AI\GameTree\PathGenerator.cs" />
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\GameTree\TreeTest.cs" />
-    <Compile Include="AI\MinMax.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotOdds.cs" />

@@ -8,7 +8,7 @@ namespace Poker_Game.AI.Opponent {
         private VPIPData _playerData;
         private double _vpip;
 
-        private const int VPIPThreshold = 50;
+        private const int VPIPThreshold = 10;
         private const int VPIPStandard = 25;
         private const int PFRStandard = 25;
 
@@ -82,7 +82,7 @@ namespace Poker_Game.AI.Opponent {
         }
 
         private int GetNumberOf(PlayerAction action, List<Turn> turns) {
-            if(action != PlayerAction.Call || action != PlayerAction.Raise) {
+            if(action != PlayerAction.Call && action != PlayerAction.Raise) {
                 throw new ArgumentException("The action argument only supports 'PlayerAction.Call' and 'PlayerAction.Raise'.");
             }
             for(int i = turns[0].Id; i < turns.Count; i += 2) {

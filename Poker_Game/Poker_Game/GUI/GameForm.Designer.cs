@@ -104,7 +104,7 @@ namespace Poker_Game {
             this.buttonRaise.Text = "Raise";
             this.buttonRaise.UseVisualStyleBackColor = false;
             this.buttonRaise.Click += new System.EventHandler(this.buttonRaise_Click);
-            this.buttonRaise.MouseEnter += new System.EventHandler(this.buttonRaise_MouseEnter);
+            //this.buttonRaise.MouseEnter += new System.EventHandler(this.buttonRaise_MouseEnter);
             this.buttonRaise.MouseLeave += new System.EventHandler(this.buttonRaise_MouseLeave);
             // 
             // buttonCall
@@ -121,7 +121,7 @@ namespace Poker_Game {
             this.buttonCall.Text = "Call";
             this.buttonCall.UseVisualStyleBackColor = false;
             this.buttonCall.Click += new System.EventHandler(this.buttonCall_Click);
-            this.buttonCall.MouseEnter += new System.EventHandler(this.buttonCall_MouseEnter);
+            //this.buttonCall.MouseEnter += new System.EventHandler(this.buttonCall_MouseEnter);
             this.buttonCall.MouseLeave += new System.EventHandler(this.buttonCall_MouseLeave);
             // 
             // buttonFold

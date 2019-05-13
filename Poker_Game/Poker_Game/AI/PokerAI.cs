@@ -42,7 +42,7 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewRound(PokerGame game) {
-            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street);
+            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street, _player, _settings, game.Players[0].Action);
         }
 
         public void SaveData() {
@@ -80,6 +80,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
+            _pokerTree.RegisterOpponentMove(realPlayerAction);
             return _pokerTree.GetBestAction();
         }
     }

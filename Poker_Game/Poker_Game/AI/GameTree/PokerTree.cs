@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        public Node RootNode { get; private set; }
-        public Node CurrentNode { get; private set; }
+        private readonly Node _rootNode;
+        private Node _currentNode;
 
-        public PokerTree(List<Card> cardHand, List<Card> street) {
-            RootNode = CreateTree(cardHand, street);
+        public PokerTree(List<Card> cardHand, List<Card> street, Player player, Settings settings, PlayerAction opponentAction) {
+            _rootNode = CreateTree(cardHand, street, player, settings);
+            _currentNode = _rootNode;
+            if(player.IsBigBlind) {
+                _currentNode = GetOpponentMove(opponentAction);
+            }
         }
 
-        private Node CreateTree(List<Card> cardHand, List<Card> street) {
+        private Node CreateTree(List<Card> cardHand, List<Card> street, Player player, Settings settings) {
             Node result = new Node(null, string.Empty);
-            CurrentNode = RootNode;
             PathGenerator pg = new PathGenerator();
             PathConstructor ph = new PathConstructor();
             string[] paths = pg.GeneratePaths();
-            double[] expectedValues = GetEVs(paths, cardHand, street);
+            double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
 
             for(int i = 0; i < paths.Length; i++) {
                 ph.ConstructPath(result, paths[i],expectedValues[i]);
@@ -26,19 +30,21 @@ namespace Poker_Game.AI.GameTree {
             return result;
         }
 
-        private double[] GetEVs(string[] paths, List<Card> cardHand, List<Card> street) {
-            EVCalculator evCalculator = new EVCalculator();
+        private double[] GetEVs(string[] paths, List<Card> cardHand, List<Card> street, Player player, Settings settings) {
+            EVCalculator evCalculator = new EVCalculator(player, settings);
             return evCalculator.CalculateAll(paths, cardHand, street);
         }
 
         
         public PlayerAction GetBestAction() {
-            Node targetNode = FindBestPath(CurrentNode);
-            while(!ReferenceEquals(CurrentNode, targetNode)) {
+            Node targetNode = FindBestPath(_currentNode);
+            //System.Windows.Forms.MessageBox.Show(targetNode.GetAction() + ", " + targetNode.ExpectedValue);
+            while(!ReferenceEquals(_currentNode, targetNode.Parent)) {
                 targetNode = targetNode.Parent;
             }
 
-            CurrentNode = targetNode;
+            _currentNode = targetNode;
+            MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
             return targetNode.GetAction();
         }
 
@@ -56,7 +62,18 @@ namespace Poker_Game.AI.GameTree {
             return parentNode;
         }
 
+        public void RegisterOpponentMove(PlayerAction action) {
+            _currentNode = GetOpponentMove(action);
+        }
 
+        private Node GetOpponentMove(PlayerAction action) {
+            foreach(Node childNode in _currentNode.Children) {
+                if(childNode.GetAction() == action) {
+                    return childNode;
+                }
+            }
+            throw new Exception("You done fucked up");
+        }
 
 
 
