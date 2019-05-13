@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
@@ -17,6 +13,7 @@ namespace Poker_Game.AI {
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
+        private PokerTree _pokerTree;
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -44,12 +41,16 @@ namespace Poker_Game.AI {
             }
         }
 
+        public void PrepareNewRound(PokerGame game) {
+            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street);
+        }
+
         public void SaveData() {
             _vpipController.SaveData();
         }
 
-        public void MakeDecision() {
-            switch(Evaluate()) {
+        public void MakeDecision(PlayerAction realPlayerAction) {
+            switch(Evaluate(realPlayerAction)) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -65,14 +66,11 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction Evaluate() {
-            if(_hands.Last().CurrentRoundNumber() == 1) {
-                return Preflop();
-            } else {
-                return AfterPreflop();
-            }
+        private PlayerAction Evaluate(PlayerAction realPlayerAction) {
+            return _hands.Last().CurrentRoundNumber() == 1 ? Preflop() : AfterPreflop(realPlayerAction);
         }
 
+        // CallBot
         private PlayerAction Preflop() {
             if(_pokerGame.CanCall()) {
                 return PlayerAction.Call;
@@ -81,10 +79,8 @@ namespace Poker_Game.AI {
             return PlayerAction.Check;
         }
 
-        private PlayerAction AfterPreflop() {
-            throw new NotImplementedException();
-            PokerTree pt = new PokerTree(_player.Cards, _pokerGame.CurrentHand().Street);
+        private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
+            return _pokerTree.GetBestAction();
         }
-
     }
 }

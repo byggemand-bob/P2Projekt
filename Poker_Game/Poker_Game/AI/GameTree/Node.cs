@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Poker_Game;
+using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     public class Node {
@@ -21,5 +22,22 @@ namespace Poker_Game.AI.GameTree {
             Action = action;
             ExpectedValue = expectedValue;
         }
+
+        public PlayerAction GetAction() { // Rename?
+            switch(Action) {
+                case "R":
+                case "RE":
+                    return PlayerAction.Raise;
+                case "C":
+                    return PlayerAction.Call;
+                case "Ch":
+                    return PlayerAction.Check;
+                case "F":
+                    return PlayerAction.Fold;
+                default:
+                    return PlayerAction.None;
+            }
+        }
+
     }
 }
