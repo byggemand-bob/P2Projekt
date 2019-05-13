@@ -88,7 +88,7 @@ namespace Poker_Game {
             this.buttonQuitToMenu.TabStop = false;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
             this.buttonQuitToMenu.UseVisualStyleBackColor = false;
-            this.buttonQuitToMenu.Click += new System.EventHandler(this.buttonQuitToMenu_Click);
+            this.buttonQuitToMenu.Click += new System.EventHandler(this.ButtonQuitToMenu_Click);
             // 
             // buttonRaise
             // 
@@ -103,9 +103,9 @@ namespace Poker_Game {
             this.buttonRaise.TabIndex = 2;
             this.buttonRaise.Text = "Raise";
             this.buttonRaise.UseVisualStyleBackColor = false;
-            this.buttonRaise.Click += new System.EventHandler(this.buttonRaise_Click);
-            this.buttonRaise.MouseEnter += new System.EventHandler(this.buttonRaise_MouseEnter);
-            this.buttonRaise.MouseLeave += new System.EventHandler(this.buttonRaise_MouseLeave);
+            this.buttonRaise.Click += new System.EventHandler(this.ButtonRaise_Click);
+            this.buttonRaise.MouseEnter += new System.EventHandler(this.ButtonRaise_MouseEnter);
+            this.buttonRaise.MouseLeave += new System.EventHandler(this.ButtonRaise_MouseLeave);
             // 
             // buttonCall
             // 
@@ -120,9 +120,9 @@ namespace Poker_Game {
             this.buttonCall.TabIndex = 1;
             this.buttonCall.Text = "Call";
             this.buttonCall.UseVisualStyleBackColor = false;
-            this.buttonCall.Click += new System.EventHandler(this.buttonCall_Click);
-            this.buttonCall.MouseEnter += new System.EventHandler(this.buttonCall_MouseEnter);
-            this.buttonCall.MouseLeave += new System.EventHandler(this.buttonCall_MouseLeave);
+            this.buttonCall.Click += new System.EventHandler(this.ButtonCall_Click);
+            this.buttonCall.MouseEnter += new System.EventHandler(this.ButtonCall_MouseEnter);
+            this.buttonCall.MouseLeave += new System.EventHandler(this.ButtonCall_MouseLeave);
             // 
             // buttonFold
             // 
@@ -139,7 +139,7 @@ namespace Poker_Game {
             this.buttonFold.TabStop = false;
             this.buttonFold.Text = "Fold";
             this.buttonFold.UseVisualStyleBackColor = false;
-            this.buttonFold.Click += new System.EventHandler(this.buttonFold_Click);
+            this.buttonFold.Click += new System.EventHandler(this.ButtonFold_Click);
             // 
             // buttonCheck
             // 
@@ -154,7 +154,7 @@ namespace Poker_Game {
             this.buttonCheck.TabIndex = 0;
             this.buttonCheck.Text = "Check";
             this.buttonCheck.UseVisualStyleBackColor = false;
-            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            this.buttonCheck.Click += new System.EventHandler(this.ButtonCheck_Click);
             // 
             // labelPlayerName
             // 
@@ -333,11 +333,13 @@ namespace Poker_Game {
             // 
             this.labelRoundName.AutoSize = true;
             this.labelRoundName.BackColor = System.Drawing.Color.Transparent;
+            this.labelRoundName.Cursor = System.Windows.Forms.Cursors.Default;
             this.labelRoundName.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRoundName.Location = new System.Drawing.Point(411, 228);
             this.labelRoundName.Name = "labelRoundName";
-            this.labelRoundName.Size = new System.Drawing.Size(0, 21);
+            this.labelRoundName.Size = new System.Drawing.Size(164, 21);
             this.labelRoundName.TabIndex = 21;
+            this.labelRoundName.Text = "labelRoundName";
             this.labelRoundName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1

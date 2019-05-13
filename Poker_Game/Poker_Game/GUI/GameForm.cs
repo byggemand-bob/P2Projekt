@@ -6,40 +6,36 @@ using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        private Settings Settings;
-        private readonly PokerGame Game;
-        private readonly List<Button> ActionButtons = new List<Button>();
-        private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
-        private const bool DiagnosticsMode = true;
+        private Settings _settings;
+        private readonly PokerGame _game;
+        private readonly List<Button> _actionButtons = new List<Button>();
+        private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         
         #region Initialization
 
         public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
             InitializeComponent();
-            Settings = settings;
+            _settings = settings;
             // Initialization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
 
-            // Diagnostics window for (bad) debugging
-            panel1.Visible = DiagnosticsMode;
 
             // Creates the game with user settings
-            Game = new PokerGame(Settings);
-            Game.Players[0].Name = Settings.PlayerName;
-            Game.Players[1].Name = "Deep Peer";
+            _game = new PokerGame(_settings);
+            _game.Players[0].Name = _settings.PlayerName;
+            _game.Players[1].Name = "Deep Peer";
             
-            labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
+            labelPlayerStack.Text = Convert.ToString(_game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
-            labelPlayerName.Text = Settings.PlayerName;
+            labelPlayerName.Text = _settings.PlayerName;
+            UpdatePlayerBlindLabels(_game.Players[0]); 
 
-            // Shows player new hand cards
-            ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
-            ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
             UpdateAll();
         }
 
-        private void Form1_Load(object sender, EventArgs e) { 
+        private void Form1_Load(object sender, EventArgs e) 
+        {
             this.MaximumSize = new Size(1000, 700);
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
@@ -52,26 +48,26 @@ namespace Poker_Game {
 
         private void CreateButtonList() // Adds all action-buttons to ButtonsList
         {
-            ActionButtons.Add(buttonCall);
-            ActionButtons.Add(buttonCheck);
-            ActionButtons.Add(buttonRaise);
-            ActionButtons.Add(buttonFold);
+            _actionButtons.Add(buttonCall);
+            _actionButtons.Add(buttonCheck);
+            _actionButtons.Add(buttonRaise);
+            _actionButtons.Add(buttonFold);
         }
 
         private void CreatePictureBoxList() // Adds all pictureBoxes from winform into a list. 
         {
-            PictureBoxes.Add(pictureAICard1);
-            PictureBoxes.Add(pictureAICard2);
-            PictureBoxes.Add(pictureTableCard1);
-            PictureBoxes.Add(pictureTableCard2);
-            PictureBoxes.Add(pictureTableCard3);
-            PictureBoxes.Add(pictureTableCard4);
-            PictureBoxes.Add(pictureTableCard5);
+            _pictureBoxes.Add(pictureAICard1);
+            _pictureBoxes.Add(pictureAICard2);
+            _pictureBoxes.Add(pictureTableCard1);
+            _pictureBoxes.Add(pictureTableCard2);
+            _pictureBoxes.Add(pictureTableCard3);
+            _pictureBoxes.Add(pictureTableCard4);
+            _pictureBoxes.Add(pictureTableCard5);
         }
 
         #endregion
 
-        #region CardDrawing
+        #region Talbe Cards Visuals
 
         private void ShowCardImage(PictureBox obj, Card card) // Changes image of a tablecard. Both image and object are parameters
         {   
@@ -79,8 +75,9 @@ namespace Poker_Game {
             obj.Image = card.Image;
         }
 
-        private void ResetCards() { // Reset of tablecard images to default
-            foreach (PictureBox pictureBox in PictureBoxes) {
+        private void ResetCards()  // Reset of tablecard images to default
+        {
+            foreach (PictureBox pictureBox in _pictureBoxes) {
                 pictureBox.Image = Properties.Resources.z_Back_of_card2;
             }
         }
@@ -91,87 +88,110 @@ namespace Poker_Game {
 
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
-            UpdateLabelCurrentBet(Game.Players);
+            UpdateLabelCurrentBet(_game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
-            UpdatePlayerStack(Game.Players[0], Game.Players[1]);
-            UpdatePotSize(Game.CurrentHand());
-            UpdatePlayerBlindLabels(Game.Players[0]); // Malplaceret. 
+            UpdatePlayerStack(_game.Players[0], _game.Players[1]);
+            UpdatePotSize(_game.CurrentHand());
             UpdateButtons();
             UpdateCards();
-            CheckForPrematureShowdown(Game.Players);
-            if (DiagnosticsMode) {UpdateTest();}
+            CheckForPrematureShowdown(_game.Players);
             // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
         { 
-            if (Game.CurrentRoundNumber() == 2)
+            if (_game.CurrentRoundNumber() == 1)
             {
-                ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
-                ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
-                ShowCardImage(pictureTableCard3, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
+                ShowCardImage(picturePlayerCard1, _game.Players[0].Cards[0]);
+                ShowCardImage(picturePlayerCard2, _game.Players[0].Cards[1]);
             }
-            else if (Game.CurrentRoundNumber() == 3)
+            else if (_game.CurrentRoundNumber() == 2)
             {
-                ShowCardImage(pictureTableCard4, Game.CurrentHand().Street[3]); // Shows turn card
+                ShowCardImage(pictureTableCard1, _game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
+                ShowCardImage(pictureTableCard2, _game.CurrentHand().Street[1]); 
+                ShowCardImage(pictureTableCard3, _game.CurrentHand().Street[2]); 
             }
-            else if (Game.CurrentRoundNumber() == 4)
+            else if (_game.CurrentRoundNumber() == 3)
             {
-                ShowCardImage(pictureTableCard5, Game.CurrentHand().Street[4]); // Shows river card
+                ShowCardImage(pictureTableCard4, _game.CurrentHand().Street[3]); // Shows turn card
             }
-            else if (Game.CurrentRoundNumber() == 5)
+            else if (_game.CurrentRoundNumber() == 4)
             {
-                Showdown();
+                ShowCardImage(pictureTableCard5, _game.CurrentHand().Street[4]); // Shows river card
+            }
+            else if (_game.CurrentRoundNumber() == 5)
+            {
+                ShowOpponentsHand();
                 EndOfHand();
             }
         }
 
-        private void ShowAllCards()
+        private void UpdateButtons() // Enables buttons only if the player can make such action
         {
-            Game.Hands[Game.CurrentHandNumber() - 1].DrawCards(5);
-            Showdown();
-            ShowCardImage(pictureTableCard1, Game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
-            ShowCardImage(pictureTableCard2, Game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
-            ShowCardImage(pictureTableCard3, Game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
-            ShowCardImage(pictureTableCard4, Game.CurrentHand().Street[3]); // Shows turn card
-            ShowCardImage(pictureTableCard5, Game.CurrentHand().Street[4]); // Shows river 
+            buttonCall.Enabled = _game.CanCall();
+            buttonCheck.Enabled = _game.CanCheck();
+            buttonRaise.Enabled = _game.CanRaise();
         }
 
-        private void UpdateRoundName() 
+        private void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
         {
-            if (Game.CurrentRoundNumber() == 1)
+            _game.NewHand();
+            UpdatePlayerBlindLabels(_game.Players[0]);
+            ResetCards();
+            UpdateAll();
+        }
+
+
+        #endregion
+
+        #region Visual Updates
+
+        private void ShowAllCards() // only called if a player is all in, and the street has to be drawn
+        {
+            _game.Hands[_game.CurrentHandNumber() - 1].DrawCards(5); // Draws all cards for the street without going through all the List<Round> in hands. 
+            ShowOpponentsHand();
+            ShowCardImage(pictureTableCard1, _game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
+            ShowCardImage(pictureTableCard2, _game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
+            ShowCardImage(pictureTableCard3, _game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
+            ShowCardImage(pictureTableCard4, _game.CurrentHand().Street[3]); // Shows turn card
+            ShowCardImage(pictureTableCard5, _game.CurrentHand().Street[4]); // Shows river card
+        }
+
+        private void UpdateRoundName() // Updates the labelRoundName to show player. 
+        {
+            if (_game.CurrentRoundNumber() == 1)
             {
                 labelRoundName.Text = "Round: Preflop";
             }
-            else if (Game.CurrentRoundNumber() == 2)
+            else if (_game.CurrentRoundNumber() == 2)
             {
                 labelRoundName.Text = "Round: Flop";
             }
-            else if (Game.CurrentRoundNumber() == 3)
+            else if (_game.CurrentRoundNumber() == 3)
             {
                 labelRoundName.Text = "Round: Turn";
             }
-            else if (Game.CurrentRoundNumber() == 4)
+            else if (_game.CurrentRoundNumber() == 4)
             {
                 labelRoundName.Text = "Round: River";
             }
-            else if (Game.CurrentRoundNumber() == 5)
+            else if (_game.CurrentRoundNumber() == 5)
             {
                 labelRoundName.Text = "Round: Showdown";
             }
 
         }
 
-        private void UpdateCurrentPlayer() // Highlights current player's name
-        { 
-            if (Game.CurrentPlayerIndex == 0)
+        private void UpdateCurrentPlayer() // Highlights current player's name with a yellew color
+        {
+            if (_game.CurrentPlayerIndex == 0) // Player has turn
             {
                 labelPlayerName.ForeColor = Color.Yellow;
                 labelAIStack.ForeColor = Color.White;
                 ChangeActionButtonState(true);
             }
-            else
+            else // AI has turn
             {
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
@@ -191,7 +211,7 @@ namespace Poker_Game {
             labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
         }
 
-        private void UpdatePlayerBlindLabels(Player player) // Updates blind-labels for each player
+        private void UpdatePlayerBlindLabels(Player player) // Updates blind-labels for both players
         {
             if (player.IsBigBlind)
             {
@@ -205,129 +225,27 @@ namespace Poker_Game {
             }
         }
 
-        private void UpdateButtons() // Enables buttons only if the player can make such action
-        {
-            buttonCall.Enabled = Game.CanCall();
-            buttonCheck.Enabled = Game.CanCheck();
-            buttonRaise.Enabled = Game.CanRaise();
-
-        }
-
-        private void CheckPlayerTurn(int id)
-        {
-            ChangeActionButtonState(id == 0);
-        }
-
         private void UpdateLabelCurrentBet(List<Player> players)
         {
-            if (Game.CurrentRoundNumber() == 1)
+            if (_game.CurrentRoundNumber() == 1)
             {
                 labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
                 labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
             }
-            else if (Game.CurrentPlayerIndex == 0)
+            else if (_game.CurrentPlayerIndex == 0)
             {
                 labelPlayerCurrentBet.Text = "Current betsize: $" + players[0].CurrentBet;
             }
-            else if (Game.CurrentPlayerIndex == 1)
+            else if (_game.CurrentPlayerIndex == 1)
             {
                 labelAICurrentBet.Text = "Current betsize: $" + players[1].CurrentBet;
             }
         }
- 
-        #endregion
-
-        #region ButtonEvents
-
-        private void buttonQuitToMenu_Click(object sender, EventArgs e)
-        {
-            QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
-            formConfirmationQuit.ShowDialog();
-        }
-
-        private void buttonCall_Click(object sender, EventArgs e)
-        {
-            Game.Call();
-            UpdateAll();
-        }
-
-        private void buttonCall_MouseEnter(object sender, EventArgs e)
-        {
-            if (Game.CurrentPlayerIndex == 0)
-            {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet; 
-            }
-            else if (Game.CurrentPlayerIndex == 1)
-            {
-                labelAICurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet;
-            }
-        }
-
-        private void buttonCall_MouseLeave(object sender, EventArgs e)
-        {
-            if (Game.CurrentPlayerIndex == 0)
-            {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
-            }
-            else if (Game.CurrentPlayerIndex == 1)
-            {
-                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
-            }
-        }
-
-        private void buttonCheck_Click(object sender, EventArgs e)
-        {
-            Game.Check();
-            UpdateAll();
-        }
-
-        private void buttonRaise_Click(object sender, EventArgs e)
-        {
-            Game.Raise();
-            UpdateAll();
-
-        }
-
-        private void buttonRaise_MouseEnter(object sender, EventArgs e)
-        {
-            if (Game.CurrentPlayerIndex == 0)
-            {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
-            }
-            else if (Game.CurrentPlayerIndex == 1)
-            {
-                labelAICurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
-            }
-        }
-
-        private void buttonRaise_MouseLeave(object sender, EventArgs e)
-        {
-            if (Game.CurrentPlayerIndex == 0)
-            {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + Game.Players[0].CurrentBet;
-            }
-            else if (Game.CurrentPlayerIndex == 1)
-            {
-                labelAICurrentBet.Text = "Current betsize: $" + Game.Players[1].CurrentBet;
-            }
-        }
-
-        private void buttonFold_Click(object sender, EventArgs e)
-        {
-            Game.Fold();
-            ChangeActionButtonColor();
-            UpdateAll();
-            ChangeActionButtonState(false);
-            EndOfHand();
-        }
-
-        #endregion  
-
-        #region Utility
 
         private void ChangeActionButtonState(bool updatedState) // check if updatedState is the same as old?
-        { 
-            foreach(Button button in ActionButtons) {
+        {
+            foreach (Button button in _actionButtons)
+            {
                 button.Enabled = updatedState;
             }
             ChangeActionButtonColor();
@@ -335,7 +253,7 @@ namespace Poker_Game {
 
         private void ChangeActionButtonColor() // Changes color depending if button is clickable or not
         {
-            foreach(Button button in ActionButtons)
+            foreach (Button button in _actionButtons)
             {
                 if (!button.Enabled)
                 {
@@ -350,20 +268,91 @@ namespace Poker_Game {
 
         #endregion
 
-        // Un-categorized for now
-        #region Other
 
+        #region ButtonEvents
 
-        private void CheckForPrematureShowdown(List<Player> players)
+        private void ButtonQuitToMenu_Click(object sender, EventArgs e) // Exits gameForm
         {
-            if (CheckPlayerStack(players) && (players[0].CurrentBet == players[1].CurrentBet))
+            QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
+            formConfirmationQuit.ShowDialog();
+        }
+
+        private void ButtonCall_Click(object sender, EventArgs e)
+        {
+            _game.Call();
+            UpdateAll();
+        }
+
+        private void ButtonCall_MouseEnter(object sender, EventArgs e)
+        {
+            if (_game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet; 
+            }
+        }
+
+        private void ButtonCall_MouseLeave(object sender, EventArgs e)
+        {
+            if (_game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[0].CurrentBet;
+            }
+        }
+
+        private void ButtonCheck_Click(object sender, EventArgs e)
+        {
+            _game.Check();
+            UpdateAll();
+        }
+
+        private void ButtonRaise_Click(object sender, EventArgs e)
+        {
+            _game.Raise();
+            UpdateAll();
+
+        }
+
+        private void ButtonRaise_MouseEnter(object sender, EventArgs e)
+        {
+            if (_game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+            }
+        }
+
+        private void ButtonRaise_MouseLeave(object sender, EventArgs e)
+        {
+            if (_game.CurrentPlayerIndex == 0)
+            {
+                labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[0].CurrentBet;
+            }
+        }
+
+        private void ButtonFold_Click(object sender, EventArgs e)
+        {
+            _game.Fold();
+            ChangeActionButtonColor();
+            UpdateAll();
+            ChangeActionButtonState(false);
+            EndOfHand();
+        }
+
+        #endregion  
+
+
+        #region End Of Hand Methods
+
+
+        private void CheckForPrematureShowdown(List<Player> players) // Calls metods for showdown when a player has $0 in stack and both have same currentBet. 
+        {
+            if (CheckPlayerStackForDepletion(players) && (players[0].CurrentBet == players[1].CurrentBet))
             {
                 ShowAllCards();
                 EndOfHand();
             }
         }
 
-        private bool CheckPlayerStack(List<Player> players)
+        private bool CheckPlayerStackForDepletion(List<Player> players) // Checks for players having less of equal to $0 in stack. 
         {
             foreach (Player player in players)
             {
@@ -375,17 +364,15 @@ namespace Poker_Game {
             return false;
         }
 
-        private void Showdown() // TODO: Make less crowded - more methods!
+        private void ShowOpponentsHand() // Shows AI's hand in showdown
         {
-                // Shows AI's cards on hand if a player has not folded
-                ShowCardImage(pictureAICard1, Game.Players[1].Cards[0]);
-                ShowCardImage(pictureAICard2, Game.Players[1].Cards[1]);           
+            ShowCardImage(pictureAICard1, _game.Players[1].Cards[0]);
+            ShowCardImage(pictureAICard2, _game.Players[1].Cards[1]);           
         }
         
         private void EndOfHand()
         {
-            // Checks if the game is finished, and makes the buttons un-pressable.
-            Game.UpdateState();
+            _game.UpdateState();
             ChangeActionButtonState(false);
             ShowEndOfHandWindow();
         }
@@ -393,37 +380,41 @@ namespace Poker_Game {
         private void ShowEndOfHandWindow()
         {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStack(Game.Players), GetWinnerPlayersName(), Game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked); // More information from GameForm
+            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
-            if (!CheckPlayerStack(Game.Players))
+            if (!CheckPlayerStackForDepletion(_game.Players)) // Both players still has money in stack, then make new hand
             {
                 ChangeActionButtonState(true);
                 CreateNewHand();
             }
+            else // Game has ended
+            {
+                this.Close();
+            }
         }
 
-        private string GetWinningPlayersScore()
+        private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
         {
-            if (Game.GetWinners(Game.CurrentHand()).Count == 1)
+            if (_game.GetWinners(_game.CurrentHand()).Count == 1)
             {
                 if (Int32.TryParse(ConvertScoreToString(0), out int numericScore))
                 {
                     if (numericScore > 10)
                     {
-                        return GiveScoreName(numericScore);
+                        return GiveNumericScoreName(numericScore);
                     }
                     return numericScore + " (Highest Card)";
                 }
                 return ConvertScoreToString(0);
             }
-            else if (Game.GetWinners(Game.CurrentHand()).Count == 2)
+            else if (_game.GetWinners(_game.CurrentHand()).Count == 2)
             {
                 return ConvertScoreToString(0);
             }
             return null; // TODO: error handling
         }
 
-        private string GiveScoreName(int numericScore)
+        private string GiveNumericScoreName(int numericScore)
         {
             if (numericScore == 11)
             {
@@ -445,12 +436,12 @@ namespace Poker_Game {
 
         private string ConvertScoreToString(int index)
         {
-            return Convert.ToString(Game.GetWinners(Game.CurrentHand())[index].Score);
+            return Convert.ToString(_game.GetWinners(_game.CurrentHand())[index].Score);
         }
 
         private string GetWinnerPlayersName() // Gets the string of which player has won
         {
-            List<Player> players = Game.GetWinners(Game.CurrentHand());
+            List<Player> players = _game.GetWinners(_game.CurrentHand());
             string winners = null;
             foreach (Player player in players)
             {
@@ -466,35 +457,17 @@ namespace Poker_Game {
             return winners;
         }
 
-        public void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
-        {
-            Game.NewHand();
-            ResetCards();
-            UpdateAll();
-            // Shows player new hand cards
-            ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
-            ShowCardImage(picturePlayerCard2, Game.Players[0].Cards[1]);
-        }
 
-        private void UpdateTest() // Test labels - used for diagnostics
-        {
-            label2.Text = "DealerButtonPosition: " + Game.DealerButtonPosition;
-            label3.Text = "HandNumber: " + Game.CurrentHandNumber();
-            label4.Text = "RoundNumber: " + Game.CurrentRoundNumber();
-            label5.Text = "HandInProgress: " + Game.HandInProgress;
-            label6.Text = "RoundInProgress: " + Game.RoundInProgress;
-            label7.Text = "AI Stack: " + Game.Players[1].Stack;
-            label8.Text = "Player Stack: " + Game.Players[0].Stack;
-            label9.Text = "CycleStep: " + Game.CurrentRound().CycleStep;
-            label10.Text = "Bets: " + Game.CurrentRound().Bets;
-            label11.Text = "CurrentPlayerIndex: " + Game.CurrentPlayerIndex;
-            label12.Text = "TopBidderIndex: " + Game.CurrentRound().TopBidderIndex;
-        }
+        #endregion
+
+
+        #region Utility
 
         private Player GetCurrentTopBidderIndex()
         {
-            return Game.Players[Game.Hands[Game.CurrentHandNumber() - 1].Rounds[Game.CurrentRoundNumber() - 1].TopBidderIndex];
+            return _game.Players[_game.Hands[_game.CurrentHandNumber() - 1].Rounds[_game.CurrentRoundNumber() - 1].TopBidderIndex];
         }
+
         #endregion
     }
 }
