@@ -301,12 +301,15 @@ namespace Poker_Game.AI
             return totalResults;
         }
 
-        public Odds TestMultiThreadMonteCarlo()
+        public Odds TestMultiThreadMonteCarlo(List<Card> Hand, List<Card> Street)
         {
             int x;
             Odds[] trailResults = new Odds[NUMOFTHREADS];
             Odds totalResults = new Odds(0, 0, 0);
             Thread[] workers = new Thread[NUMOFTHREADS];
+
+            aiHand = Hand;
+            street = Street;
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {

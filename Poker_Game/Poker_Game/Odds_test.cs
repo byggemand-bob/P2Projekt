@@ -30,13 +30,13 @@ namespace Poker_Game
             //street.Add(new Card(Suit.Spades, (Rank)5));
             //street.Add(new Card(Suit.Spades, Rank.Jack));
 
-            MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds(hand, street);
+            MonteCarloTrailOdds MonteCarlo = new MonteCarloTrailOdds();
 
             Console.WriteLine("Number of trails: {0}\n\n------------------------------------------------------- \nFunction 1: \n", PutDot((double)NumberOftrails));
 
             stopwatch.Start();
 
-            MonteCarlo.MultiThreadMonteCarlo(NumberOftrails);
+            MonteCarlo.MultiThreadMonteCarlo(hand, street);
 
             stopwatch.Stop();
 
@@ -57,7 +57,7 @@ namespace Poker_Game
 
             stopwatch.Start();
 
-            MonteCarlo.TestMultiThreadMonteCarlo(NumberOftrails);
+            MonteCarlo.TestMultiThreadMonteCarlo(hand, street);
 
             stopwatch.Stop();
 
