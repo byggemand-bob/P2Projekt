@@ -99,12 +99,7 @@
     <Compile Include="AI\Opponent\VPIPReader.cs" />
     <Compile Include="AI\Opponent\VPIPWriter.cs" />
     <Compile Include="AI\MonteCarloTrailOdds.cs" />
-    <Compile Include="AI\IsNashEq.cs" />
-    <Compile Include="AI\IsParetoOptimal.cs" />
     <Compile Include="Game\FastWinCalc.cs" />
-    <Compile Include="Game\VPIPData.cs" />
-    <Compile Include="Game\VPIPReader.cs" />
-    <Compile Include="Game\VPIPWriter.cs" />
     <Compile Include="MultiThreadCardTest.cs" />
     <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
