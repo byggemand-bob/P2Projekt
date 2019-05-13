@@ -37,6 +37,10 @@ namespace Poker_Game.AI {
             Console.ReadKey();
         }
 
+        static void TestProbability() {
+            CalcProbability cp = new CalcProbability();
+        }
+
 
     }
 }
