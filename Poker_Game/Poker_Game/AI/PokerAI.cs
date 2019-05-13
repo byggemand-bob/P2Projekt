@@ -13,7 +13,7 @@ namespace Poker_Game.AI {
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
-        //private readonly PokerTree pt = new PokerTree(_player.Cards, _pokerGame.CurrentHand().Street);
+        private PokerTree _pokerTree;
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -41,6 +41,10 @@ namespace Poker_Game.AI {
             }
         }
 
+        public void PrepareNewRound(PokerGame game) {
+            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street);
+        }
+
         public void SaveData() {
             _vpipController.SaveData();
         }
@@ -63,13 +67,10 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction Evaluate(PlayerAction realPlayerAction) {
-            if(_hands.Last().CurrentRoundNumber() == 1) {
-                return Preflop();
-            } else {
-                return AfterPreflop(realPlayerAction);
-            }
+            return _hands.Last().CurrentRoundNumber() == 1 ? Preflop() : AfterPreflop(realPlayerAction);
         }
 
+        // CallBot
         private PlayerAction Preflop() {
             if(_pokerGame.CanCall()) {
                 return PlayerAction.Call;
@@ -79,9 +80,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
-            throw new NotImplementedException();
-            
+            return _pokerTree.GetBestAction();
         }
-
     }
 }

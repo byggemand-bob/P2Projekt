@@ -31,11 +31,34 @@ namespace Poker_Game.AI.GameTree {
             return evCalculator.CalculateAll(paths, cardHand, street);
         }
 
-        // MinMax
-        public PlayerAction ChoosePath(List<Card> cardHand, List<Card> street) {
-            throw  new NotImplementedException();
+        
+        public PlayerAction GetBestAction() {
+            Node targetNode = FindBestPath(CurrentNode);
+            while(!ReferenceEquals(CurrentNode, targetNode)) {
+                targetNode = targetNode.Parent;
+            }
 
+            CurrentNode = targetNode;
+            return targetNode.GetAction();
         }
+
+        private Node FindBestPath(Node parentNode) {
+            if(parentNode.Children.Count != 0) {
+                Node result = null;
+                for(int i = 0; i < parentNode.Children.Count; i++) {
+                    Node tmp = FindBestPath(parentNode.Children[i]);
+                    if(i == 0 || result.ExpectedValue < tmp.ExpectedValue) {
+                        result = tmp;
+                    } 
+                }
+                return result;
+            }
+            return parentNode;
+        }
+
+
+
+
 
 
     }

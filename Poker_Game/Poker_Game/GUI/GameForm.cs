@@ -13,7 +13,8 @@ namespace Poker_Game {
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
-        
+        private int _roundNumber = 0;
+
         #region Initialization
 
         public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
@@ -93,8 +94,15 @@ namespace Poker_Game {
 
         #region Updates
 
+        private void NewRound() {
+            if(_roundNumber < Game.CurrentRoundNumber()) {
+                _ai.PrepareNewRound(Game);
+            }
+        }
+
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
+            NewRound();
             UpdateLabelCurrentBet(Game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
@@ -396,6 +404,7 @@ namespace Poker_Game {
             Game.UpdateState();
             ChangeActionButtonState(false);
             ShowEndOfHandWindow();
+            _ai.PrepareNewHand(Game);
         }
 
         private void ShowEndOfHandWindow()
