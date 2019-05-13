@@ -8,19 +8,21 @@ namespace Poker_Game.AI.GameTree {
         private readonly Node _rootNode;
         private Node _currentNode;
 
-        public PokerTree(List<Card> cardHand, List<Card> street, Player player, Settings settings, PlayerAction opponentAction) {
-            _rootNode = CreateTree(cardHand, street, player, settings);
+        public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
+            _rootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = _rootNode;
-            if(player.IsBigBlind) {
-                _currentNode = GetOpponentMove(opponentAction);
+
+            if(currentRoundNumber == 2 && player.IsBigBlind) {
+                RegisterOpponentMove(opponentAction);
             }
         }
 
-        private Node CreateTree(List<Card> cardHand, List<Card> street, Player player, Settings settings) {
+        private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             Node result = new Node(null, string.Empty);
             PathGenerator pg = new PathGenerator();
             PathConstructor ph = new PathConstructor();
-            string[] paths = pg.GeneratePaths();
+            List<Card> cardHand = new List<Card>{player.Cards[0], player.Cards[1]};
+            string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
 
             for(int i = 0; i < paths.Length; i++) {
@@ -42,8 +44,9 @@ namespace Poker_Game.AI.GameTree {
                 targetNode = targetNode.Parent;
             }
 
+            MessageBox.Show(targetNode.Parent.Action + ", " + targetNode.Action);
             _currentNode = targetNode;
-            MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
+            //MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
             return targetNode.GetAction();
         }
 
@@ -67,7 +70,7 @@ namespace Poker_Game.AI.GameTree {
 
         private Node GetOpponentMove(PlayerAction action) {
             foreach(Node childNode in _currentNode.Children) {
-                MessageBox.Show(childNode.GetAction() + " == " + action);
+                //MessageBox.Show(childNode.GetAction() + " == " + action);
                 if(childNode.GetAction() == action) {
                     return childNode;
                 }

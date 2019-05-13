@@ -24,7 +24,11 @@ namespace Poker_Game.Game {
 
 
         public bool IsFinished() {
+            
             foreach(Player player in Players) {
+                if(player.Action == PlayerAction.Fold) {
+                    return true;
+                }
                 if(UncalledRaise || !(player.Action == PlayerAction.Raise || player.Action == PlayerAction.Call ||
                      player.Action == PlayerAction.Check)) {
                     return false;

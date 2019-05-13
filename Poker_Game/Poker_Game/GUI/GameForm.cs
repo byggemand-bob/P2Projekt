@@ -13,7 +13,6 @@ namespace Poker_Game {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
-        private int _roundNumber = 0;
 
         #region Initialization
 
@@ -26,7 +25,7 @@ namespace Poker_Game {
 
             // Diagnostics window for (bad) debugging
             panel1.Visible = DiagnosticsMode;
-
+            buttonForceUI.Visible = DiagnosticsMode;
             // Creates the game with user settings
             _game = new PokerGame(_settings);
             _game.Players[0].Name = _settings.PlayerName;
@@ -227,6 +226,7 @@ namespace Poker_Game {
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1) {
+
                 NewRound();
                 AiTurn();
             }
@@ -496,8 +496,9 @@ namespace Poker_Game {
             label7.Text = "AI Stack: " + _game.Players[1].Stack;
             label8.Text = "Player Stack: " + _game.Players[0].Stack;
             label10.Text = "Bets: " + _game.CurrentRound().Bets;
-            label11.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
-            label12.Text = "PlayerAction: " + _game.Players[0].Action;
+            label9.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
+            label12.Text = "PlayerPrevAction: " + _game.Players[0].PreviousAction;
+            label11.Text = "AIPrevAction: " + _game.Players[1].PreviousAction;
         }
         #endregion
 
@@ -506,9 +507,12 @@ namespace Poker_Game {
         }
 
         private void AiTurn() {
-            _ai.MakeDecision(_game.Players[0].Action);
+            _ai.MakeDecision(_game.Players[0].PreviousAction);
             UpdateAll();
         }
 
+        private void ButtonForceUI_Click(object sender, EventArgs e) {
+            UpdateAll();
+        }
     }
 }

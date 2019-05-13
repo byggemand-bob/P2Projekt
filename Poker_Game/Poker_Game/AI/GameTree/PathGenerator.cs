@@ -9,13 +9,9 @@ namespace Poker_Game.AI.GameTree
         private readonly string[] _possibleActions = { "R-RE-C", "R-RE-F", "R-C", "R-F", "Ch-R-RE-C", "Ch-R-RE-F", "Ch-R-C", "Ch-R-F", "Ch-Ch" };
         private readonly StringBuilder _allActions = new StringBuilder();
 
+        private string MakePath(int currentRoundNumber) {
 
-
-       
-        private string MakePath(int CurrentRoundNumber) {
-
-            if (CurrentRoundNumber == 2) {
-
+            if (currentRoundNumber == 2) {
                 for (int i = 0; i < _possibleActions.Length; i++) {
                     for (int j = 0; j < _possibleActions.Length; j++) {
                         for (int k = 0; k < _possibleActions.Length; k++) {
@@ -39,12 +35,10 @@ namespace Poker_Game.AI.GameTree
                         }
                     }
                 }
-
                 return Convert.ToString(_allActions);
             }
 
-
-            if (CurrentRoundNumber == 3) {
+            if (currentRoundNumber == 3) {
                 for(int i = 0; i < _possibleActions.Length; i++) {
                     for(int j = 0; j < _possibleActions.Length; j++) {
                         if(_possibleActions[i].Contains("F")) {
@@ -57,7 +51,6 @@ namespace Poker_Game.AI.GameTree
                                 .Append(_possibleActions[j])
                                 .Append("\n");
                             j++;
-                            
                         }
                     }
                 }
@@ -65,21 +58,18 @@ namespace Poker_Game.AI.GameTree
                 return Convert.ToString(_allActions);
             }
 
-
-            if (CurrentRoundNumber == 4) {
+            if (currentRoundNumber == 4) {
                 for (int i = 0; i < _possibleActions.Length; i++) {
-
                     if (_possibleActions[i].Contains("F")) {
                         _allActions.Append(_possibleActions[i])
                             .Append("\n");
                         i++;
                     }
                 }
-
                 return Convert.ToString(_allActions);
             }
 
-            return Convert.ToString(_allActions);
+            return "";
         }
 
         public string[] GeneratePaths(int CurrentRoundNumber) {

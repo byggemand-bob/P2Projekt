@@ -75,7 +75,7 @@ namespace Poker_Game.Game {
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
-                // Needs to be cut dow
+                // Needs to be cut down
                 Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet)+ 2 * Settings.BlindSize);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
                 Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
@@ -141,11 +141,8 @@ namespace Poker_Game.Game {
             List<Player> winners = new List<Player>();
             List<Player> players = GetUnfoldedPlayers(hand.Players);
 
-
             if(players.Count == 1) {
                 return players;
-            } else if(players.Count == 0) {
-                // Errorhandlign 
             }
 
             foreach(Player player in players) {
@@ -264,10 +261,6 @@ namespace Poker_Game.Game {
                 player.Stack -= amount;
                 CurrentHand().Pot += amount;
             }
-            else {
-                // Not enough money
-                // TODO: Do something
-            }
         }
 
         private void PayBlinds() 
@@ -278,6 +271,7 @@ namespace Poker_Game.Game {
                 {
                     Bet(Players[i], 2 * Settings.BlindSize);
                     Players[i].Action = PlayerAction.Raise;
+                    Players[i].PreviousAction = PlayerAction.Raise;
                 }
                 else if (Players[i].IsSmallBlind)
                 {

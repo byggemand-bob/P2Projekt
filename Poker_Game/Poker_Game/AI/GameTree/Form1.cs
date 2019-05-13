@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Poker_Game.AI.GameTree {
     public partial class Form1 : Form {
+
+        private int round = 1;
+
         public Form1() {
             InitializeComponent();
         }
@@ -34,8 +37,8 @@ namespace Poker_Game.AI.GameTree {
 
         private void Button1_Click(object sender, EventArgs e) {
            //List<Tuple<string, double>> pathInfo = TextToPathInfo(textBox1.Lines);
-
-
+           treeView3.Nodes.Clear();
+           round++;
 
 
             TreeNode rootTreeNode = new TreeNode("Root");
@@ -70,7 +73,7 @@ namespace Poker_Game.AI.GameTree {
 
         private List<Tuple<string, double>> CreateFullTreePath() {
             PathGenerator ph = new PathGenerator();
-            string[] paths = ph.GeneratePaths();
+            string[] paths = ph.GeneratePaths(round);
             List<Tuple<string, double>> result = new List<Tuple<string, double>>();
             StringBuilder sb = new StringBuilder();
 

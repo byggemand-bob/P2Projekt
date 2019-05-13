@@ -42,7 +42,7 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewRound() {
-            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, _pokerGame.CurrentHand().Street, _player, _settings, _pokerGame.Players[0].PreviousAction);
+            _pokerTree = new PokerTree(_pokerGame.CurrentHand().Street, _player, _settings, _pokerGame.Players[0].PreviousAction, _pokerGame.CurrentRoundNumber());
         }
 
         public void SaveData() {
@@ -80,7 +80,9 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
-            _pokerTree.RegisterOpponentMove(realPlayerAction);
+            if(!(_player.IsSmallBlind && _pokerGame.CurrentRoundNumber() == 3 && _pokerGame.CurrentTurnNumber() == 0)) {
+                _pokerTree.RegisterOpponentMove(realPlayerAction);
+            }
             return _pokerTree.GetBestAction();
         }
     }
