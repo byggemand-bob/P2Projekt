@@ -98,6 +98,9 @@
     <Compile Include="AI\Opponent\VPIPData.cs" />
     <Compile Include="AI\Opponent\VPIPReader.cs" />
     <Compile Include="AI\Opponent\VPIPWriter.cs" />
+    <Compile Include="AI\MonteCarloTrailOdds.cs" />
+    <Compile Include="Game\FastWinCalc.cs" />
+    <Compile Include="MultiThreadCardTest.cs" />
     <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
@@ -150,6 +153,13 @@
     <EmbeddedResource Include="AI\GameTree\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="UserTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserTestForm.Designer.cs">
+      <DependentUpon>UserTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTestForms.cs" />
     <EmbeddedResource Include="GUI\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,6 +183,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTestForm.resx">
+      <DependentUpon>UserTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

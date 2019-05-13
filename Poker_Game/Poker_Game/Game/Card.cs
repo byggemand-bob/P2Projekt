@@ -19,10 +19,10 @@ namespace Poker_Game.Game {
             Suit = suit;
             Rank = rank;
         }
-        public Card(int i) {
-            MakeCard(i);
+        public Card(int CardValue)
+        {
+            MakeCard(CardValue);
         }
-
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
