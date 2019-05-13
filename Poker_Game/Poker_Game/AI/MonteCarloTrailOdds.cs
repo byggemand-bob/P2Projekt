@@ -118,7 +118,6 @@ namespace Poker_Game.AI
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
             int RangeSize;
-            Random randomNr = new Random();
 
             RangeSize = Range.Count();
 
@@ -139,7 +138,7 @@ namespace Poker_Game.AI
 
                 if (RangeSize > 1)
                 {
-                    x = randomNr.Next(RangeSize);
+                    x = rndNr.Next(RangeSize);
 
                     opponantTrailCards.Add(Range[x][0]);
                     opponantTrailCards.Add(Range[x][1]);
