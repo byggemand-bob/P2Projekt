@@ -67,16 +67,16 @@ namespace UnitTest
             Card tableCard3 = new Card(Suit.Spades, (Rank)3);
             Card tableCard4 = new Card(Suit.Diamonds, (Rank)5);
             Card tableCard5 = new Card(Suit.Spades, (Rank)7);
-
-            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); // Pair of 3
+            // Pair of 3
+            player1.Cards.Add(new Card(Suit.Clubs, (Rank)3)); 
             player1.Cards.Add(new Card(Suit.Spades, (Rank)2));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
             player1.Cards.Add(tableCard3);
             player1.Cards.Add(tableCard4);
             player1.Cards.Add(tableCard5);
-
-            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7)); // Pair of 7
+            // Pair of 7 
+            player2.Cards.Add(new Card(Suit.Clubs, (Rank)7)); 
             player2.Cards.Add(new Card(Suit.Clubs, (Rank)8));
             player2.Cards.Add(tableCard1);
             player2.Cards.Add(tableCard2);
