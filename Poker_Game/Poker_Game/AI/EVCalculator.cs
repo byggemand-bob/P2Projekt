@@ -20,7 +20,7 @@ namespace Poker_Game.AI {
         }
 
 
-        private double CalculateEv(string path, List<Card> cardHand, List<Card> street) {
+        public double CalculateEv(string path, List<Card> cardHand, List<Card> street) {
             OutsCalculator outCalc = new OutsCalculator();
             PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
 
