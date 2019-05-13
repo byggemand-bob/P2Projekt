@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
-        const int NUMOFTHREADS = 4;
+        const int NUMOFTHREADS = 1;
 
         public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
         {
@@ -117,10 +117,10 @@ namespace Poker_Game.AI
         {
             int x, n, missingCardsOnStreet = 5 - street.Count;
             int wins = 0, loses = 0, draws = 0, result;
-            FastWinCalc winCalc = new FastWinCalc();
+            WinConditions winCalc = new WinConditions();
             Card NewCard = new Card(0);
             List<Card> trailStreet = new List<Card>(), opponantTrailCards = new List<Card>(), CardsInPlay, aiTrailCards;
-
+            List<Player> players = new List<Player>() { new Player(0, 1000), new Player(1, 1000) };
             for (x = 0; x < NumberOfTrails; x++)
             {
                 trailStreet = new List<Card>(street);
@@ -149,20 +149,28 @@ namespace Poker_Game.AI
                 //forced to add to opponent hand
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
-
-                result = winCalc.WhoWinsV3(aiTrailCards, opponantTrailCards);
-
-                if (result == 1)
+                players[0].Cards = opponantTrailCards;
+                players[1].Cards = aiTrailCards;
+                players[0].Cards.Sort();
+                players[1].Cards.Sort();
+                players[0].Score = winCalc.Evaluate(players[0].Cards);
+                players[1].Score = winCalc.Evaluate(players[1].Cards);
+                
+                if (players[0].Score > players[1].Score)
                 {
                     loses++;
                 }
-                else if (result == -1)
+                else if (players[0].Score < players[1].Score)
                 {
                     wins++;
-                }
-                else
-                {
-                    draws++;
+                } else {
+                    if (winCalc.SameScore(players[0], players[1]) == null) {
+                        draws++;
+                    } else if (winCalc.SameScore(players[0], players[1]).Id == 1) {
+                        wins++;
+                    } else {
+                        loses++;
+                    }
                 }
 
                 CardsInPlay.Clear();

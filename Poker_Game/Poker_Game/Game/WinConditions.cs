@@ -159,6 +159,24 @@ namespace Poker_Game.Game {
             }
             return false;
         }
+        public Card HasStraightAndCardReturn(List<Card> cards) {
+            List<Card> sortedCards = DeckDuper3000(cards);
+            sortedCards.Sort();
+            RemoveDublicateRank(sortedCards, 0);
+            for (int i = 0; i <= sortedCards.Count - 5; i++) {
+                if (sortedCards[i].Rank + 1 == sortedCards[i + 1].Rank &&
+                    sortedCards[i + 1].Rank + 1 == sortedCards[i + 2].Rank &&
+                    sortedCards[i + 2].Rank + 1 == sortedCards[i + 3].Rank &&
+                    sortedCards[i + 3].Rank + 1 == sortedCards[i + 4].Rank) {
+                    return sortedCards[i + 4];
+                }
+                if (sortedCards[i + 4].Rank == Rank.Ace) {
+                    sortedCards[i + 4].Rank = (Rank)1;
+                    return HasStraightAndCardReturn(sortedCards);
+                }
+            }
+            return null;
+        }
 
         // Checks if the player has a flush - 26/4/2019 check
         public bool HasFlush(List<Card> hand) {
@@ -239,6 +257,7 @@ namespace Poker_Game.Game {
         }
 
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
+            FastWinCalc WIN2 = new FastWinCalc();
             if (player1.Score == Score.RoyalFlush) {
                 return null;
             } else if (player1.Score == Score.StraightFlush) {
@@ -258,7 +277,7 @@ namespace Poker_Game.Game {
             } else if (player1.Score == Score.Pair) {
                 return BestPair(player1, player2);
             } else {
-                return GetBestHighestCard(player1, player2);
+                return null;
             }
         }
 
@@ -273,25 +292,51 @@ namespace Poker_Game.Game {
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public Player BestStraight(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
-            player1cards.Sort();
-            player2cards.Sort();
-            RemoveDublicateRank(player1cards, 0);
-            RemoveDublicateRank(player2cards, 0);
-            for (int i = 0; i < player1cards.Count - 5; i++) {
-                if(player1cards[i].Rank + 4 == player1cards[i + 4].Rank) {
-                    for (int j = 0; j < player2cards.Count - 5; j++) {
-                        if (player2cards[j].Rank + 4 == player2cards[j + 4].Rank) {
-                            if (player1cards[i].Rank == player2cards[j].Rank) {
-                                return null;
-                            } else {
-                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
-                            }
-                        }
-                    }
-                }
-            }
+
+            if (HasStraightAndCardReturn(player1.Cards).Rank > HasStraightAndCardReturn(player2.Cards).Rank) {
+                return player1;
+            } else if (HasStraightAndCardReturn(player1.Cards).Rank < HasStraightAndCardReturn(player2.Cards).Rank) {
+                return player2;
+            } else
+                return null;
+
+
+
+
+
+            //List<Card> player1cards = DeckDuper3000(player1.Cards);
+            //List<Card> player2cards = DeckDuper3000(player2.Cards);
+            //player1cards.Sort();
+            //player2cards.Sort();
+            //RemoveDublicateRank(player1cards, 0);
+            //RemoveDublicateRank(player2cards, 0);
+            //for (int i = 0; i < player1cards.Count - 5; i++) {
+            //    if(player1cards[i].Rank + 4 == player1cards[i + 4].Rank) {
+            //        for (int j = 0; j < player2cards.Count - 5; j++) {
+            //            if (player2cards[j].Rank + 4 == player2cards[j + 4].Rank) {
+            //                if (player1cards[i].Rank == player2cards[j].Rank) {
+            //                    return null;
+            //                } else {
+            //                    return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //if (player1cards[3].Rank == (Rank)5 && player1cards[player1cards.Count - 1].Rank == Rank.Ace) {
+            //    if (player2cards[3].Rank == (Rank)5 && player2cards[player2cards.Count - 1].Rank == Rank.Ace) {
+            //        return null;
+            //    } else {
+            //        return player2;
+            //    }
+            //}
+            //if (player2cards[3].Rank == (Rank)5 && player2cards[player2cards.Count - 1].Rank == Rank.Ace) {
+            //    if (player1cards[3].Rank == (Rank)5 && player1cards[player1cards.Count - 1].Rank == Rank.Ace) {
+            //        return null;
+            //    } else {
+            //        return player1;
+            //    }
+            //}
             throw new System.InvalidOperationException("BestStraight exited loop");
         }
 
