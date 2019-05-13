@@ -4,6 +4,7 @@ using Poker_Game.Game;
 using Poker_Game;
 
 
+/*
 namespace UnitTest
 {
     [TestClass]
@@ -135,7 +136,7 @@ namespace UnitTest
         }
 
 
-        [TestMethod] 
+        [TestMethod]
         public void TestRaiseFunctionallity()
         {
             // Arrange
@@ -146,7 +147,7 @@ namespace UnitTest
             Game.Check();
 
             var expected = 400;
-            
+
             // Act
             var actual = Game.Hands[Game.CurrentHandNumber() - 1].Pot;
 
@@ -155,3 +156,4 @@ namespace UnitTest
         }
     }
 }
+*/
