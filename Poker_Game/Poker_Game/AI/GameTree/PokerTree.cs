@@ -38,7 +38,6 @@ namespace Poker_Game.AI.GameTree {
         
         public PlayerAction GetBestAction() {
             Node targetNode = FindBestPath(_currentNode);
-            //System.Windows.Forms.MessageBox.Show(targetNode.GetAction() + ", " + targetNode.ExpectedValue);
             while(!ReferenceEquals(_currentNode, targetNode.Parent)) {
                 targetNode = targetNode.Parent;
             }
@@ -68,6 +67,7 @@ namespace Poker_Game.AI.GameTree {
 
         private Node GetOpponentMove(PlayerAction action) {
             foreach(Node childNode in _currentNode.Children) {
+                MessageBox.Show(childNode.GetAction() + " == " + action);
                 if(childNode.GetAction() == action) {
                     return childNode;
                 }

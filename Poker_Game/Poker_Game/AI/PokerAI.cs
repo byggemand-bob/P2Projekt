@@ -35,14 +35,14 @@ namespace Poker_Game.AI {
         }
 
         // Called at the start of a new hand
-        public void PrepareNewHand(PokerGame game) {
+        public void PrepareNewHand() {
             if(_hands.Count > 1) {
                 _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns); 
             }
         }
 
-        public void PrepareNewRound(PokerGame game) {
-            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street, _player, _settings, game.Players[0].Action);
+        public void PrepareNewRound() {
+            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, _pokerGame.CurrentHand().Street, _player, _settings, _pokerGame.Players[0].PreviousAction);
         }
 
         public void SaveData() {

@@ -96,13 +96,12 @@ namespace Poker_Game {
 
         private void NewRound() {
             if(_game.CurrentRoundNumber() > 1) {
-                _ai.PrepareNewRound(_game);
+                _ai.PrepareNewRound();
             }
         }
 
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
-            NewRound();
             UpdateLabelCurrentBet(_game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
@@ -228,6 +227,7 @@ namespace Poker_Game {
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1) {
+                NewRound();
                 AiTurn();
             }
         }
@@ -397,7 +397,7 @@ namespace Poker_Game {
             _game.UpdateState();
             ChangeActionButtonState(false);
             ShowEndOfHandWindow();
-            _ai.PrepareNewHand(_game);
+            _ai.PrepareNewHand();
         }
 
         private void ShowEndOfHandWindow()
@@ -506,7 +506,6 @@ namespace Poker_Game {
         }
 
         private void AiTurn() {
-            MessageBox.Show("Hi there");
             _ai.MakeDecision(_game.Players[0].Action);
             UpdateAll();
         }
