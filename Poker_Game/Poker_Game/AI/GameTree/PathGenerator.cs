@@ -69,7 +69,8 @@ namespace Poker_Game.AI.GameTree
                 return Convert.ToString(_allActions);
             }
 
-            return "";
+            return string.Empty;
+
         }
 
         public string[] GeneratePaths(int CurrentRoundNumber) {

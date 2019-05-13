@@ -21,9 +21,11 @@ namespace Poker_Game.AI.Opponent {
             var vpipRange = rp.Parse(vpipOutsList);
 
             foreach (var element in vpipRange) {
+
                 if (oc.CompareOuts(element, street) != 0) {
                     playerOutsRange.Add(element);
                 }
+
             }
 
             return playerOutsRange;
