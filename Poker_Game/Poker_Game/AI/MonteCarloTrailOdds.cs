@@ -13,14 +13,8 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
-        const int NUMOFTHREADS = 4;
-
-        public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
-        {
-            aiHand = Hand;
-            street = Street;
-        }
-
+        const int NUMOFTHREADS = 4, TotalNumberOfTrails = 250000;
+        
         public struct Odds
         {
             public double WinOdds, LoseOdds, DrawOdds;
@@ -245,16 +239,19 @@ namespace Poker_Game.AI
             return Results;
         }
 
-        public Odds MultiThreadMonteCarlo (int NumberOfTrails)
+        public Odds MultiThreadMonteCarlo (List<Card> Hand, List<Card> Street)
         {
             int x;
             Odds[] trailResults = new Odds[NUMOFTHREADS];
             Odds totalResults = new Odds(0, 0, 0);
             Thread[] workers = new Thread[NUMOFTHREADS];
+
+            aiHand = Hand;
+            street = Street;
 
             for(x = 0; x < NUMOFTHREADS; x++)
             {
-                workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / NUMOFTHREADS); });
+                workers[x] = new Thread(() => { trailResults[x] = RunTrails(TotalNumberOfTrails / NUMOFTHREADS); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
@@ -273,16 +270,19 @@ namespace Poker_Game.AI
             return totalResults;
         }
 
-        public Odds MultiThreadMonteCarlo(int NumberOfTrails, List<List<Card>> Range)
+        public Odds MultiThreadMonteCarlo(List<Card> Hand, List<Card> Street, List<List<Card>> Range)
         {
             int x;
             Odds[] trailResults = new Odds[NUMOFTHREADS];
             Odds totalResults = new Odds(0, 0, 0);
             Thread[] workers = new Thread[NUMOFTHREADS];
 
+            aiHand = Hand;
+            street = Street;
+
             for (x = 0; x < NUMOFTHREADS; x++)
             {
-                workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / NUMOFTHREADS, Range); });
+                workers[x] = new Thread(() => { trailResults[x] = RunTrails(TotalNumberOfTrails / NUMOFTHREADS, Range); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
@@ -301,7 +301,7 @@ namespace Poker_Game.AI
             return totalResults;
         }
 
-        public Odds TestMultiThreadMonteCarlo(int NumberOfTrails)
+        public Odds TestMultiThreadMonteCarlo()
         {
             int x;
             Odds[] trailResults = new Odds[NUMOFTHREADS];
@@ -310,7 +310,7 @@ namespace Poker_Game.AI
 
             for (x = 0; x < NUMOFTHREADS; x++)
             {
-                workers[x] = new Thread(() => { trailResults[x] = TestRunTrails(NumberOfTrails / NUMOFTHREADS); });
+                workers[x] = new Thread(() => { trailResults[x] = TestRunTrails(TotalNumberOfTrails / NUMOFTHREADS); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
