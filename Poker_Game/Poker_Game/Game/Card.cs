@@ -45,6 +45,7 @@ namespace Poker_Game.Game {
         //        MakeCard(DrawRandCard());
         //    } while (cards.Contains(this));
         //}
+
         //public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
         //    int rankInt = (cardNumber % 13) + 2;
         //    Suit = (Suit)(cardNumber / 13);
@@ -81,7 +82,7 @@ namespace Poker_Game.Game {
         }
 
         public void LoadImage() {
-            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
+            Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank.ToString() + Suit.ToString() + ".png");
         }
 
         public int CompareTo(object other) { // Sort after rank, then suit
@@ -103,5 +104,6 @@ namespace Poker_Game.Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
     }
 }

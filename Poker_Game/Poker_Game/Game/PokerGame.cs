@@ -28,7 +28,7 @@ namespace Poker_Game.Game {
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
     
-        public PokerGame() {
+        public PokerGame() { // For testing purpose only
             Hands = new List<Hand>();
         }
 
@@ -248,15 +248,9 @@ namespace Poker_Game.Game {
         public Player CurrentPlayer() {
             return Players[CurrentPlayerIndex];
         }
-        public bool IsFinished() { // Checks if players still has $ in stack
-            int playersLeft = 0;
-            foreach (Player player in Players) {
-                if (player.Stack < 1) {
-                    playersLeft++;
-                }
-            }
 
-            return playersLeft == 1;
+        public bool MoneyLeft(Player player) {
+            return player.Stack != 0;
         }
 
         #endregion

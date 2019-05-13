@@ -14,6 +14,7 @@ namespace Poker_Game.Game {
         // Allocation and initialization for the various elements of a hand
         #region Initialization
 
+        
         public Hand(List<Player> players) // for testing purpose only
         {
             Players = players;
@@ -95,7 +96,7 @@ namespace Poker_Game.Game {
         }
 
         // Draws number of cards needed for the player / street
-        private void DrawCards(int numberOfCards) {
+        public void DrawCards(int numberOfCards) {
             for (int i = 0; i < numberOfCards; i++) {
                 Card newCard = new Card(Deck);
                 Deck.Add(newCard);

@@ -87,8 +87,10 @@ namespace Poker_Game
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.labelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Location = new System.Drawing.Point(870, 170);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HandWinnerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hand Winner";
             this.ResumeLayout(false);
             this.PerformLayout();
