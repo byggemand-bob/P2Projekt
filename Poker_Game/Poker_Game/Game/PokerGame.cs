@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Poker_Game.Game;
 
 
@@ -16,6 +17,8 @@ namespace Poker_Game.Game {
         public List<Player> Players { get; set; }
         public List<Hand> Hands { get; set; }
         public Settings Settings { get; set; }
+
+
 
         #region Initialization
 
@@ -45,11 +48,10 @@ namespace Poker_Game.Game {
         public void Call() { // Method used for coding a press of Call-button in GameForm.
             if (CanCall()) {
                 // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex],Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet);
+                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
                 Players[CurrentPlayerIndex].Action = PlayerAction.Call;
                 NewTurn();
                 UpdateState();
-                CurrentRound().CycleStep++;
             }
         }
 
@@ -58,31 +60,26 @@ namespace Poker_Game.Game {
                 CurrentPlayer().Action = PlayerAction.Check;
                 CurrentPlayer().BetsTaken++;
                 NewTurn();
-                UpdateState();
-                CurrentRound().CycleStep++;
-            }
+                UpdateState(); }
         }
 
         public void Fold() { // Method used for coding a press of Fold-button in GameForm.
             Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
             NewTurn();
             UpdateState();
-            CurrentRound().CycleStep++;
         }
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
                 // Needs to be cut dow
-                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet) + (2 * Settings.BlindSize)); // TODO: Optimer. Flyt udreginger til fast variabel
+                Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet)+ 2 * Settings.BlindSize);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
                 CurrentPlayer().BetsTaken++;
 
                 // Create functions for this.
-                CurrentRound().ChangeTopBidder(CurrentPlayerIndex);
                 NewTurn();
                 CurrentTurn().Bet = Settings.BlindSize * 2;
                 UpdateState();
-                CurrentRound().CycleStep++;
             }
         }
 
@@ -90,7 +87,7 @@ namespace Poker_Game.Game {
             if(!RoundInProgress) {
                 CurrentHand().StartRound(DealerButtonPosition);
                 RoundInProgress = true;
-                CurrentPlayerIndex = GetNextPlayerIndex();
+                //CurrentPlayerIndex = GetNextPlayerIndex();
             }
         }
 
@@ -197,6 +194,7 @@ namespace Poker_Game.Game {
             int next = ++CurrentPlayerIndex % Settings.NumberOfPlayers;
             for (int i = 0; i < Settings.NumberOfPlayers; i++) {
                 if (Players[next].Action != PlayerAction.Fold) {
+                    //MessageBox.Show("NextIndex: " + next);
                     return next;
                 }
                 next = ++next % Settings.NumberOfPlayers;
@@ -209,12 +207,11 @@ namespace Poker_Game.Game {
         #region Utillity
 
         public bool CanCheck() {
-            return CurrentRound().TopBidderIndex == CurrentPlayerIndex ||
-                   Players[CurrentPlayerIndex].CurrentBet - Players[CurrentRound().TopBidderIndex].CurrentBet == 0;
+            return Players[0].CurrentBet - Players[1].CurrentBet == 0;
         }
 
         public bool CanCall() {
-            return Players[CurrentRound().TopBidderIndex].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
+            return Players[(CurrentPlayerIndex + 1) % Settings.NumberOfPlayers].CurrentBet - Players[CurrentPlayerIndex].CurrentBet != 0;
         }
 
         public bool CanRaise() {
@@ -276,7 +273,7 @@ namespace Poker_Game.Game {
                 if (Players[i].IsBigBlind)
                 {
                     Bet(Players[i], 2 * Settings.BlindSize);
-                    CurrentRound().TopBidderIndex = i;
+                    Players[i].Action = PlayerAction.Raise;
                 }
                 else if (Players[i].IsSmallBlind)
                 {

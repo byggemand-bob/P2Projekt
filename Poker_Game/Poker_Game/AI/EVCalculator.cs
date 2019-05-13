@@ -12,34 +12,33 @@ namespace Poker_Game.AI {
 
     class EVCalculator {
 
-        public Settings Settings { get; set; }
-        public Player Player { get; set; }
+        private readonly Settings _settings;
+        private readonly Player _player;
         public EVCalculator(Player player, Settings settings) {
-            Player = player;
-            Settings = settings;
+            _player = player;
+            _settings = settings;
         }
-        
-        
-        public double CalculateEV(string path, List<Card> cardHand, List<Card> street, Player player, Settings settings) {
+
+
+        private double CalculateEv(string path, List<Card> cardHand, List<Card> street) {
             OutsCalculator outCalc = new OutsCalculator();
-            PotSizeCalculator potCalc = new PotSizeCalculator(settings);
-            double ExpectedValue = 0;
+            PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
 
-            var WinOdds = 2 * outCalc.CompareOuts(cardHand, street);
-            var LossOdds = 100 - WinOdds;
-            var WinPot = potCalc.GetPotsize(path);
-            var LossPot = player.CurrentBet;
+            double winOdds = 2 * outCalc.CompareOuts(cardHand, street) * 0.01;
+            double lossOdds = 1 - winOdds;
+            double winPot = potCalc.GetPotsize(path);
+            double lossPot = _player.CurrentBet;
 
-            ExpectedValue = (WinOdds * WinPot) - (LossOdds * LossPot);
+            //System.Windows.Forms.MessageBox.Show(((winOdds * winPot) - (lossOdds * lossPot)).ToString());
 
-            return ExpectedValue;
+            return (winOdds * winPot) - (lossOdds * lossPot);
         }
 
 
-        public double[] CalculateAll(string[] paths, List<Card> cardHand, List<Card> street, Player player, Settings settings) {
+        public double[] CalculateAll(string[] paths, List<Card> cardHand, List<Card> street) {
             double[] result = new double[paths.Length];
             for(int i = 0; i < paths.Length; i++) {
-                result[i] = CalculateEV(paths[i], cardHand, street, player, settings);
+                result[i] = CalculateEv(paths[i], cardHand, street);
             }
 
             return result;

@@ -10,6 +10,7 @@ namespace Poker_Game.AI.GameTree
         private readonly StringBuilder _allActions = new StringBuilder();
 
 
+
        
         private string MakePath(int CurrentRoundNumber) {
 
@@ -44,11 +45,11 @@ namespace Poker_Game.AI.GameTree
 
 
             if (CurrentRoundNumber == 3) {
-                for (int i = 0; i < _possibleActions.Length; i++) {
-                    for (int j = 0; j < _possibleActions.Length; j++) {
-                        if (_possibleActions[i].Contains("F")) {
+                for(int i = 0; i < _possibleActions.Length; i++) {
+                    for(int j = 0; j < _possibleActions.Length; j++) {
+                        if(_possibleActions[i].Contains("F")) {
                             _allActions.Append(_possibleActions[i])
-                                .Append("\n");
+                                       .Append("\n");
                             i++;
                         }
                         else if (_possibleActions[j].Contains("F")) {
@@ -56,6 +57,7 @@ namespace Poker_Game.AI.GameTree
                                 .Append(_possibleActions[j])
                                 .Append("\n");
                             j++;
+                            
                         }
                     }
                 }
@@ -79,12 +81,12 @@ namespace Poker_Game.AI.GameTree
 
             return Convert.ToString(_allActions);
         }
-    
 
         public string[] GeneratePaths(int CurrentRoundNumber) {
             string[] temp = MakePath(CurrentRoundNumber).Split('\n');
-            string[] result = new string[temp.Length - 2];
-            Array.Copy(temp, result, temp.Length - 2);
+            string[] result = new string[temp.Length - 1];
+            Array.Copy(temp, result, temp.Length - 1);
+
             return result;
         
         }
