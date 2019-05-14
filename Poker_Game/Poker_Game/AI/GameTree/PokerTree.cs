@@ -6,16 +6,16 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        public Node RootNode { get; private set; }
+        public Node RootNode { get; }
         private Node _currentNode;
 
         public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
 
-            if(player.IsBigBlind && currentRoundNumber < 1) {
-                RegisterOpponentMove(opponentAction);
-            }
+            //if(player.IsBigBlind && currentRoundNumber < 1) {
+            //    RegisterOpponentMove(opponentAction);
+            //}
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
@@ -48,9 +48,7 @@ namespace Poker_Game.AI.GameTree {
             _currentNode.Color = Color.Blue;
             targetNode.Color = Color.Green;
 
-            //MessageBox.Show(targetNode.Parent.Action + ", " + targetNode.Action);
             _currentNode = targetNode;
-            //MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
             return targetNode.GetAction();
         }
 
@@ -74,7 +72,6 @@ namespace Poker_Game.AI.GameTree {
 
         private Node GetOpponentMove(PlayerAction action) {
             foreach(Node childNode in _currentNode.Children) {
-                //MessageBox.Show(childNode.GetAction() + " == " + action);
                 if(childNode.GetAction() == action) {
                     return childNode;
                 }

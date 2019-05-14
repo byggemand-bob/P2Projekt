@@ -32,8 +32,6 @@ namespace Poker_Game.AI.GameTree {
                         }
                     }
                 }
-
-                return Convert.ToString(_allActions);
             }
 
             if(currentRoundNumber == 3) {
@@ -47,26 +45,27 @@ namespace Poker_Game.AI.GameTree {
                             _allActions.Append(_possibleActions[i] + "-")
                                 .Append(_possibleActions[j])
                                 .Append("\n");
-                            j++;
                         }
                     }
                 }
-
-                return Convert.ToString(_allActions);
             }
 
             if(currentRoundNumber == 4) {
                 for(int i = 0; i < _possibleActions.Length; i++) {
                     _allActions.Append(_possibleActions[i])
                         .Append("\n");
-                    i++;
-                    _allActions.Append(_possibleActions[i])
-                        .Append("\n");
-                    i++;
-                    return Convert.ToString(_allActions);
                 }
             }
-            return string.Empty;
+
+            string[] output = _allActions.ToString().Split('\n');
+
+            foreach(string line in output) {
+                Console.WriteLine(line);
+            }
+
+            Console.WriteLine("\n" + output.Length);
+
+            return Convert.ToString(_allActions);
         }
 
 

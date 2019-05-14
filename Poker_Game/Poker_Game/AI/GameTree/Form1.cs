@@ -11,13 +11,18 @@ using System.Windows.Forms;
 namespace Poker_Game.AI.GameTree {
     public partial class Form1 : Form {
 
-        private int _round;
+        private int _round = 2;
         private Node _root;
 
         public Form1(Node rootNode, int roundNumber) {
             InitializeComponent();
             _round = roundNumber;
             _root = rootNode;
+        }
+
+        public Form1() {
+            InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -43,10 +48,10 @@ namespace Poker_Game.AI.GameTree {
         private void Button1_Click(object sender, EventArgs e) {
            //List<Tuple<string, double>> pathInfo = TextToPathInfo(textBox1.Lines);
 
-           TreeNode rootTreeNode = new TreeNode("Root");
+            TreeNode rootTreeNode = new TreeNode("Root");
             //ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
-            //ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
-            ConvertToTreeNode(rootTreeNode, _root);
+            ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
+            //ConvertToTreeNode(rootTreeNode, _root);
             treeView3.Nodes.Add(rootTreeNode);
 
             treeView3.ExpandAll();

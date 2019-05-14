@@ -13,6 +13,7 @@ namespace Poker_Game {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
+        private int _prevRound = 2;
 
         #region Initialization
 
@@ -95,8 +96,9 @@ namespace Poker_Game {
         #region Updates
 
         private void NewRound() {
-            if(_game.CurrentRoundNumber() > 1) {
-                _ai.PrepareNewRound();
+            if(_game.CurrentRoundNumber() > _prevRound) {
+                _ai.PrepareNewTree();
+                _prevRound++;
             }
         }
 
@@ -397,8 +399,9 @@ namespace Poker_Game {
             // Checks if the game is finished, and makes the buttons un-pressable.
             _game.UpdateState();
             ChangeActionButtonState(false);
-            ShowEndOfHandWindow();
             _ai.PrepareNewHand();
+            _prevRound = 2;
+            ShowEndOfHandWindow();
         }
 
         private void ShowEndOfHandWindow()
