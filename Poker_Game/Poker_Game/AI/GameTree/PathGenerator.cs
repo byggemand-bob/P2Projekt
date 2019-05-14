@@ -18,11 +18,13 @@ namespace Poker_Game.AI.GameTree {
                                 _allActions.Append(_possibleActions[i])
                                     .Append("\n");
                                 i++;
+                                k--;
                             } else if(_possibleActions[j].Contains("F")) {
                                 _allActions.Append(_possibleActions[i] + "-")
                                     .Append(_possibleActions[j])
                                     .Append("\n");
                                 j++;
+                                k--;
                             } else {
                                 _allActions.Append(_possibleActions[i] + "-")
                                     .Append(_possibleActions[j] + "-")
@@ -41,6 +43,7 @@ namespace Poker_Game.AI.GameTree {
                             _allActions.Append(_possibleActions[i])
                                 .Append("\n");
                             i++;
+                            j--;
                         } else {
                             _allActions.Append(_possibleActions[i] + "-")
                                 .Append(_possibleActions[j])
