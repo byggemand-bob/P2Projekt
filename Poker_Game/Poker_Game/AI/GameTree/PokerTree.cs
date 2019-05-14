@@ -26,6 +26,8 @@ namespace Poker_Game.AI.GameTree {
             string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
 
+            MessageBox.Show(paths.Length.ToString() + " " + currentRoundNumber);
+
             for(int i = 0; i < paths.Length; i++) {
                 ph.ConstructPath(result, paths[i],expectedValues[i]);
             }

@@ -13,7 +13,7 @@ namespace Poker_Game {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
-        private int _prevRound = 2;
+        private int _prevRound = 12;
 
         #region Initialization
 

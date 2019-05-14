@@ -15,7 +15,7 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
-        private const bool ShowTree = false;
+        private const bool ShowTree = true;
         
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -52,17 +52,7 @@ namespace Poker_Game.AI {
         }
 
         public void MakeDecision(PlayerAction realPlayerAction) {
-            if(_pokerTree == null) {
-                PrepareNewTree();
-            }
-
-            if(_player.IsBigBlind) {
-                _pokerTree.RegisterOpponentMove(realPlayerAction);
-            } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() == 0) {
-                _pokerTree.RegisterOpponentMove(realPlayerAction);
-            }
-
-            switch(Evaluate(realPlayerAction)) {
+           switch(Evaluate(realPlayerAction)) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -79,7 +69,20 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction Evaluate(PlayerAction realPlayerAction) {
-            return _hands.Last().CurrentRoundNumber() == 1 ? Preflop() : AfterPreflop(realPlayerAction);
+            if(_hands.Last().CurrentRoundNumber() == 1) {
+                return Preflop();
+            } else {
+                if(_pokerTree == null) {
+                    PrepareNewTree();
+                }
+                if(_player.IsBigBlind) {
+                    _pokerTree.RegisterOpponentMove(realPlayerAction);
+                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() == 0) {
+                    _pokerTree.RegisterOpponentMove(realPlayerAction);
+                }
+
+                return AfterPreflop(realPlayerAction);
+            }
         }
 
         // CallBot
