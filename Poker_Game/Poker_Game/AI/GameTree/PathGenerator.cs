@@ -35,6 +35,7 @@ namespace Poker_Game.AI.GameTree
                         }
                     }
                 }
+
                 return Convert.ToString(_allActions);
             }
 
@@ -45,8 +46,7 @@ namespace Poker_Game.AI.GameTree
                             _allActions.Append(_possibleActions[i])
                                        .Append("\n");
                             i++;
-                        }
-                        else if (_possibleActions[j].Contains("F")) {
+                        } else {
                             _allActions.Append(_possibleActions[i] + "-")
                                 .Append(_possibleActions[j])
                                 .Append("\n");
@@ -60,11 +60,17 @@ namespace Poker_Game.AI.GameTree
 
             if (currentRoundNumber == 4) {
                 for (int i = 0; i < _possibleActions.Length; i++) {
+<<<<<<< HEAD
                    _allActions.Append(_possibleActions[i])
                         .Append("\n");
                     i++;
                     
 
+=======
+                    _allActions.Append(_possibleActions[i])
+                               .Append("\n");
+                        i++;
+>>>>>>> e954ab71f9425627efbec9c26a595be32e9ab9de
                 }
                 return Convert.ToString(_allActions);
             }
