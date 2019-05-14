@@ -88,8 +88,6 @@ namespace Poker_Game.AI {
 
             wc.RemoveDublicateRank(straightCards, 0); // TODO: FIX
             return 5 - straightCards.Count;
-
-            return 0;
         }
         #endregion
 

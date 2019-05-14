@@ -62,11 +62,11 @@ namespace Poker_Game.AI.GameTree {
 
             string[] output = _allActions.ToString().Split('\n');
 
-            foreach(string line in output) {
-                Console.WriteLine(line);
-            }
+            //foreach(string line in output) {
+            //    Console.WriteLine(line);
+            //}
 
-            Console.WriteLine("\n" + output.Length);
+            //Console.WriteLine("\n" + output.Length);
 
             return Convert.ToString(_allActions);
         }

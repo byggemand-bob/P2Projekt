@@ -15,7 +15,7 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
-        private const bool ShowTree = true;
+        private const bool ShowTree = false;
         
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -77,7 +77,7 @@ namespace Poker_Game.AI {
                 }
                 if(_player.IsBigBlind) {
                     _pokerTree.RegisterOpponentMove(realPlayerAction);
-                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() == 0) {
+                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() != 0) {
                     _pokerTree.RegisterOpponentMove(realPlayerAction);
                 }
 

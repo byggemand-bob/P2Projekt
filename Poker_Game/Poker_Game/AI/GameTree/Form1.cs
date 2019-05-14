@@ -11,8 +11,8 @@ using System.Windows.Forms;
 namespace Poker_Game.AI.GameTree {
     public partial class Form1 : Form {
 
-        private int _round = 2;
-        private Node _root;
+        private readonly int _round = 2;
+        private readonly Node _root;
 
         public Form1(Node rootNode, int roundNumber) {
             InitializeComponent();
@@ -50,8 +50,8 @@ namespace Poker_Game.AI.GameTree {
 
             TreeNode rootTreeNode = new TreeNode("Root");
             //ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
-            ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
-            //ConvertToTreeNode(rootTreeNode, _root);
+            //ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
+            ConvertToTreeNode(rootTreeNode, _root);
             treeView3.Nodes.Add(rootTreeNode);
 
             treeView3.ExpandAll();

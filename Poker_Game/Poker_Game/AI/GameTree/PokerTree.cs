@@ -8,11 +8,11 @@ namespace Poker_Game.AI.GameTree {
     class PokerTree {
         public Node RootNode { get; }
         private Node _currentNode;
-
+        private int _roundNumber;
         public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
-
+            _roundNumber = currentRoundNumber;
             //if(player.IsBigBlind && currentRoundNumber < 1) {
             //    RegisterOpponentMove(opponentAction);
             //}
@@ -26,8 +26,6 @@ namespace Poker_Game.AI.GameTree {
             string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
 
-            MessageBox.Show(paths.Length.ToString() + " " + currentRoundNumber);
-
             for(int i = 0; i < paths.Length; i++) {
                 ph.ConstructPath(result, paths[i],expectedValues[i]);
             }
@@ -40,7 +38,6 @@ namespace Poker_Game.AI.GameTree {
             return evCalculator.CalculateAll(paths, cardHand, street);
         }
 
-        
         public PlayerAction GetBestAction() {
             Node targetNode = FindBestPath(_currentNode);
             targetNode.Color = Color.Red; // temp
@@ -78,6 +75,7 @@ namespace Poker_Game.AI.GameTree {
                     return childNode;
                 }
             }
+            new Form1(RootNode, _roundNumber).ShowDialog();
             throw new Exception("You done fucked up");
         }
 
