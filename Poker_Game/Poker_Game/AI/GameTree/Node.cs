@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 using Poker_Game;
 using Poker_Game.Game;
 
@@ -8,12 +10,14 @@ namespace Poker_Game.AI.GameTree {
         public List<Node> Children { get; set; }
         public double ExpectedValue { get; set; }
         public string Action { get; set; }
+        public Color Color { get; set; }
 
         public Node(Node parent, string action) {
             Parent = parent;
             Children = new List<Node>();
             Action = action;
             ExpectedValue = 0;
+            Color = Color.White;
         }
 
         public Node(Node parent, string action, double expectedValue) {

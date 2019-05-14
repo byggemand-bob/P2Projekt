@@ -1,26 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        private readonly Node _rootNode;
+        public Node RootNode { get; private set; }
         private Node _currentNode;
 
-        public PokerTree(List<Card> cardHand, List<Card> street, Player player, Settings settings, PlayerAction opponentAction) {
-            _rootNode = CreateTree(cardHand, street, player, settings);
-            _currentNode = _rootNode;
-            if(player.IsBigBlind) {
-                _currentNode = GetOpponentMove(opponentAction);
+        public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
+            RootNode = CreateTree(street, player, settings, currentRoundNumber);
+            _currentNode = RootNode;
+
+            if(player.IsBigBlind && currentRoundNumber < 1) {
+                RegisterOpponentMove(opponentAction);
             }
         }
 
-        private Node CreateTree(List<Card> cardHand, List<Card> street, Player player, Settings settings) {
+        private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             Node result = new Node(null, string.Empty);
             PathGenerator pg = new PathGenerator();
             PathConstructor ph = new PathConstructor();
-            string[] paths = pg.GeneratePaths();
+            List<Card> cardHand = new List<Card>{player.Cards[0], player.Cards[1]};
+            string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
 
             for(int i = 0; i < paths.Length; i++) {
@@ -38,13 +41,16 @@ namespace Poker_Game.AI.GameTree {
         
         public PlayerAction GetBestAction() {
             Node targetNode = FindBestPath(_currentNode);
-            //System.Windows.Forms.MessageBox.Show(targetNode.GetAction() + ", " + targetNode.ExpectedValue);
+            targetNode.Color = Color.Red; // temp
             while(!ReferenceEquals(_currentNode, targetNode.Parent)) {
                 targetNode = targetNode.Parent;
             }
+            _currentNode.Color = Color.Blue;
+            targetNode.Color = Color.Green;
 
+            //MessageBox.Show(targetNode.Parent.Action + ", " + targetNode.Action);
             _currentNode = targetNode;
-            MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
+            //MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
             return targetNode.GetAction();
         }
 
@@ -68,6 +74,7 @@ namespace Poker_Game.AI.GameTree {
 
         private Node GetOpponentMove(PlayerAction action) {
             foreach(Node childNode in _currentNode.Children) {
+                //MessageBox.Show(childNode.GetAction() + " == " + action);
                 if(childNode.GetAction() == action) {
                     return childNode;
                 }

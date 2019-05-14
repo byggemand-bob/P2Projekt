@@ -10,12 +10,18 @@ using System.Windows.Forms;
 
 namespace Poker_Game.AI.GameTree {
     public partial class Form1 : Form {
-        public Form1() {
+
+        private int _round;
+        private Node _root;
+
+        public Form1(Node rootNode, int roundNumber) {
             InitializeComponent();
+            _round = roundNumber;
+            _root = rootNode;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            
+            Button1_Click(sender, e);
             
         }
 
@@ -29,18 +35,18 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private TreeNode NodeToTreeNode(Node node) {
-            return new TreeNode(node.Action);
+            TreeNode result = new TreeNode(node.Action);
+            result.BackColor = node.Color;
+            return result;
         }
 
         private void Button1_Click(object sender, EventArgs e) {
            //List<Tuple<string, double>> pathInfo = TextToPathInfo(textBox1.Lines);
 
-
-
-
-            TreeNode rootTreeNode = new TreeNode("Root");
+           TreeNode rootTreeNode = new TreeNode("Root");
             //ConvertToTreeNode(rootTreeNode, CreateTree(pathInfo));
-            ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
+            //ConvertToTreeNode(rootTreeNode, CreateTree(CreateFullTreePath()));
+            ConvertToTreeNode(rootTreeNode, _root);
             treeView3.Nodes.Add(rootTreeNode);
 
             treeView3.ExpandAll();
@@ -70,7 +76,7 @@ namespace Poker_Game.AI.GameTree {
 
         private List<Tuple<string, double>> CreateFullTreePath() {
             PathGenerator ph = new PathGenerator();
-            string[] paths = ph.GeneratePaths();
+            string[] paths = ph.GeneratePaths(_round);
             List<Tuple<string, double>> result = new List<Tuple<string, double>>();
             StringBuilder sb = new StringBuilder();
 

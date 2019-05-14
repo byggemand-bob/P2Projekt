@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
@@ -14,7 +15,8 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
-
+        private const bool ShowTree = true;
+        
         public PokerAI(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
@@ -35,14 +37,14 @@ namespace Poker_Game.AI {
         }
 
         // Called at the start of a new hand
-        public void PrepareNewHand(PokerGame game) {
+        public void PrepareNewHand() {
             if(_hands.Count > 1) {
                 _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns); 
             }
         }
 
-        public void PrepareNewRound(PokerGame game) {
-            _pokerTree = new PokerTree(new List<Card>() {_player.Cards[0], _player.Cards[1]}, game.CurrentHand().Street, _player, _settings, game.Players[0].Action);
+        public void PrepareNewRound() {
+            _pokerTree = new PokerTree(_pokerGame.CurrentHand().Street, _player, _settings, _pokerGame.Players[0].PreviousAction, _pokerGame.CurrentRoundNumber());
         }
 
         public void SaveData() {
@@ -50,6 +52,11 @@ namespace Poker_Game.AI {
         }
 
         public void MakeDecision(PlayerAction realPlayerAction) {
+
+            if(_player.IsBigBlind) {
+                _pokerTree.RegisterOpponentMove(realPlayerAction);
+            }
+
             switch(Evaluate(realPlayerAction)) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
@@ -63,6 +70,10 @@ namespace Poker_Game.AI {
                 case PlayerAction.Raise:
                     _actions[3].Invoke();
                     break;
+            }
+
+            if(_player.IsSmallBlind) {
+                _pokerTree.RegisterOpponentMove(realPlayerAction);
             }
         }
 
@@ -80,8 +91,9 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
-            _pokerTree.RegisterOpponentMove(realPlayerAction);
-            return _pokerTree.GetBestAction();
+            PlayerAction result =_pokerTree.GetBestAction();
+            if(ShowTree) {new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog();}
+            return result;
         }
     }
 }

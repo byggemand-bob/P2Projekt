@@ -13,7 +13,6 @@ namespace Poker_Game {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private const bool DiagnosticsMode = true;
-        private int _roundNumber = 0;
 
         #region Initialization
 
@@ -24,8 +23,9 @@ namespace Poker_Game {
             CreateButtonList();
             CreatePictureBoxList();
 
-            // Diagnostics window for (bad) debugging
+            // Diagnostics window for debugging
             panel1.Visible = DiagnosticsMode;
+            buttonForceUI.Visible = DiagnosticsMode;
 
             // Creates the game with user settings
             _game = new PokerGame(_settings);
@@ -96,13 +96,12 @@ namespace Poker_Game {
 
         private void NewRound() {
             if(_game.CurrentRoundNumber() > 1) {
-                _ai.PrepareNewRound(_game);
+                _ai.PrepareNewRound();
             }
         }
 
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
-            NewRound();
             UpdateLabelCurrentBet(_game.Players);
             UpdateRoundName();
             UpdateCurrentPlayer();
@@ -228,6 +227,8 @@ namespace Poker_Game {
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1) {
+
+                NewRound();
                 AiTurn();
             }
         }
@@ -397,7 +398,7 @@ namespace Poker_Game {
             _game.UpdateState();
             ChangeActionButtonState(false);
             ShowEndOfHandWindow();
-            _ai.PrepareNewHand(_game);
+            _ai.PrepareNewHand();
         }
 
         private void ShowEndOfHandWindow()
@@ -496,8 +497,9 @@ namespace Poker_Game {
             label7.Text = "AI Stack: " + _game.Players[1].Stack;
             label8.Text = "Player Stack: " + _game.Players[0].Stack;
             label10.Text = "Bets: " + _game.CurrentRound().Bets;
-            label11.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
-            label12.Text = "PlayerAction: " + _game.Players[0].Action;
+            label9.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
+            label12.Text = "PlayerPrevAction: " + _game.Players[0].PreviousAction;
+            label11.Text = "AIPrevAction: " + _game.Players[1].PreviousAction;
         }
         #endregion
 
@@ -506,10 +508,12 @@ namespace Poker_Game {
         }
 
         private void AiTurn() {
-            MessageBox.Show("Hi there");
-            _ai.MakeDecision(_game.Players[0].Action);
+            _ai.MakeDecision(_game.Players[0].PreviousAction);
             UpdateAll();
         }
 
+        private void ButtonForceUI_Click(object sender, EventArgs e) {
+            UpdateAll();
+        }
     }
 }
