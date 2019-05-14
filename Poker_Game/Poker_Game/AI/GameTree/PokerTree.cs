@@ -78,9 +78,5 @@ namespace Poker_Game.AI.GameTree {
             new Form1(RootNode, _roundNumber).ShowDialog();
             throw new Exception("You done fucked up");
         }
-
-
-
-
     }
 }

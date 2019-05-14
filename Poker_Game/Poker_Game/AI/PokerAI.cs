@@ -41,6 +41,8 @@ namespace Poker_Game.AI {
             if(_hands.Count > 1) {
                 _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns); 
             }
+
+            _pokerTree = null;
         }
 
         public void PrepareNewTree() {
