@@ -14,7 +14,12 @@ namespace Poker_Game {
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void buttonStartGame_Click(object sender, EventArgs e)
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonStartGame_Click(object sender, EventArgs e)
         // Makes sure you've entered a name before continueing
         {
             if (Testing || _nameChanged)
@@ -29,7 +34,7 @@ namespace Poker_Game {
             }
         }
 
-        private void blindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void BlindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the blind numeric up down with the blind trackbar
         {
             if (_valueJustChanged)
@@ -41,7 +46,7 @@ namespace Poker_Game {
             }
         }
 
-        private void blindSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        private void BlindSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the blind trackbar with the blind numeric up down
         {
             if (_valueJustChanged)
@@ -58,7 +63,7 @@ namespace Poker_Game {
             }
         }
 
-        private void potSizeTrackBar_ValueChanged(object sender, EventArgs e)
+        private void PotSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the potsize trackbar with the potsize numeric up down
         {
             if (_valueJustChanged)
@@ -75,7 +80,7 @@ namespace Poker_Game {
             }
         }
 
-        private void potSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void PotSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the potsize numeric up down with the potsize trackbar
         {
             if (_valueJustChanged)
@@ -87,19 +92,19 @@ namespace Poker_Game {
             }
         }
 
-        private void numberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
+        private void NumberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the number of players trackbar with the number of players numeric up down
         {
             numericUpDownNumberOfPlayers.Value = trackBarNumberOfPlayers.Value;
         }
 
-        private void numberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void NumberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the number of players numeric up down with the number of players trackbar
         {
             trackBarNumberOfPlayers.Value = (int)numericUpDownNumberOfPlayers.Value;
         }
 
-        private void textboxName_Leave(object sender, EventArgs e)
+        private void TextboxName_Leave(object sender, EventArgs e)
         // Checks if player has Entered a name
         {
             TextBox txtbox = (TextBox)sender;
@@ -109,7 +114,7 @@ namespace Poker_Game {
             }
         }
 
-        private void textboxName_Enter(object sender, EventArgs e)
+        private void TextboxName_Enter(object sender, EventArgs e)
         // Removes the text "Enter Name" when clicked
         {
             TextBox txtbox = (TextBox)sender;
@@ -118,7 +123,7 @@ namespace Poker_Game {
             }
         }
 
-        private void textbox_CheckChange(object sender, KeyPressEventArgs e)
+        private void Textbox_CheckChange(object sender, KeyPressEventArgs e)
         // Checks if the Entered name is a Valid option
         {
             TextBox txtbox = (TextBox)sender;
@@ -127,7 +132,7 @@ namespace Poker_Game {
             }
         }
 
-        private void timeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void TimeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
         // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit time based blind increase
         {
             if(checkBoxTimeBased.Checked == true)
@@ -149,7 +154,7 @@ namespace Poker_Game {
             }
         }
 
-        private void roundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void RoundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
         // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit round based blind increase
         {
             if (checkBoxRoundBased.Checked == true)
@@ -171,23 +176,20 @@ namespace Poker_Game {
             }
         }
 
-        private void blindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
+        private void BlindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
         // links blind increase trackbar with blind increase numeric up down
         {
             numericUpDownBlindIncrease.Value = trackBarBlindIncrease.Value;
         }
 
-        private void blindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private void BlindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
         // links blind increase numeric up down with blind increase trackbar
         {
             trackBarBlindIncrease.Value = (int)numericUpDownBlindIncrease.Value;
         }
 
-        private void SettingsForm_Load(object sender, EventArgs e) {
-
-        }
-
-        private void textboxName_KeyDown(object sender, KeyEventArgs e)
+       
+        private void TextboxName_KeyDown(object sender, KeyEventArgs e)
         //Enables the user to press "Enter" and start the game from the Player Name textbox.
         {
             if (e.KeyCode == Keys.Enter)
