@@ -193,9 +193,9 @@
             this.AiPlayer1GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
             this.AiPlayer1GuessLabel.Location = new System.Drawing.Point(229, 134);
             this.AiPlayer1GuessLabel.Name = "AiPlayer1GuessLabel";
-            this.AiPlayer1GuessLabel.Size = new System.Drawing.Size(227, 20);
+            this.AiPlayer1GuessLabel.Size = new System.Drawing.Size(218, 20);
             this.AiPlayer1GuessLabel.TabIndex = 15;
-            this.AiPlayer1GuessLabel.Text = "Ai Believes Player 1 whould win";
+            this.AiPlayer1GuessLabel.Text = "Ai Believes Player 1 would win";
             // 
             // AiPlayer2GuessLabel
             // 
@@ -204,9 +204,9 @@
             this.AiPlayer2GuessLabel.ForeColor = System.Drawing.Color.DarkRed;
             this.AiPlayer2GuessLabel.Location = new System.Drawing.Point(229, 423);
             this.AiPlayer2GuessLabel.Name = "AiPlayer2GuessLabel";
-            this.AiPlayer2GuessLabel.Size = new System.Drawing.Size(227, 20);
+            this.AiPlayer2GuessLabel.Size = new System.Drawing.Size(218, 20);
             this.AiPlayer2GuessLabel.TabIndex = 16;
-            this.AiPlayer2GuessLabel.Text = "Ai Believes Player 2 whould win";
+            this.AiPlayer2GuessLabel.Text = "Ai Believes Player 2 would win";
             // 
             // AiDrawGuessLabel
             // 
