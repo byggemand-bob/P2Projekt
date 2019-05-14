@@ -228,7 +228,7 @@ namespace Poker_Game {
 
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
-            if(id == 1) {
+            if(id == 1 && _game.HandInProgress) {
 
                 NewRound();
                 AiTurn();
@@ -397,7 +397,6 @@ namespace Poker_Game {
         private void EndOfHand()
         {
             // Checks if the game is finished, and makes the buttons un-pressable.
-            _game.UpdateState();
             ChangeActionButtonState(false);
             _ai.PrepareNewHand();
             _prevRound = 2;

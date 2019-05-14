@@ -66,13 +66,6 @@ namespace Poker_Game.Game {
                 UpdateState(); }
         }
 
-        public void Fold() { // Method used for coding a press of Fold-button in GameForm.
-            Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
-            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Fold;
-            NewTurn();
-            UpdateState();
-        }
-
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
                 // Needs to be cut down
@@ -87,6 +80,13 @@ namespace Poker_Game.Game {
                 CurrentTurn().Bet = Settings.BlindSize * 2;
                 UpdateState();
             }
+        }
+
+        public void Fold() { // Method used for coding a press of Fold-button in GameForm.
+            Players[CurrentPlayerIndex].Action = PlayerAction.Fold;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Fold;
+            NewTurn();
+            UpdateState();
         }
 
         public void NewRound() {

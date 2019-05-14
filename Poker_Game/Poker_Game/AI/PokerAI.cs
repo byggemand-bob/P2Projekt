@@ -15,7 +15,7 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
-        private const bool ShowTree = false;
+        private const bool ShowTree = true;
         
         public PokerAI(PokerGame game) {
             _pokerGame = game;
