@@ -60,11 +60,11 @@ namespace Poker_Game.AI.GameTree
 
             if (currentRoundNumber == 4) {
                 for (int i = 0; i < _possibleActions.Length; i++) {
-                    if (_possibleActions[i].Contains("F")) {
-                        _allActions.Append(_possibleActions[i])
-                            .Append("\n");
-                        i++;
-                    }
+                   _allActions.Append(_possibleActions[i])
+                        .Append("\n");
+                    i++;
+                    
+
                 }
                 return Convert.ToString(_allActions);
             }
