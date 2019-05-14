@@ -43,14 +43,6 @@ namespace Poker_Game
             this.Close();
         }
 
-        private void ButtonStatistics_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Statistics formStatistics = new Statistics();
-            formStatistics.ShowDialog();
-            this.Close();
-        }
-
         private void ButtonQuit_Click(object sender, EventArgs e)
         {
             this.Close();
