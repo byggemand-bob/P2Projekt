@@ -229,7 +229,6 @@ namespace Poker_Game {
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1 && _game.HandInProgress) {
-
                 NewRound();
                 AiTurn();
             }
@@ -400,6 +399,7 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
             _ai.PrepareNewHand();
             _prevRound = 2;
+            _game.UpdateState();
             ShowEndOfHandWindow();
         }
 
