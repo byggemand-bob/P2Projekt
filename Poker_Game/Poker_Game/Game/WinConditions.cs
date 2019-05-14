@@ -282,14 +282,29 @@ namespace Poker_Game.Game {
         }
 
         private Player GetBestHighestCard(Player player1, Player player2) {
-            if (player1.Cards.Count == player2.Cards.Count) {
-                for (int i = player1.Cards.Count - 1; i >= 0; i--) {
-                    if (player1.Cards[i].Rank != player2.Cards[i].Rank) {
-                        return player1.Cards[i].Rank < player2.Cards[i].Rank ? player2 : player1;
-                    }
-                } 
+            int i = player1.Cards.Count - 1;
+            int j = player2.Cards.Count - 1;
+            while (i >= 0 && j >= 0) {
+                if (player1.Cards[i].Rank != player2.Cards[j].Rank) {
+                    return player1.Cards[i].Rank < player2.Cards[j].Rank ? player2 : player1;
+                }
+                i--;
+                j--; 
             }
             return null;
+        }
+        private int GetBestHighestCard(List<Card> cards1, List<Card> cards2) {
+            int i = cards1.Count - 1;
+            int j = cards2.Count - 1;
+            while (i >= 0 && j >= 0) {
+                if (cards1[i].Rank != cards2[j].Rank) {
+                    return cards1[i].Rank < cards2[j].Rank ? 0 : 1;
+                }
+                i--;
+                j--;
+            }
+            return -1;
+            throw new System.InvalidOperationException("Error in highest card bool edition");
         }
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
@@ -354,7 +369,17 @@ namespace Poker_Game.Game {
                             player2cards[j + 1].Rank == player2cards[j + 2].Rank &&
                             player2cards[j + 2].Rank == player2cards[j + 3].Rank) {
                             if (player1cards[i].Rank == player2cards[j].Rank) {
-                                return null;
+                                RemoveUnfitRank(player1cards, (player1cards[i].Rank));
+                                RemoveUnfitRank(player2cards, (player2cards[j].Rank));
+                                GetXAmountOfHighestCard(player1cards, 1);
+                                GetXAmountOfHighestCard(player2cards, 1);
+                                if (GetBestHighestCard(player1cards, player2cards) == 1) {
+                                    return player2;
+                                } else if (GetBestHighestCard(player1cards, player2cards) == 0) {
+                                    return player1;
+                                } else {
+                                    return null;
+                                }
                             } else {
                                 return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
                             }
@@ -363,6 +388,13 @@ namespace Poker_Game.Game {
                 }
             }
             throw new System.InvalidOperationException("BestFourOfAKind exited loop");
+        }
+
+        private List<Card> GetXAmountOfHighestCard(List<Card> cards, int numberOfCards) {
+            for (int i = cards.Count - numberOfCards; i > 0; i--) {
+                cards.Remove(cards[i]);
+            }
+            return cards;
         }
 
         //Need input on this one since it is drastically different to the bool version (HasFullHouse)
@@ -406,6 +438,10 @@ namespace Poker_Game.Game {
 
         //Think it works, but need testing
         private Player BestThreeOfAKind(Player player1, Player player2) {
+            List<Card> player1cards = DeckDuper3000(player1.Cards);
+            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            player1cards.Sort();
+            player2cards.Sort();
             for (int i = 0; i < player1.Cards.Count - 1; i++) {
                 if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
                     player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
@@ -413,7 +449,17 @@ namespace Poker_Game.Game {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                             player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                return null;
+                                RemoveUnfitRank(player1cards, (player1cards[i].Rank));
+                                RemoveUnfitRank(player2cards, (player2cards[j].Rank));
+                                GetXAmountOfHighestCard(player1cards, 2);
+                                GetXAmountOfHighestCard(player2cards, 2);
+                                if (GetBestHighestCard(player1cards, player2cards) == 1) {
+                                    return player2;
+                                } else if (GetBestHighestCard(player1cards, player2cards) == 0) {
+                                    return player1;
+                                } else {
+                                    return null;
+                                }
                             } else {
                                 return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                             }
