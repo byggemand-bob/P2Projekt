@@ -53,6 +53,7 @@ namespace Poker_Game.Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             Action = PlayerAction.None;
+            PreviousAction = PlayerAction.None;
             Score = Score.None;
             BetsTaken = 0;
             Cards.Clear();
