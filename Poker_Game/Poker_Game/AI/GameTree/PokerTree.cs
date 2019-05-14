@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        private readonly Node _rootNode;
+        public Node RootNode { get; private set; }
         private Node _currentNode;
 
         public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
-            _rootNode = CreateTree(street, player, settings, currentRoundNumber);
-            _currentNode = _rootNode;
+            RootNode = CreateTree(street, player, settings, currentRoundNumber);
+            _currentNode = RootNode;
 
-            if(currentRoundNumber == 2 && player.IsBigBlind) {
+            if(player.IsBigBlind && currentRoundNumber < 1) {
                 RegisterOpponentMove(opponentAction);
             }
         }
@@ -40,11 +41,14 @@ namespace Poker_Game.AI.GameTree {
         
         public PlayerAction GetBestAction() {
             Node targetNode = FindBestPath(_currentNode);
+            targetNode.Color = Color.Red; // temp
             while(!ReferenceEquals(_currentNode, targetNode.Parent)) {
                 targetNode = targetNode.Parent;
             }
+            _currentNode.Color = Color.Blue;
+            targetNode.Color = Color.Green;
 
-            MessageBox.Show(targetNode.Parent.Action + ", " + targetNode.Action);
+            //MessageBox.Show(targetNode.Parent.Action + ", " + targetNode.Action);
             _currentNode = targetNode;
             //MessageBox.Show(targetNode.GetAction().ToString() + ", " + targetNode.Action);
             return targetNode.GetAction();

@@ -23,9 +23,10 @@ namespace Poker_Game {
             CreateButtonList();
             CreatePictureBoxList();
 
-            // Diagnostics window for (bad) debugging
+            // Diagnostics window for debugging
             panel1.Visible = DiagnosticsMode;
             buttonForceUI.Visible = DiagnosticsMode;
+
             // Creates the game with user settings
             _game = new PokerGame(_settings);
             _game.Players[0].Name = _settings.PlayerName;
