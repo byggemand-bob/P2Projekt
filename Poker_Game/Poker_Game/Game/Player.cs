@@ -81,13 +81,14 @@ namespace Poker_Game.Game {
             player.IsBigBlind = IsBigBlind;
             player.IsSmallBlind = IsSmallBlind;
             player.Action = Action;
+            player.PreviousAction = PreviousAction;
             player.Stack = Stack;
+            player.Name = Name;
+            player.BetsTaken = BetsTaken;
             player.Id = Id;
+            player.Score = Score;
             player.CurrentBet = CurrentBet;
-
-            foreach(Card card in Cards) {
-                player.Cards.Add((Card)card.Clone());
-            }
+            player.Cards.AddRange(Cards);
             return player;
         }
 
