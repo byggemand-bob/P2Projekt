@@ -301,11 +301,7 @@ namespace Poker_Game.Game {
                 return player2;
             } else
                 return null;
-
-
-
-
-
+            #region hideshitthatdoesntwork
             //List<Card> player1cards = DeckDuper3000(player1.Cards);
             //List<Card> player2cards = DeckDuper3000(player2.Cards);
             //player1cards.Sort();
@@ -338,7 +334,8 @@ namespace Poker_Game.Game {
             //    } else {
             //        return player1;
             //    }
-            //}
+            //} 
+            #endregion
             throw new System.InvalidOperationException("BestStraight exited loop");
         }
 

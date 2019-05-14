@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
-        const int NUMOFTHREADS = 1;
+        int NUMOFTHREADS = System.Environment.ProcessorCount;
 
         public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
         {
@@ -196,7 +196,7 @@ namespace Poker_Game.AI
 
             for(x = 0; x < NUMOFTHREADS; x++)
             {
-                workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / 4); });
+                workers[x] = new Thread(() => { trailResults[x] = RunTrails(NumberOfTrails / NUMOFTHREADS); });
                 workers[x].Start();
                 Thread.Sleep(100);
             }
