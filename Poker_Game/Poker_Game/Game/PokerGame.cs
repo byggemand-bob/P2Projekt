@@ -120,7 +120,7 @@ namespace Poker_Game.Game {
             RoundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Settings.NumberOfPlayers;
 
-            if(!RoundInProgress) {
+            if(!RoundInProgress && HandInProgress) {
                 NewRound();
             }
 
