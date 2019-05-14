@@ -46,7 +46,7 @@
             this.buttonNewGame.TabIndex = 0;
             this.buttonNewGame.Text = "New Game";
             this.buttonNewGame.UseVisualStyleBackColor = false;
-            this.buttonNewGame.Click += new System.EventHandler(this.buttonNewGame_Click);
+            this.buttonNewGame.Click += new System.EventHandler(this.ButtonNewGame_Click);
             // 
             // buttonStatistics
             // 
@@ -61,7 +61,7 @@
             this.buttonStatistics.TabIndex = 1;
             this.buttonStatistics.Text = "Statistics";
             this.buttonStatistics.UseVisualStyleBackColor = false;
-            this.buttonStatistics.Click += new System.EventHandler(this.buttonStatistics_Click);
+            this.buttonStatistics.Click += new System.EventHandler(this.ButtonStatistics_Click);
             // 
             // buttonQuit
             // 
@@ -76,7 +76,7 @@
             this.buttonQuit.TabIndex = 2;
             this.buttonQuit.Text = "Quit";
             this.buttonQuit.UseVisualStyleBackColor = false;
-            this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
+            this.buttonQuit.Click += new System.EventHandler(this.ButtonQuit_Click);
             // 
             // MenuForm
             // 
