@@ -222,14 +222,6 @@ namespace Poker_Game {
             }
         }
 
-        private void UpdateButtons() // Enables buttons only if the player can make such action
-        {
-            buttonCall.Enabled = _game.CanCall();
-            buttonCheck.Enabled = _game.CanCheck();
-            buttonRaise.Enabled = _game.CanRaise();
-
-        }
-
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1 && _game.HandInProgress) {
@@ -484,9 +476,7 @@ namespace Poker_Game {
 
         #endregion
 
-        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
-            _ai.SaveData();
-        }
+        #region AI
 
         private void AiTurn() {
             _ai.MakeDecision(_game.Players[0].PreviousAction);
@@ -495,6 +485,13 @@ namespace Poker_Game {
 
         private void ButtonForceUI_Click(object sender, EventArgs e) {
             UpdateAll();
+        }
+
+        #endregion
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _ai.SaveData();
         }
     }
 }
