@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\ABPruning.cs" />
     <Compile Include="AI\AiTest.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />

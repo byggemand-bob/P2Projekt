@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using Poker_Game.Game;
-using System.Linq;
-using System;
 
 // TODO: Make a method for when both players has no winning hand -> Slit the pot
 

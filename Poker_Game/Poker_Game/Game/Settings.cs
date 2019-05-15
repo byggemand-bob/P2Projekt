@@ -1,24 +1,20 @@
 ﻿namespace Poker_Game.Game {
     enum BlindType { Time, Rounds } // namechange
     public class Settings {
-        public int NumberOfPlayers { get; set; }
-        public int StackSize { get; set; }
-        public int BlindSize { get; set; }
-        public bool RoundBased { get; set; }
-        public int BlindIncrease { get; set; }
-        public string PlayerName { get; set; }
-        public int MaxBetsPerRound { get; set; }
+        public int NumberOfPlayers { get; }
+        public int StackSize { get; }
+        public int BlindSize { get; }
+        public string PlayerName { get; }
+        public int MaxBetsPerRound { get; }
 
 
         #region Initialization
 
         // Initializes the values of the settings, depending on GUI player input
-        public Settings(int numberOfPlayers, int stackSize, int blindSize, bool roundBased, int blindIncrease, string playerName, int maxBetsPerRound) {
+        public Settings(int numberOfPlayers, int stackSize, int blindSize, string playerName, int maxBetsPerRound) {
             NumberOfPlayers = numberOfPlayers;
             StackSize = stackSize;
             BlindSize = blindSize;
-            RoundBased = roundBased;
-            BlindIncrease = blindIncrease;
             PlayerName = playerName;
             MaxBetsPerRound = maxBetsPerRound;
         }

@@ -10,7 +10,6 @@ namespace Poker_Game {
 
         public SettingsForm() {
             InitializeComponent();
-            checkBoxRoundBased.Checked = true;
             StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -25,7 +24,7 @@ namespace Poker_Game {
             if (Testing || _nameChanged)
             {
                 this.Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, checkBoxRoundBased.Checked, trackBarBlindIncrease.Value, textboxName.Text, 1);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 this.Close();
@@ -66,8 +65,7 @@ namespace Poker_Game {
         private void PotSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the potsize trackbar with the potsize numeric up down
         {
-            if (_valueJustChanged)
-            {
+            if (_valueJustChanged) {
                 _valueJustChanged = false;
             } else {
                 if(trackBarPotSize.Value % 100 != 0) {
@@ -132,63 +130,6 @@ namespace Poker_Game {
             }
         }
 
-        private void TimeBasedCheckBox_CheckedChanged(object sender, EventArgs e)
-        // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit time based blind increase
-        {
-            if(checkBoxTimeBased.Checked == true)
-            {
-                checkBoxRoundBased.Checked = false;
-
-                trackBarBlindIncrease.Visible = true;
-                numericUpDownBlindIncrease.Visible = true;
-
-                numericUpDownBlindIncrease.Value = 20;
-
-                numericUpDownBlindIncrease.Maximum = 60;
-                numericUpDownBlindIncrease.Increment = 5;
-
-                trackBarBlindIncrease.Maximum = 60;
-            } else if(checkBoxTimeBased.Checked == false && checkBoxRoundBased.Checked == false) {
-                trackBarBlindIncrease.Visible = false;
-                numericUpDownBlindIncrease.Visible = false;
-            }
-        }
-
-        private void RoundBasedCheckBox_CheckedChanged(object sender, EventArgs e)
-        // reveals or hides Blind Increase trackbar and numeric up down and adjusts its values to fit round based blind increase
-        {
-            if (checkBoxRoundBased.Checked == true)
-            {
-                checkBoxTimeBased.Checked = false;
-
-                trackBarBlindIncrease.Visible = true;
-                numericUpDownBlindIncrease.Visible = true;
-
-                numericUpDownBlindIncrease.Value = 5;
-
-                numericUpDownBlindIncrease.Maximum = 20;
-                numericUpDownBlindIncrease.Increment = 1;
-
-                trackBarBlindIncrease.Maximum = 20;
-            } else if(checkBoxTimeBased.Checked == false && checkBoxRoundBased.Checked == false) {
-                trackBarBlindIncrease.Visible = false;
-                numericUpDownBlindIncrease.Visible = false;
-            }
-        }
-
-        private void BlindIncreaseTrackBar_ValueChanged(object sender, EventArgs e)
-        // links blind increase trackbar with blind increase numeric up down
-        {
-            numericUpDownBlindIncrease.Value = trackBarBlindIncrease.Value;
-        }
-
-        private void BlindIncreaseNumericUpDown_ValueChanged(object sender, EventArgs e)
-        // links blind increase numeric up down with blind increase trackbar
-        {
-            trackBarBlindIncrease.Value = (int)numericUpDownBlindIncrease.Value;
-        }
-
-       
         private void TextboxName_KeyDown(object sender, KeyEventArgs e)
         //Enables the user to press "Enter" and start the game from the Player Name textbox.
         {
@@ -196,6 +137,10 @@ namespace Poker_Game {
             {
                 buttonStartGame.PerformClick();
             }
+        }
+
+        private void TrackBarBlindSize_ValueChanged(object sender, EventArgs e) {
+            numericUpDownBlindSize.Value = trackBarBlindSize.Value;
         }
     }
 }
