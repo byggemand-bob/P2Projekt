@@ -9,7 +9,6 @@ namespace Poker_Game {
 
         public HandWinnerForm(bool gameFinished, string winners, int potSizeWon, string score, bool timerEnabled) {
             InitializeComponent();
-            //StartPosition = FormStartPosition.CenterScreen;
             labelMessage.Text = GenerateMessage(gameFinished, winners, potSizeWon, score);
             if(timerEnabled) {
                 timer1.Enabled = true;
