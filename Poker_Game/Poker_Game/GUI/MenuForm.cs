@@ -35,7 +35,7 @@ namespace Poker_Game
             Size = new Size(1000, 700);
         }
 
-        private void buttonNewGame_Click(object sender, EventArgs e)
+        private void ButtonNewGame_Click(object sender, EventArgs e)
         {
             this.Hide();
             SettingsForm formSettings = new SettingsForm();
@@ -43,15 +43,7 @@ namespace Poker_Game
             this.Close();
         }
 
-        private void buttonStatistics_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Statistics formStatistics = new Statistics();
-            formStatistics.ShowDialog();
-            this.Close();
-        }
-
-        private void buttonQuit_Click(object sender, EventArgs e)
+        private void ButtonQuit_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();

@@ -47,19 +47,6 @@ namespace Poker_Game {
             this.labelAIBlind = new System.Windows.Forms.Label();
             this.labelPlayerBlind = new System.Windows.Forms.Label();
             this.labelRoundName = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelPlayerCurrentBet = new System.Windows.Forms.Label();
             this.labelAICurrentBet = new System.Windows.Forms.Label();
             this.checkboxEnableTimer = new System.Windows.Forms.CheckBox();
@@ -72,7 +59,6 @@ namespace Poker_Game {
             ((System.ComponentModel.ISupportInitialize)(this.pictureAICard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard2)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonQuitToMenu
@@ -88,7 +74,7 @@ namespace Poker_Game {
             this.buttonQuitToMenu.TabStop = false;
             this.buttonQuitToMenu.Text = "Quit to Main Menu";
             this.buttonQuitToMenu.UseVisualStyleBackColor = false;
-            this.buttonQuitToMenu.Click += new System.EventHandler(this.buttonQuitToMenu_Click);
+            this.buttonQuitToMenu.Click += new System.EventHandler(this.ButtonQuitToMenu_Click);
             // 
             // buttonRaise
             // 
@@ -103,9 +89,9 @@ namespace Poker_Game {
             this.buttonRaise.TabIndex = 2;
             this.buttonRaise.Text = "Raise";
             this.buttonRaise.UseVisualStyleBackColor = false;
-            this.buttonRaise.Click += new System.EventHandler(this.buttonRaise_Click);
-            this.buttonRaise.MouseEnter += new System.EventHandler(this.buttonRaise_MouseEnter);
-            this.buttonRaise.MouseLeave += new System.EventHandler(this.buttonRaise_MouseLeave);
+            this.buttonRaise.Click += new System.EventHandler(this.ButtonRaise_Click);
+            this.buttonRaise.MouseEnter += new System.EventHandler(this.ButtonRaise_MouseEnter);
+            this.buttonRaise.MouseLeave += new System.EventHandler(this.ButtonRaise_MouseLeave);
             // 
             // buttonCall
             // 
@@ -120,9 +106,9 @@ namespace Poker_Game {
             this.buttonCall.TabIndex = 1;
             this.buttonCall.Text = "Call";
             this.buttonCall.UseVisualStyleBackColor = false;
-            this.buttonCall.Click += new System.EventHandler(this.buttonCall_Click);
-            this.buttonCall.MouseEnter += new System.EventHandler(this.buttonCall_MouseEnter);
-            this.buttonCall.MouseLeave += new System.EventHandler(this.buttonCall_MouseLeave);
+            this.buttonCall.Click += new System.EventHandler(this.ButtonCall_Click);
+            this.buttonCall.MouseEnter += new System.EventHandler(this.ButtonCall_MouseEnter);
+            this.buttonCall.MouseLeave += new System.EventHandler(this.ButtonCall_MouseLeave);
             // 
             // buttonFold
             // 
@@ -139,7 +125,7 @@ namespace Poker_Game {
             this.buttonFold.TabStop = false;
             this.buttonFold.Text = "Fold";
             this.buttonFold.UseVisualStyleBackColor = false;
-            this.buttonFold.Click += new System.EventHandler(this.buttonFold_Click);
+            this.buttonFold.Click += new System.EventHandler(this.ButtonFold_Click);
             // 
             // buttonCheck
             // 
@@ -154,7 +140,7 @@ namespace Poker_Game {
             this.buttonCheck.TabIndex = 0;
             this.buttonCheck.Text = "Check";
             this.buttonCheck.UseVisualStyleBackColor = false;
-            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
+            this.buttonCheck.Click += new System.EventHandler(this.ButtonCheck_Click);
             // 
             // labelPlayerName
             // 
@@ -333,140 +319,14 @@ namespace Poker_Game {
             // 
             this.labelRoundName.AutoSize = true;
             this.labelRoundName.BackColor = System.Drawing.Color.Transparent;
+            this.labelRoundName.Cursor = System.Windows.Forms.Cursors.Default;
             this.labelRoundName.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRoundName.Location = new System.Drawing.Point(411, 228);
             this.labelRoundName.Name = "labelRoundName";
-            this.labelRoundName.Size = new System.Drawing.Size(0, 21);
+            this.labelRoundName.Size = new System.Drawing.Size(164, 21);
             this.labelRoundName.TabIndex = 21;
+            this.labelRoundName.Text = "labelRoundName";
             this.labelRoundName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(10, 199);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(188, 207);
-            this.panel1.TabIndex = 22;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(2, 164);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "label12";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(2, 151);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "label11";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(2, 138);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "label10";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(2, 125);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "label9";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(2, 112);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "label8";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(2, 99);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "label7";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 86);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "label6";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(2, 60);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "label4";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "label5";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "label3";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(2, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Diagnostics";
             // 
             // labelPlayerCurrentBet
             // 
@@ -518,7 +378,6 @@ namespace Poker_Game {
             this.Controls.Add(this.checkboxEnableTimer);
             this.Controls.Add(this.labelAICurrentBet);
             this.Controls.Add(this.labelPlayerCurrentBet);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelRoundName);
             this.Controls.Add(this.labelPlayerBlind);
             this.Controls.Add(this.labelAIBlind);
@@ -555,8 +414,6 @@ namespace Poker_Game {
             ((System.ComponentModel.ISupportInitialize)(this.pictureAICard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturePlayerCard2)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -585,19 +442,6 @@ namespace Poker_Game {
         private System.Windows.Forms.Label labelAIBlind;
         private System.Windows.Forms.Label labelPlayerBlind;
         private System.Windows.Forms.Label labelRoundName;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label labelPlayerCurrentBet;
         private System.Windows.Forms.Label labelAICurrentBet;
         private System.Windows.Forms.CheckBox checkboxEnableTimer;

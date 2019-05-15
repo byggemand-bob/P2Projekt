@@ -68,7 +68,7 @@ namespace Poker_Game
             this.buttonStartGame.TabIndex = 0;
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
-            this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
+            this.buttonStartGame.Click += new System.EventHandler(this.ButtonStartGame_Click);
             // 
             // labelNumberOfPlayers
             // 
@@ -118,10 +118,10 @@ namespace Poker_Game
             this.textboxName.Size = new System.Drawing.Size(132, 26);
             this.textboxName.TabIndex = 5;
             this.textboxName.Text = "Enter Name";
-            this.textboxName.Enter += new System.EventHandler(this.textboxName_Enter);
-            this.textboxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textboxName_KeyDown);
-            this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textbox_CheckChange);
-            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
+            this.textboxName.Enter += new System.EventHandler(this.TextboxName_Enter);
+            this.textboxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextboxName_KeyDown);
+            this.textboxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Textbox_CheckChange);
+            this.textboxName.Leave += new System.EventHandler(this.TextboxName_Leave);
             // 
             // labelBlindIncreaseType
             // 
@@ -145,7 +145,7 @@ namespace Poker_Game
             this.trackBarNumberOfPlayers.Size = new System.Drawing.Size(240, 56);
             this.trackBarNumberOfPlayers.TabIndex = 7;
             this.trackBarNumberOfPlayers.Value = 2;
-            this.trackBarNumberOfPlayers.ValueChanged += new System.EventHandler(this.numberOfPlayersTrackBar_ValueChanged);
+            this.trackBarNumberOfPlayers.ValueChanged += new System.EventHandler(this.NumberOfPlayersTrackBar_ValueChanged);
             // 
             // trackBarPotSize
             // 
@@ -158,7 +158,7 @@ namespace Poker_Game
             this.trackBarPotSize.Size = new System.Drawing.Size(240, 56);
             this.trackBarPotSize.TabIndex = 8;
             this.trackBarPotSize.Value = 1000;
-            this.trackBarPotSize.ValueChanged += new System.EventHandler(this.potSizeTrackBar_ValueChanged);
+            this.trackBarPotSize.ValueChanged += new System.EventHandler(this.PotSizeTrackBar_ValueChanged);
             // 
             // trackBarBlindSize
             // 
@@ -171,7 +171,7 @@ namespace Poker_Game
             this.trackBarBlindSize.Size = new System.Drawing.Size(240, 56);
             this.trackBarBlindSize.TabIndex = 9;
             this.trackBarBlindSize.Value = 50;
-            this.trackBarBlindSize.ValueChanged += new System.EventHandler(this.blindSizeTrackBar_ValueChanged);
+            this.trackBarBlindSize.ValueChanged += new System.EventHandler(this.BlindSizeTrackBar_ValueChanged);
             // 
             // numericUpDownNumberOfPlayers
             // 
@@ -196,7 +196,7 @@ namespace Poker_Game
             0,
             0,
             0});
-            this.numericUpDownNumberOfPlayers.ValueChanged += new System.EventHandler(this.numberOfPlayersNumericUpDown_ValueChanged);
+            this.numericUpDownNumberOfPlayers.ValueChanged += new System.EventHandler(this.NumberOfPlayersNumericUpDown_ValueChanged);
             // 
             // numericUpDownPotSize
             // 
@@ -225,7 +225,7 @@ namespace Poker_Game
             0,
             0,
             0});
-            this.numericUpDownPotSize.ValueChanged += new System.EventHandler(this.potSizeNumericUpDown_ValueChanged);
+            this.numericUpDownPotSize.ValueChanged += new System.EventHandler(this.PotSizeNumericUpDown_ValueChanged);
             // 
             // numericUpDownBlindSize
             // 
@@ -254,7 +254,7 @@ namespace Poker_Game
             0,
             0,
             0});
-            this.numericUpDownBlindSize.ValueChanged += new System.EventHandler(this.blindSizeNumericUpDown_ValueChanged);
+            this.numericUpDownBlindSize.ValueChanged += new System.EventHandler(this.BlindSizeNumericUpDown_ValueChanged);
             // 
             // nameErrorLabel
             // 
@@ -277,7 +277,7 @@ namespace Poker_Game
             this.checkBoxTimeBased.TabIndex = 14;
             this.checkBoxTimeBased.Text = "Time Based";
             this.checkBoxTimeBased.UseVisualStyleBackColor = true;
-            this.checkBoxTimeBased.CheckedChanged += new System.EventHandler(this.timeBasedCheckBox_CheckedChanged);
+            this.checkBoxTimeBased.CheckedChanged += new System.EventHandler(this.TimeBasedCheckBox_CheckedChanged);
             // 
             // checkBoxRoundBased
             // 
@@ -289,7 +289,7 @@ namespace Poker_Game
             this.checkBoxRoundBased.TabIndex = 15;
             this.checkBoxRoundBased.Text = "Round based";
             this.checkBoxRoundBased.UseVisualStyleBackColor = true;
-            this.checkBoxRoundBased.CheckedChanged += new System.EventHandler(this.roundBasedCheckBox_CheckedChanged);
+            this.checkBoxRoundBased.CheckedChanged += new System.EventHandler(this.RoundBasedCheckBox_CheckedChanged);
             // 
             // numericUpDownBlindIncrease
             // 
@@ -314,7 +314,7 @@ namespace Poker_Game
             0,
             0});
             this.numericUpDownBlindIncrease.Visible = false;
-            this.numericUpDownBlindIncrease.ValueChanged += new System.EventHandler(this.blindIncreaseNumericUpDown_ValueChanged);
+            this.numericUpDownBlindIncrease.ValueChanged += new System.EventHandler(this.BlindIncreaseNumericUpDown_ValueChanged);
             // 
             // trackBarBlindIncrease
             // 
@@ -327,7 +327,7 @@ namespace Poker_Game
             this.trackBarBlindIncrease.TabIndex = 16;
             this.trackBarBlindIncrease.Value = 20;
             this.trackBarBlindIncrease.Visible = false;
-            this.trackBarBlindIncrease.ValueChanged += new System.EventHandler(this.blindIncreaseTrackBar_ValueChanged);
+            this.trackBarBlindIncrease.ValueChanged += new System.EventHandler(this.BlindIncreaseTrackBar_ValueChanged);
             // 
             // SettingsForm
             // 
