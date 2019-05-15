@@ -85,7 +85,7 @@ namespace Poker_Game.Game {
         public void NewHand() {
             if(!_handInProgress) {
                 _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-                Hands.Add(new Hand(Players));
+                Hands.Add(new Hand(Players, _dealerButtonPosition));
                 PayBlinds();
                 _handInProgress = true;
             }
