@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Poker_Game.Game {
 
@@ -64,7 +63,7 @@ namespace Poker_Game.Game {
         // Function that adds cards to the street in each round
         private void UpdateStreet() {
             switch (Rounds.Count) {
-                case 1: // Flop
+                case 1: // PreFlop
                     break;
                 case 2: // Flop
                     DrawCards(3);
