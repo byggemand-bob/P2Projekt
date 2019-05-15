@@ -76,7 +76,7 @@ namespace Poker_Game {
 
         private void MainUpdate() {
             TurnUpdate();
-            if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
+            if(_prevRound < _game.CurrentRoundNumber() || _game.CurrentRoundNumber() == 1) { RoundUpdate(); }
         }
 
         private void TurnUpdate() {
