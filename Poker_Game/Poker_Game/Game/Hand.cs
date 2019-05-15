@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Poker_Game.Game {
 
@@ -55,8 +56,8 @@ namespace Poker_Game.Game {
         
         //Function to start the round, which resets the actions of the previous rounds
         public void StartRound() {
-            UpdateStreet();
             Rounds.Add(new Round(Players));
+            UpdateStreet();
             ResetActions();
         }
 
@@ -64,16 +65,20 @@ namespace Poker_Game.Game {
         private void UpdateStreet() {
             switch (Rounds.Count) {
                 case 1: // Flop
+                    break;
+                case 2: // Flop
                     DrawCards(3);
                     break;
-                case 2: // Turn
+                case 3: // Turn
                     DrawCards(1);
                     break;
-                case 3: // River
+                case 4: // River
                     DrawCards(1);
+                    break;
+                case 5: // Showdown
                     break;
                 default:
-                    throw new Exception("There are not supposed to be this many rounds.");
+                    throw new Exception("There are not supposed to be this amount of rounds.");
             }
         }
 
