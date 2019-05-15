@@ -336,15 +336,7 @@ namespace Poker_Game {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
             HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
-
-            if(!CheckPlayerStackForDepletion(_game.Players)) // Both players still have money in stack = make new hand
-            {
-                ChangeActionButtonState(true);
-            } else {
-                // Game has ended
-                MessageBox.Show("Game has ended");
-                this.Close();
-            }
+            ChangeActionButtonState(true);
         }
 
         private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
