@@ -9,20 +9,22 @@ namespace Poker_Game.Game {
 
 
     public class Card : IComparable, ICloneable {
-        //Random random = new Random();
         private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad g�r dette?
-        public Suit Suit { get; set; }
         public Rank Rank { get; set; }
-        public Image Image { get; set; }
+        public Suit Suit { get; private set; }
+        public Image Image { get; private set; }
 
-        public Card(Suit suit, Rank rank) {
+        // For testing purposes only
+        public Card(Suit suit, Rank rank) { 
             Suit = suit;
             Rank = rank;
         }
-        public Card(int CardValue)
-        {
-            MakeCard(CardValue);
+
+        // MonteCarlo
+        public Card(int cardValue) {
+            MakeCard(cardValue);
         }
+
         public Card(List<Card> existingCards) {
             DrawCards(existingCards);
         }
@@ -31,7 +33,7 @@ namespace Poker_Game.Game {
             return _random.Next(0, 52);
         }
 
-        public void DrawCards(List<Card> cards) {
+        private void DrawCards(List<Card> cards) {
             MakeCard(DrawRandomCard());
             foreach (Card element in cards) {
                 if (element.CompareTo(this) == 0) {
@@ -40,41 +42,7 @@ namespace Poker_Game.Game {
                 }
             }
         }
-        //public void DrawCards(List<Card> cards) {
-        //    do {
-        //        MakeCard(DrawRandCard());
-        //    } while (cards.Contains(this));
-        //}
 
-        //public void MakeCard(int cardNumber) { // Gives cards a traditional value, such as jack, queen etc... Then an image from resources is connected to each card.
-        //    int rankInt = (cardNumber % 13) + 2;
-        //    Suit = (Suit)(cardNumber / 13);
-        //    string cardName = rankInt.ToString();
-        //    if(rankInt == 14) {
-        //        cardName = "A";
-        //    } else if(rankInt == 11) {
-        //        cardName = "J";
-        //    } else if(rankInt == 12) {
-        //        cardName = "Q";
-        //    } else if(rankInt == 13) {
-        //        cardName = "K";
-        //    }
-        //    if(cardNumber <= 12) {
-        //        Suit = Suit.Clubs;
-        //        cardName += "C";
-        //    } else if(cardNumber <= 25) {
-        //        Suit = Suit.Diamonds;
-        //        cardName += "D";
-        //    } else if(cardNumber <= 38) {
-        //        Suit = Suit.Hearts;
-        //        cardName += "H";
-        //    } else if(cardNumber <= 51) {
-        //        Suit = Suit.Spades;
-        //        cardName += "S";
-        //    }
-        //    Rank = (Rank)rankInt;
-        //    Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank + Suit + ".png");
-        //}
 
         public void MakeCard(int cardNumber) {
             Rank = (Rank)(cardNumber % 13 + 2);
@@ -85,18 +53,20 @@ namespace Poker_Game.Game {
             Image = Image.FromFile(System.Windows.Forms.Application.StartupPath + "\\Resources\\" + Rank.ToString() + Suit.ToString() + ".png");
         }
 
-        public int CompareTo(object other) { // Sort after rank, then suit
+        // Sort after rank, then suit
+        public int CompareTo(object other) { 
             Card otherCard = (Card)other;
-            if (Rank.CompareTo(otherCard.Rank) < 0) { //CRASHER OFTE HER
+            if (Rank.CompareTo(otherCard.Rank) < 0) { 
                 return -1;
-            } else if(Rank.CompareTo(otherCard.Rank) > 0) { //CRASHER NOGLE GANGE HER3
+            }
+            if(Rank.CompareTo(otherCard.Rank) > 0) {
                 return 1;
-            } else {
-                if(Suit.CompareTo(otherCard.Suit) < 0) {
-                    return 1;
-                } else if(Suit.CompareTo(otherCard.Suit) > 0) {
-                    return -1;
-                }
+            }
+            if(Suit.CompareTo(otherCard.Suit) < 0) {
+                return 1;
+            }
+            if(Suit.CompareTo(otherCard.Suit) > 0) {
+                return -1;
             }
             return 0;
         }
@@ -104,6 +74,5 @@ namespace Poker_Game.Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
-
     }
 }

@@ -21,25 +21,9 @@ namespace Poker_Game.AI {
             if(HasPair(cardHand) && !HasFlushChance(cardHand)) {
                 return GetPairOuts(cardHand, street);
             }
-
             //TODO We need to add more conditions 
 
             return 0;
-        }
-        private int GetRankDifference(List<Card> cardHand) {
-            return Math.Abs(cardHand[0].Rank - cardHand[1].Rank);
-        }
-
-        private bool HasFlushChance(List<Card> cardHand) {
-            return cardHand[0].Suit == cardHand[1].Suit;
-        }
-
-        private bool HasStraightChance(List<Card> cardHand) {
-            return Math.Abs(cardHand[1].Rank - cardHand[0].Rank) <= 3;
-        }
-
-        private bool HasPair(List<Card> cardHand) {
-            return cardHand[0].Rank == cardHand[1].Rank;
         }
 
         #region StraightOuts
@@ -168,6 +152,25 @@ namespace Poker_Game.AI {
             }
 
             return 0;
+        }
+
+        #endregion
+
+        #region Utility
+        private int GetRankDifference(List<Card> cardHand) {
+            return Math.Abs(cardHand[0].Rank - cardHand[1].Rank);
+        }
+
+        private bool HasFlushChance(List<Card> cardHand) {
+            return cardHand[0].Suit == cardHand[1].Suit;
+        }
+
+        private bool HasStraightChance(List<Card> cardHand) {
+            return Math.Abs(cardHand[1].Rank - cardHand[0].Rank) <= 3;
+        }
+
+        private bool HasPair(List<Card> cardHand) {
+            return cardHand[0].Rank == cardHand[1].Rank;
         }
 
         #endregion

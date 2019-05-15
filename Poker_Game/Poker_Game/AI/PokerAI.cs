@@ -53,8 +53,8 @@ namespace Poker_Game.AI {
             _vpipController.SaveData();
         }
 
-        public void MakeDecision(PlayerAction realPlayerAction) {
-           switch(Evaluate(realPlayerAction)) {
+        public void MakeDecision() {
+           switch(Evaluate()) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -70,7 +70,7 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction Evaluate(PlayerAction realPlayerAction) {
+        private PlayerAction Evaluate() {
             if(_hands.Last().CurrentRoundNumber() == 1) {
                 return Preflop();
             } else {
@@ -78,12 +78,12 @@ namespace Poker_Game.AI {
                     PrepareNewTree();
                 }
                 if(_player.IsBigBlind) {
-                    _pokerTree.RegisterOpponentMove(realPlayerAction);
+                    _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() != 0) {
-                    _pokerTree.RegisterOpponentMove(realPlayerAction);
+                    _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 }
 
-                return AfterPreflop(realPlayerAction);
+                return AfterPreflop();
             }
         }
 
@@ -96,7 +96,7 @@ namespace Poker_Game.AI {
             return PlayerAction.Check;
         }
 
-        private PlayerAction AfterPreflop(PlayerAction realPlayerAction) {
+        private PlayerAction AfterPreflop() {
             PlayerAction result =_pokerTree.GetBestAction();
             if(ShowTree) {new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog();}
             return result;

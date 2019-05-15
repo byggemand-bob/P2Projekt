@@ -14,7 +14,6 @@ namespace Poker_Game.AI {
             _blindSize = settings.BlindSize;
         }
 
-
         public int GetPotsize(string path) {
             string[] actions = SeparatePath(path);
             int result = 3 * _blindSize;

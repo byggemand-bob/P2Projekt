@@ -8,17 +8,14 @@ using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-
-
     class EVCalculator {
-
         private readonly Settings _settings;
         private readonly Player _player;
+
         public EVCalculator(Player player, Settings settings) {
             _player = player;
             _settings = settings;
         }
-
 
         public double CalculateEv(string path, List<Card> cardHand, List<Card> street) {
             OutsCalculator outCalc = new OutsCalculator();
@@ -34,7 +31,6 @@ namespace Poker_Game.AI {
             return (winOdds * winPot) - (lossOdds * lossPot);
         }
 
-
         public double[] CalculateAll(string[] paths, List<Card> cardHand, List<Card> street) {
             double[] result = new double[paths.Length];
             for(int i = 0; i < paths.Length; i++) {
@@ -43,7 +39,5 @@ namespace Poker_Game.AI {
 
             return result;
         }
-
-
     }
 }

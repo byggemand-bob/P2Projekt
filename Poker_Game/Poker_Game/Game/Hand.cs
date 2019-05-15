@@ -1,44 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
     public class Hand {
         public int Pot { get; set; }
-        public List<Card> Deck { get; set; }
-        public List<Card> Street { get; set; }  // optimize
-        public List<Round> Rounds { get; set; }
-        public List<Player> Players { get; set; }
+        public List<Card> Street { get; }  // optimize
+        public List<Round> Rounds { get; }
+        public List<Player> Players { get; }
 
-        private readonly Settings _settings;
+        private List<Card> _deck;
+
         // Allocation and initialization for the various elements of a hand
         #region Initialization
 
-        
-        public Hand(List<Player> players) // for testing purpose only
-        {
+        // for testing purpose only
+        public Hand(List<Player> players) {
             Players = players;
-            Deck = new List<Card>();
+            _deck = new List<Card>();
             Street = new List<Card>();
         }
         
-        public Hand(Settings settings, List<Player> players)
-        {
-            Players = players;
-            Deck = new List<Card>();
-            Street = new List<Card>();
-            _settings = settings;
-        }
-        public Hand(Settings settings,List<Player> players, int dealerButtonPosition) {
-            _settings = settings;
+        public Hand(List<Player> players, int dealerButtonPosition) {
             Pot = 0;
-            Deck = new List<Card>();
+            _deck = new List<Card>();
             Street = new List<Card>();
             Rounds = new List<Round>();
             Players = InitializePlayers(players, dealerButtonPosition);
 
             //Players = GetActivePlayers(players);
-            StartRound(dealerButtonPosition);
+            StartRound();
         }
 
         // Initialized the players, from a list of players and their positions, resets them each round, and deals a new hand of cards
@@ -46,7 +38,7 @@ namespace Poker_Game.Game {
             List<Player> initPlayers = players;
             for(int i = 0; i < initPlayers.Count; i++) {
                 initPlayers[i].Reset();
-                initPlayers[i].DrawNewCardHand(Deck);
+                initPlayers[i].DrawNewCardHand(_deck);
                 
                 // Distribute blinds
                 if(i == (dealerButtonPosition + 1) % initPlayers.Count) {
@@ -60,13 +52,11 @@ namespace Poker_Game.Game {
         }
 
         #endregion
-
-        #region Actions
-
+        
         //Function to start the round, which resets the actions of the previous rounds
-        public void StartRound(int dealerButtonPosition) {
+        public void StartRound() {
             UpdateStreet();
-            Rounds.Add(new Round(_settings, Players));
+            Rounds.Add(new Round(Players));
             ResetActions();
         }
 
@@ -83,8 +73,7 @@ namespace Poker_Game.Game {
                     DrawCards(1);
                     break;
                 default:
-                    // do something?
-                    break;
+                    throw new Exception("There are not supposed to be this many rounds.");
             }
         }
 
@@ -98,18 +87,14 @@ namespace Poker_Game.Game {
         // Draws number of cards needed for the player / street
         public void DrawCards(int numberOfCards) {
             for (int i = 0; i < numberOfCards; i++) {
-                Card newCard = new Card(Deck);
-                Deck.Add(newCard);
+                Card newCard = new Card(_deck);
+                _deck.Add(newCard);
                 Street.Add(newCard);
                 foreach (Player player in Players) {
                     player.Cards.Add(newCard);
                 }
             }
         }
-
-        #endregion
-
-        #region Utility
 
         // Checks if the game has played all 5 rounds and is finished
         public bool IsFinished() {
@@ -132,12 +117,11 @@ namespace Poker_Game.Game {
             return playersLeft;
         }
 
-        // Finds the current round number
+        // Returns the current round number
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }
 
-        #endregion
 
     }
 }

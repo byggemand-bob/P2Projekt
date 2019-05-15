@@ -22,7 +22,7 @@ namespace Poker_Game.Game {
         public string Name { get; set; }
         public PlayerAction Action { get; set; }
         public PlayerAction PreviousAction { get; set; }
-        public Score Score { get; set; }
+        public Score Score { get; private set; }
         public List<Card> Cards { get; set; }
 
         #region Initialization
@@ -39,13 +39,9 @@ namespace Poker_Game.Game {
 
         #endregion
 
-        #region Actions
-
         public void GetScore() {
             WinConditions winCondition = new WinConditions(); 
             Score = winCondition.Evaluate(Cards);
-            // if (player.Score == otherPlayerScore)
-            //      Do something;
         }
 
         public void Reset() { // Reset a player-state for each new hand
@@ -59,7 +55,6 @@ namespace Poker_Game.Game {
             Cards.Clear();
         }
 
-
         public void DrawNewCardHand(List<Card> existingCards) {
             Cards.Clear();
             for (int i = 0; i < 2; i++) {
@@ -69,30 +64,26 @@ namespace Poker_Game.Game {
             }
         }
 
-        #endregion
-
-        #region Utility
-        public int CompareTo(object other) { // Compares players
+        // Compares players
+        public int CompareTo(object other) { 
             return Id.CompareTo(((Player)other).Id);
         }
 
-        public object Clone() { // Obsolete
-            Player player = new Player(Id, Stack);
-            player.IsBigBlind = IsBigBlind;
-            player.IsSmallBlind = IsSmallBlind;
-            player.Action = Action;
-            player.PreviousAction = PreviousAction;
-            player.Stack = Stack;
-            player.Name = Name;
-            player.BetsTaken = BetsTaken;
-            player.Id = Id;
-            player.Score = Score;
-            player.CurrentBet = CurrentBet;
+        public object Clone() {
+            Player player = new Player(Id, Stack) {
+                IsBigBlind = IsBigBlind,
+                IsSmallBlind = IsSmallBlind,
+                Action = Action,
+                PreviousAction = PreviousAction,
+                Stack = Stack,
+                Name = Name,
+                BetsTaken = BetsTaken,
+                Id = Id,
+                Score = Score,
+                CurrentBet = CurrentBet
+            };
             player.Cards.AddRange(Cards);
             return player;
         }
-
-        #endregion
-
     }
 }

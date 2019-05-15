@@ -1,20 +1,12 @@
 ﻿namespace Poker_Game.Game {
     public class Turn {
-        public PlayerAction Action { get; set; }
-        public int Bet { get; set; }
-        public int PotSize { get; set; }
-        public int Id { get; set; }
-        public int Stack { get; set; }
-
+        public PlayerAction Action { get; }
+        public int Id { get; }
 
         #region Initialization
-
-        public Turn(Player player, int potSize) {
+        public Turn(Player player) {
             Action = player.Action;
-            Bet = 0;
             Id = player.Id;
-            PotSize = potSize;
-            Stack = player.Stack;
         }
 
         #endregion

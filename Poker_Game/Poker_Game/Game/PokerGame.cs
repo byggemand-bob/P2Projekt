@@ -1,32 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Poker_Game.Game;
-
 
 namespace Poker_Game.Game {
     public class PokerGame {
         public int CurrentPlayerIndex { get; private set; }
-        public int DealerButtonPosition { get; set; }
-        public bool HandInProgress { get; private set; }
-        public bool RoundInProgress { get; private set; }
-        public List<Player> Players { get; set; }
-        public List<Hand> Hands { get; set; }
-        public Settings Settings { get; set; }
+        public List<Player> Players { get; }
+        public List<Hand> Hands { get; }
+        public Settings Settings { get; }
 
+        private int _dealerButtonPosition;
+        private bool _handInProgress;
+        private bool _roundInProgress;
 
 
         #region Initialization
-
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
             Hands = new List<Hand>();
-            DealerButtonPosition = 0;
+            _dealerButtonPosition = 0;
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
@@ -69,7 +61,7 @@ namespace Poker_Game.Game {
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             if(CanRaise()) {
                 // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet)+ 2 * Settings.BlindSize);
+                Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
                 Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
                 Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
                 CurrentPlayer().BetsTaken++;
@@ -77,7 +69,6 @@ namespace Poker_Game.Game {
 
                 // Create functions for this.
                 NewTurn();
-                CurrentTurn().Bet = Settings.BlindSize * 2;
                 UpdateState();
             }
         }
@@ -89,84 +80,76 @@ namespace Poker_Game.Game {
             UpdateState();
         }
 
-        public void NewRound() {
-            if(!RoundInProgress) {
-                CurrentHand().StartRound(DealerButtonPosition);
-                RoundInProgress = true;
+        #endregion
+
+        public void NewHand() {
+            if(!_handInProgress) {
+                _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
+                Hands.Add(new Hand(Players));
+                PayBlinds();
+                _handInProgress = true;
+            }
+        }
+        private void NewRound() {
+            if(!_roundInProgress) {
+                CurrentHand().StartRound();
+                _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
             }
         }
 
-        public void NewHand() {
-            if(!HandInProgress) {
-                DealerButtonPosition = ++DealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-                Hands.Add(new Hand(Settings, Players, DealerButtonPosition));
-                PayBlinds();
-                HandInProgress = true;
-            }
-        }
-
         private void NewTurn() {
-            CurrentRound().NewTurn(Players[CurrentPlayerIndex], CurrentHand().Pot);
+            CurrentRound().NewTurn(Players[CurrentPlayerIndex]);
         }
-       
-
-        #endregion
-
-        #region GameState
 
         public void UpdateState() { // WIP. Split up?
-            HandInProgress = IsHandInProgress();
-            RoundInProgress = IsRoundInProgress();
+            _handInProgress = IsHandInProgress();
+            _roundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Settings.NumberOfPlayers;
 
-            if(!RoundInProgress && HandInProgress) {
+            if(!_roundInProgress && _handInProgress) {
                 NewRound();
             }
 
-            if(!HandInProgress) {
+            if(!_handInProgress) {
                 RewardWinners(GetWinners(CurrentHand()));
             }
         }
 
-        private void RewardWinners(List<Player> winners) { // TODO: Make a split of the pot if more than one player wins.
+        private void RewardWinners(List<Player> winners) { 
             foreach(Player player in winners) {
                 player.Stack += CurrentHand().Pot / winners.Count;
             }
         }
 
-        // TODO Cleanup. Separate.
         public List<Player> GetWinners(Hand hand) {
-            WinConditions wc = new WinConditions();
-            List<Player> winners = new List<Player>();
             List<Player> players = GetUnfoldedPlayers(hand.Players);
-
             if(players.Count == 1) {
                 return players;
             }
+            return GetWinningPlayers(players);
+        }
 
-            foreach(Player player in players) {
-                player.Cards.Sort();
-                player.GetScore();
-                if(winners.Count == 0) {
-                    winners.Add(player);
-                } else if(player.Score > winners[0].Score) {
-                    winners.Clear();
-                    winners.Add(player);
-                } else if(player.Score == winners[0].Score) {
-                    Player tPlayer = wc.SameScore(winners[0], player);
-                    if (tPlayer == null)
-                    {
-                        winners.Add(player);
-                    }
-                    else
-                    {
-                        winners.Clear();
-                        winners.Add(tPlayer);
-                    }
-                } 
+        private List<Player> GetWinningPlayers(List<Player> players) {
+            if (players[0].Score > players[1].Score) {
+                return new List<Player> { players[0] };
             }
-            return winners;
+            if (players[0].Score < players[1].Score) {
+                return new List<Player> { players[1] };
+            }
+            return GetSameScoreWinners(players);
+        }
+
+        private List<Player> GetSameScoreWinners(List<Player> players) {
+            WinConditions wc = new WinConditions();
+            Player tempPlayer = wc.SameScore(players[0], players[1]);
+            if(tempPlayer == null) {
+                List<Player> winners = new List<Player>();
+                winners.Add(players[0]);
+                winners.Add(players[1]);
+                return winners;
+            }
+            return new List<Player> { tempPlayer };
         }
 
         private List<Player> GetUnfoldedPlayers(List<Player> players) {
@@ -176,9 +159,34 @@ namespace Poker_Game.Game {
                     playersLeft.Add(player);
                 }
             }
-
             return playersLeft;
         }
+
+        private int GetStartingPlayerIndex() {
+            return Players[0].IsSmallBlind ? 0 : 1;
+        }
+
+        private void Bet(Player player, int amount) {
+            if(player.Stack >= amount) {
+                player.CurrentBet += amount;
+                player.Stack -= amount;
+                CurrentHand().Pot += amount;
+            }
+        }
+
+        private void PayBlinds() {
+            for(int i = 0; i < Settings.NumberOfPlayers; i++) {
+                if(Players[i].IsBigBlind) {
+                    Bet(Players[i], 2 * Settings.BlindSize);
+                    Players[i].Action = PlayerAction.Raise;
+                    Players[i].PreviousAction = PlayerAction.Raise;
+                } else if(Players[i].IsSmallBlind) {
+                    Bet(Players[i], Settings.BlindSize);
+                }
+            }
+        }
+
+        #region Utillity
 
         private bool IsRoundInProgress() {
             return !CurrentRound().IsFinished();
@@ -187,25 +195,6 @@ namespace Poker_Game.Game {
         private bool IsHandInProgress() {
             return !Hands[Hands.Count - 1].IsFinished();
         }
-
-        private int GetStartingPlayerIndex() {
-            return Players[0].IsSmallBlind ? 0 : 1;
-        }
-
-        //private int GetNextPlayerIndex() {
-        //    int next = ++CurrentPlayerIndex % Settings.NumberOfPlayers;
-        //    for (int i = 0; i < Settings.NumberOfPlayers; i++) {
-        //        if (Players[next].Action != PlayerAction.Fold) {
-        //            return next;
-        //        }
-        //        next = ++next % Settings.NumberOfPlayers;
-        //    }
-        //    return -1; // TODO: Do error-handling
-        //}
-
-        #endregion
-
-        #region Utillity
 
         public bool CanCheck() {
             return Players[0].CurrentBet - Players[1].CurrentBet == 0;
@@ -231,10 +220,6 @@ namespace Poker_Game.Game {
             return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
         }
 
-        public Turn CurrentTurn() {
-            return CurrentRound().Turns[CurrentTurnNumber() - 1];
-        }
-
         public Round CurrentRound() {
             return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1];
         }
@@ -246,41 +231,6 @@ namespace Poker_Game.Game {
         public Player CurrentPlayer() {
             return Players[CurrentPlayerIndex];
         }
-
-        public bool MoneyLeft(Player player) {
-            return player.Stack != 0;
-        }
-
         #endregion
-
-        #region Betting
-
-        private void Bet(Player player, int amount) {
-            if (player.Stack >= amount) {
-                player.CurrentBet += amount;
-                player.Stack -= amount;
-                CurrentHand().Pot += amount;
-            }
-        }
-
-        private void PayBlinds() 
-        {
-            for (int i = 0; i < Settings.NumberOfPlayers; i++)
-            {
-                if (Players[i].IsBigBlind)
-                {
-                    Bet(Players[i], 2 * Settings.BlindSize);
-                    Players[i].Action = PlayerAction.Raise;
-                    Players[i].PreviousAction = PlayerAction.Raise;
-                }
-                else if (Players[i].IsSmallBlind)
-                {
-                    Bet(Players[i], Settings.BlindSize);
-                }
-            }
-        }
-
-        #endregion
-
     }
 }

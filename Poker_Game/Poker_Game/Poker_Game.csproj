@@ -71,14 +71,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\AiTest.cs" />
+    <Compile Include="AI\Obsolete\AiTest.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
-    <Compile Include="AI\CalcProbability.cs" />
-    <Compile Include="AI\Calculator.cs" />
-    <Compile Include="AI\CardOdds.cs" />
+    <Compile Include="AI\Obsolete\CalcProbability.cs" />
+    <Compile Include="AI\Obsolete\Calculator.cs" />
+    <Compile Include="AI\Obsolete\CardOdds.cs" />
     <Compile Include="AI\GameTree\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,7 +92,7 @@
     <Compile Include="AI\GameTree\TreeTest.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
-    <Compile Include="AI\PotOdds.cs" />
+    <Compile Include="AI\Obsolete\PotOdds.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />
     <Compile Include="AI\Opponent\RangeParser.cs" />
     <Compile Include="AI\Opponent\VPIPData.cs" />

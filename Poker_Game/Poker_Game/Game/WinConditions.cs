@@ -11,7 +11,7 @@ namespace Poker_Game.Game {
 
     public class WinConditions {
 
-        public List<Card> DeckDuper3000(List<Card> cards) {
+        public List<Card> DuplicateDeck(List<Card> cards) {
             List<Card> dupeCards = new List<Card>();
             foreach (Card element in cards) {
                 dupeCards.Add((Card)element.Clone());
@@ -21,7 +21,7 @@ namespace Poker_Game.Game {
         
         // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             sortedCards.Sort();
 
             if (HasRoyalFlush(sortedCards)) {
@@ -64,7 +64,7 @@ namespace Poker_Game.Game {
 
         // Check if the player has two pairs - 26/4/2019 check
         public bool HasTwoPairs(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
 
             for (int i = 0; i < sortedCards.Count - 1; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
@@ -87,7 +87,7 @@ namespace Poker_Game.Game {
 
         // Checks for a full house - 26/4/2019 check
         public bool HasFullHouse(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
                     sortedCards[i + 1].Rank == sortedCards[i + 2].Rank) {
@@ -111,7 +111,7 @@ namespace Poker_Game.Game {
 
         // Checks for straight flush - 26/4/2019 check
         public bool HasStraightFlush(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             if (HasFlush(sortedCards)) {
                 return HasStraight(FlushSuit(sortedCards));
             }
@@ -120,7 +120,7 @@ namespace Poker_Game.Game {
 
         // Checks if the player has a royal straight flush - 26/4/2019 check
         public bool HasRoyalFlush(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             if (HasFlush(sortedCards)) {
                 FlushSuit(sortedCards);
                 sortedCards.Sort(new CompareBySuit());
@@ -139,7 +139,7 @@ namespace Poker_Game.Game {
 
         // Checks if the player has a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public bool HasStraight(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             sortedCards.Sort();
             RemoveDublicateRank(sortedCards, 0);
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
@@ -270,8 +270,8 @@ namespace Poker_Game.Game {
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
         public Player BestStraight(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            List<Card> player1cards = DuplicateDeck(player1.Cards);
+            List<Card> player2cards = DuplicateDeck(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
             RemoveDublicateRank(player1cards, 0);
@@ -294,8 +294,8 @@ namespace Poker_Game.Game {
 
         //Think it works, but need testing
         private Player BestFourOfAKind(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            List<Card> player1cards = DuplicateDeck(player1.Cards);
+            List<Card> player2cards = DuplicateDeck(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
             for (int i = 0; i < player1cards.Count - 3; i++) {
@@ -320,8 +320,8 @@ namespace Poker_Game.Game {
 
         //Need input on this one since it is drastically different to the bool version (HasFullHouse)
         private Player BestFullHouse(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            List<Card> player1cards = DuplicateDeck(player1.Cards);
+            List<Card> player2cards = DuplicateDeck(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
             if (BestThreeOfAKind(player1, player2) != null) {
@@ -376,8 +376,8 @@ namespace Poker_Game.Game {
         }
 
         private Player BestTwoPairs(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            List<Card> player1cards = DuplicateDeck(player1.Cards);
+            List<Card> player2cards = DuplicateDeck(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
             for (int i = player1cards.Count - 1; i > 0; i--) {
