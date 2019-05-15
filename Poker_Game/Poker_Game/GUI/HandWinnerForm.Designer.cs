@@ -71,7 +71,7 @@ namespace Poker_Game
             this.buttonContinue.TabIndex = 0;
             this.buttonContinue.Text = "Continue";
             this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            this.buttonContinue.Click += new System.EventHandler(this.ButtonContinue_Click);
             // 
             // timer1
             // 

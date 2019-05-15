@@ -131,6 +131,10 @@ namespace Poker_Game.Game {
         }
 
         private List<Player> GetWinningPlayers(List<Player> players) {
+            foreach (Player player in players) {
+                player.Cards.Sort();
+                player.GetScore();
+            }
             if (players[0].Score > players[1].Score) {
                 return new List<Player> { players[0] };
             }
