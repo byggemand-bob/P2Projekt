@@ -50,6 +50,7 @@ namespace Poker_Game {
             this.labelPlayerCurrentBet = new System.Windows.Forms.Label();
             this.labelAICurrentBet = new System.Windows.Forms.Label();
             this.checkboxEnableTimer = new System.Windows.Forms.CheckBox();
+            this.buttonForceUI = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -366,6 +367,16 @@ namespace Poker_Game {
             this.checkboxEnableTimer.Text = "Enable Result Timer";
             this.checkboxEnableTimer.UseVisualStyleBackColor = false;
             // 
+            // buttonForceUI
+            // 
+            this.buttonForceUI.Location = new System.Drawing.Point(877, 254);
+            this.buttonForceUI.Name = "buttonForceUI";
+            this.buttonForceUI.Size = new System.Drawing.Size(101, 44);
+            this.buttonForceUI.TabIndex = 27;
+            this.buttonForceUI.Text = "Force Update UI";
+            this.buttonForceUI.UseVisualStyleBackColor = true;
+            this.buttonForceUI.Click += new System.EventHandler(this.ButtonForceUI_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -375,6 +386,7 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.buttonForceUI);
             this.Controls.Add(this.checkboxEnableTimer);
             this.Controls.Add(this.labelAICurrentBet);
             this.Controls.Add(this.labelPlayerCurrentBet);
@@ -404,6 +416,7 @@ namespace Poker_Game {
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Deep Per";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).EndInit();
@@ -445,5 +458,6 @@ namespace Poker_Game {
         private System.Windows.Forms.Label labelPlayerCurrentBet;
         private System.Windows.Forms.Label labelAICurrentBet;
         private System.Windows.Forms.CheckBox checkboxEnableTimer;
+        private System.Windows.Forms.Button buttonForceUI;
     }
 }

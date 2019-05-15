@@ -13,14 +13,15 @@ namespace Poker_Game.Game {
     }
 
     public class Player : IComparable, ICloneable {
-        public int Id { get; set; }
-        public int Stack { get; set; } // Needs validation
+        public int Id { get; private set; }
+        public int Stack { get; set; }
         public int CurrentBet { get; set; }
         public bool IsSmallBlind { get; set; }
         public bool IsBigBlind { get; set; }
         public int BetsTaken { get; set; }
         public string Name { get; set; }
         public PlayerAction Action { get; set; }
+        public PlayerAction PreviousAction { get; set; }
         public Score Score { get; set; }
         public List<Card> Cards { get; set; }
 
@@ -31,6 +32,7 @@ namespace Poker_Game.Game {
             Cards = new List<Card>();
             Stack = stackSize;
             Action = PlayerAction.None;
+            PreviousAction = PlayerAction.None;
             Score = Score.None;
             Reset();
         }
@@ -51,6 +53,7 @@ namespace Poker_Game.Game {
             IsBigBlind = false;
             IsSmallBlind = false;
             Action = PlayerAction.None;
+            PreviousAction = PlayerAction.None;
             Score = Score.None;
             BetsTaken = 0;
             Cards.Clear();
@@ -73,18 +76,19 @@ namespace Poker_Game.Game {
             return Id.CompareTo(((Player)other).Id);
         }
 
-        public object Clone() { // Clones players
+        public object Clone() { // Obsolete
             Player player = new Player(Id, Stack);
             player.IsBigBlind = IsBigBlind;
             player.IsSmallBlind = IsSmallBlind;
             player.Action = Action;
+            player.PreviousAction = PreviousAction;
             player.Stack = Stack;
+            player.Name = Name;
+            player.BetsTaken = BetsTaken;
             player.Id = Id;
+            player.Score = Score;
             player.CurrentBet = CurrentBet;
-
-            foreach(Card card in Cards) {
-                player.Cards.Add((Card)card.Clone());
-            }
+            player.Cards.AddRange(Cards);
             return player;
         }
 

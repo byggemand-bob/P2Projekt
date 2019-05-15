@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        private Settings _settings;
+        private readonly Settings _settings;
         private readonly PokerGame _game;
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
-        
+        private readonly PokerAI _ai;
+        private const bool DiagnosticsMode = true;
+        private int _prevRound = 2;
+
         #region Initialization
 
         public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
@@ -20,6 +24,9 @@ namespace Poker_Game {
             CreateButtonList();
             CreatePictureBoxList();
 
+            // Diagnostics window for debugging
+            panel1.Visible = DiagnosticsMode;
+            buttonForceUI.Visible = DiagnosticsMode;
 
             // Creates the game with user settings
             _game = new PokerGame(_settings);
@@ -30,6 +37,9 @@ namespace Poker_Game {
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
             labelPlayerName.Text = _settings.PlayerName;
             UpdatePlayerBlindLabels(_game.Players[0]); 
+
+            //AI
+            _ai = new PokerAI(_game);
 
             UpdateAll();
         }
@@ -86,6 +96,13 @@ namespace Poker_Game {
 
         #region Updates
 
+        private void NewRound() {
+            if(_game.CurrentRoundNumber() > _prevRound) {
+                _ai.PrepareNewTree();
+                _prevRound++;
+            }
+        }
+
         private void UpdateAll() // Name-change? --- Makes sure the game progresses as it should. 
         {
             UpdateLabelCurrentBet(_game.Players);
@@ -96,7 +113,8 @@ namespace Poker_Game {
             UpdateButtons();
             UpdateCards();
             CheckForPrematureShowdown(_game.Players);
-            // CheckPlayerTurn(Game.CurrentPlayerIndex); Disabled until AI has been implemented
+            if (DiagnosticsMode) {UpdateTest();}
+            CheckPlayerTurn(_game.CurrentPlayerIndex);
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -131,7 +149,7 @@ namespace Poker_Game {
         {
             buttonCall.Enabled = _game.CanCall();
             buttonCheck.Enabled = _game.CanCheck();
-            buttonRaise.Enabled = _game.CanRaise();
+            buttonRaise.Enabled = _game.CanRaise(); 
         }
 
         private void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
@@ -225,6 +243,22 @@ namespace Poker_Game {
             }
         }
 
+        private void UpdateButtons() // Enables buttons only if the player can make such action
+        {
+            buttonCall.Enabled = _game.CanCall();
+            buttonCheck.Enabled = _game.CanCheck();
+            buttonRaise.Enabled = _game.CanRaise();
+
+        }
+
+        private void CheckPlayerTurn(int id) {
+            //MessageBox.Show("id: " + id);
+            if(id == 1 && _game.HandInProgress) {
+                NewRound();
+                AiTurn();
+            }
+        }
+
         private void UpdateLabelCurrentBet(List<Player> players)
         {
             if (_game.CurrentRoundNumber() == 1)
@@ -309,7 +343,6 @@ namespace Poker_Game {
         {
             _game.Raise();
             UpdateAll();
-
         }
 
         private void ButtonRaise_MouseEnter(object sender, EventArgs e)
@@ -372,8 +405,11 @@ namespace Poker_Game {
         
         private void EndOfHand()
         {
-            _game.UpdateState();
+            // Checks if the game is finished, and makes the buttons un-pressable.
             ChangeActionButtonState(false);
+            _ai.PrepareNewHand();
+            _prevRound = 2;
+            _game.UpdateState();
             ShowEndOfHandWindow();
         }
 
@@ -457,17 +493,44 @@ namespace Poker_Game {
             return winners;
         }
 
-
-        #endregion
-
-
-        #region Utility
-
-        private Player GetCurrentTopBidderIndex()
+        public void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
         {
-            return _game.Players[_game.Hands[_game.CurrentHandNumber() - 1].Rounds[_game.CurrentRoundNumber() - 1].TopBidderIndex];
+            _game.NewHand();
+            ResetCards();
+            UpdateAll();
+            // Shows player new hand cards
+            ShowCardImage(picturePlayerCard1, _game.Players[0].Cards[0]);
+            ShowCardImage(picturePlayerCard2, _game.Players[0].Cards[1]);
+        }
+
+        private void UpdateTest() // Test labels - used for diagnostics
+        {
+            label2.Text = "DealerButtonPosition: " + _game.DealerButtonPosition;
+            label3.Text = "HandNumber: " + _game.CurrentHandNumber();
+            label4.Text = "RoundNumber: " + _game.CurrentRoundNumber();
+            label5.Text = "HandInProgress: " + _game.HandInProgress;
+            label6.Text = "RoundInProgress: " + _game.RoundInProgress;
+            label7.Text = "AI Stack: " + _game.Players[1].Stack;
+            label8.Text = "Player Stack: " + _game.Players[0].Stack;
+            label10.Text = "Bets: " + _game.CurrentRound().Bets;
+            label9.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
+            label12.Text = "PlayerPrevAction: " + _game.Players[0].PreviousAction;
+            label11.Text = "AIPrevAction: " + _game.Players[1].PreviousAction;
         }
 
         #endregion
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
+            _ai.SaveData();
+        }
+
+        private void AiTurn() {
+            _ai.MakeDecision(_game.Players[0].PreviousAction);
+            UpdateAll();
+        }
+
+        private void ButtonForceUI_Click(object sender, EventArgs e) {
+            UpdateAll();
+        }
     }
 }

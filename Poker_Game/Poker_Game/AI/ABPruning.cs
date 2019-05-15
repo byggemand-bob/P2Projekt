@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poker_Game.AI
 {
-    class CalcEquity
+    class ABPruning
     {
     }
 }

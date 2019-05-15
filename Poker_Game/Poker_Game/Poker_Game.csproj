@@ -71,16 +71,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\AI.cs" />
-    <Compile Include="AI\AIOpponent.cs" />
+    <Compile Include="AI\ABPruning.cs" />
+    <Compile Include="AI\AiTest.cs" />
+    <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
+    <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
+    <Compile Include="AI\Opponent\VPIPController.cs" />
+    <Compile Include="AI\EVCalculator.cs" />
+    <Compile Include="AI\CalcProbability.cs" />
     <Compile Include="AI\Calculator.cs" />
-    <Compile Include="AI\CalcEquity.cs" />
     <Compile Include="AI\CardOdds.cs" />
-    <Compile Include="AI\IsNashEq.cs" />
-    <Compile Include="AI\IsParetoOptimal.cs" />
-    <Compile Include="Game\VPIPData.cs" />
-    <Compile Include="Game\VPIPReader.cs" />
-    <Compile Include="Game\VPIPWriter.cs" />
+    <Compile Include="AI\GameTree\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AI\GameTree\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AI\GameTree\Node.cs" />
+    <Compile Include="AI\GameTree\PathConstructor.cs" />
+    <Compile Include="AI\GameTree\PathGenerator.cs" />
+    <Compile Include="AI\GameTree\PokerTree.cs" />
+    <Compile Include="AI\GameTree\TreeTest.cs" />
+    <Compile Include="AI\OutsCalculator.cs" />
+    <Compile Include="AI\PokerAI.cs" />
+    <Compile Include="AI\PotOdds.cs" />
+    <Compile Include="AI\PotSizeCalculator.cs" />
+    <Compile Include="AI\Opponent\RangeParser.cs" />
+    <Compile Include="AI\Opponent\VPIPData.cs" />
+    <Compile Include="AI\Opponent\VPIPReader.cs" />
+    <Compile Include="AI\Opponent\VPIPWriter.cs" />
+    <Compile Include="AI\MonteCarloTrailOdds.cs" />
+    <Compile Include="Game\FastWinCalc.cs" />
+    <Compile Include="MultiThreadCardTest.cs" />
     <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
     <Compile Include="Card_test.cs" />
@@ -124,6 +145,16 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
+    <EmbeddedResource Include="AI\GameTree\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="UserTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserTestForm.Designer.cs">
+      <DependentUpon>UserTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTestForms.cs" />
     <EmbeddedResource Include="GUI\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +175,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTestForm.resx">
+      <DependentUpon>UserTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -352,5 +386,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
