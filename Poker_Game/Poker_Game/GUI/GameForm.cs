@@ -25,7 +25,6 @@ namespace Poker_Game {
             CreatePictureBoxList();
 
             // Diagnostics window for debugging
-            panel1.Visible = DiagnosticsMode;
             buttonForceUI.Visible = DiagnosticsMode;
 
             // Creates the game with user settings
@@ -113,7 +112,6 @@ namespace Poker_Game {
             UpdateButtons();
             UpdateCards();
             CheckForPrematureShowdown(_game.Players);
-            if (DiagnosticsMode) {UpdateTest();}
             CheckPlayerTurn(_game.CurrentPlayerIndex);
         }
 
@@ -150,14 +148,6 @@ namespace Poker_Game {
             buttonCall.Enabled = _game.CanCall();
             buttonCheck.Enabled = _game.CanCheck();
             buttonRaise.Enabled = _game.CanRaise(); 
-        }
-
-        private void CreateNewHand() // Creates a new hand and calls methods for the new gamestate
-        {
-            _game.NewHand();
-            UpdatePlayerBlindLabels(_game.Players[0]);
-            ResetCards();
-            UpdateAll();
         }
 
 
@@ -243,14 +233,6 @@ namespace Poker_Game {
             }
         }
 
-        private void UpdateButtons() // Enables buttons only if the player can make such action
-        {
-            buttonCall.Enabled = _game.CanCall();
-            buttonCheck.Enabled = _game.CanCheck();
-            buttonRaise.Enabled = _game.CanRaise();
-
-        }
-
         private void CheckPlayerTurn(int id) {
             //MessageBox.Show("id: " + id);
             if(id == 1 && _game.HandInProgress) {
@@ -321,7 +303,7 @@ namespace Poker_Game {
         {
             if (_game.CurrentPlayerIndex == 0)
             {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + GetCurrentTopBidderIndex().CurrentBet; 
+                labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[1].CurrentBet; 
             }
         }
 
@@ -349,7 +331,7 @@ namespace Poker_Game {
         {
             if (_game.CurrentPlayerIndex == 0)
             {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + (GetCurrentTopBidderIndex().CurrentBet + 100);
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[1].CurrentBet + 100);
             }
         }
 
@@ -503,26 +485,10 @@ namespace Poker_Game {
             ShowCardImage(picturePlayerCard2, _game.Players[0].Cards[1]);
         }
 
-        private void UpdateTest() // Test labels - used for diagnostics
-        {
-            label2.Text = "DealerButtonPosition: " + _game.DealerButtonPosition;
-            label3.Text = "HandNumber: " + _game.CurrentHandNumber();
-            label4.Text = "RoundNumber: " + _game.CurrentRoundNumber();
-            label5.Text = "HandInProgress: " + _game.HandInProgress;
-            label6.Text = "RoundInProgress: " + _game.RoundInProgress;
-            label7.Text = "AI Stack: " + _game.Players[1].Stack;
-            label8.Text = "Player Stack: " + _game.Players[0].Stack;
-            label10.Text = "Bets: " + _game.CurrentRound().Bets;
-            label9.Text = "CurrentPlayerIndex: " + _game.CurrentPlayerIndex;
-            label12.Text = "PlayerPrevAction: " + _game.Players[0].PreviousAction;
-            label11.Text = "AIPrevAction: " + _game.Players[1].PreviousAction;
-        }
 
         #endregion
 
-        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
-            _ai.SaveData();
-        }
+        #region AI
 
         private void AiTurn() {
             _ai.MakeDecision(_game.Players[0].PreviousAction);
@@ -531,6 +497,13 @@ namespace Poker_Game {
 
         private void ButtonForceUI_Click(object sender, EventArgs e) {
             UpdateAll();
+        }
+
+        #endregion
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _ai.SaveData();
         }
     }
 }
