@@ -6,7 +6,7 @@ using Poker_Game.Game;
 
 namespace Poker_Game {
     public partial class GameForm : Form {
-        private Settings Settings;
+        private Settings _settings;
         private readonly PokerGame Game;
         private readonly List<Button> ActionButtons = new List<Button>();
         private readonly List<PictureBox> PictureBoxes = new List<PictureBox>();
@@ -16,7 +16,7 @@ namespace Poker_Game {
 
         public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
             InitializeComponent();
-            Settings = settings;
+            _settings = settings;
             // Initialization of List for more readable and homogeneous code
             CreateButtonList();
             CreatePictureBoxList();
@@ -25,13 +25,13 @@ namespace Poker_Game {
             panel1.Visible = DiagnosticsMode;
 
             // Creates the game with user settings
-            Game = new PokerGame(Settings);
-            Game.Players[0].Name = Settings.PlayerName;
+            Game = new PokerGame(_settings);
+            Game.Players[0].Name = _settings.PlayerName;
             Game.Players[1].Name = "Deep Peer";
             
             labelPlayerStack.Text = Convert.ToString(Game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
-            labelPlayerName.Text = Settings.PlayerName;
+            labelPlayerName.Text = _settings.PlayerName;
 
             // Shows player new hand cards
             ShowCardImage(picturePlayerCard1, Game.Players[0].Cards[0]);
