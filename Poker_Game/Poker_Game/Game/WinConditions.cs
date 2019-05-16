@@ -21,7 +21,8 @@ namespace Poker_Game.Game {
             }
             return dupeCards;
         }
-        
+
+        #region Ecaluate/givescore
         // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
             List<Card> sortedCards = DeckDuper3000(cards);
@@ -31,17 +32,17 @@ namespace Poker_Game.Game {
                 return Score.RoyalFlush;
             } else if (HasStraightFlush(sortedCards)) {
                 return Score.StraightFlush;
-            } else if(HasFourOfAKind(sortedCards)) {
+            } else if (HasFourOfAKind(sortedCards)) {
                 return Score.FourOfAKind;
-            } else if(HasFullHouse(sortedCards)) {
+            } else if (HasFullHouse(sortedCards)) {
                 return Score.FullHouse;
-            } else if(HasFlush(sortedCards)) {
+            } else if (HasFlush(sortedCards)) {
                 return Score.Flush;
-            } else if(HasStraight(sortedCards)) {
+            } else if (HasStraight(sortedCards)) {
                 return Score.Straight;
-            } else if(HasThreeOfAKind(sortedCards)) {
+            } else if (HasThreeOfAKind(sortedCards)) {
                 return Score.ThreeOfAKind;
-            } else if(HasTwoPairs(sortedCards)) {
+            } else if (HasTwoPairs(sortedCards)) {
                 return Score.TwoPairs;
             } else if (HasPair(sortedCards)) {
                 return Score.Pair;
@@ -52,7 +53,7 @@ namespace Poker_Game.Game {
 
         // Finds the best of 2 cards - 26/4/2019 check
         private Score GetBestCard(List<Card> sortedCards) {
-            return (Score) sortedCards[sortedCards.Count - 1].Rank;
+            return (Score)sortedCards[sortedCards.Count - 1].Rank;
         }
 
         // Checks if the player has a pair - 26/4/2019 check
@@ -81,7 +82,7 @@ namespace Poker_Game.Game {
         public bool HasThreeOfAKind(List<Card> sortedCards) {
             for (int i = 0; i < sortedCards.Count - 2; i++) {
                 if (sortedCards[i].Rank == sortedCards[i + 1].Rank &&
-                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank ) {
+                    sortedCards[i + 1].Rank == sortedCards[i + 2].Rank) {
                     return true;
                 }
             }
@@ -109,7 +110,7 @@ namespace Poker_Game.Game {
                     return true;
                 }
             }
-            return false; 
+            return false;
         }
 
         // Checks for straight flush - 26/4/2019 check
@@ -129,10 +130,10 @@ namespace Poker_Game.Game {
                 sortedCards.Sort(new CompareBySuit());
                 for (int i = 0; i < sortedCards.Count - 4; i++) {
                     if (sortedCards[i].Rank == Rank.Ace &&
-                        sortedCards[i+1].Rank == Rank.King &&
-                        sortedCards[i+2].Rank == Rank.Queen &&
-                        sortedCards[i+3].Rank == Rank.Jack &&
-                        sortedCards[i+4].Rank == (Rank)10) {
+                        sortedCards[i + 1].Rank == Rank.King &&
+                        sortedCards[i + 2].Rank == Rank.Queen &&
+                        sortedCards[i + 3].Rank == Rank.Jack &&
+                        sortedCards[i + 4].Rank == (Rank)10) {
                         return true;
                     }
                 }
@@ -194,7 +195,7 @@ namespace Poker_Game.Game {
             }
             if (C > 4 || D > 4 || H > 4 || S > 4) {
                 return true;
-           }
+            }
             return false;
         }
 
@@ -218,14 +219,14 @@ namespace Poker_Game.Game {
                 return RemoveUnfitSuit(cards, Suit.Diamonds);
             } else if (H > C && H > D && H > S) {
                 return RemoveUnfitSuit(cards, Suit.Hearts);
-            } else  {
+            } else {
                 return RemoveUnfitSuit(cards, Suit.Spades);
             }
         }
 
         //Removes all cards which is not of a given suit - 26/4/2019 check
         private List<Card> RemoveUnfitSuit(List<Card> cards, Suit suit) {
-            for(int index = cards.Count - 1; index >= 0; index--) {
+            for (int index = cards.Count - 1; index >= 0; index--) {
                 if (cards[index].Suit != suit) {
                     cards.Remove(cards[index]);
                 }
@@ -251,11 +252,13 @@ namespace Poker_Game.Game {
                     return RemoveDublicateRank(cards, index);
                 } else {
                     return RemoveDublicateRank(cards, index + 1);
-                } 
+                }
             }
             return null;
         }
+        #endregion
 
+        #region Find the best in case of the SameScore
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
             FastWinCalc WIN2 = new FastWinCalc();
             if (player1.Score == Score.RoyalFlush) {
@@ -289,7 +292,7 @@ namespace Poker_Game.Game {
                     return player1.Cards[i].Rank < player2.Cards[j].Rank ? player2 : player1;
                 }
                 i--;
-                j--; 
+                j--;
             }
             return null;
         }
@@ -481,7 +484,7 @@ namespace Poker_Game.Game {
                     for (int j = player2cards.Count - 1; j > 0; j--) {
                         if (player2cards[j].Rank == player2cards[j - 1].Rank) {
                             if (player1cards[i].Rank == player2cards[j].Rank) {
-                                return BestPair(player1,player2);
+                                return BestPair(player1, player2);
                             } else {
                                 return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
                             }
@@ -508,7 +511,8 @@ namespace Poker_Game.Game {
                 }
             }
             throw new System.InvalidOperationException("BestPair exited loop");
-        }
+        } 
+        #endregion
     }
 }
 /*
