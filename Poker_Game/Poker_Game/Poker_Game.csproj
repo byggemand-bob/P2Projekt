@@ -75,6 +75,7 @@
     <Compile Include="AI\AiTest.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
+    <Compile Include="AI\Opponent\EVComparison.cs" />
     <Compile Include="AI\Opponent\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\CalcProbability.cs" />
