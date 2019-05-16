@@ -79,8 +79,6 @@
     <Compile Include="AI\Opponent\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\CalcProbability.cs" />
-    <Compile Include="AI\Calculator.cs" />
-    <Compile Include="AI\CardOdds.cs" />
     <Compile Include="AI\GameTree\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
