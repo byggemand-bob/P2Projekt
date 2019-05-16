@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Poker_Game.Game {
     public class PokerGame {
@@ -55,7 +56,8 @@ namespace Poker_Game.Game {
                 Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Check;
                 CurrentPlayer().BetsTaken++;
                 NewTurn();
-                UpdateState(); }
+                UpdateState();
+            }
         }
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
@@ -83,12 +85,11 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            if(!_handInProgress) {
+            MessageBox.Show(Players[0].Stack.ToString());
                 _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
                 Hands.Add(new Hand(Players, _dealerButtonPosition));
                 PayBlinds();
                 _handInProgress = true;
-            }
         }
         private void NewRound() {
             if(!_roundInProgress) {
