@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Windows.Forms;
 using Poker_Game.AI;
@@ -12,8 +13,7 @@ namespace Poker_Game {
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
-        private int _prevRound = 0; 
-        private const int AiSleepTime = 2000;
+        private int _prevRound = 0;
 
 
         #region Initialization
@@ -75,19 +75,19 @@ namespace Poker_Game {
 
         #region Updates
         private void MainUpdate() {
-            if(_prevRound == 5) { HandUpdate(); }
             if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
+            if(_prevRound == 5) { HandUpdate(); }
             TurnUpdate();
         }
 
         private void TurnUpdate() {
+            AiTurn();
             UpdateCurrentPlayer();
             UpdateButtons();
             UpdateLabelCurrentBet(_game.Players);
             UpdatePlayerStack(_game.Players[0], _game.Players[1]);
             UpdatePotSize(_game.CurrentHand());
             CheckForPrematureShowdown(_game.Players);
-            AiTurn();
         }
 
         private void RoundUpdate() {
@@ -141,8 +141,6 @@ namespace Poker_Game {
                 ShowCardImage(pictureTableCard4, _game.CurrentHand().Street[3]); // Shows turn card
             } else if(_game.CurrentRoundNumber() == 4) {
                 ShowCardImage(pictureTableCard5, _game.CurrentHand().Street[4]); // Shows river card
-            } else if(_game.CurrentRoundNumber() == 5) {
-                ShowOpponentsHand();
             }
         }
 
@@ -327,6 +325,7 @@ namespace Poker_Game {
         private void EndOfHand() {
             // Checks if the game is finished, and makes the buttons un-pressable.
             ChangeActionButtonState(false);
+            ShowOpponentsHand();
             _ai.PrepareNewHand();
             ShowEndOfHandWindow();
         }
@@ -401,7 +400,6 @@ namespace Poker_Game {
             if(_game.Players[0].Action != PlayerAction.Fold) {
                 if(_prevRound > 2) { _ai.PrepareNewTree(); }
                 if(_game.CurrentPlayerIndex == 1) {
-                    System.Threading.Thread.Sleep(AiSleepTime);
                     _ai.MakeDecision();
                     if(_game.Players[1].PreviousAction == PlayerAction.Fold) {
                         HandUpdate();
