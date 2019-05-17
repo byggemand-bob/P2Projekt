@@ -12,8 +12,7 @@ namespace Poker_Game {
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
-        private int _prevRound = 0; // Husk fix ai
-
+        private int _prevRound = 0; 
         private const int AiSleepTime = 0;
 
 
@@ -76,7 +75,7 @@ namespace Poker_Game {
 
         private void MainUpdate() {
             TurnUpdate();
-            if(_prevRound < _game.CurrentRoundNumber() || _game.CurrentRoundNumber() == 1) { RoundUpdate(); }
+            if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
         }
 
         private void TurnUpdate() {
@@ -91,9 +90,10 @@ namespace Poker_Game {
 
         private void RoundUpdate() {
             _prevRound++;
+            MessageBox.Show(_prevRound.ToString());
             UpdateRoundName();
             UpdateCards();
-            if(_prevRound == 5) { HandUpdate(); }
+            if(_prevRound == 5 ) { HandUpdate(); }
         }
 
         private void HandUpdate() {
