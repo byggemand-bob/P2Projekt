@@ -363,7 +363,8 @@ namespace Poker_Game {
             this.checkboxEnableTimer.Location = new System.Drawing.Point(829, 54);
             this.checkboxEnableTimer.Name = "checkboxEnableTimer";
             this.checkboxEnableTimer.Size = new System.Drawing.Size(149, 20);
-            this.checkboxEnableTimer.TabIndex = 26;
+            this.checkboxEnableTimer.TabIndex = 0;
+            this.checkboxEnableTimer.TabStop = false;
             this.checkboxEnableTimer.Text = "Enable Result Timer";
             this.checkboxEnableTimer.UseVisualStyleBackColor = false;
             // 

@@ -60,7 +60,7 @@ namespace Poker_Game
             this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4);
             this.buttonStartGame.Name = "buttonStartGame";
             this.buttonStartGame.Size = new System.Drawing.Size(186, 68);
-            this.buttonStartGame.TabIndex = 0;
+            this.buttonStartGame.TabIndex = 3;
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
             this.buttonStartGame.Click += new System.EventHandler(this.ButtonStartGame_Click);
@@ -111,7 +111,7 @@ namespace Poker_Game
             this.textboxName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(132, 22);
-            this.textboxName.TabIndex = 5;
+            this.textboxName.TabIndex = 2;
             this.textboxName.Text = "Enter Name";
             this.textboxName.Enter += new System.EventHandler(this.TextboxName_Enter);
             this.textboxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextboxName_KeyDown);
@@ -129,6 +129,7 @@ namespace Poker_Game
             this.trackBarNumberOfPlayers.Name = "trackBarNumberOfPlayers";
             this.trackBarNumberOfPlayers.Size = new System.Drawing.Size(240, 45);
             this.trackBarNumberOfPlayers.TabIndex = 7;
+            this.trackBarNumberOfPlayers.TabStop = false;
             this.trackBarNumberOfPlayers.Value = 2;
             this.trackBarNumberOfPlayers.ValueChanged += new System.EventHandler(this.NumberOfPlayersTrackBar_ValueChanged);
             // 
@@ -141,7 +142,8 @@ namespace Poker_Game
             this.trackBarPotSize.Minimum = 100;
             this.trackBarPotSize.Name = "trackBarPotSize";
             this.trackBarPotSize.Size = new System.Drawing.Size(240, 45);
-            this.trackBarPotSize.TabIndex = 8;
+            this.trackBarPotSize.TabIndex = 0;
+            this.trackBarPotSize.TabStop = false;
             this.trackBarPotSize.Value = 1000;
             this.trackBarPotSize.ValueChanged += new System.EventHandler(this.PotSizeTrackBar_ValueChanged);
             // 
@@ -155,6 +157,7 @@ namespace Poker_Game
             this.trackBarBlindSize.Name = "trackBarBlindSize";
             this.trackBarBlindSize.Size = new System.Drawing.Size(240, 45);
             this.trackBarBlindSize.TabIndex = 9;
+            this.trackBarBlindSize.TabStop = false;
             this.trackBarBlindSize.Value = 1;
             this.trackBarBlindSize.ValueChanged += new System.EventHandler(this.TrackBarBlindSize_ValueChanged);
             // 
@@ -204,7 +207,7 @@ namespace Poker_Game
             0});
             this.numericUpDownPotSize.Name = "numericUpDownPotSize";
             this.numericUpDownPotSize.Size = new System.Drawing.Size(76, 22);
-            this.numericUpDownPotSize.TabIndex = 11;
+            this.numericUpDownPotSize.TabIndex = 0;
             this.numericUpDownPotSize.Value = new decimal(new int[] {
             1000,
             0,
@@ -233,7 +236,7 @@ namespace Poker_Game
             0});
             this.numericUpDownBlindSize.Name = "numericUpDownBlindSize";
             this.numericUpDownBlindSize.Size = new System.Drawing.Size(76, 22);
-            this.numericUpDownBlindSize.TabIndex = 12;
+            this.numericUpDownBlindSize.TabIndex = 1;
             this.numericUpDownBlindSize.Value = new decimal(new int[] {
             1,
             0,
