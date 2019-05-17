@@ -326,6 +326,7 @@ namespace Poker_Game {
             ChangeActionButtonState(false);
             ShowOpponentsHand();
             _ai.PrepareNewHand();
+            _game.RewardWinners();
             ShowEndOfHandWindow();
         }
 

@@ -105,13 +105,10 @@ namespace Poker_Game.Game {
             if(!_roundInProgress && _handInProgress) {
                 NewRound();
             }
-
-            if(!_handInProgress) {
-                RewardWinners(GetWinners(Hand));
-            }
         }
 
-        private void RewardWinners(List<Player> winners) { 
+        public void RewardWinners() {
+            List<Player> winners = GetWinners(Hand);
             foreach(Player player in winners) {
                 player.Stack += Hand.Pot / winners.Count;
             }
