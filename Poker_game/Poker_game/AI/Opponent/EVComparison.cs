@@ -9,7 +9,7 @@ namespace Poker_Game.AI.Opponent
 {
     class EVComparison {
 
-        public Player Player { get; set; }
+        /*public Player Player { get; set; }
         public Settings Settings { get; set; }
 
         public EVComparison(Player player, Settings settings) {
@@ -38,5 +38,6 @@ namespace Poker_Game.AI.Opponent
                 }
             }
         }
+        */
     }
 }
