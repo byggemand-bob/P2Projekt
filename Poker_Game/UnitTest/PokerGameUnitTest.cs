@@ -57,61 +57,12 @@ namespace UnitTest
             var expected = 5;
 
             // Act
-            var actual = Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber();
+            var actual = Game.Hand.CurrentRoundNumber();
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
-
-
-        [TestMethod]
-        public void TestHandIncrements()
-        {
-            // Arrange
-            CreateProperties();
-            // Hand 1
-            // Round 1
-            Game.Call();
-            // Round 2
-            Game.Check();
-            Game.Check();
-            // Round 3
-            Game.Check();
-            Game.Check();
-            // Round 4
-            Game.Check();
-            Game.Check();
-            // Round 5
-            Game.Check();
-            Game.Check();
-
-            Game.NewHand();
-
-            // Hand 2
-            // Round 1
-            Game.Call();
-            // Round 2
-            Game.Check();
-            Game.Check();
-            // Round 3
-            Game.Check();
-            Game.Check();
-            // Round 4
-            Game.Check();
-            Game.Check();
-            // Round 5
-            Game.Check();
-            Game.Check();
-            var expected = 2;
-
-            // Act
-            var actual = Game.CurrentHandNumber();
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
+        
         [TestMethod]
         public void TestWinnerIfPlayerFolds()
         {
@@ -125,7 +76,7 @@ namespace UnitTest
             var expected = Game.Players[1].Id;
 
             // Act
-            var actual = Game.GetWinners(Game.Hands[Game.CurrentHandNumber() - 1]);
+            var actual = Game.GetWinners(Game.Hand);
 
             // Assert
             Assert.AreEqual(expected, actual[0].Id);
@@ -144,7 +95,7 @@ namespace UnitTest
             var expected = 400;
 
             // Act
-            var actual = Game.Hands[Game.CurrentHandNumber() - 1].Pot;
+            var actual = Game.Hand.Pot;
 
             // Assert
             Assert.AreEqual(expected, actual);

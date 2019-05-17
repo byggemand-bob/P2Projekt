@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
         public Node RootNode { get; }
         private Node _currentNode;
-        private int _roundNumber;
-        public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction, int currentRoundNumber) {
+        private readonly int _roundNumber;
+
+
+        public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
             _roundNumber = currentRoundNumber;
-            //if(player.IsBigBlind && currentRoundNumber < 1) {
-            //    RegisterOpponentMove(opponentAction);
-            //}
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {

@@ -9,7 +9,6 @@ using Poker_Game.Game;
 namespace Poker_Game.AI {
     class PokerAI {
         private readonly Player _player;
-        private readonly List<Hand> _hands;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
         private readonly VPIPController _vpipController;
@@ -20,7 +19,6 @@ namespace Poker_Game.AI {
         public PokerAI(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
-            _hands = game.Hands;
             _settings = game.Settings;
             _actions = GetActions(game);
             _vpipController = new VPIPController(_settings.PlayerName);
@@ -38,15 +36,12 @@ namespace Poker_Game.AI {
 
         // Called at the start of a new hand
         public void PrepareNewHand() {
-            if(_hands.Count > 1) {
-                _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns);
-            }
-
+            _vpipController.UpdateStats(_pokerGame.Hand.Rounds[0].Turns);
             _pokerTree = null;
         }
 
         public void PrepareNewTree() {
-            _pokerTree = new PokerTree(_pokerGame.CurrentHand().Street, _player, _settings, _pokerGame.Players[0].PreviousAction, _pokerGame.CurrentRoundNumber());
+            _pokerTree = new PokerTree(_pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber());
         }
 
         public void SaveData() {
@@ -71,7 +66,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction Evaluate() {
-            if(_hands.Last().CurrentRoundNumber() == 1) {
+            if(_pokerGame.Hand.CurrentRoundNumber() == 1) {
                 return Preflop();
             } else {
                 if(_pokerTree == null) {
@@ -79,7 +74,7 @@ namespace Poker_Game.AI {
                 }
                 if(_player.IsBigBlind) {
                     _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
-                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() != 0) {
+                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() > 1) {
                     _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 }
 

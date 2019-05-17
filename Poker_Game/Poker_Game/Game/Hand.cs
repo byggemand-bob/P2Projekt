@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Poker_Game.Game {
 
@@ -11,7 +10,7 @@ namespace Poker_Game.Game {
         public List<Round> Rounds { get; }
         public List<Player> Players { get; }
 
-        private List<Card> _deck;
+        private readonly List<Card> _deck;
 
         // Allocation and initialization for the various elements of a hand
         #region Initialization

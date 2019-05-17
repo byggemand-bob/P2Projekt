@@ -6,7 +6,7 @@ namespace Poker_Game.Game {
     public class PokerGame {
         public int CurrentPlayerIndex { get; private set; }
         public List<Player> Players { get; }
-        public List<Hand> Hands { get; }
+        public Hand Hand { get; private set; }
         public Settings Settings { get; }
 
         private int _dealerButtonPosition;
@@ -18,14 +18,14 @@ namespace Poker_Game.Game {
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
-            Hands = new List<Hand>();
             _dealerButtonPosition = 0;
+            Hand = new Hand(Players, _dealerButtonPosition);
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
     
         public PokerGame() { // For testing purpose only
-            Hands = new List<Hand>();
+            Hand = new Hand(Players);
         }
 
         private List<Player> InitializePlayers() {
@@ -81,13 +81,13 @@ namespace Poker_Game.Game {
 
         public void NewHand() {
             _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-            Hands.Add(new Hand(Players, _dealerButtonPosition));
+            Hand = new Hand(Players, _dealerButtonPosition);
             PayBlinds();
             _handInProgress = true;
         }
         private void NewRound() {
             if(!_roundInProgress) {
-                CurrentHand().StartRound();
+                Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
             }
@@ -107,13 +107,13 @@ namespace Poker_Game.Game {
             }
 
             if(!_handInProgress) {
-                RewardWinners(GetWinners(CurrentHand()));
+                RewardWinners(GetWinners(Hand));
             }
         }
 
         private void RewardWinners(List<Player> winners) { 
             foreach(Player player in winners) {
-                player.Stack += CurrentHand().Pot / winners.Count;
+                player.Stack += Hand.Pot / winners.Count;
             }
         }
 
@@ -143,9 +143,7 @@ namespace Poker_Game.Game {
             WinConditions wc = new WinConditions();
             Player tempPlayer = wc.SameScore(players[0], players[1]);
             if(tempPlayer == null) {
-                List<Player> winners = new List<Player>();
-                winners.Add(players[0]);
-                winners.Add(players[1]);
+                List<Player> winners = new List<Player> {players[0], players[1]};
                 return winners;
             }
             return new List<Player> { tempPlayer };
@@ -169,7 +167,7 @@ namespace Poker_Game.Game {
             if(player.Stack >= amount) {
                 player.CurrentBet += amount;
                 player.Stack -= amount;
-                CurrentHand().Pot += amount;
+                Hand.Pot += amount;
             }
         }
 
@@ -192,7 +190,7 @@ namespace Poker_Game.Game {
         }
 
         private bool IsHandInProgress() {
-            return !Hands[Hands.Count - 1].IsFinished();
+            return !Hand.IsFinished();
         }
 
         public bool CanCheck() {
@@ -207,24 +205,16 @@ namespace Poker_Game.Game {
             return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
         }
 
-        public int CurrentHandNumber() {
-            return Hands.Count;
-        }
-
         public int CurrentRoundNumber() {
-            return Hands[CurrentHandNumber() - 1].CurrentRoundNumber();
+            return Hand.CurrentRoundNumber();
         }
 
         public int CurrentTurnNumber() {
-            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
+            return Hand.Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
         }
 
         public Round CurrentRound() {
-            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1];
-        }
-
-        public Hand CurrentHand() {
-            return Hands[CurrentHandNumber() - 1];
+            return Hand.Rounds[CurrentRoundNumber() - 1];
         }
 
         public Player CurrentPlayer() {

@@ -86,7 +86,7 @@ namespace Poker_Game {
             UpdateButtons();
             UpdateLabelCurrentBet(_game.Players);
             UpdatePlayerStack(_game.Players[0], _game.Players[1]);
-            UpdatePotSize(_game.CurrentHand());
+            UpdatePotSize(_game.Hand);
             CheckForPrematureShowdown(_game.Players);
         }
 
@@ -134,13 +134,13 @@ namespace Poker_Game {
                 ShowCardImage(picturePlayerCard1, _game.Players[0].Cards[0]);
                 ShowCardImage(picturePlayerCard2, _game.Players[0].Cards[1]);
             } else if(_game.CurrentRoundNumber() == 2) {
-                ShowCardImage(pictureTableCard1, _game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
-                ShowCardImage(pictureTableCard2, _game.CurrentHand().Street[1]);
-                ShowCardImage(pictureTableCard3, _game.CurrentHand().Street[2]);
+                ShowCardImage(pictureTableCard1, _game.Hand.Street[0]); // Shows image of the the first table card (flop)
+                ShowCardImage(pictureTableCard2, _game.Hand.Street[1]);
+                ShowCardImage(pictureTableCard3, _game.Hand.Street[2]);
             } else if(_game.CurrentRoundNumber() == 3) {
-                ShowCardImage(pictureTableCard4, _game.CurrentHand().Street[3]); // Shows turn card
+                ShowCardImage(pictureTableCard4, _game.Hand.Street[3]); // Shows turn card
             } else if(_game.CurrentRoundNumber() == 4) {
-                ShowCardImage(pictureTableCard5, _game.CurrentHand().Street[4]); // Shows river card
+                ShowCardImage(pictureTableCard5, _game.Hand.Street[4]); // Shows river card
             }
         }
 
@@ -152,13 +152,13 @@ namespace Poker_Game {
 
         private void ShowAllCards() // only called if a player is all in, and the street has to be drawn
         {
-            _game.Hands[_game.CurrentHandNumber() - 1].DrawCards(5); // Draws all cards for the street without going through all the List<Round> in hands. 
+            _game.Hand.DrawCards(5 - _game.Hand.Street.Count); // Draws all cards for the street without going through all the List<Round> in hands. 
             ShowOpponentsHand();
-            ShowCardImage(pictureTableCard1, _game.CurrentHand().Street[0]); // Shows image of the the first table card (flop)
-            ShowCardImage(pictureTableCard2, _game.CurrentHand().Street[1]); // Shows image of the second table card (flop)
-            ShowCardImage(pictureTableCard3, _game.CurrentHand().Street[2]); // Shows image of the third table card (flop)
-            ShowCardImage(pictureTableCard4, _game.CurrentHand().Street[3]); // Shows turn card
-            ShowCardImage(pictureTableCard5, _game.CurrentHand().Street[4]); // Shows river card
+            ShowCardImage(pictureTableCard1, _game.Hand.Street[0]); // Shows image of the the first table card (flop)
+            ShowCardImage(pictureTableCard2, _game.Hand.Street[1]); // Shows image of the second table card (flop)
+            ShowCardImage(pictureTableCard3, _game.Hand.Street[2]); // Shows image of the third table card (flop)
+            ShowCardImage(pictureTableCard4, _game.Hand.Street[3]); // Shows turn card
+            ShowCardImage(pictureTableCard5, _game.Hand.Street[4]); // Shows river card
         }
 
         private void UpdateRoundName() // Updates the labelRoundName to show player. 
@@ -177,15 +177,14 @@ namespace Poker_Game {
 
         }
 
-        private void UpdateCurrentPlayer() // Highlights current player's name with a yellew color
-        {
-            if(_game.CurrentPlayerIndex == 0) // Player has turn
-            {
+        // Highlights current player's name with a yellew color
+        private void UpdateCurrentPlayer() {
+            
+            if(_game.CurrentPlayerIndex == 0) { // Player has turn
                 labelPlayerName.ForeColor = Color.Yellow;
                 labelAIStack.ForeColor = Color.White;
                 ChangeActionButtonState(true);
-            } else // AI has turn
-              {
+            } else { // AI has turn
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
                 //Disabled untill AI has been implemented ??? missing something
@@ -332,14 +331,14 @@ namespace Poker_Game {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.CurrentHand().Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }
 
         private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
         {
-            if(_game.GetWinners(_game.CurrentHand()).Count == 1) {
+            if(_game.GetWinners(_game.Hand).Count == 1) {
                 if(Int32.TryParse(ConvertScoreToString(0), out int numericScore)) {
                     if(numericScore > 10) {
                         return GiveNumericScoreName(numericScore);
@@ -347,7 +346,7 @@ namespace Poker_Game {
                     return numericScore + " (Highest Card)";
                 }
                 return ConvertScoreToString(0);
-            } else if(_game.GetWinners(_game.CurrentHand()).Count == 2) {
+            } else if(_game.GetWinners(_game.Hand).Count == 2) {
                 return ConvertScoreToString(0);
             }
             return null; // TODO: error handling
@@ -366,12 +365,12 @@ namespace Poker_Game {
         }
 
         private string ConvertScoreToString(int index) {
-            return Convert.ToString(_game.GetWinners(_game.CurrentHand())[index].Score);
+            return Convert.ToString(_game.GetWinners(_game.Hand)[index].Score);
         }
 
         private string GetWinnerPlayersName() // Gets the string of which player has won
         {
-            List<Player> players = _game.GetWinners(_game.CurrentHand());
+            List<Player> players = _game.GetWinners(_game.Hand);
             string winners = null;
             foreach(Player player in players) {
                 if(winners == null) {
@@ -386,10 +385,8 @@ namespace Poker_Game {
         // Creates a new hand and calls methods for the new gamestate
         private void CreateNewHand() 
         {
-            //_game.UpdateState();
             _game.NewHand();
             ResetCards();
-            //MainUpdate();
         }
 
         #endregion
