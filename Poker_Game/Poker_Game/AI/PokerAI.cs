@@ -97,7 +97,6 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop() {
-            return PlayerAction.Fold;
             PlayerAction result = _pokerTree.GetBestAction();
             if(ShowTree) { new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog(); }
             return result;
