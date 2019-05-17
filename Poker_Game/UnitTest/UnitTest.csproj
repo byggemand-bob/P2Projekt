@@ -56,6 +56,7 @@
     <Compile Include="MultiblePlayersWinconditionUnitTest.cs" />
     <Compile Include="FastWinCalcTest.cs" />
     <Compile Include="PokerGameUnitTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="WinconditionsUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -12,7 +12,7 @@ namespace UnitTest
         public Settings Settings;
         public PokerGame Game;
 
-        public void CreatePropperties()
+        public void CreateProperties()
         {
             Settings = new Settings(2, 1000, 50, "bob", 2);
             Game = new PokerGame(Settings);
@@ -22,7 +22,7 @@ namespace UnitTest
         public void TestNumberOfPlayers()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             int expected = 2;
 
             // Act
@@ -37,7 +37,7 @@ namespace UnitTest
         public void TestRoundIncrements()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Call();
             Game.Check();
@@ -68,7 +68,7 @@ namespace UnitTest
         public void TestHandIncrements()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Hand 1
             // Round 1
             Game.Call();
@@ -116,7 +116,7 @@ namespace UnitTest
         public void TestWinnerIfPlayerFolds()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Call();
             // Round 2
@@ -133,10 +133,10 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TestRaiseFunctionallity()
+        public void TestRaiseFunctionality()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Raise();
             Game.Call();
