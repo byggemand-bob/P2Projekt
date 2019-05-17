@@ -85,7 +85,6 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            MessageBox.Show(Players[0].Stack.ToString());
                 _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
                 Hands.Add(new Hand(Players, _dealerButtonPosition));
                 PayBlinds();

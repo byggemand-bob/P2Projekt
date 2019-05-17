@@ -74,8 +74,8 @@ namespace Poker_Game {
         #endregion
 
         private void MainUpdate() {
-            TurnUpdate();
             if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
+            TurnUpdate();
         }
 
         private void TurnUpdate() {
@@ -90,7 +90,6 @@ namespace Poker_Game {
 
         private void RoundUpdate() {
             _prevRound++;
-            MessageBox.Show(_prevRound.ToString());
             UpdateRoundName();
             UpdateCards();
             if(_prevRound == 5 ) { HandUpdate(); }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
     public class Hand {
         public int Pot { get; set; }
-        public List<Card> Street { get; }  // optimize
+        public List<Card> Street { get; }  
         public List<Round> Rounds { get; }
         public List<Player> Players { get; }
 
