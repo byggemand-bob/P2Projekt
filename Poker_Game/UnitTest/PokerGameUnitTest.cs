@@ -4,7 +4,6 @@ using Poker_Game.Game;
 using Poker_Game;
 
 
-/*
 namespace UnitTest
 {
     [TestClass]
@@ -15,7 +14,7 @@ namespace UnitTest
 
         public void CreatePropperties()
         {
-            Settings = new Settings(2, 1000, 50, true, 50, "bob", 2);
+            Settings = new Settings(2, 1000, 50, "bob", 2);
             Game = new PokerGame(Settings);
         }
 
@@ -73,7 +72,6 @@ namespace UnitTest
             // Hand 1
             // Round 1
             Game.Call();
-            Game.Check();
             // Round 2
             Game.Check();
             Game.Check();
@@ -92,7 +90,6 @@ namespace UnitTest
             // Hand 2
             // Round 1
             Game.Call();
-            Game.Check();
             // Round 2
             Game.Check();
             Game.Check();
@@ -122,7 +119,6 @@ namespace UnitTest
             CreatePropperties();
             // Round 1
             Game.Call();
-            Game.Check();
             // Round 2
             Game.Fold();
 
@@ -144,7 +140,6 @@ namespace UnitTest
             // Round 1
             Game.Raise();
             Game.Call();
-            Game.Check();
 
             var expected = 400;
 
@@ -156,4 +151,3 @@ namespace UnitTest
         }
     }
 }
-*/
