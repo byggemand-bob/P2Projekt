@@ -81,14 +81,13 @@ namespace Poker_Game {
         }
 
         private void TurnUpdate() {
-            AiTurn();
-            UpdatePreviousAction();
             UpdateCurrentPlayer();
             UpdateButtons();
             UpdateLabelCurrentBet(_game.Players);
             UpdatePlayerStack(_game.Players[0], _game.Players[1]);
             UpdatePotSize(_game.CurrentHand());
             CheckForPrematureShowdown(_game.Players);
+            AiTurn();
         }
 
         private void RoundUpdate() {
@@ -404,7 +403,12 @@ namespace Poker_Game {
                 if(_game.CurrentPlayerIndex == 1) {
                     System.Threading.Thread.Sleep(AiSleepTime);
                     _ai.MakeDecision();
-                    MainUpdate();
+                    if(_game.Players[1].PreviousAction == PlayerAction.Fold) {
+                        HandUpdate();
+                    } else {
+                        MainUpdate();
+                    }
+                    UpdatePreviousAction();
                 }
             }
         }

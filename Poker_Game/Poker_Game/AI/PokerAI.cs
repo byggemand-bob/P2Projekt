@@ -16,7 +16,7 @@ namespace Poker_Game.AI {
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
         private const bool ShowTree = false;
-        
+
         public PokerAI(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
@@ -39,7 +39,7 @@ namespace Poker_Game.AI {
         // Called at the start of a new hand
         public void PrepareNewHand() {
             if(_hands.Count > 1) {
-                _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns); 
+                _vpipController.UpdateStats(_hands[_hands.Count - 2].Rounds[0].Turns);
             }
 
             _pokerTree = null;
@@ -54,7 +54,7 @@ namespace Poker_Game.AI {
         }
 
         public void MakeDecision() {
-           switch(Evaluate()) {
+            switch(Evaluate()) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -97,8 +97,9 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop() {
-            PlayerAction result =_pokerTree.GetBestAction();
-            if(ShowTree) {new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog();}
+            return PlayerAction.Fold;
+            PlayerAction result = _pokerTree.GetBestAction();
+            if(ShowTree) { new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog(); }
             return result;
         }
     }
