@@ -39,40 +39,35 @@ namespace Poker_Game.Game {
 
         #region Actions
         public void Call() { // Method used for coding a press of Call-button in GameForm.
-            if (CanCall()) {
-                // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
-                Players[CurrentPlayerIndex].Action = PlayerAction.Call;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Call;
-                CurrentRound().UncalledRaise = false;
-                NewTurn();
-                UpdateState();
-            }
+            // Needs to be cut down
+            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
+            Players[CurrentPlayerIndex].Action = PlayerAction.Call;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Call;
+            CurrentRound().UncalledRaise = false;
+            NewTurn();
+            UpdateState();
         }
 
         public void Check() { // Method used for coding a press of Check-button in GameForm.
-            if (CanCheck()) { // Needs fixing
-                CurrentPlayer().Action = PlayerAction.Check;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Check;
-                CurrentPlayer().BetsTaken++;
-                NewTurn();
-                UpdateState();
-            }
+            CurrentPlayer().Action = PlayerAction.Check;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Check;
+            CurrentPlayer().BetsTaken++;
+            NewTurn();
+            UpdateState();
         }
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
-            if(CanRaise()) {
-                // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
-                Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
-                CurrentPlayer().BetsTaken++;
-                CurrentRound().UncalledRaise = true;
+            // Needs to be cut down
+            //MessageBox.Show(Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet).ToString());
+            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
+            Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
+            CurrentPlayer().BetsTaken++;
+            CurrentRound().UncalledRaise = true;
 
-                // Create functions for this.
-                NewTurn();
-                UpdateState();
-            }
+            // Create functions for this.
+            NewTurn();
+            UpdateState();
         }
 
         public void Fold() { // Method used for coding a press of Fold-button in GameForm.
@@ -85,11 +80,10 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            MessageBox.Show(Players[0].Stack.ToString());
-                _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-                Hands.Add(new Hand(Players, _dealerButtonPosition));
-                PayBlinds();
-                _handInProgress = true;
+            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
+            Hands.Add(new Hand(Players, _dealerButtonPosition));
+            PayBlinds();
+            _handInProgress = true;
         }
         private void NewRound() {
             if(!_roundInProgress) {

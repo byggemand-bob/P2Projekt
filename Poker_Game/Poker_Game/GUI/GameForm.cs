@@ -13,7 +13,7 @@ namespace Poker_Game {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
         private int _prevRound = 0; 
-        private const int AiSleepTime = 0;
+        private const int AiSleepTime = 2000;
 
 
         #region Initialization
@@ -73,13 +73,16 @@ namespace Poker_Game {
 
         #endregion
 
+        #region Updates
         private void MainUpdate() {
-            TurnUpdate();
+            if(_prevRound == 5) { HandUpdate(); }
             if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
+            TurnUpdate();
         }
 
         private void TurnUpdate() {
             AiTurn();
+            UpdatePreviousAction();
             UpdateCurrentPlayer();
             UpdateButtons();
             UpdateLabelCurrentBet(_game.Players);
@@ -90,10 +93,8 @@ namespace Poker_Game {
 
         private void RoundUpdate() {
             _prevRound++;
-            MessageBox.Show(_prevRound.ToString());
             UpdateRoundName();
             UpdateCards();
-            if(_prevRound == 5 ) { HandUpdate(); }
         }
 
         private void HandUpdate() {
@@ -101,7 +102,9 @@ namespace Poker_Game {
             EndOfHand();
             CreateNewHand();
             UpdatePlayerBlindLabels(_game.Players[0]);
-        }
+            MainUpdate();
+        } 
+        #endregion
 
         #region Table Cards Visuals
 
@@ -120,7 +123,11 @@ namespace Poker_Game {
 
         #endregion
 
-        #region Updates
+        #region Visual Updates
+
+        private void UpdatePreviousAction() {
+            AIAction.Text = _game.Players[1].PreviousAction.ToString();
+        }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
         {
@@ -145,10 +152,6 @@ namespace Poker_Game {
             buttonCheck.Enabled = _game.CanCheck();
             buttonRaise.Enabled = _game.CanRaise();
         }
-
-        #endregion
-
-        #region Visual Updates
 
         private void ShowAllCards() // only called if a player is all in, and the street has to be drawn
         {
@@ -254,6 +257,21 @@ namespace Poker_Game {
             MainUpdate();
         }
 
+        private void ButtonCheck_Click(object sender, EventArgs e) {
+            _game.Check();
+            MainUpdate();
+        }
+
+        private void ButtonRaise_Click(object sender, EventArgs e) {
+            _game.Raise();
+            MainUpdate();
+        }
+
+        private void ButtonFold_Click(object sender, EventArgs e) {
+            _game.Fold();
+            HandUpdate();
+        }
+
         private void ButtonCall_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0) {
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[1].CurrentBet;
@@ -266,16 +284,6 @@ namespace Poker_Game {
             }
         }
 
-        private void ButtonCheck_Click(object sender, EventArgs e) {
-            _game.Check();
-            MainUpdate();
-        }
-
-        private void ButtonRaise_Click(object sender, EventArgs e) {
-            _game.Raise();
-            MainUpdate();
-        }
-
         private void ButtonRaise_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0) {
                 labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[1].CurrentBet + 2 * _settings.BlindSize);
@@ -286,14 +294,6 @@ namespace Poker_Game {
             if(_game.CurrentPlayerIndex == 0) {
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[0].CurrentBet;
             }
-        }
-
-        private void ButtonFold_Click(object sender, EventArgs e) {
-            _game.Fold();
-            ChangeActionButtonColor();
-            MainUpdate();
-            ChangeActionButtonState(false);
-            EndOfHand();
         }
 
         #endregion  
@@ -388,7 +388,7 @@ namespace Poker_Game {
         // Creates a new hand and calls methods for the new gamestate
         private void CreateNewHand() 
         {
-            _game.UpdateState();
+            //_game.UpdateState();
             _game.NewHand();
             ResetCards();
             //MainUpdate();
