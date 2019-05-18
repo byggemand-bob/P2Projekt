@@ -10,6 +10,7 @@ namespace Poker_Game {
 
         public SettingsForm() {
             InitializeComponent();
+            Icon = Properties.Resources.coins;
             StartPosition = FormStartPosition.CenterScreen;
         }
 

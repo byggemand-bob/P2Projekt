@@ -28,7 +28,7 @@ namespace Poker_Game {
             // Creates the game with user settings
             _game = new PokerGame(_settings);
             _game.Players[0].Name = _settings.PlayerName;
-            _game.Players[1].Name = "Dybe Per";
+            _game.Players[1].Name = "Deep Peer";
 
             labelPlayerStack.Text = Convert.ToString(_game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -46,6 +46,7 @@ namespace Poker_Game {
             this.MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
+            Icon = Properties.Resources.coins;
 
             //Load background picture
             this.BackgroundImage = Properties.Resources.PokerBord;

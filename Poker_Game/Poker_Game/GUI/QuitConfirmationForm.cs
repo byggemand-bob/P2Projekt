@@ -16,7 +16,7 @@ namespace Poker_Game
         public QuitConfirmationForm(GameForm gameFormQuit)
         {
             InitializeComponent();
-
+            Icon = Properties.Resources.coins;
             StartPosition = FormStartPosition.CenterScreen;
 
             _gameFormQuit1 = gameFormQuit;
@@ -38,6 +38,10 @@ namespace Poker_Game
 
             this.Close();
             _gameFormQuit1.Close();
+        }
+
+        private void QuitConfirmationForm_Load(object sender, EventArgs e) {
+
         }
     }
 }

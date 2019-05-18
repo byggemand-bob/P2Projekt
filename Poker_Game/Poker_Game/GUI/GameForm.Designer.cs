@@ -193,7 +193,7 @@ namespace Poker_Game {
             this.labelAIStack.Name = "labelAIStack";
             this.labelAIStack.Size = new System.Drawing.Size(134, 88);
             this.labelAIStack.TabIndex = 8;
-            this.labelAIStack.Text = "Deep Peer";
+            this.labelAIStack.Text = "Dybe Per";
             // 
             // pictureTableCard1
             // 
@@ -417,7 +417,7 @@ namespace Poker_Game {
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Deep Per";
+            this.Text = "Poker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).EndInit();
