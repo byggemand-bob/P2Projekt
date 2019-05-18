@@ -18,7 +18,6 @@ namespace Poker_Game
         {
             List<Card> hand = new List<Card>();
             List<Card> street = new List<Card>();
-            Calculator Calc = new Calculator();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
             int NumberOftrails = 1000000;

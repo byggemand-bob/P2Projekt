@@ -4,7 +4,6 @@ using Poker_Game.Game;
 using Poker_Game;
 
 
-/*
 namespace UnitTest
 {
     [TestClass]
@@ -13,9 +12,9 @@ namespace UnitTest
         public Settings Settings;
         public PokerGame Game;
 
-        public void CreatePropperties()
+        public void CreateProperties()
         {
-            Settings = new Settings(2, 1000, 50, true, 50, "bob", 2);
+            Settings = new Settings(2, 1000, 50, "bob", 2);
             Game = new PokerGame(Settings);
         }
 
@@ -23,7 +22,7 @@ namespace UnitTest
         public void TestNumberOfPlayers()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             int expected = 2;
 
             // Act
@@ -38,7 +37,7 @@ namespace UnitTest
         public void TestRoundIncrements()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Call();
             Game.Check();
@@ -58,78 +57,26 @@ namespace UnitTest
             var expected = 5;
 
             // Act
-            var actual = Game.Hands[Game.CurrentHandNumber() - 1].CurrentRoundNumber();
+            var actual = Game.Hand.CurrentRoundNumber();
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
-
-
-        [TestMethod]
-        public void TestHandIncrements()
-        {
-            // Arrange
-            CreatePropperties();
-            // Hand 1
-            // Round 1
-            Game.Call();
-            Game.Check();
-            // Round 2
-            Game.Check();
-            Game.Check();
-            // Round 3
-            Game.Check();
-            Game.Check();
-            // Round 4
-            Game.Check();
-            Game.Check();
-            // Round 5
-            Game.Check();
-            Game.Check();
-
-            Game.NewHand();
-
-            // Hand 2
-            // Round 1
-            Game.Call();
-            Game.Check();
-            // Round 2
-            Game.Check();
-            Game.Check();
-            // Round 3
-            Game.Check();
-            Game.Check();
-            // Round 4
-            Game.Check();
-            Game.Check();
-            // Round 5
-            Game.Check();
-            Game.Check();
-            var expected = 2;
-
-            // Act
-            var actual = Game.CurrentHandNumber();
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-
+        
         [TestMethod]
         public void TestWinnerIfPlayerFolds()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Call();
-            Game.Check();
             // Round 2
             Game.Fold();
 
             var expected = Game.Players[1].Id;
 
             // Act
-            var actual = Game.GetWinners(Game.Hands[Game.CurrentHandNumber() - 1]);
+            var actual = Game.GetWinners(Game.Hand);
 
             // Assert
             Assert.AreEqual(expected, actual[0].Id);
@@ -137,23 +84,21 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TestRaiseFunctionallity()
+        public void TestRaiseFunctionality()
         {
             // Arrange
-            CreatePropperties();
+            CreateProperties();
             // Round 1
             Game.Raise();
             Game.Call();
-            Game.Check();
 
             var expected = 400;
 
             // Act
-            var actual = Game.Hands[Game.CurrentHandNumber() - 1].Pot;
+            var actual = Game.Hand.Pot;
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
     }
 }
-*/

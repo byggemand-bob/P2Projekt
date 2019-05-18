@@ -50,6 +50,7 @@ namespace Poker_Game {
             this.labelPlayerCurrentBet = new System.Windows.Forms.Label();
             this.labelAICurrentBet = new System.Windows.Forms.Label();
             this.checkboxEnableTimer = new System.Windows.Forms.CheckBox();
+            this.AIAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -192,7 +193,7 @@ namespace Poker_Game {
             this.labelAIStack.Name = "labelAIStack";
             this.labelAIStack.Size = new System.Drawing.Size(134, 88);
             this.labelAIStack.TabIndex = 8;
-            this.labelAIStack.Text = "Deep Peer";
+            this.labelAIStack.Text = "Dybe Per";
             // 
             // pictureTableCard1
             // 
@@ -362,9 +363,21 @@ namespace Poker_Game {
             this.checkboxEnableTimer.Location = new System.Drawing.Point(829, 54);
             this.checkboxEnableTimer.Name = "checkboxEnableTimer";
             this.checkboxEnableTimer.Size = new System.Drawing.Size(149, 20);
-            this.checkboxEnableTimer.TabIndex = 26;
+            this.checkboxEnableTimer.TabIndex = 0;
+            this.checkboxEnableTimer.TabStop = false;
             this.checkboxEnableTimer.Text = "Enable Result Timer";
             this.checkboxEnableTimer.UseVisualStyleBackColor = false;
+            // 
+            // AIAction
+            // 
+            this.AIAction.AutoSize = true;
+            this.AIAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AIAction.ForeColor = System.Drawing.Color.White;
+            this.AIAction.Location = new System.Drawing.Point(13, 189);
+            this.AIAction.Name = "AIAction";
+            this.AIAction.Size = new System.Drawing.Size(57, 20);
+            this.AIAction.TabIndex = 27;
+            this.AIAction.Text = "label1";
             // 
             // GameForm
             // 
@@ -375,6 +388,7 @@ namespace Poker_Game {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.AIAction);
             this.Controls.Add(this.checkboxEnableTimer);
             this.Controls.Add(this.labelAICurrentBet);
             this.Controls.Add(this.labelPlayerCurrentBet);
@@ -403,7 +417,7 @@ namespace Poker_Game {
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Deep Per";
+            this.Text = "Poker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).EndInit();
@@ -446,5 +460,6 @@ namespace Poker_Game {
         private System.Windows.Forms.Label labelPlayerCurrentBet;
         private System.Windows.Forms.Label labelAICurrentBet;
         private System.Windows.Forms.CheckBox checkboxEnableTimer;
+        private System.Windows.Forms.Label AIAction;
     }
 }

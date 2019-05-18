@@ -7,18 +7,26 @@ using System.Threading.Tasks;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class OutsCalculator {
-        public int CompareOuts(List<Card> cardHand, List<Card> street) {
-            if(HasFlushChance(cardHand) && HasStraightChance(cardHand)) {
+    public class OutsCalculator {
+        public int CompareOuts(List<Card> cardHand, List<Card> street)
+        {
+            if (HasFlushChance(cardHand) && HasStraightChance(cardHand))
+            {
                 return GetFlushOuts(cardHand, street) + GetStraightOuts(cardHand, street);
             }
-            if(HasFlushChance(cardHand) && HasStraightChance(cardHand) == false) {
+
+            if (HasFlushChance(cardHand) && HasStraightChance(cardHand) == false)
+            {
                 return GetFlushOuts(cardHand, street);
             }
-            if(HasFlushChance(cardHand) == false && HasStraightChance(cardHand)) {
+
+            if (HasFlushChance(cardHand) == false && HasStraightChance(cardHand))
+            {
                 return GetStraightOuts(cardHand, street);
             }
-            if(HasPair(cardHand) && !HasFlushChance(cardHand)) {
+
+            if (HasPair(cardHand) && !HasFlushChance(cardHand))
+            {
                 return GetPairOuts(cardHand, street);
             }
             //TODO We need to add more conditions 
@@ -71,7 +79,7 @@ namespace Poker_Game.AI {
             }
 
             wc.RemoveDublicateRank(straightCards, 0); // TODO: FIX
-            return 5 - straightCards.Count;
+            return 5 - straightCards.Count; // ERROR: Can give negative value when at river. 
         }
         #endregion
 
@@ -152,7 +160,7 @@ namespace Poker_Game.AI {
             }
 
             return 0;
-        }
+        }   
 
         #endregion
 

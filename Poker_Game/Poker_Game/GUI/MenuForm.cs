@@ -15,6 +15,8 @@ namespace Poker_Game
 
         public MenuForm()
         {
+            Icon = Properties.Resources.coins;
+
 
             //Set the window form.
             this.MaximumSize = new Size(1000, 700);

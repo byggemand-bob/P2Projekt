@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Poker_Game.Game {
     public class PokerGame {
         public int CurrentPlayerIndex { get; private set; }
         public List<Player> Players { get; }
-        public List<Hand> Hands { get; }
+        public Hand Hand { get; private set; }
         public Settings Settings { get; }
 
         private int _dealerButtonPosition;
@@ -17,14 +18,14 @@ namespace Poker_Game.Game {
         public PokerGame(Settings settings) {
             Settings = settings;
             Players = InitializePlayers();
-            Hands = new List<Hand>();
             _dealerButtonPosition = 0;
+            Hand = new Hand(Players, _dealerButtonPosition);
             NewHand();
             CurrentPlayerIndex = GetStartingPlayerIndex();
         }
     
         public PokerGame() { // For testing purpose only
-            Hands = new List<Hand>();
+            Hand = new Hand(Players);
         }
 
         private List<Player> InitializePlayers() {
@@ -38,39 +39,35 @@ namespace Poker_Game.Game {
 
         #region Actions
         public void Call() { // Method used for coding a press of Call-button in GameForm.
-            if (CanCall()) {
-                // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
-                Players[CurrentPlayerIndex].Action = PlayerAction.Call;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Call;
-                CurrentRound().UncalledRaise = false;
-                NewTurn();
-                UpdateState();
-            }
+            // Needs to be cut down
+            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
+            Players[CurrentPlayerIndex].Action = PlayerAction.Call;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Call;
+            CurrentRound().UncalledRaise = false;
+            NewTurn();
+            UpdateState();
         }
 
         public void Check() { // Method used for coding a press of Check-button in GameForm.
-            if (CanCheck()) { // Needs fixing
-                CurrentPlayer().Action = PlayerAction.Check;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Check;
-                CurrentPlayer().BetsTaken++;
-                NewTurn();
-                UpdateState(); }
+            CurrentPlayer().Action = PlayerAction.Check;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Check;
+            CurrentPlayer().BetsTaken++;
+            NewTurn();
+            UpdateState();
         }
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
-            if(CanRaise()) {
-                // Needs to be cut down
-                Bet(Players[CurrentPlayerIndex],Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
-                Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
-                Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
-                CurrentPlayer().BetsTaken++;
-                CurrentRound().UncalledRaise = true;
+            // Needs to be cut down
+            //MessageBox.Show(Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet).ToString());
+            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
+            Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
+            Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
+            CurrentPlayer().BetsTaken++;
+            CurrentRound().UncalledRaise = true;
 
-                // Create functions for this.
-                NewTurn();
-                UpdateState();
-            }
+            // Create functions for this.
+            NewTurn();
+            UpdateState();
         }
 
         public void Fold() { // Method used for coding a press of Fold-button in GameForm.
@@ -83,16 +80,14 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            if(!_handInProgress) {
-                _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
-                Hands.Add(new Hand(Players, _dealerButtonPosition));
-                PayBlinds();
-                _handInProgress = true;
-            }
+            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
+            Hand = new Hand(Players, _dealerButtonPosition);
+            PayBlinds();
+            _handInProgress = true;
         }
         private void NewRound() {
             if(!_roundInProgress) {
-                CurrentHand().StartRound();
+                Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
             }
@@ -110,15 +105,12 @@ namespace Poker_Game.Game {
             if(!_roundInProgress && _handInProgress) {
                 NewRound();
             }
-
-            if(!_handInProgress) {
-                RewardWinners(GetWinners(CurrentHand()));
-            }
         }
 
-        private void RewardWinners(List<Player> winners) { 
+        public void RewardWinners() {
+            List<Player> winners = GetWinners(Hand);
             foreach(Player player in winners) {
-                player.Stack += CurrentHand().Pot / winners.Count;
+                player.Stack += Hand.Pot / winners.Count;
             }
         }
 
@@ -148,9 +140,7 @@ namespace Poker_Game.Game {
             WinConditions wc = new WinConditions();
             Player tempPlayer = wc.SameScore(players[0], players[1]);
             if(tempPlayer == null) {
-                List<Player> winners = new List<Player>();
-                winners.Add(players[0]);
-                winners.Add(players[1]);
+                List<Player> winners = new List<Player> {players[0], players[1]};
                 return winners;
             }
             return new List<Player> { tempPlayer };
@@ -174,7 +164,7 @@ namespace Poker_Game.Game {
             if(player.Stack >= amount) {
                 player.CurrentBet += amount;
                 player.Stack -= amount;
-                CurrentHand().Pot += amount;
+                Hand.Pot += amount;
             }
         }
 
@@ -197,7 +187,7 @@ namespace Poker_Game.Game {
         }
 
         private bool IsHandInProgress() {
-            return !Hands[Hands.Count - 1].IsFinished();
+            return !Hand.IsFinished();
         }
 
         public bool CanCheck() {
@@ -212,24 +202,16 @@ namespace Poker_Game.Game {
             return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
         }
 
-        public int CurrentHandNumber() {
-            return Hands.Count;
-        }
-
         public int CurrentRoundNumber() {
-            return Hands[CurrentHandNumber() - 1].CurrentRoundNumber();
+            return Hand.CurrentRoundNumber();
         }
 
         public int CurrentTurnNumber() {
-            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
+            return Hand.Rounds[CurrentRoundNumber() - 1].CurrentTurnNumber();
         }
 
         public Round CurrentRound() {
-            return Hands[CurrentHandNumber() - 1].Rounds[CurrentRoundNumber() - 1];
-        }
-
-        public Hand CurrentHand() {
-            return Hands[CurrentHandNumber() - 1];
+            return Hand.Rounds[CurrentRoundNumber() - 1];
         }
 
         public Player CurrentPlayer() {

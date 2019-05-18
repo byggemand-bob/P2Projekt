@@ -25,7 +25,7 @@ namespace Poker_Game.Game {
                 if(player.Action == PlayerAction.Fold) {
                     return true;
                 }
-                if(UncalledRaise || !(player.Action == PlayerAction.Raise || player.Action == PlayerAction.Call ||
+                if(Turns.Count < 2 || UncalledRaise || !(player.Action == PlayerAction.Raise || player.Action == PlayerAction.Call ||
                      player.Action == PlayerAction.Check)) {
                     return false;
                 }

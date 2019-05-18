@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Poker_Game.Game {
 
     // This function represents each individual round of the game, one for each hand dealt
     public class Hand {
         public int Pot { get; set; }
-        public List<Card> Street { get; }  // optimize
+        public List<Card> Street { get; }  
         public List<Round> Rounds { get; }
         public List<Player> Players { get; }
 
-        private List<Card> _deck;
+        private readonly List<Card> _deck;
 
         // Allocation and initialization for the various elements of a hand
         #region Initialization
@@ -64,7 +63,7 @@ namespace Poker_Game.Game {
         // Function that adds cards to the street in each round
         private void UpdateStreet() {
             switch (Rounds.Count) {
-                case 1: // Flop
+                case 1: // PreFlop
                     break;
                 case 2: // Flop
                     DrawCards(3);
