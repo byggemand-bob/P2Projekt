@@ -5,15 +5,12 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
-        public Node RootNode { get; }
+        private Node RootNode { get; }
         private Node _currentNode;
-        private readonly int _roundNumber;
 
-
-        public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
+        public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
-            _roundNumber = currentRoundNumber;
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
@@ -38,29 +35,25 @@ namespace Poker_Game.AI.GameTree {
 
         public PlayerAction GetBestAction() {
             Node targetNode = FindBestPath(_currentNode);
-            targetNode.Color = Color.Red; // temp
+
             while(!ReferenceEquals(_currentNode, targetNode.Parent)) {
                 targetNode = targetNode.Parent;
             }
-            _currentNode.Color = Color.Blue;
-            targetNode.Color = Color.Green;
 
             _currentNode = targetNode;
             return targetNode.GetAction();
         }
 
         private Node FindBestPath(Node parentNode) {
-            if(parentNode.Children.Count != 0) {
-                Node result = null;
-                for(int i = 0; i < parentNode.Children.Count; i++) {
-                    Node tmp = FindBestPath(parentNode.Children[i]);
-                    if(i == 0 || result.ExpectedValue < tmp.ExpectedValue) {
-                        result = tmp;
-                    } 
-                }
-                return result;
+            if(parentNode.Children.Count == 0) { return parentNode; }
+            Node result = null;
+            for(int i = 0; i < parentNode.Children.Count; i++) {
+                Node tmp = FindBestPath(parentNode.Children[i]);
+                if(i == 0 || result.ExpectedValue < tmp.ExpectedValue) {
+                    result = tmp;
+                } 
             }
-            return parentNode;
+            return result;
         }
 
         public void RegisterOpponentMove(PlayerAction action) {
@@ -73,8 +66,7 @@ namespace Poker_Game.AI.GameTree {
                     return childNode;
                 }
             }
-            new Form1(RootNode, _roundNumber).ShowDialog();
-            throw new Exception("You done fucked up");
+            throw new Exception("Action does not match any possible node.");
         }
     }
 }

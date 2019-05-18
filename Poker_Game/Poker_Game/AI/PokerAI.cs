@@ -14,7 +14,6 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
-        private const bool ShowTree = false;
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;
@@ -92,8 +91,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop() {
-            PlayerAction result = _pokerTree.GetBestAction();
-            if(ShowTree) { new Form1(_pokerTree.RootNode, _pokerGame.CurrentRoundNumber()).ShowDialog(); }
+            PlayerAction result =_pokerTree.GetBestAction();
             return result;
         }
     }

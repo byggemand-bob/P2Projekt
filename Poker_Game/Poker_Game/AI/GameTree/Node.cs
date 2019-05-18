@@ -6,18 +6,16 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     public class Node {
-        public Node Parent { get; set; }
-        public List<Node> Children { get; set; }
-        public double ExpectedValue { get; set; }
-        public string Action { get; set; }
-        public Color Color { get; set; }
+        public Node Parent { get; }
+        public List<Node> Children { get; }
+        public double ExpectedValue { get; }
+        public string Action { get; }
 
         public Node(Node parent, string action) {
             Parent = parent;
             Children = new List<Node>();
             Action = action;
             ExpectedValue = 0;
-            Color = Color.White;
         }
 
         public Node(Node parent, string action, double expectedValue) {
