@@ -1,4 +1,4 @@
-﻿namespace Poker_Game
+﻿namespace Poker_Game.GUI
 {
     partial class QuitConfirmationForm
     {

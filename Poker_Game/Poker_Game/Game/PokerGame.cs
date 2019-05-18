@@ -97,7 +97,7 @@ namespace Poker_Game.Game {
             CurrentRound().NewTurn(Players[CurrentPlayerIndex]);
         }
 
-        public void UpdateState() { // WIP. Split up?
+        public void UpdateState() { 
             _handInProgress = IsHandInProgress();
             _roundInProgress = IsRoundInProgress();
             CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Settings.NumberOfPlayers;
@@ -105,6 +105,16 @@ namespace Poker_Game.Game {
             if(!_roundInProgress && _handInProgress) {
                 NewRound();
             }
+        }
+
+        public bool IsFinished() {
+            foreach(Player player in Players) {
+                if(player.Stack < 1) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void RewardWinners() {

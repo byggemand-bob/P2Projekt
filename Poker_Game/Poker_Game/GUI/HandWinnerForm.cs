@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Poker_Game.Game;
 
-namespace Poker_Game {
+namespace Poker_Game.GUI {
     partial class HandWinnerForm : Form {
         private int _timeLeft = 10;
 

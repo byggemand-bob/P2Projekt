@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Poker_Game.AI;
+﻿using System.Collections.Generic;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI
+namespace Poker_Game.AI.Obsolete
 {
     class CalcProbability
     {

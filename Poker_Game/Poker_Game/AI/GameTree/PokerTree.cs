@@ -8,7 +8,7 @@ namespace Poker_Game.AI.GameTree {
         private Node RootNode { get; }
         private Node _currentNode;
 
-        public PokerTree(List<Card> street, Player player, Settings settings, PlayerAction opponentAction) {
+        public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
         }

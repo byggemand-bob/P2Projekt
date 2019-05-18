@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.GUI;
 
 namespace Poker_Game {
     static class Program {

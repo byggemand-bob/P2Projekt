@@ -76,8 +76,6 @@
     <Compile Include="AI\Opponent\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\Obsolete\CalcProbability.cs" />
-    <Compile Include="AI\Obsolete\Calculator.cs" />
-    <Compile Include="AI\Obsolete\CardOdds.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />

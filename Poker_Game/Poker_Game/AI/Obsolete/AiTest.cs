@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI {
+namespace Poker_Game.AI.Obsolete {
     class AiTest {
 
         static void Main() {

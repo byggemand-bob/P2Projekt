@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI {
+namespace Poker_Game.AI.Obsolete {
     class PotOdds {
         public int Pot { get; set; }
         public List<Turn> Turns { get; set; }

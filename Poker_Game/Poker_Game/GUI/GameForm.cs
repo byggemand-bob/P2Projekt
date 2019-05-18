@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Windows.Forms;
 using Poker_Game.AI;
 using Poker_Game.Game;
 
-namespace Poker_Game {
+// TODO: Can only raise if other player has enough to re-raise.
+
+
+namespace Poker_Game.GUI {
     public partial class GameForm : Form {
         private readonly Settings _settings;
         private readonly PokerGame _game;
@@ -28,7 +30,7 @@ namespace Poker_Game {
             // Creates the game with user settings
             _game = new PokerGame(_settings);
             _game.Players[0].Name = _settings.PlayerName;
-            _game.Players[1].Name = "Deep Peer";
+            _game.Players[1].Name = "Dybe Per";
 
             labelPlayerStack.Text = Convert.ToString(_game.Players[0].Stack); // Why only index 0? 
             labelTablePot.Text = Convert.ToString("Pot:   $" + 0);
@@ -196,7 +198,7 @@ namespace Poker_Game {
         private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
-            labelAIStack.Text = "Deep Peer" + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+            labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
         }
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
@@ -265,6 +267,10 @@ namespace Poker_Game {
         }
 
         private void ButtonFold_Click(object sender, EventArgs e) {
+            if(_game.CanCheck()) {
+                DialogResult answer = MessageBox.Show("You can check. Are you sure you wish to fold?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if(answer == DialogResult.No) { return; }
+            }
             _game.Fold();
             HandUpdate();
         }
@@ -300,9 +306,9 @@ namespace Poker_Game {
 
         private void CheckForPrematureShowdown(List<Player> players) // Calls metods for showdown when a player has $0 in stack and both have same currentBet. 
         {
-            if(CheckPlayerStackForDepletion(players) && (players[0].CurrentBet == players[1].CurrentBet)) {
+            if(CheckPlayerStackForDepletion(players)) {
                 ShowAllCards();
-                EndOfHand();
+                HandUpdate();
             }
         }
 
@@ -387,8 +393,24 @@ namespace Poker_Game {
         // Creates a new hand and calls methods for the new gamestate
         private void CreateNewHand() 
         {
+            if(_game.IsFinished()) {
+                EndGameMessage();
+                new MenuForm().ShowDialog();
+                Close();
+            }
             _game.NewHand();
             ResetCards();
+        }
+
+        private void EndGameMessage() {
+            string message;
+            if(_game.Players[0].Stack < 1) {
+                message = "You lost the game. Shame on you!";
+            } else {
+                message = "You won the game!";
+            }
+
+            MessageBox.Show(message, "Game over", MessageBoxButtons.OK);
         }
 
         #endregion

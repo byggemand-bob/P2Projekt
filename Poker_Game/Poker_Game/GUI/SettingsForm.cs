@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Poker_Game.Game;
 
-namespace Poker_Game {
+namespace Poker_Game.GUI {
     public partial class SettingsForm : Form {
         private const bool Testing = true;
         private bool _nameChanged = false;
@@ -25,7 +25,7 @@ namespace Poker_Game {
             if (Testing || _nameChanged)
             {
                 this.Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1);
+                Settings settings = new Settings(2, /*trackBarPotSize.Value*/ 10, trackBarBlindSize.Value, textboxName.Text, 1);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 this.Close();
