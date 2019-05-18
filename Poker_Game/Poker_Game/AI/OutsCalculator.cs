@@ -34,39 +34,36 @@ namespace Poker_Game.AI {
         private int GetStraightOuts(List<Card> cardHand, List<Card> street) {
             //Checks for cards that are in range of a straight compared to the players hand
 
-            List<Card> straightCards = new List<Card>{cardHand[0], cardHand[1]};
-
+            List<Card> straightCards = new List<Card> {cardHand[0], cardHand[1]};
+            int numberOfOuts = 0;
+            var count = 0;
             int cardRange = GetRankDifference(cardHand);
 
-            if(cardRange < 1 || cardRange > 4){
+            if (cardRange < 1 || cardRange > 4) {
                 return 0;
             }
+
+            List<Card> allStraightCards = street
+                .Where(s => s.Rank >= cardHand[0].Rank - (cardRange - 4) && s.Rank <= cardHand[1].Rank + (4 - cardRange)).ToList();
+            allStraightCards.Add(cardHand[0]);
+            allStraightCards.Add(cardHand[1]);
             
-            int numberOfOuts = 0;
+            if (allStraightCards.Count == 4 ) {
 
-            straightCards.Sort();
+                straightCards.Sort();
 
-            List<Card> lowStraightCards =  (List<Card>) from element in street
-                                            where element.Rank >= cardHand[0].Rank - (cardRange - 4)
-                                            && element.Rank <= cardHand[1].Rank
-                                            select element;
+                for (int i = 0; i < allStraightCards.Count; i++) {
+                    if (allStraightCards[i].Rank == allStraightCards[i + 1].Rank + 1) {
+                        count++;
+                    }
+                }
 
-            List<Card> highStraightCards = (List<Card>) from card in street
-                        where card.Rank >= cardHand[0].Rank
-                        && card.Rank <= cardHand[1].Rank + (4 - cardRange)
-                        select card;
-
-            var isLowOEStraight = findOpenEndedStraight(findMissingCardsForStraight(lowStraightCards, straightCards));
-            var isLowINStraight = findMissingCardsForStraight(lowStraightCards, straightCards).Count;
-            var isHighOEStraight = findOpenEndedStraight(findMissingCardsForStraight(highStraightCards, straightCards));
-            var isHighINStraight = findMissingCardsForStraight(highStraightCards, straightCards).Count;
-
-            if (isLowOEStraight == true || isHighOEStraight == true) {
-                return numberOfOuts = 8;
-            }
-
-            if (isLowINStraight >= 4 || isHighINStraight >= 4) {
-                return numberOfOuts = 4;
+                if (count == 4) {
+                    return numberOfOuts += 8;
+                }
+                
+                return numberOfOuts += 4;
+               
             }
 
             return numberOfOuts += 0;
@@ -82,33 +79,17 @@ namespace Poker_Game.AI {
 
             var MinVal = listOfPossibleStraightCards.Min();
             var MaxVal = listOfPossibleStraightCards.Max();
-
             for (int i = 0; i < (MaxVal.Rank - MinVal.Rank); i++) {
                 allStraightCards.Add(new Card(Suit.Hearts, listOfPossibleStraightCards[0].Rank + i));
             }
 
             List<Card> missingCardsStraight = new List<Card>(allStraightCards.Except(listOfPossibleStraightCards));
-            
+
             return missingCardsStraight;
         }
 
-        private bool findOpenEndedStraight(List<Card> missingCardsStraight) {
-            int count = 0;
-            for (int i = 0; i < missingCardsStraight.Count; i++) {
-                if (missingCardsStraight[i].Rank == missingCardsStraight[i].Rank + 1) {
-                    count++;
-                }
-            }
-
-            if (count >= 4) {
-                return true;
-            }
-
-            return false;
-        }
     
-
-    #endregion
+        #endregion
 
         #region FlushOuts
 
