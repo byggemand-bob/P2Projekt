@@ -25,7 +25,7 @@ namespace Poker_Game.GUI {
             if (Testing || _nameChanged)
             {
                 this.Hide();
-                Settings settings = new Settings(2, /*trackBarPotSize.Value*/ 10, trackBarBlindSize.Value, textboxName.Text, 1);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 this.Close();
