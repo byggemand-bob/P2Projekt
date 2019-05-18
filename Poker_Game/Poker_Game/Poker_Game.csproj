@@ -79,17 +79,10 @@
     <Compile Include="AI\Obsolete\CalcProbability.cs" />
     <Compile Include="AI\Obsolete\Calculator.cs" />
     <Compile Include="AI\Obsolete\CardOdds.cs" />
-    <Compile Include="AI\GameTree\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AI\GameTree\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />
     <Compile Include="AI\GameTree\PokerTree.cs" />
-    <Compile Include="AI\GameTree\TreeTest.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\Obsolete\PotOdds.cs" />
@@ -144,9 +137,6 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
-    <EmbeddedResource Include="AI\GameTree\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="UserTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
