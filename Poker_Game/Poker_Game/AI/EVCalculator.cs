@@ -11,12 +11,38 @@ namespace Poker_Game.AI {
     class EVCalculator {
         private readonly Settings _settings;
         private readonly Player _player;
-
-        public EVCalculator(Player player, Settings settings) {
+        private readonly Hand _hand;
+        public EVCalculator(Player player, Settings settings, Hand hand) {
             _player = player;
             _settings = settings;
+            _hand = hand;
         }
 
+        public double CalculateEv(string path, List<Card> cardHand, List<Card> street, Player player, Hand hand) {
+            PotSizeCalculator potcalc = new PotSizeCalculator(_settings);
+            MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
+
+            List<List<Card>> cardHandForTrials = new List<List<Card>>();
+            cardHandForTrials.Add(cardHand);
+
+            double winOdds = mctr.RunTrails(100000, cardHandForTrials).WinOdds;
+            var lossOdds = mctr.RunTrails(100000, cardHandForTrials).WinOdds;
+            var winPot = hand.Pot;
+            var lossPot = 0;
+
+            if (player.Action == PlayerAction.Raise || player.Action == PlayerAction.Call) {
+                lossPot = 2;
+            }
+
+            else if (player.Action == PlayerAction.Check) {
+                lossPot = 0;
+            }
+
+            return (winOdds / 100) * winPot - (lossOdds / 100) * lossPot;
+        }
+
+
+        /*
         public double CalculateEv(string path, List<Card> cardHand, List<Card> street) {
             OutsCalculator outCalc = new OutsCalculator();
             PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
@@ -40,4 +66,4 @@ namespace Poker_Game.AI {
             return result;
         }
     }
-}
+} */

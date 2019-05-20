@@ -71,7 +71,7 @@ namespace Poker_Game.AI
                     CardsInPlay.Add(NewCard);
                     opponantTrailCards.Add(NewCard);
                 }
-
+                
                 //forced to add to opponent hand
                 //opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
                 //opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
