@@ -13,6 +13,10 @@ namespace Poker_Game.AI.Opponent {
 
         public OpponentData(string playerName) {
             PlayerName = playerName;
+            Wins = 0;
+            Losses = 0;
+            BigBlindHands = new HandData();
+            SmallBlindHands = new HandData();
         }
 
         public override string ToString() {

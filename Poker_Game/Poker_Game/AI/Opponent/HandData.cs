@@ -17,16 +17,10 @@ namespace Poker_Game.AI.Opponent {
             Calls = new int[5];
             Raises = new int[5];
             ReRaises = new int[5];
+            Hands = 0;
         }
 
-        public HandData(int hands, int[] folds, int[] checks, int[] calls, int[] raises, int[] reRaises) {
-            Hands = hands;
-            Folds = folds;
-            Checks = checks;
-            Calls = calls;
-            Raises = raises;
-            ReRaises = reRaises;
-        }
+
 
 
         public override string ToString() {

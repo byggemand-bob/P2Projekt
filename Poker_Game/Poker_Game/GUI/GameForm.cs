@@ -38,7 +38,7 @@ namespace Poker_Game.GUI {
             UpdatePlayerBlindLabels(_game.Players[0]);
 
             //AI
-            _ai = new PokerAI(_game);
+            _ai = new PokerAI(_game, AiMode.ExpectiMax);
 
             MainUpdate();
         }

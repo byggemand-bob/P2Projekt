@@ -5,6 +5,11 @@ using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
+    enum AiMode {
+        MonteCarlo,
+        ExpectiMax
+    }
+
     class PokerAI {
         private readonly Player _player;
         private readonly Settings _settings;
@@ -12,13 +17,15 @@ namespace Poker_Game.AI {
         private readonly PokerGame _pokerGame;
         private readonly DataController _dataController;
         private PokerTree _pokerTree;
+        private AiMode _mode;
 
-        public PokerAI(PokerGame game) {
+        public PokerAI(PokerGame game, AiMode mode) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
             _settings = game.Settings;
             _actions = GetActions(game);
             _dataController = new DataController(game.Settings.PlayerName);
+            _mode = mode;
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -46,7 +53,8 @@ namespace Poker_Game.AI {
         }
 
         public void MakeDecision() {
-            switch(Evaluate()) {
+            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo() : ExpectiMax();
+            switch(action) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -62,7 +70,11 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction Evaluate() {
+        private PlayerAction MonteCarlo() {
+            throw new NotImplementedException();
+        }
+
+        private PlayerAction ExpectiMax() {
             if(_pokerGame.Hand.CurrentRoundNumber() == 1) {
                 return Preflop();
             } else {
