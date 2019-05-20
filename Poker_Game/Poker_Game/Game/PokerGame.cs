@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Poker_Game.Game {
     public class PokerGame {
@@ -119,6 +118,9 @@ namespace Poker_Game.Game {
 
         public void RewardWinners() {
             List<Player> winners = GetWinners(Hand);
+            if(winners.Count == 1) {
+                Hand.Winner = winners[0];
+            }
             foreach(Player player in winners) {
                 player.Stack += Hand.Pot / winners.Count;
             }

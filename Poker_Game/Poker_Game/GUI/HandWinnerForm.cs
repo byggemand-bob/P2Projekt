@@ -5,11 +5,11 @@ namespace Poker_Game.GUI {
     partial class HandWinnerForm : Form {
         private int _timeLeft = 10;
 
-        public HandWinnerForm(bool gameFinished, string winners, int potSizeWon, string score, bool timerEnabled) {
+        public HandWinnerForm(string winners, int potSizeWon, string score, bool timerEnabled) {
             InitializeComponent();
             Icon = Properties.Resources.coins;
 
-            labelMessage.Text = GenerateMessage(gameFinished, winners, potSizeWon, score);
+            labelMessage.Text = GenerateMessage(winners, potSizeWon, score);
             if(timerEnabled) {
                 timer1.Enabled = true;
                 buttonContinue.Text = "Continue .. " + _timeLeft;
@@ -18,12 +18,8 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private string GenerateMessage(bool gameFinished, string winners, int moneyWon, string score) {
-            if (gameFinished) {
-                return "Congratulations " + winners + "." +
-                    Environment.NewLine + "You have won the game with a " + score;
-            }
-            if (score.CompareTo("None") == 0)  {
+        private string GenerateMessage(string winners, int moneyWon, string score) {
+            if (score.Equals("None"))  {
                 return winners + " won, because their opponent folded." +
                        Environment.NewLine + winners + " gained $" + moneyWon;
             }
@@ -32,11 +28,9 @@ namespace Poker_Game.GUI {
                     Environment.NewLine + "a " + score + ". " + winners + " gained $" + moneyWon;
             }
 
-            // 
             string[] winnersArray = winners.Split('&');
             return winnersArray[0] + "and" + winnersArray[1] + " tied with" + Environment.NewLine +
                    "a " + score + ". They split $" + moneyWon;
-
         }
 
         private void ButtonContinue_Click(object sender, EventArgs e) {

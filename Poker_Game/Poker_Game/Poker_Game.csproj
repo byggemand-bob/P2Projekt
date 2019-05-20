@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AI\Obsolete\AiTest.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
+    <Compile Include="AI\Opponent\DataController.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />
     <Compile Include="AI\Opponent\OpponentData.cs" />
@@ -111,12 +112,6 @@
     <Compile Include="GUI\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\QuitConfirmationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\QuitConfirmationForm.Designer.cs">
-      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,9 +142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\QuitConfirmationForm.resx">
-      <DependentUpon>QuitConfirmationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

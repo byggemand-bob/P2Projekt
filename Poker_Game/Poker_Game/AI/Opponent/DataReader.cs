@@ -23,18 +23,19 @@ namespace Poker_Game.AI.Opponent {
 
         public OpponentData ReadData() {
             StreamReader sr = new StreamReader(_filePath);
-            return new OpponentData {
-                PlayerName = _playerName,
-                Wins = int.Parse(sr.ReadLine()),
-                Losses = int.Parse(sr.ReadLine()),
+            OpponentData result =  new OpponentData(_playerName) {
+                Wins = int.Parse(sr.ReadLine() ?? throw new Exception("A problem occured while reading from datafile.")),
+                Losses = int.Parse(sr.ReadLine() ?? throw new Exception("A problem occured while reading from datafile.")),
                 BigBlindHands = GetHandData(sr),
                 SmallBlindHands = GetHandData(sr)
             };
+            sr.Close();
+            return result;
         }
 
         private HandData GetHandData(StreamReader sr) {
             return new HandData {
-                Hands = int.Parse(sr.ReadLine()),
+                Hands = int.Parse(sr.ReadLine() ?? throw new Exception("A problem occured while reading from datafile.")),
                 Folds = ParseToArray(sr.ReadLine()),
                 Checks = ParseToArray(sr.ReadLine()),
                 Calls = ParseToArray(sr.ReadLine()),

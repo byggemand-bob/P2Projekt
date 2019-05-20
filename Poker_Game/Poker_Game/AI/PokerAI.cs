@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
-using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
@@ -12,17 +9,16 @@ namespace Poker_Game.AI {
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
-        private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
+        private readonly DataController _dataController;
         private PokerTree _pokerTree;
-        private HandData
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
             _settings = game.Settings;
             _actions = GetActions(game);
-            _vpipController = new VPIPController(_settings.PlayerName);
+            _dataController = new DataController(game.Settings.PlayerName);
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -37,7 +33,7 @@ namespace Poker_Game.AI {
 
         // Called at the start of a new hand
         public void PrepareNewHand() {
-            _vpipController.UpdateStats(_pokerGame.Hand.Rounds[0].Turns);
+            _dataController.UpdateData(_pokerGame.Hand);
             _pokerTree = null;
         }
 
@@ -46,7 +42,7 @@ namespace Poker_Game.AI {
         }
 
         public void SaveData() {
-            _vpipController.SaveData();
+            _dataController.SaveData();
         }
 
         public void MakeDecision() {

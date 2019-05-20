@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Poker_Game;
 
 namespace Poker_Game.Game {
     public enum Suit { Clubs, Diamonds, Hearts, Spades };

@@ -13,7 +13,7 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
-        int NUMOFTHREADS = System.Environment.ProcessorCount;
+        int NUMOFTHREADS = Environment.ProcessorCount;
         const int TotalNumberOfTrails = 250000;
         
         public struct Odds
