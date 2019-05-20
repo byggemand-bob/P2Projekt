@@ -25,7 +25,7 @@ namespace Poker_Game.AI.Opponent {
             double EvOpponentCards = 0;
 
             foreach (var element in playerOutsRange) {
-
+                
                 EvOpponentCards = ev.CalculateEv(path, element, street);
                 if (EvOpponentCards >= 2) {
                     cardsHeRaises.Add(element);
