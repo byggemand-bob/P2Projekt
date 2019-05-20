@@ -19,7 +19,7 @@ namespace Poker_Game.AI {
             _hand = hand;
         }
 
-        public double CalculateEv(string path, List<Card> cardHand, List<Card> street, Player player, Hand hand) {
+        public double CalculateEv(List<Card> cardHand, Player player, Hand hand) {
             PotSizeCalculator potcalc = new PotSizeCalculator(_settings);
             MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
 
