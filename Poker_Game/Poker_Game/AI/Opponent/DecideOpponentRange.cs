@@ -17,8 +17,7 @@ namespace Poker_Game.AI.Opponent {
         List<List<Card>> cardsHeCalls = new List<List<Card>>();
         List<List<Card>> cardsHeFolds = new List<List<Card>>();
         List<List<List<Card>>> OpponentReactionToHand = new List<List<List<Card>>>();
-
-
+        
         public List<List<List<Card>>> splitRanges(string path, List<List<Card>> playerOutsRange, List<Card> street) {
 
             EVCalculator ev = new EVCalculator(Player, Settings);

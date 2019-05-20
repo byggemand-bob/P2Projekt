@@ -70,7 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Obsolete\AiTest.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
@@ -78,14 +77,12 @@
     <Compile Include="AI\Opponent\OpponentData.cs" />
     <Compile Include="AI\Opponent\VPIP\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
-    <Compile Include="AI\Obsolete\CalcProbability.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />
     <Compile Include="AI\GameTree\PokerTree.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
-    <Compile Include="AI\Obsolete\PotOdds.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />
     <Compile Include="AI\Opponent\VPIP\RangeParser.cs" />
     <Compile Include="AI\Opponent\DataReader.cs" />
