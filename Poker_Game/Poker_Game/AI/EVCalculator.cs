@@ -20,7 +20,6 @@ namespace Poker_Game.AI {
         }
 
         public double CalculateEv(List<Card> cardHand, Player player, Hand hand) {
-            PotSizeCalculator potcalc = new PotSizeCalculator(_settings);
             MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
 
             List<List<Card>> cardHandForTrials = new List<List<Card>>();
