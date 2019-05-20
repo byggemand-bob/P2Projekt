@@ -8,30 +8,92 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI {
     public class OutsCalculator {
-        public int CompareOuts(List<Card> cardHand, List<Card> street) {
-            if (HasFlushChance(cardHand) && HasStraightChance(cardHand)) {
-                return GetFlushOuts(cardHand, street) + GetStraightOuts(cardHand, street);
+        public int CompareOuts(List<Card> street, List<Card> cardHand /* params missing*/) {
+
+            //Flush hands
+
+            var cardDiff = GetRankDifference(cardHand);
+
+            if (HasFlushChance(cardHand)) {
+                if (OpenStraightAndFlushDraw(street, cardHand)) {
+                    return 15;
+                }
+
+                else if (InsideStraightAndFlushDraw(street, cardHand)) {
+                    return 12;
+                }
+
+                else if (IsPocketFlushDraw(cardHand, street)) {
+                    return 9;
+                }
+            }
+            else if (IsTableFlushDraw(cardHand, street)) {
+                return 9;
             }
 
-            if (HasFlushChance(cardHand) && HasStraightChance(cardHand) == false) {
-                return GetFlushOuts(cardHand, street);
+            //Straight hands
+
+            else if (cardDiff >= 1 && cardDiff <= 4)
+            {
+                if (IsOpenEndedStraightDraw(street, cardHand))
+                {
+                    return 8;
+                }
+
+                else if (InsideStraightAndTwoOverCards(street, cardHand)) {
+                    return 10;
+                }
+
+                else if (IsInsideStraightDraw(street, cardHand)) {
+                    return 4;
+                }
             }
 
-            if (HasFlushChance(cardHand) == false && HasStraightChance(cardHand)) {
-                return GetStraightOuts(cardHand, street);
-            }
+            //Multiple
 
-            if (HasPair(cardHand) && !HasFlushChance(cardHand)) {
-                return GetPairOuts(cardHand, street);
+            else if (cardDiff == 0) {
+
+                if (ThreeOAKToFullHouseOr4OAK(cardHand)) {
+                    return 7;
+                }
+
+                if (PocketPairToSet(cardHand)) {
+                    return 2;
+                }
+
+                else if (OnePairToTwoPair(street, cardHand)) {
+                    return 5;
+                }
+
+                if (OneOverCard(cardHand, street)) {
+                    return 3;
+                }
+
+                if (TwoOverCardsToOverPair(street, cardHand)) {
+                    return 6;
+                }
+
+                if (TwoPairToFullHouse(street, cardHand)) {
+                    return 4;
+                }
+
+                if (OnePairToSet(street, cardHand)) {
+                    return 5;
+                }
+
+                if (NoPairToPair(street, cardHand)) {
+                    return 6;
+                }
             }
-            //TODO We need to add more conditions 
 
             return 0;
+            
+
         }
 
         #region StraightOuts
 
-        private int GetStraightOuts(List<Card> cardHand, List<Card> street) {
+        public int GetStraightOuts(List<Card> cardHand, List<Card> street) {
             //Checks for cards that are in range of a straight compared to the players hand
 
             List<Card> straightCards = new List<Card> {cardHand[0], cardHand[1]};
@@ -39,7 +101,7 @@ namespace Poker_Game.AI {
             var count = 0;
             int cardRange = GetRankDifference(cardHand);
 
-            if (cardRange < 1 || cardRange > 4) {
+            if(cardRange < 1 || cardRange > 4) {
                 return 0;
             }
 
@@ -102,73 +164,224 @@ namespace Poker_Game.AI {
         }
 
         #endregion
+        
+        #region MultipleCardOuts
 
-        #region PairOuts
-        private int GetPairOuts(List<Card> cardHand, List<Card> street) {
-            int countOfAKind = 0, equalsInStreet = 0, multiplePairCount = 0;
-            List<Card> equalsToCardInHand = new List<Card>();
-            List<Card> equalCardsOnTable = new List<Card>();
-            List<Card> pairCards = new List<Card>();
+        private int FindStreetCardsEqualToCardHand(List<Card> cardHand, List<Card> street) {
+            
+            List<Card> StreetCardsEqualToHand = new List<Card>();
+           // Tjekker om kort på streeten er magen til dem spilleren har på hånden
 
-            foreach(var element in street) {
-                if(element.Rank == cardHand[0].Rank) {
-                    countOfAKind++;
-                    equalsToCardInHand.Add(element);
-                }
+            foreach (var element in street) {
+               if (element.Rank.Equals(cardHand[0].Rank)) {
+                   StreetCardsEqualToHand.Add(element);
+               }
             }
+            return StreetCardsEqualToHand.Count;
+        }
 
-            // Skal kunne tage forbehold for flere forskellige par på streeten
+        private int FindMultipleCardsOnStreet(List<Card> cardHand, List<Card> street) {
+            // Tjekker om kortene på streeten er ens
+            List<Card> MultipleCardsOnStreet = new List<Card>();
+            WinConditions wc = new WinConditions();
 
-            for(int i = 0; i < street.Count; i++) {
-                for(int j = 0; j < street.Count; j++) {
-                    if(street[i].Rank == street[j].Rank) {
-                        equalCardsOnTable.Add(street[i]);
+            for (int i = 0; i < street.Count; i++) {
+                for (int j = 0; j < street.Count; j++) {
+                    if (street[i].Rank == street[j].Rank) {
+                        MultipleCardsOnStreet.Add(street[j]);
                     }
                 }
             }
+            return wc.RemoveDublicateRank(MultipleCardsOnStreet, 0).Count;
+        }
 
-            pairCards.AddRange(equalsToCardInHand);
-            pairCards.AddRange(equalCardsOnTable);
+        private bool OpenStraightAndFlushDraw(List<Card> cardHand, List<Card> street)
+        {
+            if (GetFlushOuts(cardHand, street) == 8 && IsOpenEndedStraightDraw(street, cardHand)){
+                return true;
+            }
 
-            //Tjekker om kortene er ens
-            for(int k = 0; k < pairCards.Count; k++) {
-                for(int l = 1; l < pairCards.Count; l++) {
-                    if(pairCards[k].Rank != pairCards[l].Rank) {
-                        multiplePairCount++;
+            return false;
+        }
+
+        private bool IsPocketFlushDraw(List<Card> cardHand, List<Card> street) {
+            var count = 0;
+            if (HasFlushChance(cardHand) && !IsOpenEndedStraightDraw(street, cardHand) && !IsInsideStraightDraw(street, cardHand)) {
+                foreach (var element in street) {
+                    if (element.Suit == cardHand[0].Suit) {
+                        count++;
                     }
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsTableFlushDraw(List<Card> cardHand, List<Card> street) {
+            int countFirst = 0, countSecond = 0;
+                if(!HasFlushChance(cardHand))
+                {
+                    foreach (var element in street) {
+                        if (element.Suit == cardHand[0].Suit) {
+                            countFirst++;
+                        }
+                        else if (element.Suit == cardHand[1].Suit) {
+                            countSecond++;
+                        }
+                    }
+
+                    if (countFirst == 4 || countSecond == 4) {
+                        return true;
+                    }
+                }
+
+                return false;
+        }
+
+        private bool InsideStraightAndFlushDraw(List<Card> cardHand, List<Card> street)
+        {
+            if (GetFlushOuts(cardHand, street) == 4 && GetFlushOuts(cardHand, street) >= 4)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool InsideStraightAndTwoOverCards(List<Card> cardHand, List<Card> street)
+        {
+            if (GetFlushOuts(cardHand, street) == 8 && TwoOverCardsToOverPair(street, cardHand))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsOpenEndedStraightDraw(List<Card> street, List<Card> cardHand)
+        { // Outs 8
+            if (GetStraightOuts(street, cardHand) == 8)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsInsideStraightDraw(List<Card> street, List<Card> cardHand) {
+            if (GetStraightOuts(street, cardHand) == 4)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ThreeOAKToFullHouseOr4OAK(List<Card> cardHand)
+        { // Outs 7
+            WinConditions wc = new WinConditions();
+
+            if (wc.HasThreeOfAKind(cardHand))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TwoPairToFullHouse(List<Card> street, List<Card> cardHand)
+        {
+
+            var Multiples = FindMultipleCardsOnStreet(cardHand, street);
+
+            if (FindStreetCardsEqualToCardHand(cardHand, street) == 1 && Multiples == 1)
+            { // 4 outs
+                return true;
+            }
+
+            if (HasPair(cardHand) && Multiples == 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TwoOverCardsToOverPair(List<Card> street, List<Card> cardHand)
+        { // Outs 6
+            var count = 0;
+            for (int i = 0; i < street.Count; i++) {
+                if (street[i].Rank < cardHand[0].Rank && street[i].Rank < cardHand[1].Rank) {
+                    count++;
                 }
             }
 
+            if (count == street.Count) {
+                    return true;
+                }
+                return false;
+            }
 
-            if(countOfAKind == 0 && equalsInStreet == 0) {
-                // 1 par - hvor mange odds har man her? Vel ligeså meget de 3 kort på floppet, da hver kan rammes 2x mere for et fuldt hus? Men måske det er for langt at se frem?
-                return 2;
-            } if(countOfAKind == 1 && equalsInStreet == 0) {
-                // Tre ens
-                return 7;
-            } if(countOfAKind == 0 && equalsInStreet == 1) {
-                // To par
-                return 4;
-            } if(countOfAKind == 1 && equalsInStreet == 1) {
-                // Full house
+        private bool PocketPairToSet(List<Card> cardHand)
+        { // 2 outs
+            if (HasPair(cardHand))
+            {
+                return true;
+            }
 
-            } else if(countOfAKind == 2 && equalsInStreet == 1) {
-                // Fire ens
-                // Fuld ild!!
-            } else if(countOfAKind == 1 && equalsInStreet > 2) {
-                // 3 ens, 2 par på streeten
-                // Call / Raise
-            } else if(countOfAKind == 0 && equalsInStreet == 3 && multiplePairCount > 1) {
-                foreach(var element in equalCardsOnTable) {
-                    if(cardHand[0].Rank < element.Rank) {
-                        //Pairs on table are higher than hours, so we can only get split pot, or loose to a better pair
-                        // Check / Fold
+            return false;
+
+        }
+
+        private bool OnePairToSet(List<Card> street, List<Card> cardHand){ // 5 outs
+
+            if (!HasPair(cardHand) && FindStreetCardsEqualToCardHand(cardHand, street) == 1) {
+                return true;
+            }
+            return false;
+        }
+
+        private bool OnePairToTwoPair(List<Card> street, List<Card> cardHand)
+        { // 5 outs
+
+            var Multiples = FindMultipleCardsOnStreet(cardHand, street);
+            if (HasPair(cardHand) && Multiples == 0)
+            {
+                return true;
+            }
+
+            if (!HasPair(cardHand) && Multiples == 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool OneOverCard(List<Card> street, List<Card> cardHand) { // 3 outs
+            
+            if (!HasPair(cardHand)) {
+                foreach (var element in street) {
+                    if (cardHand[0].Rank > element.Rank && cardHand[1].Rank > element.Rank) {
+                        return true;
+                    }
+
+                    if (cardHand[0].Rank < element.Rank && cardHand[1].Rank > element.Rank) {
+                        return true;
                     }
                 }
             }
+            return false;
+        }
 
-            return 0;
-        }   
+        private bool NoPairToPair(List<Card> street, List<Card> cardHand) { // Outs 6
+            if (!HasPair(cardHand)) {
+                return true;
+            }
+
+            return false;
+        }
 
         #endregion
 
@@ -182,7 +395,7 @@ namespace Poker_Game.AI {
         }
 
         private bool HasStraightChance(List<Card> cardHand) {
-            return Math.Abs(cardHand[1].Rank - cardHand[0].Rank) <= 3;
+            return Math.Abs(cardHand[1].Rank - cardHand[0].Rank) <= 4;
         }
 
         private bool HasPair(List<Card> cardHand) {
