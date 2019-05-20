@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
+using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
@@ -14,6 +15,7 @@ namespace Poker_Game.AI {
         private readonly VPIPController _vpipController;
         private readonly PokerGame _pokerGame;
         private PokerTree _pokerTree;
+        private HandData
 
         public PokerAI(PokerGame game) {
             _pokerGame = game;

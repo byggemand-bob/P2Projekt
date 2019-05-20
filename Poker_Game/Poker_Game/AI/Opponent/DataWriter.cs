@@ -1,16 +1,19 @@
 ﻿using System.IO;
+using System.Text;
 
 namespace Poker_Game.AI.Opponent {
-    class VPIPWriter {
+    class DataWriter {
+        private const string FolderName = "\\PlayerData\\";
+        private const string FileExtension = ".dat";
         private readonly string _filePath;
         
-        public VPIPWriter(string playerName) {
+        public DataWriter(string playerName) {
             _filePath = CreateFilePath(playerName);
-            EnsureDirectoryExists(System.Windows.Forms.Application.StartupPath + "\\VPIPData\\");
+            EnsureDirectoryExists(System.Windows.Forms.Application.StartupPath + FolderName);
         }
 
         private string CreateFilePath(string playerName) {
-            return System.Windows.Forms.Application.StartupPath + "\\VPIPData\\" + playerName + ".vpip";
+            return System.Windows.Forms.Application.StartupPath + FolderName + playerName + FileExtension;
         }
 
 
@@ -21,17 +24,11 @@ namespace Poker_Game.AI.Opponent {
             }
         }
 
-        public void WriteData(VPIPData data) {
+        public void WriteData(OpponentData data) {
             StreamWriter sw = new StreamWriter(_filePath);
-            sw.WriteLine(data.PlayerName);
-            sw.WriteLine(data.NumberCalls);
-            sw.WriteLine(data.NumberOfHands);
-            sw.WriteLine(data.NumberRaises);
+            sw.Write(data.ToString());
             sw.Close();
         }
-
-
-
 
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Opponent {
+namespace Poker_Game.AI.Opponent.VPIP {
     class VPIPController {
         public double PFR { get; private set; }
         private VPIPData _playerData;
@@ -24,7 +24,7 @@ namespace Poker_Game.AI.Opponent {
         }
 
         private void GetOpponent(string playerName) {
-            VPIPReader reader = new VPIPReader(playerName);
+            DataReader reader = new DataReader(playerName);
             if(reader.HasExistingData()) {
                 ExistingOpponent(reader);
             } else {
@@ -32,7 +32,7 @@ namespace Poker_Game.AI.Opponent {
             }
         }
 
-        private void ExistingOpponent(VPIPReader reader) {
+        private void ExistingOpponent(DataReader reader) {
             _playerData = reader.ReadData();
             _vpip = CalculateVPIP(_playerData.NumberOfHands, _playerData.NumberCalls, _playerData.NumberRaises);
             PFR = CalculatePFR(_playerData.NumberOfHands, _playerData.NumberRaises);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Opponent {
+namespace Poker_Game.AI.Opponent.VPIP {
     class RangeParser {
 
         private readonly List<Suit> _suits = new List<Suit> {

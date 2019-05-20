@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Poker_Game.AI.Opponent;
+using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.Obsolete {
