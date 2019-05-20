@@ -15,7 +15,7 @@ namespace Poker_Game.GUI {
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAI _ai;
-        private int _prevRound = 0;
+        private int _prevRound;
 
 
         #region Initialization
@@ -44,15 +44,15 @@ namespace Poker_Game.GUI {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            this.MaximumSize = new Size(1000, 700);
-            this.MinimumSize = new Size(1000, 700);
+            MaximumSize = new Size(1000, 700);
+            MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
             Icon = Properties.Resources.coins;
 
             //Load background picture
-            this.BackgroundImage = Properties.Resources.PokerBord;
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            BackgroundImage = Properties.Resources.PokerBord;
+            BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void CreateButtonList() // Adds all action-buttons to ButtonsList
@@ -195,10 +195,10 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
+        private void UpdatePlayerStack(Player player, Player ai) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
-            labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+            labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + ai.Stack;
         }
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
@@ -245,10 +245,11 @@ namespace Poker_Game.GUI {
 
         #region ButtonEvents
 
-        private void ButtonQuitToMenu_Click(object sender, EventArgs e) // Exits gameForm
-        {
-            QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
-            formConfirmationQuit.ShowDialog();
+        private void ButtonQuitToMenu_Click(object sender, EventArgs e) {
+            DialogResult answer = MessageBox.Show(@"A game is still in progress. Are you sure you want to exit?", @"Exit game", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if(answer == DialogResult.Yes) {
+                Close();
+            }
         }
 
         private void ButtonCall_Click(object sender, EventArgs e) {
@@ -339,7 +340,7 @@ namespace Poker_Game.GUI {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }

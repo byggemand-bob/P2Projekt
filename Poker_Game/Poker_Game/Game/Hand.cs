@@ -9,6 +9,8 @@ namespace Poker_Game.Game {
         public List<Card> Street { get; }  
         public List<Round> Rounds { get; }
         public List<Player> Players { get; }
+        public Player Winner { get; set; }
+
 
         private readonly List<Card> _deck;
 

@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Text;
+﻿using System;
+using System.IO;
 
 namespace Poker_Game.AI.Opponent {
     class DataWriter {
@@ -20,7 +20,7 @@ namespace Poker_Game.AI.Opponent {
         private void EnsureDirectoryExists(string folderPath) {
             FileInfo fileInfo = new FileInfo(folderPath);
             if(fileInfo.Directory != null && !fileInfo.Directory.Exists) {
-                System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
+                Directory.CreateDirectory(fileInfo.DirectoryName ?? throw new Exception("A problem occured while creating directory."));
             }
         }
 

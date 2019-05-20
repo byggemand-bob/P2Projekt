@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Poker_Game.Game;
+﻿using System.Text;
 
 namespace Poker_Game.AI.Opponent {
     class OpponentData {
@@ -11,21 +6,13 @@ namespace Poker_Game.AI.Opponent {
         public int Wins { get; set; }
         public int Losses { get; set; }
         public int Hands {
-            get { return Losses + Wins; }
+            get { return BigBlindHands.Hands + SmallBlindHands.Hands; }
         }
         public HandData BigBlindHands { get; set; }
         public HandData SmallBlindHands { get; set; }
 
-        public OpponentData() {
-            
-        }
-
-        public OpponentData(string playerName, int wins, int losses, HandData bigBlindHands, HandData smallBlindHands) {
+        public OpponentData(string playerName) {
             PlayerName = playerName;
-            Wins = wins;
-            Losses = losses;
-            BigBlindHands = bigBlindHands;
-            SmallBlindHands = smallBlindHands;
         }
 
         public override string ToString() {

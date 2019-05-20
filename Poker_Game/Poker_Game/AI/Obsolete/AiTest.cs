@@ -20,7 +20,8 @@ namespace Poker_Game.AI.Obsolete {
         }
 
         static void TestRangeCount() {
-            VPIPController rf = new VPIPController(@"Person");
+            OpponentData data = new OpponentData(@"Person");
+            VPIPController rf = new VPIPController(data);
             RangeParser rp = new RangeParser();
             List<List<Card>> result = rp.Parse(new List<string>() { "22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T2s+", "92s+", "83s+", "73s+", "63s+", "52s+", "43s", "A2o+", "K2o+", "Q2o+", "J4o+", "T6o+", "96o+", " 86o+", "75o+", "65o" });
             //List<List<Card>> result = rp.Parse(rf.GetRange());

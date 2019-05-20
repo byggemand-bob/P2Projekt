@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     public class PathGenerator {
@@ -59,21 +58,13 @@ namespace Poker_Game.AI.GameTree {
                         .Append("\n");
                 }
             }
-
-            string[] output = _allActions.ToString().Split('\n');
-
-            //foreach(string line in output) {
-            //    Console.WriteLine(line);
-            //}
-
-            //Console.WriteLine("\n" + output.Length);
-
+            
             return Convert.ToString(_allActions);
         }
 
 
-        public string[] GeneratePaths(int CurrentRoundNumber) {
-            string[] temp = MakePath(CurrentRoundNumber).Split('\n');
+        public string[] GeneratePaths(int currentRoundNumber) {
+            string[] temp = MakePath(currentRoundNumber).Split('\n');
             string[] result = new string[temp.Length - 1];
             Array.Copy(temp, result, temp.Length - 1);
             return result;

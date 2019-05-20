@@ -282,7 +282,6 @@ namespace Poker_Game.GUI
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.Text = "Settings";
-            this.Load += new System.EventHandler(this.SettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).EndInit();
