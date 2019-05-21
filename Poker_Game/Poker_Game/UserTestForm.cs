@@ -18,7 +18,7 @@ namespace Poker_Game
         List<Card> Player1Cards = new List<Card>(), Player2Cards = new List<Card>(), Street = new List<Card>(), CardsInPlay = new List<Card>();
         Card NewCard;
         int UserResult, AiResult, testNumber = 8;
-        bool RandomPlayerCards = false, GenerateTests = true;
+        bool RandomPlayerCards = true, GenerateTests = true;
         List<string> PrintFile = new List<string>();
 
         public UserTestForm()
@@ -33,7 +33,16 @@ namespace Poker_Game
             {
                 SaveTestsButton.Visible = false;
             }
-            
+
+            if (!RandomPlayerCards)
+            {
+                RandomOrStaticButton.Text = "Switch to Random cards";
+            }
+            else
+            { 
+                RandomOrStaticButton.Text = "Switch to Static cards";
+            }
+
             NewCards();
         }
 
