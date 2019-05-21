@@ -21,6 +21,22 @@ namespace Poker_Game
         bool RandomPlayerCards = false, GenerateTests = true;
         List<string> PrintFile = new List<string>();
 
+        public UserTestForm()
+        {
+            InitializeComponent();
+
+            if (GenerateTests)
+            {
+                SaveTestsButton.Visible = true;
+            }
+            else
+            {
+                SaveTestsButton.Visible = false;
+            }
+            
+            NewCards();
+        }
+
         private void Player2GuessButton_Click(object sender, EventArgs e)
         {
             UserResult = 1;
@@ -128,13 +144,6 @@ namespace Poker_Game
                     AiPlayer2GuessLabel.Visible = true;
                 }
             }
-        }
-
-        public UserTestForm()
-        {
-            InitializeComponent();
-
-            NewCards();
         }
 
         private void NewCards()
