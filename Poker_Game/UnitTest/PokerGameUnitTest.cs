@@ -73,7 +73,7 @@ namespace UnitTest
             // Round 2
             Game.Fold();
 
-            var expected = Game.Players[1].Id;
+            var expected = Game.Players[0].Id;
 
             // Act
             var actual = Game.GetWinners(Game.Hand);

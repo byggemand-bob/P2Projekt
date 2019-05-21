@@ -546,9 +546,11 @@ namespace UnitTest
             // Arrange
             Player player1 = new Player(1, 100);
             Player player2 = new Player(2, 100);
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
+            List<Player> players = new List<Player>
+            {
+                player1,
+                player2
+            };
             Hand hand = new Hand(players);
 
             Card tableCard1 = new Card(Suit.Spades, Rank.Ace);
@@ -557,7 +559,7 @@ namespace UnitTest
             Card tableCard4 = new Card(Suit.Hearts, (Rank)6);
             Card tableCard5 = new Card(Suit.Hearts, (Rank)4);
 
-            player1.Cards.Add(new Card(Suit.Diamonds, (Rank)4)); 
+            player1.Cards.Add(new Card(Suit.Diamonds, (Rank)7)); 
             player1.Cards.Add(new Card(Suit.Spades, Rank.Jack));
             player1.Cards.Add(tableCard1);
             player1.Cards.Add(tableCard2);
