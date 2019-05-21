@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
@@ -19,8 +20,8 @@ namespace Poker_Game.AI {
         private PokerTree _pokerTree;
         private AiMode _mode;
 
-        private const double CheckAfter = 0;
-        private const double RaiseAfter = 1;
+        private const double CallModifier = 0.30; 
+        private const double RaiseModifier = 0.50;
 
         public PokerAI(PokerGame game, AiMode mode) {
             _pokerGame = game;
@@ -74,26 +75,50 @@ namespace Poker_Game.AI {
                     break;
             }
         }
+        private PlayerAction MonteCarlo1() {
+            EVCalculator evCalculator = new EVCalculator(_settings);
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+
+
+            if(value - _player.CurrentBet > _player.CurrentBet * 0.5) {
+                if(_pokerGame.CanRaise()) {
+                    return PlayerAction.Raise;
+                }
+
+            }
+
+            if(value - _player.CurrentBet > 0) {
+                if(_pokerGame.CanCheck()) {
+                    return PlayerAction.Check;
+                }
+
+                return PlayerAction.Call;
+            }
+
+            return PlayerAction.Fold;
+        }
 
         private PlayerAction MonteCarlo() {
             EVCalculator evCalculator = new EVCalculator(_settings);
             double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
 
-            if(value <= CheckAfter) {
-                return PlayerAction.Fold;
-            }
-
-            if(value > RaiseAfter) {
+            if(value >= _pokerGame.Hand.Pot * RaiseModifier) {
                 if(_pokerGame.CanRaise()) {
                     return PlayerAction.Raise;
-                } 
+                }
+                
             }
 
-            if(_pokerGame.CanCheck()) {
-                return PlayerAction.Check;
-            }
+            if(value >= _pokerGame.Hand.Pot * CallModifier) {
+                if(_pokerGame.CanCheck()) {
+                    return PlayerAction.Check;
+                }
 
-            return PlayerAction.Call;
+                return PlayerAction.Call;
+            }
+            
+            return PlayerAction.Fold;
         }
 
         private PlayerAction ExpectiMax() {
