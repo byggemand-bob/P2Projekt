@@ -101,7 +101,7 @@ namespace Poker_Game.AI {
         private PlayerAction MonteCarlo() {
             EVCalculator evCalculator = new EVCalculator(_settings);
             double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
-            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
+            //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
 
             if(value >= _pokerGame.Hand.Pot * RaiseModifier) {
                 if(_pokerGame.CanRaise()) {
