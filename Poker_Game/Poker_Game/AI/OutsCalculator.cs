@@ -49,7 +49,7 @@ namespace Poker_Game.AI
                     return 8;
                 }
 
-                if (InsideStraightAndTwoOverCards(street, cardHand))
+                if (InsideStraightAndTwoOverCards(cardHand, street))
                 {
                     return 10;
                 }

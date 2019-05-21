@@ -134,16 +134,20 @@ namespace Poker_Game.AI {
             cardsToEvaluate.AddRange(_street);
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
-            var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop);
+            var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop).ToList();
             var cardHand = _player.Cards;
 
             if (_round.CurrentTurnNumber() == 0) {
-                if (handsToRaisePreflop.Contains(cardHand)) {
+                if (ContainsCardHand(handsToRaisePreflop, cardHand) && _pokerGame.CanRaise()) {
                     return PlayerAction.Raise;
                 }
 
-                if (handsToCallPreflop.Contains(cardHand)) {
+                if (ContainsCardHand(handsToCallPreflop, cardHand) && _pokerGame.CanCall()) {
                     return PlayerAction.Call;
+                }
+
+                if(_pokerGame.CanCheck()) {
+                    return PlayerAction.Check;
                 }
 
                 return PlayerAction.Fold;
@@ -207,6 +211,16 @@ namespace Poker_Game.AI {
             }
 
             return PlayerAction.Fold;
+        }
+
+        private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
+            foreach(var element in range) {
+                if(element[0].Equals(cardHand[0]) && element[1].Equals(cardHand[1])) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
