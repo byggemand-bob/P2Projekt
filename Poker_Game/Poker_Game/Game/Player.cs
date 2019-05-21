@@ -24,7 +24,7 @@ namespace Poker_Game.Game {
         public PlayerAction PreviousAction { get; set; }
         public Score Score { get; set; }
         public List<Card> Cards { get; set; }
-
+        public List<Card> ScoreHand { get; set; }
         #region Initialization
 
         public Player(int id,  int stackSize) {

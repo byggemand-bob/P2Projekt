@@ -19,6 +19,153 @@ namespace Poker_Game.Game {
             return dupeCards;
         }
 
+
+        #region ScoreHand
+
+        public void GiveScoreHand(Player player) {
+
+
+            if (player.Score == Score.StraightFlush) {
+                player.ScoreHand = DuplicateDeck(player.Cards);
+                player.ScoreHand.Sort();
+                player.ScoreHand = GiveHandStraight(player);
+            } else if (player.Score == Score.FourOfAKind) {
+                GiveHandFourOfAKind(player);
+                AddRemainingHighCards(player);
+            } else if (player.Score == Score.FullHouse) {
+                GiveHandFullHouse(player);
+            } else if (player.Score == Score.Flush) {
+                GiveHandFlush(player);
+            } else if (player.Score == Score.Straight) {
+                player.ScoreHand = DuplicateDeck(player.Cards);
+                player.ScoreHand.Sort();
+                player.ScoreHand = GiveHandStraight(player);
+            } else if (player.Score == Score.ThreeOfAKind) {
+                GiveHandThreeOfAKind(player);
+                AddRemainingHighCards(player);
+            } else if (player.Score == Score.TwoPairs) {
+                GiveHandPair(player);
+                AddRemainingHighCards(player);
+            } else if (player.Score == Score.Pair) {
+                GiveHandPair(player);
+                AddRemainingHighCards(player);
+            }
+        }
+
+        private void AddRemainingHighCards(Player player) {
+            bool CardFound;
+            for (int i = player.Cards.Count - 1; i > 0; i--) {
+                if (player.ScoreHand.Count >= 5) {
+                    break;
+                }
+                CardFound = false;
+                for (int j = 0; j < player.ScoreHand.Count - 1; j++) {
+                    if (player.Cards[i] == player.ScoreHand[j]) {
+                        CardFound = true;
+                    }
+                }
+                if (!CardFound) {
+                    player.ScoreHand.Add(player.Cards[i]);
+                }
+            }
+        }
+        private void GiveHandPair(Player player) {
+            for (int i = 0; i < player.ScoreHand.Count - 1; i++) {
+                if (player.ScoreHand[i].Rank == player.ScoreHand[i + 1].Rank) {
+                    if (player.ScoreHand.Count == 7) {
+                        player.ScoreHand.Clear(); 
+                    }
+                    for (int j = i; j < 2; j++) {
+                        player.ScoreHand.Add(player.Cards[j]);
+                    }
+                }
+            }
+        }
+        private void GiveHandThreeOfAKind(Player player) {
+            for (int i = 0; i < player.ScoreHand.Count - 2; i++) {
+                if (player.Cards[i].Rank == player.Cards[i + 1].Rank &&
+                    player.Cards[i + 1].Rank == player.Cards[i + 2].Rank) {
+                    player.ScoreHand.Clear();
+                    for (int j = i; j < 3; j++) {
+                        player.ScoreHand.Add(player.Cards[j]);
+                    }
+                }
+            }
+        }
+        private void GiveHandFlush(Player player) {
+            int C = 0, D = 0, H = 0, S = 0;
+            foreach (Card element in player.Cards) {
+                if (element.Suit == Suit.Clubs) {
+                    C++;
+                } else if (element.Suit == Suit.Diamonds) {
+                    D++;
+                } else if (element.Suit == Suit.Hearts) {
+                    H++;
+                } else if (element.Suit == Suit.Spades) {
+                    S++;
+                }
+            }
+            if (C > D && C > H && C > S) {
+                AddCardsOfSuit(player, Suit.Clubs);
+            } else if (D > C && D > H && D > S) {
+                AddCardsOfSuit(player, Suit.Diamonds);
+            } else if (H > C && H > D && H > S) {
+                AddCardsOfSuit(player, Suit.Hearts);
+            } else {
+                AddCardsOfSuit(player, Suit.Spades);
+            }
+        }
+        private void AddCardsOfSuit(Player player, Suit suit) {
+            for (int i = player.Cards.Count - 1, count = 0; i >= 0; i--) {
+                if (player.Cards[i].Suit == suit) {
+                    player.ScoreHand.Add(player.Cards[i]);
+                    count++;
+                }
+                if (count < 4) {
+                    break;
+                }
+            }
+        }
+        private void GiveHandFullHouse(Player player) {
+            GiveHandThreeOfAKind(player);
+            GiveHandPair(player);
+        }
+        private void GiveHandFourOfAKind(Player player) {
+            for (int i = 0; i < player.ScoreHand.Count - 3; i++) {
+                if (player.ScoreHand[i].Rank == player.ScoreHand[i + 1].Rank &&
+                    player.ScoreHand[i + 1].Rank == player.ScoreHand[i + 2].Rank &&
+                    player.ScoreHand[i + 2].Rank == player.ScoreHand[i + 3].Rank) {
+                    player.ScoreHand.Clear();
+                    for (int j = i; j < 4; j++) {
+                        player.ScoreHand.Add(player.Cards[j]); 
+                    }
+                }
+            }
+        }
+        private List<Card> GiveHandStraight(Player player) {
+            RemoveDublicateRank(player.ScoreHand, 0);
+            for (int i = 0; i <= player.ScoreHand.Count - 5; i++) {
+                if (player.ScoreHand[i].Rank + 1 == player.ScoreHand[i + 1].Rank &&
+                    player.ScoreHand[i + 1].Rank + 1 == player.ScoreHand[i + 2].Rank &&
+                    player.ScoreHand[i + 2].Rank + 1 == player.ScoreHand[i + 3].Rank &&
+                    player.ScoreHand[i + 3].Rank + 1 == player.ScoreHand[i + 4].Rank) {
+                    player.ScoreHand.Clear();
+                    for (int j = i; j < 5; j++) {
+                        player.ScoreHand.Add(player.Cards[j]); 
+                    }
+                    return player.ScoreHand;
+
+                }
+                if (player.ScoreHand[i + 4].Rank == Rank.Ace) {
+                    player.ScoreHand[i + 4].Rank = (Rank)1;
+                    return GiveHandStraight(player);
+                }
+            }
+            throw new System.Exception("Error straight");
+        }
+        #endregion
+
+
         #region Ecaluate/givescore
         // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
@@ -254,6 +401,15 @@ namespace Poker_Game.Game {
             return null;
         }
         #endregion
+
+
+
+
+
+
+
+
+
 
         #region Find the best in case of the SameScore
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
