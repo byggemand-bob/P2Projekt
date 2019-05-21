@@ -20,7 +20,7 @@ namespace Poker_Game
             List<Card> street = new List<Card>();
             Stopwatch stopwatch = new Stopwatch();
             TimeSpan time;
-            int NumberOftrails = 1000000;
+            int NumberOftrails = 100000;
 
             hand.Add(new Card(Suit.Hearts, Rank.Ace));
             hand.Add(new Card(Suit.Clubs, Rank.Ace));

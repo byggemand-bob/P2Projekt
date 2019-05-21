@@ -364,7 +364,7 @@ namespace Poker_Game.Game
             }
         }
         
-        private int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards, int nrOfHighestValueCards, int nrOfSecoundHighestValueCards, int valueOfHighestCard, int valueOfSecoundHighestCard)
+        public int WhoHasHighCard(List<Card> AiCards, List<Card> PlayerCards, int nrOfHighestValueCards, int nrOfSecoundHighestValueCards, int valueOfHighestCard, int valueOfSecoundHighestCard)
         {
             int y = 5, AiTestCard = 6, PlayerTestCard = 6;
 
