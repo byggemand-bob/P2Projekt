@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
+using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
@@ -58,8 +60,8 @@ namespace Poker_Game.AI {
             _dataController.SaveData();
         }
 
-        public void MakeDecision() {
-            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo() : ExpectiMax();
+        public void MakeDecision(List<Card> cardHand, Round CurrentRound, List<Card> street, Settings settings, Player player, Hand hand) {
+            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo(cardHand, CurrentRound, street, settings, player, hand) : ExpectiMax();
             switch(action) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
@@ -77,7 +79,7 @@ namespace Poker_Game.AI {
         }
         private PlayerAction MonteCarlo1() {
             EVCalculator evCalculator = new EVCalculator(_settings);
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand, _settings);
 
 
             if(value - _player.CurrentBet > _player.CurrentBet * 0.5) {
@@ -98,28 +100,119 @@ namespace Poker_Game.AI {
             return PlayerAction.Fold;
         }
 
-        private PlayerAction MonteCarlo() {
+        private PlayerAction MonteCarlo(List<Card> cardHand, Round CurrentRound, List<Card> street, Settings settings, Player player, Hand hand) {
             EVCalculator evCalculator = new EVCalculator(_settings);
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand, settings);
             //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
 
-            if(value >= _pokerGame.Hand.Pot * RaiseModifier) {
-                if(_pokerGame.CanRaise()) {
+            WinConditions wc = new WinConditions();
+
+            RangeParser rc = new RangeParser();
+
+            EVCalculator ev = new EVCalculator(settings);
+
+            OutsCalculator oc = new OutsCalculator();
+
+            List<string> RaisePreflop = new List<string>
+                {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
+
+            List<string> CallPreflop = new List<string>
+                {"55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
+
+            List<Card> cardsToEvaluate = new List<Card>(cardHand);
+
+            var compareOuts = oc.CompareOuts(street, cardHand);
+
+            cardsToEvaluate.AddRange(street);
+
+            var handsToRaisePreflop = rc.Parse(RaisePreflop);
+            var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop);
+
+
+            if (CurrentRound.CurrentTurnNumber() == 0) {
+                if (handsToRaisePreflop.Contains(cardHand)) {
                     return PlayerAction.Raise;
                 }
-                
-            }
 
-            if(value >= _pokerGame.Hand.Pot * CallModifier) {
-                if(_pokerGame.CanCheck()) {
-                    return PlayerAction.Check;
+                if (handsToCallPreflop.Contains(cardHand)) {
+                    return PlayerAction.Call;
                 }
 
-                return PlayerAction.Call;
+                return PlayerAction.Fold;
+
             }
-            
+
+            if (CurrentRound.CurrentTurnNumber() == 1) {
+                if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+
+                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
+                    if (mtc > 0) {
+                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+                            return PlayerAction.Raise;
+                        }
+
+                        return PlayerAction.Call;
+                    }
+
+                }
+
+                if (compareOuts > 0) {
+                    if (compareOuts > 3) {
+                        return PlayerAction.Raise;
+                    }
+
+                    return PlayerAction.Call;
+                }
+
+                return PlayerAction.Fold;
+            }
+
+            if (CurrentRound.CurrentTurnNumber() == 2) {
+                if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+
+                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
+                    if (mtc > 0) {
+                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+                            return PlayerAction.Raise;
+                        }
+
+                        return PlayerAction.Call;
+                    }
+
+                }
+
+                if (compareOuts > 0) {
+                    if (compareOuts > 3) {
+                        return PlayerAction.Raise;
+                    }
+
+                    return PlayerAction.Call;
+                }
+
+                return PlayerAction.Fold;
+            }
+
+            if (CurrentRound.CurrentTurnNumber() == 3) {
+                if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+
+                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
+                    if (mtc > 0) {
+                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+                            return PlayerAction.Raise;
+                        }
+
+                        return PlayerAction.Call;
+                    }
+
+                }
+
+                return PlayerAction.Fold;
+            }
+
             return PlayerAction.Fold;
         }
+
+
 
         private PlayerAction ExpectiMax() {
             if(_pokerGame.Hand.CurrentRoundNumber() == 1) {

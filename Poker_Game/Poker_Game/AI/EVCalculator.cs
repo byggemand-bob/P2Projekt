@@ -9,15 +9,15 @@ namespace Poker_Game.AI {
             _settings = settings;
         }
 
-        public double CalculateMonteCarlo(List<Card> cardHand, Player player, Hand hand) {
+        public double CalculateMonteCarlo(List<Card> cardHand, Player player, Hand hand, Settings settings) {
             MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
 
             var odds = mctr.MultiThreadMonteCarlo(cardHand, hand.Street);
             var winPot = hand.Pot;
             var lossPot = 0;
-
+            
             if(player.Action == PlayerAction.Raise || player.Action == PlayerAction.Call) {
-                lossPot = 2;
+                lossPot = settings.BetSize;
             } else if(player.Action == PlayerAction.Check) {
                 lossPot = 0;
             }
