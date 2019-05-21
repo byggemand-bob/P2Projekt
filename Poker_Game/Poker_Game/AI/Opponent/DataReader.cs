@@ -46,7 +46,7 @@ namespace Poker_Game.AI.Opponent {
 
         private int[] ParseToArray(string array) {
             string[] strArray = array.Split(',');
-            int[] result = new int[5];
+            int[] result = new int[4];
             for(int i = 0; i < strArray.Length; i++) {
                 result[i] = int.Parse(strArray[i]);
             }

@@ -137,10 +137,8 @@ namespace Poker_Game.Game {
 
         private List<Player> GetWinningPlayers(List<Player> players) {
             foreach (Player player in players) {
-                List<Card> cards = new List<Card>(player.Cards);
-                cards.AddRange(Hand.Street);
-                WinConditions winCondition = new WinConditions();
-                player.Score = winCondition.Evaluate(cards);
+                player.Cards.AddRange(Hand.Street);
+                player.GetScore();
             }
 
             if (players[0].Score > players[1].Score) {
@@ -149,6 +147,11 @@ namespace Poker_Game.Game {
             if (players[0].Score < players[1].Score) {
                 return new List<Player> { players[1] };
             }
+
+            foreach(Player player in Players) {
+                player.Cards.Sort();
+            }
+
             return GetSameScoreWinners(players);
         }
 

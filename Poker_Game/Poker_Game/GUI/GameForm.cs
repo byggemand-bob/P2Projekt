@@ -340,25 +340,33 @@ namespace Poker_Game.GUI {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinnerPlayersName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }
 
+        private string GetWinningPlayerName() {
+            if(_game.Hand.Winner != null) {
+                return _game.Hand.Winner.Name;
+            }
+
+            return _game.Players[0].Name + " & " + _game.Players[1].Name;
+        }
+
         private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
         {
-            if(_game.GetWinners(_game.Hand).Count == 1) {
-                if(Int32.TryParse(ConvertScoreToString(0), out int numericScore)) {
+            if(_game.Hand.Winner != null) {
+                if(Int32.TryParse(_game.Hand.Winner.Score.ToString(), out int numericScore)) {
                     if(numericScore > 10) {
                         return GiveNumericScoreName(numericScore);
                     }
                     return numericScore + " (Highest Card)";
                 }
-                return ConvertScoreToString(0);
-            } else if(_game.GetWinners(_game.Hand).Count == 2) {
-                return ConvertScoreToString(0);
+
+                return _game.Hand.Winner.Score.ToString();
             }
-            return null; // TODO: error handling
+
+            return _game.Players[0].Score + " & " + _game.Players[1].Score;
         }
 
         private string GiveNumericScoreName(int numericScore) {
@@ -371,24 +379,6 @@ namespace Poker_Game.GUI {
             } else {
                 return "Ace (Highest Card)";
             }
-        }
-
-        private string ConvertScoreToString(int index) {
-            return Convert.ToString(_game.GetWinners(_game.Hand)[index].Score);
-        }
-
-        private string GetWinnerPlayersName() // Gets the string of which player has won
-        {
-            List<Player> players = _game.GetWinners(_game.Hand);
-            string winners = null;
-            foreach(Player player in players) {
-                if(winners == null) {
-                    winners += player.Name;
-                } else {
-                    winners += " & " + player.Name;
-                }
-            }
-            return winners;
         }
 
         // Creates a new hand and calls methods for the new gamestate

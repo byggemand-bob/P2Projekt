@@ -12,11 +12,11 @@ namespace Poker_Game.AI.Opponent {
         public int Hands { get; set; }
 
         public HandData() {
-            Folds = new int[5];
-            Checks = new int[5];
-            Calls = new int[5];
-            Raises = new int[5];
-            ReRaises = new int[5];
+            Folds = new int[4];
+            Checks = new int[4];
+            Calls = new int[4];
+            Raises = new int[4];
+            ReRaises = new int[4];
             Hands = 0;
         }
 
@@ -37,11 +37,11 @@ namespace Poker_Game.AI.Opponent {
 
         private string WriteArray(int[] array) {
             StringBuilder sb = new StringBuilder();
-            foreach(int element in array) {
-                if(element == array.Last()) {
-                    sb.Append(element); 
+            for(int i = 0; i < array.Length; i++) {
+                if(i == array.Length - 1) {
+                    sb.Append(array[i]);
                 } else {
-                    sb.Append(element + ",");
+                    sb.Append(array[i] + ",");
                 }
             }
 
