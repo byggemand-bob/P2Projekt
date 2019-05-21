@@ -399,5 +399,32 @@ namespace Poker_Game.AI {
         }
 
         #endregion
+
+        #region OutsInProcentagesCalc
+
+        public double OutsInProcentages(List<Card> street, List<Card> cardHand)
+        {
+            int outs = CompareOuts(street, cardHand), streetSize = street.Count();
+            double result;
+
+            if(streetSize == 4)
+            {
+                result = 1 - ((46 - outs) / 46);
+            }
+            else if(streetSize == 3)
+            {
+                result = (47 - outs) / 47;
+                result *= (46 - outs) / 46;
+                result = 1 - result;
+            }
+            else
+            {
+                throw new Exception("street count has to be either 3 or 4");
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

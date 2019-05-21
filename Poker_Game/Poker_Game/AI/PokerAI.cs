@@ -19,6 +19,10 @@ namespace Poker_Game.AI {
         private PokerTree _pokerTree;
         private AiMode _mode;
 
+        private const double CheckAfter = 0;
+        private const double CallAfter = 0.5;
+        private const double RaiseAfter = 1;
+
         public PokerAI(PokerGame game, AiMode mode) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
@@ -71,7 +75,24 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction MonteCarlo() {
-            throw new NotImplementedException();
+            EVCalculator evCalculator = new EVCalculator(_settings);
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+
+            if(value <= CheckAfter) {
+                return PlayerAction.Fold;
+            }
+
+            if(value > RaiseAfter) {
+                if(_pokerGame.CanRaise()) {
+                    return PlayerAction.Raise;
+                } 
+            }
+
+            if(_pokerGame.CanCheck()) {
+                return PlayerAction.Check;
+            }
+
+            return PlayerAction.Call;
         }
 
         private PlayerAction ExpectiMax() {

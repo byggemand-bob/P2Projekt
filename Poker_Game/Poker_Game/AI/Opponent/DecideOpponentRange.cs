@@ -20,13 +20,13 @@ namespace Poker_Game.AI.Opponent {
         
         public List<List<List<Card>>> splitRanges(string path, List<List<Card>> playerOutsRange, List<Card> street) {
 
-            EVCalculator ev = new EVCalculator(Player, Settings);
+            EVCalculator ev = new EVCalculator(Settings);
 
             double EvOpponentCards = 0;
 
             foreach (var element in playerOutsRange) {
                 
-                EvOpponentCards = ev.CalculateEv(path, element, street);
+                EvOpponentCards = ev.CalculateEv(path, element, street, Player);
                 if (EvOpponentCards >= 2) {
                     cardsHeRaises.Add(element);
                 }

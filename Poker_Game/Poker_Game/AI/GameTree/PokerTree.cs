@@ -28,8 +28,8 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private double[] GetEVs(string[] paths, List<Card> cardHand, List<Card> street, Player player, Settings settings) {
-            EVCalculator evCalculator = new EVCalculator(player, settings);
-            return evCalculator.CalculateAll(paths, cardHand, street);
+            EVCalculator evCalculator = new EVCalculator(settings);
+            return evCalculator.CalculateAll(paths, cardHand, street, player);
         }
 
         public PlayerAction GetBestAction() {
