@@ -24,6 +24,7 @@ namespace Poker_Game.Game {
         public PlayerAction PreviousAction { get; set; }
         public Score Score { get; set; }
         public List<Card> Cards { get; set; }
+        public Rank[] P1P2HC = new Rank[3];
 
         #region Initialization
 
