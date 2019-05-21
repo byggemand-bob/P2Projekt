@@ -228,17 +228,17 @@ namespace Poker_Game
             PrintFile.Add("[TestMethod]");
             PrintFile.Add("public void FastWinCalcTest" + testNumber + "()");
             PrintFile.Add("{");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    // Arrange");
             PrintFile.Add("    List<Card> Player1Cards = new List<Card>();");
             PrintFile.Add("    List<Card> Player2Cards = new List<Card>();");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    Card tableCard1 = new Card((Suit)" + (int)Street[0].Suit + ", (Rank)" + (int)Street[0].Rank + ");");
             PrintFile.Add("    Card tableCard2 = new Card((Suit)" + (int)Street[1].Suit + ", (Rank)" + (int)Street[1].Rank + ");");
             PrintFile.Add("    Card tableCard3 = new Card((Suit)" + (int)Street[2].Suit + ", (Rank)" + (int)Street[2].Rank + ");");
             PrintFile.Add("    Card tableCard4 = new Card((Suit)" + (int)Street[3].Suit + ", (Rank)" + (int)Street[3].Rank + ");");
             PrintFile.Add("    Card tableCard5 = new Card((Suit)" + (int)Street[4].Suit + ", (Rank)" + (int)Street[4].Rank + ");");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    Player1Cards.Add(new Card((Suit)" + (int)Player1Cards[0].Suit + ", (Rank)" + (int)Player1Cards[0].Rank + "));");
             PrintFile.Add("    Player1Cards.Add(new Card((Suit)" + (int)Player1Cards[1].Suit + ", (Rank)" + (int)Player1Cards[1].Rank + "));");
             PrintFile.Add("    Player1Cards.Add(tableCard1);");
@@ -246,7 +246,7 @@ namespace Poker_Game
             PrintFile.Add("    Player1Cards.Add(tableCard3);");
             PrintFile.Add("    Player1Cards.Add(tableCard4);");
             PrintFile.Add("    Player1Cards.Add(tableCard5);");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    Player2Cards.Add(new Card((Suit)" + (int)Player2Cards[0].Suit + ", (Rank)" + (int)Player2Cards[0].Rank + "));");
             PrintFile.Add("    Player2Cards.Add(new Card((Suit)" + (int)Player2Cards[1].Suit + ", (Rank)" + (int)Player2Cards[1].Rank + "));");
             PrintFile.Add("    Player2Cards.Add(tableCard1);");
@@ -254,14 +254,14 @@ namespace Poker_Game
             PrintFile.Add("    Player2Cards.Add(tableCard3);");
             PrintFile.Add("    Player2Cards.Add(tableCard4);");
             PrintFile.Add("    Player2Cards.Add(tableCard5);");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    //Act");
             PrintFile.Add("    int actual = winCalc.WhoWins(Player1Cards, Player2Cards);");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
             PrintFile.Add("    //Assert");
             PrintFile.Add("    Assert.AreEqual(" + UserResult + ", actual);");
             PrintFile.Add("}");
-            PrintFile.Add("\n");
+            PrintFile.Add("");
 
             testNumber++;
         }
