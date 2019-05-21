@@ -21,7 +21,7 @@ namespace Poker_Game.AI.Opponent {
                 if (oc.CompareOuts(element, street) != 0) {
                     playerOutsRange.Add(element);
                 }
-
+                
             }
 
             return playerOutsRange;
