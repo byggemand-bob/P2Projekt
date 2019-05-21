@@ -219,7 +219,9 @@ namespace Poker_Game.AI
                 players[1].Cards.Sort();
                 players[0].Score = winCalc.Evaluate(players[0].Cards);
                 players[1].Score = winCalc.Evaluate(players[1].Cards);
-                
+                winCalc.GiveScoreHand(players[0]);
+                winCalc.GiveScoreHand(players[1]);
+
                 if (players[0].Score > players[1].Score)
                 {
                     loses++;
@@ -228,9 +230,9 @@ namespace Poker_Game.AI
                 {
                     wins++;
                 } else {
-                    if (winCalc.SameScore(players[0], players[1]) == null) {
+                    if (winCalc.WhoWins(players[0], players[1]) == null) {
                         draws++;
-                    } else if (winCalc.SameScore(players[0], players[1]).Id == 1) {
+                    } else if (winCalc.WhoWins(players[0], players[1]).Id == 1) {
                         wins++;
                     } else {
                         loses++;
