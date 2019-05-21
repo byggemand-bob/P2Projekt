@@ -113,16 +113,12 @@ namespace Poker_Game.AI {
                 evCalculator.CalculateMonteCarlo(_player.Cards,  _pokerGame.Players[0], _pokerGame.Hand, _settings);
             //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
 
-            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " +
-                            _pokerGame.Hand.Pot * CallModifier);
+           // MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
 
 
             WinConditions wc = new WinConditions();
-
             RangeParser rc = new RangeParser();
-
             EVCalculator ev = new EVCalculator(_settings);
-
             OutsCalculator oc = new OutsCalculator();
 
             List<string> RaisePreflop = new List<string>
@@ -151,7 +147,6 @@ namespace Poker_Game.AI {
                 }
 
                 return PlayerAction.Fold;
-
             }
 
             // Efter flop SB
@@ -161,7 +156,7 @@ namespace Poker_Game.AI {
                 
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
-                    var mtc = ev.CalculateMonteCarlo(cardHand, _player, _hand, _settings);
+                    var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
                     if (mtc > 0) {
                         if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
@@ -189,15 +184,13 @@ namespace Poker_Game.AI {
                 }
 
                 return PlayerAction.Fold;
-                
-
             }
 
 
-            else if (_round.CurrentTurnNumber() == 3) {
+            if (_round.CurrentTurnNumber() == 3) {
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
-                    var mtc = ev.CalculateMonteCarlo(cardHand, _player, _hand, _settings);
+                    var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
                     if (mtc > 0) {
                         if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
