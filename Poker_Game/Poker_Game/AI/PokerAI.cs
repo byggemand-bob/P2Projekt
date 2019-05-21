@@ -134,29 +134,22 @@ namespace Poker_Game.AI {
             cardsToEvaluate.AddRange(_street);
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
-            var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop).ToList();
+            var handsToCallPreflop = rc.Parse(CallPreflop);
             var cardHand = _player.Cards;
 
-            if (_round.CurrentTurnNumber() == 0) {
+            if (_pokerGame.CurrentRoundNumber() == 1) {
+                MessageBox.Show("Test");
                 if (ContainsCardHand(handsToRaisePreflop, cardHand) && _pokerGame.CanRaise()) {
+                    MessageBox.Show("Raise");
                     return PlayerAction.Raise;
                 }
 
                 if (ContainsCardHand(handsToCallPreflop, cardHand) && _pokerGame.CanCall()) {
+                    MessageBox.Show("Call");
                     return PlayerAction.Call;
                 }
 
-                if(_pokerGame.CanCheck()) {
-                    return PlayerAction.Check;
-                }
-
-                return PlayerAction.Fold;
-            }
-
-            // Efter flop SB
-
-
-            else if (_round.CurrentTurnNumber() > 0 && _round.CurrentTurnNumber() < 3) {
+            } else if (_pokerGame.CurrentRoundNumber() > 1 && _pokerGame.CurrentRoundNumber() <= 3) { // Flop + Turn
                 
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
@@ -188,10 +181,7 @@ namespace Poker_Game.AI {
                 }
 
                 return PlayerAction.Fold;
-            }
-
-
-            if (_round.CurrentTurnNumber() == 3) {
+            } else if (_pokerGame.CurrentRoundNumber() == 4) { // River
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
@@ -203,11 +193,12 @@ namespace Poker_Game.AI {
                         if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanCall())
                             return PlayerAction.Call;
                     }
-
                 }
+            }
 
-                return PlayerAction.Fold;
 
+            if(_pokerGame.CanCheck()) {
+                return PlayerAction.Check;
             }
 
             return PlayerAction.Fold;
