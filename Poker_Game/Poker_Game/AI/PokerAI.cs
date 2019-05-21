@@ -20,8 +20,11 @@ namespace Poker_Game.AI {
         private readonly PokerGame _pokerGame;
         private readonly DataController _dataController;
         private PokerTree _pokerTree;
+        private readonly Round _round;
+        private readonly List<Card> _street;
+        private readonly Hand _hand;
         private AiMode _mode;
-
+        
         private const double CallModifier = 0.30; 
         private const double RaiseModifier = 0.60;
 
@@ -32,6 +35,9 @@ namespace Poker_Game.AI {
             _actions = GetActions(game);
             _dataController = new DataController(game.Settings.PlayerName);
             _mode = mode;
+            _round = game.CurrentRound();
+            _street = game.Hand.Street.ToList();
+            _hand = game.Hand;
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -60,8 +66,8 @@ namespace Poker_Game.AI {
             _dataController.SaveData();
         }
 
-        public void MakeDecision(List<Card> cardHand, Round CurrentRound, List<Card> street, Settings settings, Player player, Hand hand) {
-            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo(cardHand, CurrentRound, street, settings, player, hand) : ExpectiMax();
+        public void MakeDecision() {
+            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo() : ExpectiMax();
             switch(action) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
@@ -79,7 +85,7 @@ namespace Poker_Game.AI {
         }
         private PlayerAction MonteCarlo1() {
             EVCalculator evCalculator = new EVCalculator(_settings);
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand, _settings);
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _player, _hand, _settings);
 
 
             if(value - _player.CurrentBet > _player.CurrentBet * 0.5) {
@@ -100,21 +106,22 @@ namespace Poker_Game.AI {
             return PlayerAction.Fold;
         }
 
-        private PlayerAction MonteCarlo(List<Card> cardHand, Round CurrentRound, List<Card> street, Settings settings, Player player, Hand hand) {
+        private PlayerAction MonteCarlo() {
             EVCalculator evCalculator = new EVCalculator(_settings);
-<<<<<<< HEAD
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand, settings);
+
+            double value =
+                evCalculator.CalculateMonteCarlo(_player.Cards,  _pokerGame.Players[0], _pokerGame.Hand, _settings);
             //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
-=======
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
-            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
->>>>>>> 1dc229133321b456bf41e0a9b086d4d958c04231
+
+            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " +
+                            _pokerGame.Hand.Pot * CallModifier);
+
 
             WinConditions wc = new WinConditions();
 
             RangeParser rc = new RangeParser();
 
-            EVCalculator ev = new EVCalculator(settings);
+            EVCalculator ev = new EVCalculator(_settings);
 
             OutsCalculator oc = new OutsCalculator();
 
@@ -124,17 +131,17 @@ namespace Poker_Game.AI {
             List<string> CallPreflop = new List<string>
                 {"55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
 
-            List<Card> cardsToEvaluate = new List<Card>(cardHand);
+            List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
 
-            var compareOuts = oc.CompareOuts(street, cardHand);
+            var compareOuts = oc.CompareOuts(_street, _player.Cards);
 
-            cardsToEvaluate.AddRange(street);
+            cardsToEvaluate.AddRange(_street);
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
             var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop);
+            var cardHand = _player.Cards;
 
-
-            if (CurrentRound.CurrentTurnNumber() == 0) {
+            if (_round.CurrentTurnNumber() == 0) {
                 if (handsToRaisePreflop.Contains(cardHand)) {
                     return PlayerAction.Raise;
                 }
@@ -147,81 +154,67 @@ namespace Poker_Game.AI {
 
             }
 
-            if (CurrentRound.CurrentTurnNumber() == 1) {
+            // Efter flop SB
+
+
+            else if (_round.CurrentTurnNumber() <= 1) {
+                
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
-                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
+                    var mtc = ev.CalculateMonteCarlo(cardHand, _player, _hand, _settings);
                     if (mtc > 0) {
                         if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
                         }
 
-                        return PlayerAction.Call;
+                        if (mtc < 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanCall()) {
+                            return PlayerAction.Call;
+                        }
                     }
 
                 }
 
-                if (compareOuts > 0) {
-                    if (compareOuts > 3) {
+                else if (compareOuts > 0) {
+                    if (compareOuts > 4 && _pokerGame.CanRaise()) {
                         return PlayerAction.Raise;
                     }
 
-                    return PlayerAction.Call;
+                    else if (compareOuts <= 4 && _pokerGame.CanCall()) {
+                        return PlayerAction.Call;
+                    }
+
+                    if (compareOuts <= 4 && _pokerGame.CanCheck()) {
+                        return PlayerAction.Check;
+                    }
                 }
 
                 return PlayerAction.Fold;
+                
+
             }
 
-            if (CurrentRound.CurrentTurnNumber() == 2) {
+
+            else if (_round.CurrentTurnNumber() == 3) {
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
-                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
+                    var mtc = ev.CalculateMonteCarlo(cardHand, _player, _hand, _settings);
                     if (mtc > 0) {
                         if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
                         }
 
-                        return PlayerAction.Call;
-                    }
-
-                }
-
-                if (compareOuts > 0) {
-                    if (compareOuts > 3) {
-                        return PlayerAction.Raise;
-                    }
-
-                    return PlayerAction.Call;
-                }
-
-                return PlayerAction.Fold;
-            }
-
-<<<<<<< HEAD
-            if (CurrentRound.CurrentTurnNumber() == 3) {
-                if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
-
-                    var mtc = ev.CalculateMonteCarlo(cardHand, player, hand, settings);
-                    if (mtc > 0) {
-                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
-                            return PlayerAction.Raise;
-                        }
-
-                        return PlayerAction.Call;
+                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanCall())
+                            return PlayerAction.Call;
                     }
 
                 }
 
                 return PlayerAction.Fold;
-=======
-            if(_pokerGame.CanCheck()) {
-                return PlayerAction.Check;
->>>>>>> 1dc229133321b456bf41e0a9b086d4d958c04231
+
             }
 
             return PlayerAction.Fold;
         }
-
 
 
         private PlayerAction ExpectiMax() {
