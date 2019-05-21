@@ -99,7 +99,7 @@ namespace Poker_Game.Game {
 
         public void GiveScoreHand(Player player) {
 
-
+            player.ScoreHand.Clear();
             if (player.Score == Score.StraightFlush) {
                 player.ScoreHand = DuplicateDeck(player.Cards);
                 player.ScoreHand.Sort();
@@ -147,9 +147,6 @@ namespace Poker_Game.Game {
         private void GiveHandPair(Player player) {
             for (int i = 0; i < player.ScoreHand.Count - 1; i++) {
                 if (player.ScoreHand[i].Rank == player.ScoreHand[i + 1].Rank) {
-                    if (player.ScoreHand.Count == 7) {
-                        player.ScoreHand.Clear(); 
-                    }
                     for (int j = i; j < 2; j++) {
                         player.ScoreHand.Add(player.Cards[j]);
                     }
@@ -160,7 +157,6 @@ namespace Poker_Game.Game {
             for (int i = 0; i < player.ScoreHand.Count - 2; i++) {
                 if (player.Cards[i].Rank == player.Cards[i + 1].Rank &&
                     player.Cards[i + 1].Rank == player.Cards[i + 2].Rank) {
-                    player.ScoreHand.Clear();
                     for (int j = i; j < 3; j++) {
                         player.ScoreHand.Add(player.Cards[j]);
                     }
