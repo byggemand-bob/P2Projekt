@@ -25,12 +25,12 @@ namespace Poker_Game.AI
                     return 15;
                 }
 
-                else if (InsideStraightAndFlushDraw(street, cardHand))
+                if (InsideStraightAndFlushDraw(street, cardHand))
                 {
                     return 12;
                 }
 
-                else if (IsPocketFlushDraw(cardHand, street))
+                if (IsPocketFlushDraw(cardHand, street))
                 {
                     return 9;
                 }
@@ -49,12 +49,12 @@ namespace Poker_Game.AI
                     return 8;
                 }
 
-                else if (InsideStraightAndTwoOverCards(street, cardHand))
+                if (InsideStraightAndTwoOverCards(street, cardHand))
                 {
                     return 10;
                 }
 
-                else if (IsInsideStraightDraw(street, cardHand))
+                if (IsInsideStraightDraw(street, cardHand))
                 {
                     return 4;
                 }
