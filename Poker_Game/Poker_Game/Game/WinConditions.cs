@@ -484,7 +484,32 @@ namespace Poker_Game.Game {
                     for (int j = player2cards.Count - 1; j > 0; j--) {
                         if (player2cards[j].Rank == player2cards[j - 1].Rank) {
                             if (player1cards[i].Rank == player2cards[j].Rank) {
-                                return BestPair(player1, player2);
+                                for (int h = 0; h < player1.Cards.Count - 1; h++) {
+                                    if (player1.Cards[h].Rank == player1.Cards[h + 1].Rank) {
+                                        for (int k = 0; k < player2.Cards.Count - 1; k++) {
+                                            if (player2.Cards[k].Rank == player2.Cards[k + 1].Rank) {
+                                                if (player1.Cards[h].Rank == player2.Cards[k].Rank) {
+                                                    Player player1clone = (Player)player1.Clone();
+                                                    Player player2clone = (Player)player2.Clone();
+                                                    RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[i].Rank));
+                                                    RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[j].Rank));
+                                                    RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[h].Rank));
+                                                    RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[k].Rank));
+                                                    player1clone.Cards = GetXAmountOfHighestCard(player1clone.Cards, 1);
+                                                    player1clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 1);
+                                                    return GetBestHighestCard(player1clone, player2clone); // Should check for highestCard here.
+                                                } else {
+                                                    return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                //Player player1clone = player1.Clone;
+                                //Player player2clone = player2.Clone;
+                                //RemoveUnfitRank(player1clone, (player1clone[i].Rank));
+                                //RemoveUnfitRank(player2clone, (player2clone[j].Rank));
+                                //return BestPair(player1clone, player2clone);
                             } else {
                                 return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
                             }
@@ -502,6 +527,10 @@ namespace Poker_Game.Game {
                     for (int j = 0; j < player2.Cards.Count - 1; j++) {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
+                                Player player1clone = (Player)player1.Clone();
+                                Player player2clone = (Player)player2.Clone();
+                                player1clone.Cards = GetXAmountOfHighestCard(player1clone.Cards, 3);
+                                player1clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 3);
                                 return GetBestHighestCard(player1, player2); // Should check for highestCard here.
                             } else {
                                 return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
