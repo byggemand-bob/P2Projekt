@@ -20,12 +20,12 @@ namespace Poker_Game.AI
 
             if (HasFlushChance(cardHand))
             {
-                if (OpenStraightAndFlushDraw(street, cardHand))
+                if (OpenStraightAndFlushDraw(cardHand, street))
                 {
                     return 15;
                 }
 
-                if (InsideStraightAndFlushDraw(street, cardHand))
+                if (InsideStraightAndFlushDraw(cardHand, street))
                 {
                     return 12;
                 }
