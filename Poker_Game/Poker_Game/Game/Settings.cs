@@ -3,6 +3,7 @@
         public int NumberOfPlayers { get; }
         public int StackSize { get; }
         public int BlindSize { get; }
+        public int BetSize { get; set; }
         public string PlayerName { get; }
         public int MaxBetsPerRound { get; }
 
@@ -14,6 +15,7 @@
             BlindSize = blindSize;
             PlayerName = playerName;
             MaxBetsPerRound = maxBetsPerRound;
+            BetSize = 2 * BlindSize;
         }
 
         #endregion

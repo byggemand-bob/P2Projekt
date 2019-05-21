@@ -23,7 +23,7 @@ namespace Poker_Game.AI {
         private AiMode _mode;
 
         private const double CallModifier = 0.30; 
-        private const double RaiseModifier = 0.50;
+        private const double RaiseModifier = 0.60;
 
         public PokerAI(PokerGame game, AiMode mode) {
             _pokerGame = game;
@@ -102,8 +102,13 @@ namespace Poker_Game.AI {
 
         private PlayerAction MonteCarlo(List<Card> cardHand, Round CurrentRound, List<Card> street, Settings settings, Player player, Hand hand) {
             EVCalculator evCalculator = new EVCalculator(_settings);
+<<<<<<< HEAD
             double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand, settings);
             //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
+=======
+            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _pokerGame.Players[0], _pokerGame.Hand);
+            MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
+>>>>>>> 1dc229133321b456bf41e0a9b086d4d958c04231
 
             WinConditions wc = new WinConditions();
 
@@ -192,6 +197,7 @@ namespace Poker_Game.AI {
                 return PlayerAction.Fold;
             }
 
+<<<<<<< HEAD
             if (CurrentRound.CurrentTurnNumber() == 3) {
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
@@ -207,6 +213,10 @@ namespace Poker_Game.AI {
                 }
 
                 return PlayerAction.Fold;
+=======
+            if(_pokerGame.CanCheck()) {
+                return PlayerAction.Check;
+>>>>>>> 1dc229133321b456bf41e0a9b086d4d958c04231
             }
 
             return PlayerAction.Fold;
