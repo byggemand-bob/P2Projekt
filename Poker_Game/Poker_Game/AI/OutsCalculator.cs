@@ -53,7 +53,7 @@ namespace Poker_Game.AI {
 
             else if (cardDiff == 0) {
 
-                if (ThreeOAKToFullHouseOr4OAK(cardHand)) {
+                if (ThreeOAKToFullHouseOr4OAK(street, cardHand)) {
                     return 7;
                 }
 
@@ -97,7 +97,6 @@ namespace Poker_Game.AI {
             //Checks for cards that are in range of a straight compared to the players hand
 
             List<Card> straightCards = new List<Card> {cardHand[0], cardHand[1]};
-            int numberOfOuts = 0;
             var count = 0;
             int cardRange = GetRankDifference(cardHand);
 
@@ -105,7 +104,7 @@ namespace Poker_Game.AI {
                 return 0;
             }
 
-            List<Card> allStraightCards = street
+            List<Card> allStraightCards = street // this is broken. Rank.Ace when Hand includes Ace and King. 
                 .Where(s => s.Rank >= cardHand[0].Rank - (cardRange - 4) && s.Rank <= cardHand[1].Rank + (4 - cardRange)).ToList();
             allStraightCards.Add(cardHand[0]);
             allStraightCards.Add(cardHand[1]);
@@ -120,15 +119,12 @@ namespace Poker_Game.AI {
                     }
                 }
 
-                if (count == 4) {
-                    return numberOfOuts += 8;
+                if (count == 4)  {
+                    return 8;
                 }
-                
-                return numberOfOuts += 4;
-               
+                return 4;
             }
-
-            return numberOfOuts += 0;
+            return 0;
         }
 
         public List<Card> findMissingCardsForStraight(List<Card> listOfPossibleStraightCards, List<Card> straightCards) {
@@ -173,8 +169,8 @@ namespace Poker_Game.AI {
            // Tjekker om kort på streeten er magen til dem spilleren har på hånden
 
             foreach (var element in street) {
-               if (element.Rank.Equals(cardHand[0].Rank)) {
-                   StreetCardsEqualToHand.Add(element);
+               if (element.Rank.Equals(cardHand[0].Rank) || element.Rank.Equals(cardHand[1].Rank)) {
+                   StreetCardsEqualToHand.Add(element); 
                }
             }
             return StreetCardsEqualToHand.Count;
@@ -278,21 +274,21 @@ namespace Poker_Game.AI {
             return false;
         }
 
-        private bool ThreeOAKToFullHouseOr4OAK(List<Card> cardHand)
+        private bool ThreeOAKToFullHouseOr4OAK(List<Card> street, List<Card> cardHand)
         { // Outs 7
             WinConditions wc = new WinConditions();
-
+            foreach (Card card in street) {
+                cardHand.Add(card);
+            }
             if (wc.HasThreeOfAKind(cardHand))
             {
                 return true;
             }
-
             return false;
         }
 
         private bool TwoPairToFullHouse(List<Card> street, List<Card> cardHand)
         {
-
             var Multiples = FindMultipleCardsOnStreet(cardHand, street);
 
             if (FindStreetCardsEqualToCardHand(cardHand, street) == 1 && Multiples == 1)
@@ -319,8 +315,8 @@ namespace Poker_Game.AI {
 
             if (count == street.Count) {
                     return true;
-                }
-                return false;
+            }
+            return false;
             }
 
         private bool PocketPairToSet(List<Card> cardHand)
