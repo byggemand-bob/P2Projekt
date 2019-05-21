@@ -21,31 +21,30 @@ namespace Poker_Game.Game {
 
         #region Ecaluate/givescore
         // Checks if the cards in hand / on street matches the different win conditions in the game
-        public Score Evaluate(Player player) {
-            Player playerClone = (Player)player.Clone();
-            //List<Card> sortedCards = DuplicateDeck(cards);
-            playerClone.Cards.Sort();
+        public Score Evaluate(List<Card> cards) {
+            List<Card> sortedCards = DuplicateDeck(cards);
+            sortedCards.Sort();
 
-            if (HasRoyalFlush(playerClone)) {
+            if (HasRoyalFlush(sortedCards)) {
                 return Score.RoyalFlush;
-            } else if (HasStraightFlush(playerClone)) {
+            } else if (HasStraightFlush(sortedCards)) {
                 return Score.StraightFlush;
-            } else if (HasFourOfAKind(playerClone)) {
+            } else if (HasFourOfAKind(sortedCards)) {
                 return Score.FourOfAKind;
-            } else if (HasFullHouse(playerClone)) {
+            } else if (HasFullHouse(sortedCards)) {
                 return Score.FullHouse;
-            } else if (HasFlush(playerClone)) {
+            } else if (HasFlush(sortedCards)) {
                 return Score.Flush;
-            } else if (HasStraight(playerClone)) {
+            } else if (HasStraight(sortedCards)) {
                 return Score.Straight;
-            } else if (HasThreeOfAKind(playerClone)) {
+            } else if (HasThreeOfAKind(sortedCards)) {
                 return Score.ThreeOfAKind;
-            } else if (HasTwoPairs(playerClone)) {
+            } else if (HasTwoPairs(sortedCards)) {
                 return Score.TwoPairs;
-            } else if (HasPair(playerClone)) {
+            } else if (HasPair(sortedCards)) {
                 return Score.Pair;
             } else {
-                return GetBestCard(playerClone.Cards);
+                return GetBestCard(sortedCards);
             }
         }
 
@@ -55,9 +54,9 @@ namespace Poker_Game.Game {
         }
 
         // Checks if the player has a pair - 26/4/2019 check
-        public bool HasPair(Player player) {
-            for (int i = 0; i < player.Cards.Count - 1; i++) {
-                if (player.Cards[i].Rank == player.Cards[i + 1].Rank) {
+        public bool HasPair(List<Card> sortedCards) {
+            for (int i = 0; i < sortedCards.Count - 1; i++) {
+                if (sortedCards[i].Rank == sortedCards[i + 1].Rank) {
                     return true;
                 }
             }
