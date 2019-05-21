@@ -14,6 +14,7 @@ namespace Poker_Game.Game {
         private bool _roundInProgress;
 
 
+
         #region Initialization
         public PokerGame(Settings settings) {
             Settings = settings;
@@ -58,8 +59,12 @@ namespace Poker_Game.Game {
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             // Needs to be cut down
-            //MessageBox.Show(Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet).ToString());
-            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
+            if(Players[CurrentPlayerIndex].CurrentBet > Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) {
+                Bet(Players[CurrentPlayerIndex],  Settings.BetSize);
+            } else {
+                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + Settings.BetSize);
+            }
+
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
             Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
             CurrentPlayer().BetsTaken++;
@@ -82,11 +87,13 @@ namespace Poker_Game.Game {
         public void NewHand() {
             _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
             Hand = new Hand(Players, _dealerButtonPosition);
+            Settings.BetSize = 2 * Settings.BlindSize;
             PayBlinds();
             _handInProgress = true;
         }
         private void NewRound() {
             if(!_roundInProgress) {
+                Settings.BetSize *= 2;
                 Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
@@ -180,17 +187,15 @@ namespace Poker_Game.Game {
         }
 
         private void Bet(Player player, int amount) {
-            if(player.Stack >= amount) {
-                player.CurrentBet += amount;
-                player.Stack -= amount;
-                Hand.Pot += amount;
-            }
+            player.CurrentBet += amount;
+            player.Stack -= amount;
+            Hand.Pot += amount;
         }
 
         private void PayBlinds() {
             for(int i = 0; i < Settings.NumberOfPlayers; i++) {
                 if(Players[i].IsBigBlind) {
-                    Bet(Players[i], 2 * Settings.BlindSize);
+                    Bet(Players[i], Settings.BetSize);
                     Players[i].Action = PlayerAction.Raise;
                     Players[i].PreviousAction = PlayerAction.Raise;
                 } else if(Players[i].IsSmallBlind) {
@@ -218,7 +223,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
+            return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BetSize;
         }
 
         public int CurrentRoundNumber() {

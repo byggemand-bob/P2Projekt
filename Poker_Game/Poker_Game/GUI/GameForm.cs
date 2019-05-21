@@ -290,7 +290,12 @@ namespace Poker_Game.GUI {
 
         private void ButtonRaise_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0) {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[1].CurrentBet + 2 * _settings.BlindSize);
+                int currentBet = _settings.BetSize;
+                if(_game.Players[0].CurrentBet <= _game.Players[1].CurrentBet) {
+                    currentBet = Math.Abs(_game.Players[_game.CurrentPlayerIndex].CurrentBet - _game.Players[(_game.CurrentPlayerIndex + 1) % 2].CurrentBet) + _settings.BetSize;
+                }
+
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[0].CurrentBet + currentBet);
             }
         }
 
