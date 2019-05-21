@@ -25,6 +25,8 @@ namespace Poker_Game
             {
                 players[0].Cards.Clear();
                 players[1].Cards.Clear();
+                player1Cards.Clear();
+                player1Cards.Clear();
                 Street.Clear();
                 CardsInPlay.Clear();
 
@@ -52,10 +54,8 @@ namespace Poker_Game
                 }
 
                 Player resultWinCalc2Player;
-                players[0].Cards.Concat(player1Cards).ToList();
-                players[1].Cards.Concat(player2Cards).ToList();
-                players[0].Cards.Concat(Street).ToList();
-                players[1].Cards.Concat(Street).ToList();
+                players[0].Cards = new List<Card>(player1Cards.Concat(Street).ToList());
+                players[1].Cards = new List<Card>(player2Cards.Concat(Street).ToList());
                 players[0].Score = winCalc2.Evaluate(players[0].Cards);
                 players[1].Score = winCalc2.Evaluate(players[1].Cards);
 
