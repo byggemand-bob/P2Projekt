@@ -17,7 +17,7 @@ namespace Poker_Game
         FastWinCalc winCalc = new FastWinCalc();
         List<Card> Player1Cards = new List<Card>(), Player2Cards = new List<Card>(), Street = new List<Card>(), CardsInPlay = new List<Card>();
         Card NewCard;
-        int UserResult, AiResult, testNumber = 8;
+        int UserResult, AiResult, testNumber = 37;
         bool RandomPlayerCards = true, GenerateTests = true;
         List<string> PrintFile = new List<string>();
 
