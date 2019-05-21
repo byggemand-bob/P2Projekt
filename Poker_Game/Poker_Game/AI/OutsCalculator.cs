@@ -20,12 +20,12 @@ namespace Poker_Game.AI
 
             if (HasFlushChance(cardHand))
             {
-                if (OpenStraightAndFlushDraw(street, cardHand))
+                if (OpenStraightAndFlushDraw(cardHand, street))
                 {
                     return 15;
                 }
 
-                if (InsideStraightAndFlushDraw(street, cardHand))
+                if (InsideStraightAndFlushDraw(cardHand, street))
                 {
                     return 12;
                 }
@@ -289,7 +289,7 @@ namespace Poker_Game.AI
 
         private bool IsOpenEndedStraightDraw(List<Card> street, List<Card> cardHand)
         { // Outs 8
-            if (GetStraightOuts(street, cardHand) == 8)
+            if (GetStraightOuts(cardHand, street) == 8)
             {
                 return true;
             }
@@ -299,7 +299,7 @@ namespace Poker_Game.AI
 
         private bool IsInsideStraightDraw(List<Card> street, List<Card> cardHand)
         {
-            if (GetStraightOuts(street, cardHand) == 4)
+            if (GetStraightOuts(cardHand, street) == 4)
             {
                 return true;
             }
