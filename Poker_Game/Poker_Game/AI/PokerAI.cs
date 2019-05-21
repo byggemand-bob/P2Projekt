@@ -20,7 +20,6 @@ namespace Poker_Game.AI {
         private AiMode _mode;
 
         private const double CheckAfter = 0;
-        private const double CallAfter = 0.5;
         private const double RaiseAfter = 1;
 
         public PokerAI(PokerGame game, AiMode mode) {
@@ -49,7 +48,9 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewTree() {
-            _pokerTree = new PokerTree(_pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber());
+            if(_mode == AiMode.ExpectiMax) {
+                _pokerTree = new PokerTree(_pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber()); 
+            }
         }
 
         public void SaveData() {

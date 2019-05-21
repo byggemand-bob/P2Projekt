@@ -22,7 +22,7 @@ namespace Poker_Game.Game {
         public string Name { get; set; }
         public PlayerAction Action { get; set; }
         public PlayerAction PreviousAction { get; set; }
-        public Score Score { get; private set; }
+        public Score Score { get; set; }
         public List<Card> Cards { get; set; }
 
         #region Initialization
