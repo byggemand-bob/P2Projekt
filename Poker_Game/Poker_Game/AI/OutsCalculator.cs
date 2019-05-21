@@ -110,8 +110,7 @@ namespace Poker_Game.AI
             var count = 0;
             int cardRange = GetRankDifference(cardHand);
 
-            if (cardRange < 1 || cardRange > 4)
-            {
+            if (cardRange < 1 || cardRange > 4) {
                 return 0;
             }
 

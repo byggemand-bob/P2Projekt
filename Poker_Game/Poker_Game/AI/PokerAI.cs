@@ -157,7 +157,7 @@ namespace Poker_Game.AI {
             // Efter flop SB
 
 
-            else if (_round.CurrentTurnNumber() <= 1) {
+            else if (_round.CurrentTurnNumber() > 0 && _round.CurrentTurnNumber() < 3) {
                 
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
