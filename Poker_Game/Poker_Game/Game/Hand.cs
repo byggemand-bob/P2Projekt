@@ -96,9 +96,6 @@ namespace Poker_Game.Game {
                 Card newCard = new Card(_deck);
                 _deck.Add(newCard);
                 Street.Add(newCard);
-                foreach (Player player in Players) {
-                    player.Cards.Add(newCard);
-                }
             }
         }
 
@@ -127,7 +124,5 @@ namespace Poker_Game.Game {
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }
-
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Poker_Game.Game {
     public class PokerGame {
@@ -136,9 +137,12 @@ namespace Poker_Game.Game {
 
         private List<Player> GetWinningPlayers(List<Player> players) {
             foreach (Player player in players) {
-                player.Cards.Sort();
-                player.GetScore();
+                List<Card> cards = new List<Card>(player.Cards);
+                cards.AddRange(Hand.Street);
+                WinConditions winCondition = new WinConditions();
+                player.Score = winCondition.Evaluate(cards);
             }
+
             if (players[0].Score > players[1].Score) {
                 return new List<Player> { players[0] };
             }

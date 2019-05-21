@@ -504,16 +504,16 @@ namespace Poker_Game.Game
             Player1Flush.Sort();
             Player2Flush.Sort();
 
-            int difference = Player2Flush.Count - Player1Flush.Count;
 
-            for (int x = Player1Flush.Count - 1; x > 0; x--)
-            {
-                if (Player1Flush[x].Rank > Player2Flush[x + difference].Rank)
+
+            for (int x = 1; x < 6; x++) 
+            { 
+                if (Player1Flush[Player1Flush.Count - x].Rank > Player2Flush[Player2Flush.Count - x].Rank)
                 {
                     return -1;
                 }
 
-                else if (Player1Flush[x].Rank < Player2Flush[x + difference].Rank)
+                else if (Player1Flush[Player1Flush.Count - x].Rank < Player2Flush[Player2Flush.Count - x].Rank)
                 {
                     return 1;
                 }
