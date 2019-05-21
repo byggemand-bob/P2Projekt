@@ -13,37 +13,38 @@ namespace UnitTest
     {
         public OutsCalculator OutsCalculator = new OutsCalculator();
 
-        [TestMethod]
-        public void OpenStraightAndFlushDrawTest()
-        {
-            // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace); 
-            Card handCard2 = new Card(Suit.Spades, Rank.King);
+        //[TestMethod]
+        //public void OpenStraightAndFlushDrawTest()
+        //{
+        //    // Arrange
+        //    Card handCard1 = new Card(Suit.Spades, Rank.Ace); 
+        //    Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Spades, (Rank) 5);
-            Card tableCard2 = new Card(Suit.Spades, (Rank) 2);
-            Card tableCard3 = new Card(Suit.Spades, (Rank) 9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
+        //    Card tableCard1 = new Card(Suit.Spades, (Rank) 5);
+        //    Card tableCard2 = new Card(Suit.Spades, (Rank) 2);
+        //    Card tableCard3 = new Card(Suit.Spades, (Rank) 9);
+        //    Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+        //    Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
-                handCard1, handCard2
-            };
+        //    List<Card> hand = new List<Card>
+        //    {
+        //        handCard1, handCard2
+        //    };
              
-            List<Card> street = new List<Card>
-            {
-                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
-            };
+        //    List<Card> street = new List<Card>
+        //    {
+        //        tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+        //    };
 
-            int expected = 15; 
+        //    int expected = 15; 
 
-            // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+        //    // Act
+        //    int actual = OutsCalculator.CompareOuts(hand, street);
 
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
+        //    // Assert
+        //    Assert.AreEqual(expected, actual);
+        //}
+
 
         [TestMethod]
         public void IsPocketFlushDrawTest()
@@ -71,7 +72,7 @@ namespace UnitTest
             int expected = 9;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -82,13 +83,13 @@ namespace UnitTest
         public void IsTableFlushDrawTest()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Diamonds, Rank.Ace);
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Hearts, Rank.King);
 
             Card tableCard1 = new Card(Suit.Spades, (Rank)3);
             Card tableCard2 = new Card(Suit.Spades, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)4);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
@@ -104,7 +105,7 @@ namespace UnitTest
             int expected = 9;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -112,14 +113,14 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void ThreeOakToFullHouseOrFourOakTest()
+        public void ThreeOAKToFullHouseOrFourOAKTest()
         {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace); // 3x Ace
-            Card handCard2 = new Card(Suit.Hearts, Rank.Ace);
-            Card tableCard1 = new Card(Suit.Diamonds, Rank.Ace);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
 
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.Ace);
             Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
             Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
@@ -137,7 +138,7 @@ namespace UnitTest
             int expected = 7;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -171,7 +172,7 @@ namespace UnitTest
             int expected = 2;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -180,15 +181,15 @@ namespace UnitTest
 
         [TestMethod]
         public void OnePairToTwoPairTest()
-        {
+        { 
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)10);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
@@ -198,14 +199,13 @@ namespace UnitTest
 
             List<Card> street = new List<Card>
             {
-
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
             int expected = 5;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -217,7 +217,7 @@ namespace UnitTest
         {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Hearts, Rank.King);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
 
             Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
             Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
@@ -238,7 +238,7 @@ namespace UnitTest
             int expected = 3;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -271,7 +271,7 @@ namespace UnitTest
             int expected = 6;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -283,11 +283,10 @@ namespace UnitTest
         {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Hearts, Rank.King);
+            Card handCard2 = new Card(Suit.Hearts, Rank.Ace);
 
-            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
-
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard1 = new Card(Suit.Hearts, Rank.King);
+            Card tableCard2 = new Card(Suit.Clubs,  Rank.King);
             Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
             Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
@@ -305,7 +304,7 @@ namespace UnitTest
             int expected = 4;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -316,13 +315,13 @@ namespace UnitTest
         public void OnePairToSet()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Hearts, Rank.King);
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)10);
 
             Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
@@ -338,7 +337,7 @@ namespace UnitTest
             int expected = 5;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -349,13 +348,13 @@ namespace UnitTest
         public void NoPairToPair()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Hearts, Rank.King);
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
             Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
@@ -371,7 +370,7 @@ namespace UnitTest
             int expected = 6;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
