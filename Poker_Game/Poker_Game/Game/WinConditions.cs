@@ -419,6 +419,7 @@ namespace Poker_Game.Game {
                                 Player player2clone = (Player)player2.Clone();
                                 player1clone.Cards = RemoveUnfitRank(player1clone.Cards, player1clone.Cards[i].Rank);
                                 player2clone.Cards = RemoveUnfitRank(player2clone.Cards, player2clone.Cards[j].Rank);
+                                
                                 return BestPair(player1clone, player2clone);
                             }
                         }
@@ -452,10 +453,10 @@ namespace Poker_Game.Game {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                             player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                RemoveUnfitRank(player1cards, (player1cards[i].Rank));
-                                RemoveUnfitRank(player2cards, (player2cards[j].Rank));
-                                GetXAmountOfHighestCard(player1cards, 2);
-                                GetXAmountOfHighestCard(player2cards, 2);
+                                player1.Cards = RemoveUnfitRank(player1cards, (player1cards[i].Rank));
+                                player2.Cards = RemoveUnfitRank(player2cards, (player2cards[j].Rank));
+                                player1.Cards = GetXAmountOfHighestCard(player1cards, 2);
+                                player2.Cards = GetXAmountOfHighestCard(player2cards, 2);
                                 if (GetBestHighestCard(player1cards, player2cards) == 1) {
                                     return player2;
                                 } else if (GetBestHighestCard(player1cards, player2cards) == 0) {
@@ -491,15 +492,15 @@ namespace Poker_Game.Game {
                                                 if (player1.Cards[h].Rank == player2.Cards[k].Rank) {
                                                     Player player1clone = (Player)player1.Clone();
                                                     Player player2clone = (Player)player2.Clone();
-                                                    RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[i].Rank));
-                                                    RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[j].Rank));
-                                                    RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[h].Rank));
-                                                    RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[k].Rank));
+                                                    player1clone.Cards = RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[i].Rank));
+                                                    player2clone.Cards = RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[j].Rank));
+                                                    player1clone.Cards = RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[h].Rank));
+                                                    player2clone.Cards = RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[k].Rank));
                                                     player1clone.Cards = GetXAmountOfHighestCard(player1clone.Cards, 1);
-                                                    player1clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 1);
+                                                    player2clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 1);
                                                     return GetBestHighestCard(player1clone, player2clone); // Should check for highestCard here.
                                                 } else {
-                                                    return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+                                                    return (player1.Cards[h].Rank > player2.Cards[k].Rank ? player1 : player2);
                                                 }
                                             }
                                         }
