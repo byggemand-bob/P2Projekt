@@ -172,7 +172,7 @@ namespace Poker_Game.AI
             var flushCards = street
                 .Where(x => x.Suit == cardHand[0].Suit)
                 .OrderBy(x => x.Rank);
-
+            
             return 13 /*Cards in a suit*/ - (flushCards.Count() + cardHand.Count);
         }
 
