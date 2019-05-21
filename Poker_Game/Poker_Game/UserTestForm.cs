@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Poker_Game.Game;
+using System.IO;
 
 namespace Poker_Game
 {
@@ -16,8 +17,9 @@ namespace Poker_Game
         FastWinCalc winCalc = new FastWinCalc();
         List<Card> Player1Cards = new List<Card>(), Player2Cards = new List<Card>(), Street = new List<Card>(), CardsInPlay = new List<Card>();
         Card NewCard;
-        int UserResult, AiResult;
+        int UserResult, AiResult, testNumber = 8;
         bool RandomPlayerCards = false;
+        List<string> PrintFile = new List<string>();
 
         private void Player2GuessButton_Click(object sender, EventArgs e)
         {
@@ -25,6 +27,7 @@ namespace Poker_Game
 
             if (UserResult == AiResult)
             {
+                GenerateTest();
                 NewCards();
             }
             else
@@ -64,6 +67,7 @@ namespace Poker_Game
 
             if (UserResult == AiResult)
             {
+                GenerateTest();
                 NewCards();
             }
             else
@@ -83,12 +87,18 @@ namespace Poker_Game
             }
         }
 
+        private void SaveTestsButton_Click(object sender, EventArgs e)
+        {
+            SaveGeneratedTests();
+        }
+
         private void Player1GuessButton_Click(object sender, EventArgs e)
         {
             UserResult = -1;
 
             if(UserResult == AiResult)
             {
+                GenerateTest();
                 NewCards();
             }
             else
@@ -180,6 +190,65 @@ namespace Poker_Game
             StreetCard5ImageBox.Image = Street[4].Image;
 
             AiResult = winCalc.WhoWins(Player1Cards.Concat(Street).ToList(), Player2Cards.Concat(Street).ToList());
+        }
+
+        private void GenerateTest()
+        {
+            if(PrintFile.Count() > 1000)
+            {
+                TestNumnerWarningLabel.Visible = true;
+            }
+            else if(PrintFile.Count() > 1500)
+            {
+                PrintFile.Clear();
+                TestNumnerWarningLabel.Visible = false;
+            }
+
+            PrintFile.Add("[TestMethod]");
+            PrintFile.Add("public void FastWinCalcTest" + testNumber + "()");
+            PrintFile.Add("{");
+            PrintFile.Add("\n");
+            PrintFile.Add("    // Arrange");
+            PrintFile.Add("    List<Card> Player1Cards = new List<Card>();");
+            PrintFile.Add("    List<Card> Player2Cards = new List<Card>();");
+            PrintFile.Add("\n");
+            PrintFile.Add("    Card tableCard1 = new Card((Suit)" + (int)Street[0].Suit + ", (Rank)" + (int)Street[0].Rank + ");");
+            PrintFile.Add("    Card tableCard2 = new Card((Suit)" + (int)Street[1].Suit + ", (Rank)" + (int)Street[1].Rank + ");");
+            PrintFile.Add("    Card tableCard3 = new Card((Suit)" + (int)Street[2].Suit + ", (Rank)" + (int)Street[2].Rank + ");");
+            PrintFile.Add("    Card tableCard4 = new Card((Suit)" + (int)Street[3].Suit + ", (Rank)" + (int)Street[3].Rank + ");");
+            PrintFile.Add("    Card tableCard5 = new Card((Suit)" + (int)Street[4].Suit + ", (Rank)" + (int)Street[4].Rank + ");");
+            PrintFile.Add("\n");
+            PrintFile.Add("    Player1Cards.Add(new Card((Suit)" + (int)Player1Cards[0].Suit + ", (Rank)" + (int)Player1Cards[0].Rank + "));");
+            PrintFile.Add("    Player1Cards.Add(new Card((Suit)" + (int)Player1Cards[1].Suit + ", (Rank)" + (int)Player1Cards[1].Rank + "));");
+            PrintFile.Add("    Player1Cards.Add(tableCard1);");
+            PrintFile.Add("    Player1Cards.Add(tableCard2);");
+            PrintFile.Add("    Player1Cards.Add(tableCard3);");
+            PrintFile.Add("    Player1Cards.Add(tableCard4);");
+            PrintFile.Add("    Player1Cards.Add(tableCard5);");
+            PrintFile.Add("\n");
+            PrintFile.Add("    Player2Cards.Add(new Card((Suit)" + (int)Player2Cards[0].Suit + ", (Rank)" + (int)Player2Cards[0].Rank + "));");
+            PrintFile.Add("    Player2Cards.Add(new Card((Suit)" + (int)Player2Cards[1].Suit + ", (Rank)" + (int)Player2Cards[1].Rank + "));");
+            PrintFile.Add("    Player2Cards.Add(tableCard1);");
+            PrintFile.Add("    Player2Cards.Add(tableCard2);");
+            PrintFile.Add("    Player2Cards.Add(tableCard3);");
+            PrintFile.Add("    Player2Cards.Add(tableCard4);");
+            PrintFile.Add("    Player2Cards.Add(tableCard5);");
+            PrintFile.Add("\n");
+            PrintFile.Add("    //Act");
+            PrintFile.Add("    int actual = winCalc.WhoWins(Player1Cards, Player2Cards);");
+            PrintFile.Add("\n");
+            PrintFile.Add("    //Assert");
+            PrintFile.Add("    Assert.AreEqual(" + UserResult + ", actual);");
+            PrintFile.Add("}");
+            PrintFile.Add("\n");
+
+            testNumber++;
+        }
+
+        private void SaveGeneratedTests()
+        {
+            string path = System.Windows.Forms.Application.StartupPath + "GeneratedUnitTests.txt";
+            File.WriteAllLines(path, PrintFile);
         }
     }
 }

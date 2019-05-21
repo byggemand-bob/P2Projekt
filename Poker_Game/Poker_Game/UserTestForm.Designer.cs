@@ -46,6 +46,8 @@
             this.AiPlayer2GuessLabel = new System.Windows.Forms.Label();
             this.AiDrawGuessLabel = new System.Windows.Forms.Label();
             this.RandomOrStaticButton = new System.Windows.Forms.Button();
+            this.SaveTestsButton = new System.Windows.Forms.Button();
+            this.TestNumnerWarningLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard1ImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard2ImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StreetCard3ImageBox)).BeginInit();
@@ -229,11 +231,34 @@
             this.RandomOrStaticButton.UseVisualStyleBackColor = true;
             this.RandomOrStaticButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // SaveTestsButton
+            // 
+            this.SaveTestsButton.Location = new System.Drawing.Point(12, 420);
+            this.SaveTestsButton.Name = "SaveTestsButton";
+            this.SaveTestsButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveTestsButton.TabIndex = 19;
+            this.SaveTestsButton.Text = "Save Tests";
+            this.SaveTestsButton.UseVisualStyleBackColor = true;
+            this.SaveTestsButton.Click += new System.EventHandler(this.SaveTestsButton_Click);
+            // 
+            // TestNumnerWarningLabel
+            // 
+            this.TestNumnerWarningLabel.AutoSize = true;
+            this.TestNumnerWarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.TestNumnerWarningLabel.Location = new System.Drawing.Point(9, 404);
+            this.TestNumnerWarningLabel.Name = "TestNumnerWarningLabel";
+            this.TestNumnerWarningLabel.Size = new System.Drawing.Size(151, 13);
+            this.TestNumnerWarningLabel.TabIndex = 20;
+            this.TestNumnerWarningLabel.Text = "Number Of Test will soon reset";
+            this.TestNumnerWarningLabel.Visible = false;
+            // 
             // UserTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TestNumnerWarningLabel);
+            this.Controls.Add(this.SaveTestsButton);
             this.Controls.Add(this.RandomOrStaticButton);
             this.Controls.Add(this.AiDrawGuessLabel);
             this.Controls.Add(this.AiPlayer2GuessLabel);
@@ -288,5 +313,7 @@
         private System.Windows.Forms.Label AiPlayer2GuessLabel;
         private System.Windows.Forms.Label AiDrawGuessLabel;
         private System.Windows.Forms.Button RandomOrStaticButton;
+        private System.Windows.Forms.Button SaveTestsButton;
+        private System.Windows.Forms.Label TestNumnerWarningLabel;
     }
 }
