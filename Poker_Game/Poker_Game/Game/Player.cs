@@ -25,6 +25,7 @@ namespace Poker_Game.Game {
         public Score Score { get; set; }
         public List<Card> Cards { get; set; }
         public List<Card> ScoreHand { get; set; }
+
         #region Initialization
 
         public Player(int id,  int stackSize) {
@@ -34,6 +35,7 @@ namespace Poker_Game.Game {
             Action = PlayerAction.None;
             PreviousAction = PlayerAction.None;
             Score = Score.None;
+            ScoreHand = new List<Card>();
             Reset();
         }
 
