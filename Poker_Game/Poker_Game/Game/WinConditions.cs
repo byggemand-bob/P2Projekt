@@ -158,7 +158,7 @@ namespace Poker_Game.Game {
             return false;
         }
         public Card HasStraightAndCardReturn(List<Card> cards) {
-            List<Card> sortedCards = DeckDuper3000(cards);
+            List<Card> sortedCards = DuplicateDeck(cards);
             sortedCards.Sort();
             RemoveDublicateRank(sortedCards, 0);
             for (int i = 0; i <= sortedCards.Count - 5; i++) {
@@ -391,7 +391,7 @@ namespace Poker_Game.Game {
         }
 
         private List<Card> GetXAmountOfHighestCard(List<Card> cards, int numberOfCards) {
-            for (int i = cards.Count - numberOfCards; i > 0; i--) {
+            for (int i = cards.Count - numberOfCards - 1; i > 0; i--) {
                 cards.Remove(cards[i]);
             }
             return cards;
@@ -437,8 +437,8 @@ namespace Poker_Game.Game {
         }
 
         private Player BestThreeOfAKind(Player player1, Player player2) {
-            List<Card> player1cards = DeckDuper3000(player1.Cards);
-            List<Card> player2cards = DeckDuper3000(player2.Cards);
+            List<Card> player1cards = DuplicateDeck(player1.Cards);
+            List<Card> player2cards = DuplicateDeck(player2.Cards);
             player1cards.Sort();
             player2cards.Sort();
             for (int i = 0; i < player1.Cards.Count - 1; i++) {

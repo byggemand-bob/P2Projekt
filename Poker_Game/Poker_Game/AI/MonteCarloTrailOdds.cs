@@ -17,11 +17,7 @@ namespace Poker_Game.AI
         const int TotalNumberOfTrails = 250000;
         
 
-        public MonteCarloTrailOdds(List<Card> Hand, List<Card> Street)
-        {
-            aiHand = Hand;
-            street = Street;
-        }
+        
 
         public struct Odds
         {
