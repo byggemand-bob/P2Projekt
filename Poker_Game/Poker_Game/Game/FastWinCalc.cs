@@ -380,7 +380,7 @@ namespace Poker_Game.Game
             {
                 y -= nrOfSecoundHighestValueCards;
                 
-                for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
+                for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards involved in a pair, three of a kind etc.
                 {
                     while ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard || (int)PlayerCards[PlayerTestCard - x].Rank == valueOfSecoundHighestCard)
                     {
@@ -403,7 +403,7 @@ namespace Poker_Game.Game
                     }
                 }
             }
-            else
+            else if(nrOfHighestValueCards > 1)
             {
                 for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
                 {
@@ -418,6 +418,20 @@ namespace Poker_Game.Game
                     }
 
 
+                    if (AiCards[AiTestCard - x].Rank > PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return -1;
+                    }
+                    else if (AiCards[AiTestCard - x].Rank < PlayerCards[PlayerTestCard - x].Rank)
+                    {
+                        return 1;
+                    }
+                }
+            }
+            else
+            {
+                for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
+                {
                     if (AiCards[AiTestCard - x].Rank > PlayerCards[PlayerTestCard - x].Rank)
                     {
                         return -1;
