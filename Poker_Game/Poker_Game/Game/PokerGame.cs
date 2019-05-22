@@ -85,8 +85,9 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
+            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function? 
             Hand = new Hand(Players, _dealerButtonPosition);
+            CurrentPlayerIndex = GetStartingPlayerIndex();
             Settings.BetSize = 2 * Settings.BlindSize;
             PayBlinds();
             _handInProgress = true;
