@@ -95,7 +95,7 @@ namespace Poker_Game.AI {
             OutsCalculator oc = new OutsCalculator();
 
             List<string> RaisePreflop = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
-            List<string> CallPreflop = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
+            List<string> CallPreflop = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
 
             List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
 
@@ -147,11 +147,7 @@ namespace Poker_Game.AI {
                             if (wc.Evaluate(cardsToEvaluate) >= Score.Pair && _pokerGame.CanRaise()) {
                                 return PlayerAction.Raise;
                             }
-
-                            if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
-                                return PlayerAction.Raise;
-                            }
-                        
+                     
                             if (flushOnStreet(_street) && (!oc.IsOpenEndedStraightDraw(_street, cardHand) 
                                                            || !oc.IsInsideStraightDraw(_street, cardHand)
                                                            || !oc.InsideStraightAndFlushDraw(_street, cardHand))) {
@@ -211,11 +207,11 @@ namespace Poker_Game.AI {
                 }
             }
 
-            if (_pokerGame.CurrentRoundNumber() == 2 && count == 2) {
+            if (_pokerGame.CurrentRoundNumber() == 2 && count >= 3) {
                 return true;
             }
 
-            if (_pokerGame.CurrentRoundNumber() == 3 && count == 3) {
+            if (_pokerGame.CurrentRoundNumber() == 3 && count >= 4) {
                 return true;
             }
 
