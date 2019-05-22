@@ -5,7 +5,7 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI.Obsolete {
     class AiTest {
-
+        /*
         static void Main() {
             TestPotSizeCalculator();
 
@@ -32,6 +32,8 @@ namespace Poker_Game.AI.Obsolete {
             }
 
             Console.ReadKey();
+            
         }
+        */
     }
 }

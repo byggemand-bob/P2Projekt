@@ -14,7 +14,7 @@ namespace Poker_Game.AI
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
         int NUMOFTHREADS = System.Environment.ProcessorCount;
-        const int TotalNumberOfTrails = 250000;
+        const int TotalNumberOfTrails = 400000;
         
         public struct Odds
         {
@@ -100,7 +100,9 @@ namespace Poker_Game.AI
                                     (double)loses / (double)NumberOfTrails * 100,
                                     (double)draws / (double)NumberOfTrails * 100);
 
+            Console.WriteLine("Wins: {0} , Loses: {1} , Draws: {2}", wins, loses, draws);
             PrintResults(Results);
+            Console.WriteLine("");
 
             return Results;
         }
@@ -211,7 +213,7 @@ namespace Poker_Game.AI
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
                 opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));
 
-                result = winCalc.WhoWinsV3(aiTrailCards, opponantTrailCards);
+                result = winCalc.WhoWins(aiTrailCards, opponantTrailCards);
 
                 if (result == 1)
                 {
@@ -235,7 +237,9 @@ namespace Poker_Game.AI
                                     (double)loses / (double)NumberOfTrails * 100,
                                     (double)draws / (double)NumberOfTrails * 100);
 
+            Console.WriteLine("Wins: {0} , Loses: {1} , Draws: {2}", wins, loses, draws);
             PrintResults(Results);
+            Console.WriteLine("");
 
             return Results;
         }
