@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2B55B119-4064-477D-BD7F-334C0F0470E4}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Poker_Game</RootNamespace>
     <AssemblyName>Poker_Game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -76,6 +76,7 @@
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />
     <Compile Include="AI\Opponent\OpponentData.cs" />
+    <Compile Include="AI\Opponent\VPIP\ParseTest.cs" />
     <Compile Include="AI\Opponent\VPIP\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\GameTree\Node.cs" />

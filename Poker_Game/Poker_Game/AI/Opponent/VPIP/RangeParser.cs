@@ -74,7 +74,7 @@ namespace Poker_Game.AI.Opponent.VPIP {
 
             for(Rank r = lower; r <= Rank.Ace; r++) {
                 foreach(Suit suit in _suits) {
-                    result.Add(MakeCardHand(r, r, suit));
+                    result.AddRange(MakeOffsuit(r, r));
                 }
             }
 

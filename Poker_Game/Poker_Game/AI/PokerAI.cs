@@ -128,12 +128,12 @@ namespace Poker_Game.AI {
                             return PlayerAction.Call;
                         }
                     }
-                }  else if (oc.CompareOuts(_street, _player.Cards) > 0) {
-                    if (oc.CompareOuts(_street, _player.Cards) > 4 && _pokerGame.CanRaise()) {
+                }  else if (oc.CompareOuts(_player.Cards, _street) > 0) {
+                    if (oc.CompareOuts(_player.Cards, _street) > 4 && _pokerGame.CanRaise()) {
                         return PlayerAction.Raise;
                     }
 
-                    if (oc.CompareOuts(_street, _player.Cards) <= 4 && _pokerGame.CanCall()) {
+                    if (oc.CompareOuts(_player.Cards, _street) <= 4 && _pokerGame.CanCall()) {
                         return PlayerAction.Call;
                     }
                 }

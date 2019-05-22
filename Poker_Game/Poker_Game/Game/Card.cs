@@ -73,5 +73,9 @@ namespace Poker_Game.Game {
         public object Clone() {
             return new Card(Suit, Rank);
         }
+
+        public override string ToString() {
+            return Rank.ToString() + " of " + Suit.ToString();
+        }
     }
 }
