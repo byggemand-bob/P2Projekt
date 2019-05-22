@@ -99,9 +99,8 @@ namespace Poker_Game.AI {
 
             List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
 
-            var compareOuts = oc.CompareOuts(_street, _player.Cards);
-
-            cardsToEvaluate.AddRange(_street);
+            
+            cardsToEvaluate.AddRange(_street);  
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
             var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop).ToList();
@@ -116,7 +115,7 @@ namespace Poker_Game.AI {
                     return PlayerAction.Call;
                 }
 
-            } else if (_pokerGame.CurrentRoundNumber() > 1 && _pokerGame.CurrentRoundNumber() <= 3) { // Flop + Turn
+            } else if (_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) { // Flop + Turn
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
@@ -129,30 +128,26 @@ namespace Poker_Game.AI {
                             return PlayerAction.Call;
                         }
                     }
-                }  else if (compareOuts > 0) {
-                    if (compareOuts > 4 && _pokerGame.CanRaise()) {
+                }  else if (oc.CompareOuts(_street, _player.Cards) > 0) {
+                    if (oc.CompareOuts(_street, _player.Cards) > 4 && _pokerGame.CanRaise()) {
                         return PlayerAction.Raise;
                     }
 
-                    if (compareOuts <= 4 && _pokerGame.CanCall()) {
+                    if (oc.CompareOuts(_street, _player.Cards) <= 4 && _pokerGame.CanCall()) {
                         return PlayerAction.Call;
                     }
                 }
+               
             } else if (_pokerGame.CurrentRoundNumber() == 4) { // River
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+                    if (_pokerGame.CanRaise()) {
+                        return PlayerAction.Raise;
+                    }
 
-                    var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
-                    if (mtc > 0) {
-                        if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
-                            return PlayerAction.Raise;
-                        }
-
-                        if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanCall())
-                            return PlayerAction.Call;
+                    if (_pokerGame.CanCall())
+                        return PlayerAction.Call;
                     }
                 }
-            }
-
             if(_pokerGame.CanCheck()) {
                 return PlayerAction.Check;
             }
@@ -167,6 +162,7 @@ namespace Poker_Game.AI {
                     return true;
                 }
             }
+            //FEJL
 
             return false;
         }
