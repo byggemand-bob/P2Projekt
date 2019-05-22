@@ -76,6 +76,14 @@ namespace Poker_Game {
                         resultWinCalc2 = 1;
                     }
                     if (resultWinCalc1 != resultWinCalc2) {
+                        for (int j = 0; j <= players[0].ScoreHand.Count - 1; j++) {
+                            Console.WriteLine("Players Cards:" + players[0].ScoreHand[j].Rank + " " + players[0].ScoreHand[j].Suit);
+                        }
+                        Console.WriteLine("");
+                        for (int j = 0; j <= players[1].ScoreHand.Count - 1; j++) {
+                            Console.WriteLine("Players Cards:" + players[1].ScoreHand[j].Rank + " " + players[1].ScoreHand[j].Suit);
+                        }
+                        Console.WriteLine("");
                         Console.WriteLine("player1 hand: " + player1Cards[0].Suit + player1Cards[0].Rank + " " + player1Cards[1].Suit + player1Cards[1].Rank);
                         Console.WriteLine("Street  hand: " + Street[0].Suit + Street[0].Rank + " " + Street[1].Suit + Street[1].Rank + " " + Street[2].Suit + Street[2].Rank + " " + Street[3].Suit + Street[3].Rank + " " + Street[4].Suit + Street[4].Rank);
                         Console.WriteLine("player2 hand: " + player2Cards[0].Suit + player2Cards[0].Rank + " " + player2Cards[1].Suit + player2Cards[1].Rank);

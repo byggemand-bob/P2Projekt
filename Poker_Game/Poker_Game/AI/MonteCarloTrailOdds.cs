@@ -14,7 +14,7 @@ namespace Poker_Game.AI
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
         int NUMOFTHREADS = System.Environment.ProcessorCount;
-        const int TotalNumberOfTrails = 400000;
+        const int TotalNumberOfTrails = 1000000;
         
 
         
