@@ -83,12 +83,12 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction MonteCarlo() {
+        private PlayerAction MonteCarlonew() {
             MonteCarloDecisionMaking mcdm = new MonteCarloDecisionMaking(_pokerGame);
             return mcdm.MakeDecision();
         }
 
-        private PlayerAction MonteCarloOld() {
+        private PlayerAction MonteCarlo() {
             WinConditions wc = new WinConditions();
             RangeParser rc = new RangeParser();
             EVCalculator ev = new EVCalculator(_settings);
