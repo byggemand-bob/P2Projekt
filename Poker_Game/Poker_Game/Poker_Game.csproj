@@ -90,6 +90,7 @@
     <Compile Include="AI\Opponent\DataReader.cs" />
     <Compile Include="AI\Opponent\DataWriter.cs" />
     <Compile Include="AI\MonteCarloTrailOdds.cs" />
+    <Compile Include="WinCalcVsWinCalc.cs" />
     <Compile Include="Game\FastWinCalc.cs" />
     <Compile Include="MultiThreadCardTest.cs" />
     <Compile Include="Odds_test.cs" />
