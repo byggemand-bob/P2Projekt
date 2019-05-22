@@ -115,11 +115,11 @@ namespace Poker_Game.AI {
                     return PlayerAction.Call;
                 }
 
-            } else if (_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) { // Flop + Turn
+            } else if (_pokerGame.CurrentRoundNumber() == 2) { // Flop + Turn
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
-                    if (mtc > 0) {
+                    if (mtc > 0.00) {
                         if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
                         }
