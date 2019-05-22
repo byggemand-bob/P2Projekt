@@ -244,7 +244,7 @@ namespace Poker_Game.Game {
         public void GiveHandFullHouse(Player player) {
             GiveHandThreeOfAKind(player);
             GiveHandAllPairs(player);
-            if (player.ScoreHand.Count > 5) {
+            if (player.ScoreHand.Count > 5) { 
                 player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 1]);
                 player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 1]);
             }
