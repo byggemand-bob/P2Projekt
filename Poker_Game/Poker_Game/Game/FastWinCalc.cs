@@ -495,39 +495,30 @@ namespace Poker_Game.Game
         }
 
         private int CompareFlushes(List<Card> Player1Cards, Suit Player1FlushSuit, List<Card> Player2Cards, Suit Player2FlushSuit)
-        //returns 1 if player1 won, -1 if player 2 or 0 if a draw
+        //returns -1 if player1 won, 1 if player 2 or 0 if a draw
         {
-            List<Card> Player1Flush = new List<Card>(), Player2Flush = new List<Card>();
+            int i = 6, n = 6;
 
-            foreach (Card card in Player1Cards)
+            Player1Cards.Sort();
+            Player2Cards.Sort();
+
+            for(int x = 0; x < 5; x++)
             {
-                if(card.Suit == Player1FlushSuit)
+                while(Player1Cards[i].Suit != Player1FlushSuit)
                 {
-                    Player1Flush.Add(card);
+                    i--;
                 }
-            }
 
-            foreach (Card card in Player2Cards)
-            {
-                if (card.Suit == Player2FlushSuit)
+                while(Player2Cards[n].Suit != Player2FlushSuit)
                 {
-                    Player2Flush.Add(card);
+                    n--;
                 }
-            }
 
-            Player1Flush.Sort();
-            Player2Flush.Sort();
-
-            int difference = Player2Flush.Count - Player1Flush.Count;
-
-            for (int x = Player1Flush.Count - 1; x > 0; x--)
-            {
-                if (Player1Flush[x].Rank > Player2Flush[x + difference].Rank)
+                if (Player1Cards[i].Rank > Player1Cards[n].Rank)
                 {
                     return -1;
                 }
-
-                else if (Player1Flush[x].Rank < Player2Flush[x + difference].Rank)
+                else if(Player1Cards[i].Rank < Player1Cards[n].Rank)
                 {
                     return 1;
                 }
