@@ -129,63 +129,22 @@ namespace Poker_Game.Game
                         }
                     }
 
-                    //four of a kind checks
-                    if (AiEvalCards.nrOfHighestCard == 4)
-                    {
-                        if (PlayerEvalCards.nrOfHighestCard == 4)
-                        {
-                            if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
-                            {
-                                return 1;
-                            }
-                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
-                            {
-                                return -1;
-                            }
-                            return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
-                        }
-                        return -1;
-                    }
-
-                    if (PlayerEvalCards.nrOfHighestCard == 4)
-                    {
-                        return 1;
-                    }
-
-                    //check for highest full house
-                    if (AiEvalCards.nrOfSecoundHighestCard >= 2 && AiEvalCards.nrOfHighestCard == 3)
-                    {
-                        if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
-                        {
-                            if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
-                            {
-                                return 1;
-                            }
-                            else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
-                            {
-                                return -1;
-                            }
-                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
-                            {
-                                return 1;
-                            }
-                            else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
-                            {
-                                return -1;
-                            }
-                            return 0;
-                        }
-                        return -1;
-                    }
-
-                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
-                    {
-                        return 1;
-                    }
-
                     //check for highest card in flush
                     return CompareFlushes(AiCards, AiEvalCards.flushSuit, PlayerCards, PlayerEvalCards.flushSuit);
                 }
+
+                if(PlayerEvalCards.nrOfHighestCard >= 3)
+                {
+                    if(PlayerEvalCards.nrOfHighestCard == 4)
+                    {
+                        return 1;
+                    }
+                    else if(PlayerEvalCards.nrOfSecoundHighestCard >= 2)
+                    {
+                        return 1;
+                    }
+                }
+
 
                 return -1;
             }

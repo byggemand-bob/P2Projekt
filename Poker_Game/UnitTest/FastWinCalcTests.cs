@@ -406,6 +406,86 @@ namespace UnitTest
             Assert.AreEqual(0, actual);
         }
 
+        [TestMethod]
+        public void FastWinCalcTest_StraightFlush4()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)9);
+            Card tableCard3 = new Card(Suit.Clubs, Rank.Jack);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)2)); //has Flush
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)7));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)12)); //has straight flush
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)13));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FlushVsFullHouse()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)7);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)5);
+            Card tableCard3 = new Card(Suit.Clubs, Rank.Ace);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)5);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)2)); //flush
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)7)); //full house
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+
+
+
+
+
+
+
+
 
 
 
