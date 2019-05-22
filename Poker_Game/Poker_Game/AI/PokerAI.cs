@@ -95,7 +95,7 @@ namespace Poker_Game.AI {
             OutsCalculator oc = new OutsCalculator();
 
             List<string> RaisePreflop = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
-            List<string> CallPreflop = new List<string> {"22+", "A2s+", "K2s+", "Q2+", "J2s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
+            List<string> CallPreflop = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
 
             List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
 
