@@ -462,7 +462,7 @@ namespace Poker_Game.Game
             {
                 if (cards[x].Suit == FlushSuit)
                 {
-                    ConsequtiveCardsOfSameSuitAndRank++;
+                    ConsequtiveCardsOfSameSuitAndRank = 1;
                     lastRank = (Rank)1;
                     break;
                 }
@@ -485,7 +485,7 @@ namespace Poker_Game.Game
                     }
                     else
                     {
-                        ConsequtiveCardsOfSameSuitAndRank = 0;
+                        ConsequtiveCardsOfSameSuitAndRank = 1;
                         lastRank = cards[x].Rank;
                     }
                 }
