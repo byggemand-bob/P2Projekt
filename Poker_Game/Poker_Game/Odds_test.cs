@@ -44,7 +44,7 @@ namespace Poker_Game
 
 
 
-            /*
+            
             Console.WriteLine("\n------------------------------------------------------- \nFunction 2: \n");
 
 
@@ -62,7 +62,7 @@ namespace Poker_Game
             time = stopwatch.Elapsed;
 
             Console.WriteLine("\ntime elapsed: {0}", String.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds / 10));
-            */
+            
 
             Console.WriteLine("\n\nExpected value: wins: 87,23%, loses; 11,51%, draws: 1.26%");
             

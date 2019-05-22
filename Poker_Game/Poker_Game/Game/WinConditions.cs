@@ -244,6 +244,10 @@ namespace Poker_Game.Game {
         public void GiveHandFullHouse(Player player) {
             GiveHandThreeOfAKind(player);
             GiveHandAllPairs(player);
+            if (player.ScoreHand.Count > 5) {
+                player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 1]);
+                player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 1]);
+            }
         }
         private void GiveHandFourOfAKind(Player player) {
             for (int i = 0; i < player.Cards.Count - 3; i++) {
@@ -271,7 +275,8 @@ namespace Poker_Game.Game {
                     return player.ScoreHand;
                 }
                 if (cards[i + 4].Rank == Rank.Ace) {
-                    player.Cards[player.Cards.Count - 1].Rank = (Rank)1;
+                    player.Cards = cards;
+                    player.Cards[i + 4].Rank = (Rank)1;
                     player.Cards.Sort();
                     return GiveHandStraight(player);
                 }
