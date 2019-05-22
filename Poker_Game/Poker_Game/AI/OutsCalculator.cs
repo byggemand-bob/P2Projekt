@@ -11,7 +11,7 @@ namespace Poker_Game.AI
 {
     public class OutsCalculator
     {
-        public int CompareOuts(List<Card> street, List<Card> cardHand /* params missing*/)
+        public int CompareOuts(List<Card> cardHand, List<Card> street)
         {
 
             //Flush hands

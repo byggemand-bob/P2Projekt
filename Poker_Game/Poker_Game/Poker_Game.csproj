@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\MonteCarloDecisionMaking.cs" />
     <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
