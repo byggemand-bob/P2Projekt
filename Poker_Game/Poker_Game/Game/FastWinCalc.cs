@@ -7,14 +7,12 @@ namespace Poker_Game.Game
     {
         public struct evaluatedcards
         {
-            public int[] cardsSummed;
             public bool hasFlush;
             public int nrOfHighestCard, valueOfHigestCard, nrOfSecoundHighestCard, ValueOfSecoundHeigestCard, highestCardInStraight;
             public Suit flushSuit;
 
             public evaluatedcards(List<Card> cards)
             {
-                cardsSummed = new int[15];
                 hasFlush = false;
                 nrOfHighestCard = 0;
                 valueOfHigestCard = 0;
@@ -30,6 +28,7 @@ namespace Poker_Game.Game
             private void EvaluationCalc(List<Card> Cards)
             {
                 int[] nrOfSuits = new int[4];
+                int[] cardsSummed = new int[15];
                 int cardsInRow = 0;
 
                 foreach (Card card in Cards)
@@ -184,11 +183,11 @@ namespace Poker_Game.Game
             {
                 if (PlayerEvalCards.nrOfHighestCard == 4)
                 {
-                    if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
+                    if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
                     {
                         return 1;
                     }
-                    else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
+                    else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
                     {
                         return -1;
                     }

@@ -263,6 +263,42 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void FastWinCalcTest_Straight4()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, Rank.Ace);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)4); //straight
+            Card tableCard5 = new Card(Suit.Spades, (Rank)5);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, Rank.King));
+            Player1Cards.Add(new Card(Suit.Diamonds, Rank.Jack));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)4));
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(0, actual);
+        }
+
+        [TestMethod]
         public void FastWinCalcTest_StraightFlush1()
         {
             // Arrange
@@ -695,11 +731,617 @@ namespace UnitTest
             Assert.AreEqual(-1, actual);
         }
 
+        [TestMethod]
+        public void FastWinCalcTest_4OfAKind1()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
 
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard2 = new Card(Suit.Diamonds, (Rank)5);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)5);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)5); //4 of a kind
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
 
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)14)); //high ace
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
 
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)14)); //high ace
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)7));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
 
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
 
+            // Assert
+            Assert.AreEqual(0, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_4OfAKind2()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard2 = new Card(Suit.Diamonds, (Rank)5);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)5); 
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Hearts, (Rank)3)); //4 of a kind of 3's
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5)); //four of a kind of 5's
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)7));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_4OfAKind2Reversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard2 = new Card(Suit.Diamonds, (Rank)5);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)5);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)5)); //four of a kind of 5's
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)7));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)3)); //4 of a kind of 3's
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_4OfAKindVs3OfAKind()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Hearts, (Rank)14);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)3);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //4 of a kind
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)14)); //3 of a kind
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_4OfAKindVs3OfAKindReversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Hearts, (Rank)14);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)3);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)14)); //3 of a kind
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //4 of a kind
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouse1()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //full house, 3 over 2
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)2)); //full house, 2 over 3
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouse1Reversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Hearts, (Rank)2)); //full house, 2 over 3
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //full house, 3 over 2
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouse2()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //full house, 3 over 2
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)3)); //full house, 3 over ace
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)14));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouse2Reversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Hearts, (Rank)3)); //full house, 3 over ace
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)14));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //full house, 3 over 2
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouse3()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //Full house, 3 over 2
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)3)); //Full house, 3 over 2
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(0, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouseVsPair()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //Full house 2 over 3
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Hearts, (Rank)14)); //Pair ace
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_FullHouseVsPairReversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)7);
+
+            Player1Cards.Add(new Card(Suit.Hearts, (Rank)14)); //Pair ace
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //Full house 2 over 3
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_2Pairs1()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Hearts, (Rank)14);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3); //2 pairs, high ace
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)7)); 
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)9));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)8)); 
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(0, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_2Pairs2()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)9);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)12);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)7);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //2pairs, 3 and 2
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)3)); //2pairs, 9 and 3
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)9));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_2Pairs2Reversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)9);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)12);
+            Card tableCard3 = new Card(Suit.Clubs, (Rank)7);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)3)); //2pairs, 9 and 3
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)9));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //2pairs, 3 and 2
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_2Pairs3()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)7);
+            Card tableCard3 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2); //pair 3
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //2 pair, 7 and 3
+            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)7));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)7)); //2 pairs, 7 and 5
+            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(1, actual);
+        }
+
+        [TestMethod]
+        public void FastWinCalcTest_2Pairs3Reversed()
+        {
+            // Arrange
+            List<Card> Player1Cards = new List<Card>();
+            List<Card> Player2Cards = new List<Card>();
+
+            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)7);
+            Card tableCard3 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)2); //pair 3
+            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
+            
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)7)); //2 pairs, 7 and 5
+            Player1Cards.Add(new Card(Suit.Clubs, (Rank)5));
+            Player1Cards.Add(tableCard1);
+            Player1Cards.Add(tableCard2);
+            Player1Cards.Add(tableCard3);
+            Player1Cards.Add(tableCard4);
+            Player1Cards.Add(tableCard5);
+
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //2 pair, 7 and 3
+            Player2Cards.Add(new Card(Suit.Diamonds, (Rank)7));
+            Player2Cards.Add(tableCard1);
+            Player2Cards.Add(tableCard2);
+            Player2Cards.Add(tableCard3);
+            Player2Cards.Add(tableCard4);
+            Player2Cards.Add(tableCard5);
+
+            // Act
+            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+
+            // Assert
+            Assert.AreEqual(-1, actual);
+        }
 
 
 
