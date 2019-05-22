@@ -122,7 +122,7 @@ namespace Poker_Game.AI {
             cardsToEvaluate.AddRange(_street);
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
-            var handsToCallPreflop = rc.Parse(CallPreflop);
+            var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop).ToList();
             var cardHand = _player.Cards;
 
             if (_pokerGame.CurrentRoundNumber() == 1) {
@@ -147,24 +147,15 @@ namespace Poker_Game.AI {
                             return PlayerAction.Call;
                         }
                     }
-
-                }
-
-                else if (compareOuts > 0) {
+                }  else if (compareOuts > 0) {
                     if (compareOuts > 4 && _pokerGame.CanRaise()) {
                         return PlayerAction.Raise;
                     }
 
-                    else if (compareOuts <= 4 && _pokerGame.CanCall()) {
+                    if (compareOuts <= 4 && _pokerGame.CanCall()) {
                         return PlayerAction.Call;
                     }
-
-                    if (compareOuts <= 4 && _pokerGame.CanCheck()) {
-                        return PlayerAction.Check;
-                    }
                 }
-
-                return PlayerAction.Fold;
             } else if (_pokerGame.CurrentRoundNumber() == 4) { // River
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
@@ -179,7 +170,6 @@ namespace Poker_Game.AI {
                     }
                 }
             }
-
 
             if(_pokerGame.CanCheck()) {
                 return PlayerAction.Check;
