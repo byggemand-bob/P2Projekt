@@ -107,29 +107,36 @@ namespace Poker_Game.AI {
             var cardHand = _player.Cards;
 
             if (_pokerGame.CurrentRoundNumber() == 1) {
-                if (ContainsCardHand(handsToRaisePreflop, cardHand) && _pokerGame.CanRaise()) {
-                    return PlayerAction.Raise;
+                if (ContainsCardHand(handsToRaisePreflop, cardHand)) { 
+                    if (_pokerGame.CanRaise()) {
+                        return PlayerAction.Raise;
+                    }
+                    
+                    else if (_pokerGame.CanCall()) {
+                        return PlayerAction.Call;
+                    }
+                }
+            
+                if (ContainsCardHand(handsToCallPreflop, cardHand)) {
+                    if (_pokerGame.CanCall()) { 
+                        return PlayerAction.Call;
+                    }
                 }
 
-                if (ContainsCardHand(handsToCallPreflop, cardHand) && _pokerGame.CanCall()) {
-                    return PlayerAction.Call;
-                }
-
-            } else if (_pokerGame.CurrentRoundNumber() == 2) {
+            } else if (_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) {
                 // Flop + Turn
 
                 var currentScore = wc.Evaluate(cardsToEvaluate);
                 var compareOuts = oc.CompareOuts(_player.Cards, _street);
 
-                if (currentScore >= Score.Pair)
-                    if (currentScore < Score.TwoPairs && (flushOnStreet(_street) || straightOnStreet(_street))) {
+                if (currentScore == Score.Pair || currentScore == Score.TwoPairs)
+                    if ((flushOnStreet(_street) || straightOnStreet(_street))) {
 
                         if (_pokerGame.CanCheck()) {
                             return PlayerAction.Check;
                         }
 
                         return PlayerAction.Fold;
-
 
                     }
 
