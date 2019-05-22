@@ -481,6 +481,8 @@ namespace Poker_Game.Game
                 {
                     return 1;
                 }
+
+                i--; n--;
             }
 
             return 0;
