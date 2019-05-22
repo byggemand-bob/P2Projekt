@@ -25,8 +25,7 @@ namespace Poker_Game.AI {
         private readonly Hand _hand;
         private AiMode _mode;
         
-        private const double CallModifier = 0.30; 
-        private const double RaiseModifier = 0.60;
+
 
         public PokerAI(PokerGame game, AiMode mode) {
             _pokerGame = game;
@@ -83,30 +82,13 @@ namespace Poker_Game.AI {
                     break;
             }
         }
-        private PlayerAction MonteCarlo1() {
-            EVCalculator evCalculator = new EVCalculator(_settings);
-            double value = evCalculator.CalculateMonteCarlo(_player.Cards, _player, _hand, _settings);
-
-
-            if(value - _player.CurrentBet > _player.CurrentBet * 0.5) {
-                if(_pokerGame.CanRaise()) {
-                    return PlayerAction.Raise;
-                }
-
-            }
-
-            if(value - _player.CurrentBet > 0) {
-                if(_pokerGame.CanCheck()) {
-                    return PlayerAction.Check;
-                }
-
-                return PlayerAction.Call;
-            }
-
-            return PlayerAction.Fold;
-        }
 
         private PlayerAction MonteCarlo() {
+            MonteCarloDecisionMaking mcdm = new MonteCarloDecisionMaking(_pokerGame);
+            return mcdm.MakeDecision();
+        }
+
+        private PlayerAction MonteCarloOld() {
             WinConditions wc = new WinConditions();
             RangeParser rc = new RangeParser();
             EVCalculator ev = new EVCalculator(_settings);
