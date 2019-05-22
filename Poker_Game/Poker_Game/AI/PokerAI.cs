@@ -107,25 +107,13 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction MonteCarlo() {
-            EVCalculator evCalculator = new EVCalculator(_settings);
-
-            double value =
-                evCalculator.CalculateMonteCarlo(_player.Cards,  _pokerGame.Players[0], _pokerGame.Hand, _settings);
-            //MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
-
-           // MessageBox.Show(value + ", R: " + _pokerGame.Hand.Pot * RaiseModifier + ", C: " + _pokerGame.Hand.Pot * CallModifier);
-
-
             WinConditions wc = new WinConditions();
             RangeParser rc = new RangeParser();
             EVCalculator ev = new EVCalculator(_settings);
             OutsCalculator oc = new OutsCalculator();
 
-            List<string> RaisePreflop = new List<string>
-                {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
-
-            List<string> CallPreflop = new List<string>
-                {"55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
+            List<string> RaisePreflop = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
+            List<string> CallPreflop = new List<string> {"55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"};
 
             List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
 
@@ -138,14 +126,11 @@ namespace Poker_Game.AI {
             var cardHand = _player.Cards;
 
             if (_pokerGame.CurrentRoundNumber() == 1) {
-                MessageBox.Show("Test");
                 if (ContainsCardHand(handsToRaisePreflop, cardHand) && _pokerGame.CanRaise()) {
-                    MessageBox.Show("Raise");
                     return PlayerAction.Raise;
                 }
 
                 if (ContainsCardHand(handsToCallPreflop, cardHand) && _pokerGame.CanCall()) {
-                    MessageBox.Show("Call");
                     return PlayerAction.Call;
                 }
 
@@ -206,7 +191,7 @@ namespace Poker_Game.AI {
 
         private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
             foreach(var element in range) {
-                if(element[0].Equals(cardHand[0]) && element[1].Equals(cardHand[1])) {
+                if(element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) {
                     return true;
                 }
             }
