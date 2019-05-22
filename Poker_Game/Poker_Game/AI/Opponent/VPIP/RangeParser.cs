@@ -162,7 +162,7 @@ namespace Poker_Game.AI.Opponent.VPIP {
         }
 
         private bool CompareCardhand(List<Card> cards1, List<Card> cards2) {
-            return cards1[0].Equals(cards2[0]) && cards1[1].Equals(cards2[1]);
+            return cards1[0].CompareTo(cards2[0]) == 0 && cards1[1].CompareTo(cards2[1]) == 0;
         }
 
     }
