@@ -72,7 +72,7 @@ namespace UnitTest
             int expected = 9;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -105,7 +105,7 @@ namespace UnitTest
             int expected = 9;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -138,7 +138,7 @@ namespace UnitTest
             int expected = 7;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -172,7 +172,7 @@ namespace UnitTest
             int expected = 2;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -205,7 +205,7 @@ namespace UnitTest
             int expected = 5;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -238,7 +238,7 @@ namespace UnitTest
             int expected = 3;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -271,7 +271,7 @@ namespace UnitTest
             int expected = 6;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -304,7 +304,7 @@ namespace UnitTest
             int expected = 4;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -337,7 +337,7 @@ namespace UnitTest
             int expected = 5;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -370,7 +370,7 @@ namespace UnitTest
             int expected = 6;
 
             // Act
-            int actual = OutsCalculator.CompareOuts(street, hand);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
