@@ -103,7 +103,6 @@ namespace Poker_Game.AI {
         private PlayerAction EvFlopTurn() {
             EVCalculator ev = new EVCalculator(_pokerGame.Settings);
             var eValue = ev.CalculateMonteCarlo(_cardHand, _pokerGame.Players[0], _pokerGame.Hand, _pokerGame.Settings);
-            MessageBox.Show(eValue.ToString());
             if(eValue > 0) {
                 if(eValue > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                     return PlayerAction.Raise;
