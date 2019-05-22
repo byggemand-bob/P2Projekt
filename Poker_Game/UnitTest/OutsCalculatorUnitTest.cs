@@ -13,37 +13,37 @@ namespace UnitTest
     {
         public OutsCalculator OutsCalculator = new OutsCalculator();
 
-        //[TestMethod]
-        //public void OpenStraightAndFlushDrawTest()
-        //{
-        //    // Arrange
-        //    Card handCard1 = new Card(Suit.Spades, Rank.Ace); 
-        //    Card handCard2 = new Card(Suit.Spades, Rank.King);
+        [TestMethod]
+        public void IsPocketFlushDraw()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-        //    Card tableCard1 = new Card(Suit.Spades, (Rank) 5);
-        //    Card tableCard2 = new Card(Suit.Spades, (Rank) 2);
-        //    Card tableCard3 = new Card(Suit.Spades, (Rank) 9);
-        //    Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
-        //    Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
+            Card tableCard1 = new Card(Suit.Spades, (Rank)5);
+            Card tableCard2 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
-        //    List<Card> hand = new List<Card>
-        //    {
-        //        handCard1, handCard2
-        //    };
-             
-        //    List<Card> street = new List<Card>
-        //    {
-        //        tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
-        //    };
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
 
-        //    int expected = 15; 
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
 
-        //    // Act
-        //    int actual = OutsCalculator.CompareOuts(hand, street);
+            int expected = 9;
 
-        //    // Assert
-        //    Assert.AreEqual(expected, actual);
-        //}
+            // Act
+            int actual = OutsCalculator.CompareOuts(street, hand);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
 
         [TestMethod]
