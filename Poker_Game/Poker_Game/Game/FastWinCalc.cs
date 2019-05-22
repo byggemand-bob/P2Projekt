@@ -167,45 +167,12 @@ namespace Poker_Game.Game
                 //four of a kind checks
                 if (AiEvalCards.nrOfHighestCard == 4)
                 {
-                    if (PlayerEvalCards.nrOfHighestCard == 4)
-                    {
-                        if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return 1;
-                        }
-                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return -1;
-                        }
-
-                        return WhoHasHighCard(AiCards, PlayerCards, AiEvalCards.nrOfHighestCard, AiEvalCards.nrOfSecoundHighestCard, AiEvalCards.valueOfHigestCard, AiEvalCards.ValueOfSecoundHeigestCard);
-                    }
                     return -1;
                 }
 
                 //check for highest full house
                 if (AiEvalCards.nrOfSecoundHighestCard >= 2 && AiEvalCards.nrOfHighestCard == 3)
                 {
-                    if (PlayerEvalCards.nrOfSecoundHighestCard >= 2 && PlayerEvalCards.nrOfHighestCard == 3)
-                    {
-                        if (PlayerEvalCards.valueOfHigestCard > AiEvalCards.valueOfHigestCard)
-                        {
-                            return 1;
-                        }
-                        else if (PlayerEvalCards.valueOfHigestCard < AiEvalCards.valueOfHigestCard)
-                        {
-                            return -1;
-                        }
-                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard > AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return 1;
-                        }
-                        else if (PlayerEvalCards.ValueOfSecoundHeigestCard < AiEvalCards.ValueOfSecoundHeigestCard)
-                        {
-                            return -1;
-                        }
-                        return 0;
-                    }
                     return -1;
                 }
 
@@ -329,14 +296,10 @@ namespace Poker_Game.Game
 
             AiCards.Sort();
             PlayerCards.Sort();
-
-            if (nrOfHighestValueCards > 1)
+            
+            if (nrOfSecoundHighestValueCards > 1 && nrOfHighestValueCards != 4)
             {
                 y -= nrOfHighestValueCards;
-            }
-
-            if (nrOfSecoundHighestValueCards > 1)
-            {
                 y -= nrOfSecoundHighestValueCards;
 
                 for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards involved in a pair, three of a kind etc.
@@ -364,6 +327,8 @@ namespace Poker_Game.Game
             }
             else if (nrOfHighestValueCards > 1)
             {
+                y -= nrOfHighestValueCards;
+
                 for (int x = 0; x < y; x++) //checks for who has highest card, not incluling cards in involved in a pair, three of a kind etc.
                 {
                     while ((int)PlayerCards[PlayerTestCard - x].Rank == valueOfHighestCard)
