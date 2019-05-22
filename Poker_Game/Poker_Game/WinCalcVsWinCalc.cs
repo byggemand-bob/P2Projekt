@@ -65,7 +65,9 @@ namespace Poker_Game {
 
                 if (players[0].Score == players[1].Score) {
                     resultWinCalc1 = WinCalc1.WhoWins(players[0].Cards, players[1].Cards);
-                    resultWinCalc2Player = winCalc2.SameScore(players[0], players[1]);
+                    winCalc2.GiveScoreHand(players[0]);
+                    winCalc2.GiveScoreHand(players[1]);
+                    resultWinCalc2Player = winCalc2.WhoWins(players[0], players[1]);
                     if (resultWinCalc2Player == null) {
                         resultWinCalc2 = 0;
                     } else if (resultWinCalc2Player.Id == 0) {

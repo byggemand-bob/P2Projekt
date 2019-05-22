@@ -101,9 +101,8 @@ namespace Poker_Game.Game {
 
             player.ScoreHand.Clear();
             if (player.Score == Score.StraightFlush) {
-                player.ScoreHand = DuplicateDeck(player.Cards);
-                player.ScoreHand.Sort();
                 player.ScoreHand = GiveHandStraight(player);
+                FixOnes(player);
             } else if (player.Score == Score.FourOfAKind) {
                 GiveHandFourOfAKind(player);
                 AddRemainingHighCards(player);
@@ -112,21 +111,33 @@ namespace Poker_Game.Game {
             } else if (player.Score == Score.Flush) {
                 GiveHandFlush(player);
             } else if (player.Score == Score.Straight) {
-                player.ScoreHand = DuplicateDeck(player.Cards);
-                player.ScoreHand.Sort();
                 player.ScoreHand = GiveHandStraight(player);
+                FixOnes(player);
             } else if (player.Score == Score.ThreeOfAKind) {
                 GiveHandThreeOfAKind(player);
                 AddRemainingHighCards(player);
             } else if (player.Score == Score.TwoPairs) {
-                GiveHandPair(player);
+                GiveHandAllPairs(player);
+                if (player.ScoreHand.Count > 5) {
+                    if (player.ScoreHand[0].Rank == player.ScoreHand[1].Rank && player.ScoreHand[2].Rank == player.ScoreHand[3].Rank && player.ScoreHand[4].Rank == player.ScoreHand[5].Rank) {
+                        player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 2]);
+                        player.ScoreHand.Remove(player.ScoreHand[player.ScoreHand.Count - 1]);
+                    } 
+                }
                 AddRemainingHighCards(player);
             } else if (player.Score == Score.Pair) {
                 GiveHandPair(player);
                 AddRemainingHighCards(player);
+            } else {
+                GiveHandHighestFiveCards(player);
+                player.ScoreHand.Sort();
             }
         }
-
+        private void GiveHandHighestFiveCards(Player player) {
+            for (int i = player.Cards.Count - 1; i >= 2; i--) {
+                player.ScoreHand.Add(player.Cards[i]);
+            }
+        }
         private void AddRemainingHighCards(Player player) {
             bool CardFound;
             for (int i = player.Cards.Count - 1; i > 0; i--) {
@@ -135,7 +146,7 @@ namespace Poker_Game.Game {
                 }
                 CardFound = false;
                 for (int j = 0; j < player.ScoreHand.Count - 1; j++) {
-                    if (player.Cards[i] == player.ScoreHand[j]) {
+                    if (player.Cards[i].Rank == player.ScoreHand[j].Rank) {
                         CardFound = true;
                     }
                 }
@@ -144,20 +155,46 @@ namespace Poker_Game.Game {
                 }
             }
         }
-        private void GiveHandPair(Player player) {
-            for (int i = 0; i < player.ScoreHand.Count - 1; i++) {
-                if (player.ScoreHand[i].Rank == player.ScoreHand[i + 1].Rank) {
-                    for (int j = i; j < 2; j++) {
+        public void GiveHandPair(Player player) {
+            for (int i = player.Cards.Count - 2; i >= 0; i--) {
+                if (player.Cards[i].Rank == player.Cards[i + 1].Rank) {
+                    for (int j = i; j < i + 2; j++) {
+                        player.ScoreHand.Add(player.Cards[j]);
+                    }
+                    break;
+                }
+            }
+        }
+        public void GiveHandAllPairs(Player player) {
+            bool CardFound;
+            for (int i = player.Cards.Count - 2; i >= 0 ; i--) {
+                CardFound = false;
+                for (int j = 0; j < player.ScoreHand.Count - 1; j++) {
+                    if (player.Cards[i].Rank == player.ScoreHand[j].Rank) {
+                        CardFound = true;
+                    }
+                }
+                if (player.Cards[i].Rank == player.Cards[i + 1].Rank && !CardFound) {
+                    for (int j = i; j < i + 2; j++) {
                         player.ScoreHand.Add(player.Cards[j]);
                     }
                 }
             }
         }
-        private void GiveHandThreeOfAKind(Player player) {
-            for (int i = 0; i < player.ScoreHand.Count - 2; i++) {
+        //private void GiveHandTwoPairs(Player player) {
+        //    for (int i = 0; i < player.ScoreHand.Count - 1; i++) {
+        //        if (player.Cards[i].Rank == player.Cards[i + 1].Rank && player.Cards[i + 1].Rank != player.Cards[i + 2].Rank) {
+        //            for (int j = i; j < 2; j++) {
+        //                player.ScoreHand.Add(player.Cards[j]);
+        //            }
+        //        }
+        //    }
+        //}
+        public void GiveHandThreeOfAKind(Player player) {
+            for (int i = 0; i < player.Cards.Count - 2; i++) {
                 if (player.Cards[i].Rank == player.Cards[i + 1].Rank &&
                     player.Cards[i + 1].Rank == player.Cards[i + 2].Rank) {
-                    for (int j = i; j < 3; j++) {
+                    for (int j = i; j < i + 3; j++) {
                         player.ScoreHand.Add(player.Cards[j]);
                     }
                 }
@@ -197,7 +234,14 @@ namespace Poker_Game.Game {
                 }
             }
         }
-        private void GiveHandFullHouse(Player player) {
+        private void FixOnes(Player player) {
+            foreach(Card element in player.Cards) {
+                if (element.Rank == (Rank)1) {
+                    element.Rank = Rank.Ace;
+                }
+            }
+        }
+        public void GiveHandFullHouse(Player player) {
             GiveHandThreeOfAKind(player);
             GiveHandPair(player);
         }
@@ -207,33 +251,33 @@ namespace Poker_Game.Game {
                     player.ScoreHand[i + 1].Rank == player.ScoreHand[i + 2].Rank &&
                     player.ScoreHand[i + 2].Rank == player.ScoreHand[i + 3].Rank) {
                     player.ScoreHand.Clear();
-                    for (int j = i; j < 4; j++) {
+                    for (int j = i; j < i + 4; j++) {
                         player.ScoreHand.Add(player.Cards[j]); 
                     }
                 }
             }
         }
         private List<Card> GiveHandStraight(Player player) {
-            RemoveDublicateRank(player.ScoreHand, 0);
-            for (int i = 0; i <= player.ScoreHand.Count - 5; i++) {
-                if (player.ScoreHand[i].Rank + 1 == player.ScoreHand[i + 1].Rank &&
-                    player.ScoreHand[i + 1].Rank + 1 == player.ScoreHand[i + 2].Rank &&
-                    player.ScoreHand[i + 2].Rank + 1 == player.ScoreHand[i + 3].Rank &&
-                    player.ScoreHand[i + 3].Rank + 1 == player.ScoreHand[i + 4].Rank) {
-                    player.ScoreHand.Clear();
-                    for (int j = i; j < 5; j++) {
-                        player.ScoreHand.Add(player.Cards[j]); 
+            List<Card> cards = DuplicateDeck(player.Cards);
+            cards.Sort();
+            RemoveDublicateRank(cards, 0);
+            for (int i = 0; i <= cards.Count - 5; i++) {
+                if (cards[i].Rank + 1 == cards[i + 1].Rank &&
+                    cards[i + 1].Rank + 1 == cards[i + 2].Rank &&
+                    cards[i + 2].Rank + 1 == cards[i + 3].Rank &&
+                    cards[i + 3].Rank + 1 == cards[i + 4].Rank) {
+                    for (int j = i; j < i + 5; j++) {
+                        player.ScoreHand.Add(cards[j]); 
                     }
-                    return player.ScoreHand;
-
+                    return GiveHandStraight(player);
                 }
-                if (player.ScoreHand[i + 4].Rank == Rank.Ace) {
-                    player.ScoreHand[i + 4].Rank = (Rank)1;
-                    player.ScoreHand.Sort();
+                if (cards[i + 4].Rank == Rank.Ace) {
+                    player.Cards[player.Cards.Count - 1].Rank = (Rank)1;
+                    player.Cards.Sort();
                     return GiveHandStraight(player);
                 }
             }
-            throw new System.Exception("Error straight");
+            throw new System.Exception("duck");
         }
         #endregion
 
