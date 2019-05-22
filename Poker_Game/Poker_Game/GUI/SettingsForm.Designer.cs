@@ -47,7 +47,7 @@ namespace Poker_Game.GUI
             this.nameErrorLabel = new System.Windows.Forms.Label();
             this.grpboxEvaluationMode = new System.Windows.Forms.GroupBox();
             this.rdobtnMonteCarlo = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rdobtnExpectiMax = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).BeginInit();
@@ -61,10 +61,10 @@ namespace Poker_Game.GUI
             // 
             this.buttonStartGame.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonStartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartGame.Location = new System.Drawing.Point(135, 330);
+            this.buttonStartGame.Location = new System.Drawing.Point(134, 300);
             this.buttonStartGame.Margin = new System.Windows.Forms.Padding(4);
             this.buttonStartGame.Name = "buttonStartGame";
-            this.buttonStartGame.Size = new System.Drawing.Size(186, 68);
+            this.buttonStartGame.Size = new System.Drawing.Size(227, 68);
             this.buttonStartGame.TabIndex = 3;
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
@@ -103,7 +103,7 @@ namespace Poker_Game.GUI
             // labelPlayerName
             // 
             this.labelPlayerName.AutoSize = true;
-            this.labelPlayerName.Location = new System.Drawing.Point(106, 285);
+            this.labelPlayerName.Location = new System.Drawing.Point(131, 261);
             this.labelPlayerName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPlayerName.Name = "labelPlayerName";
             this.labelPlayerName.Size = new System.Drawing.Size(90, 16);
@@ -112,7 +112,7 @@ namespace Poker_Game.GUI
             // 
             // textboxName
             // 
-            this.textboxName.Location = new System.Drawing.Point(230, 285);
+            this.textboxName.Location = new System.Drawing.Point(229, 255);
             this.textboxName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(132, 22);
@@ -132,7 +132,7 @@ namespace Poker_Game.GUI
             this.trackBarNumberOfPlayers.Maximum = 2;
             this.trackBarNumberOfPlayers.Minimum = 2;
             this.trackBarNumberOfPlayers.Name = "trackBarNumberOfPlayers";
-            this.trackBarNumberOfPlayers.Size = new System.Drawing.Size(240, 45);
+            this.trackBarNumberOfPlayers.Size = new System.Drawing.Size(254, 45);
             this.trackBarNumberOfPlayers.TabIndex = 7;
             this.trackBarNumberOfPlayers.TabStop = false;
             this.trackBarNumberOfPlayers.Value = 2;
@@ -146,7 +146,7 @@ namespace Poker_Game.GUI
             this.trackBarPotSize.Maximum = 10000;
             this.trackBarPotSize.Minimum = 100;
             this.trackBarPotSize.Name = "trackBarPotSize";
-            this.trackBarPotSize.Size = new System.Drawing.Size(240, 45);
+            this.trackBarPotSize.Size = new System.Drawing.Size(253, 45);
             this.trackBarPotSize.TabIndex = 0;
             this.trackBarPotSize.TabStop = false;
             this.trackBarPotSize.Value = 1000;
@@ -160,7 +160,7 @@ namespace Poker_Game.GUI
             this.trackBarBlindSize.Maximum = 1000;
             this.trackBarBlindSize.Minimum = 1;
             this.trackBarBlindSize.Name = "trackBarBlindSize";
-            this.trackBarBlindSize.Size = new System.Drawing.Size(240, 45);
+            this.trackBarBlindSize.Size = new System.Drawing.Size(254, 45);
             this.trackBarBlindSize.TabIndex = 9;
             this.trackBarBlindSize.TabStop = false;
             this.trackBarBlindSize.Value = 1;
@@ -170,7 +170,7 @@ namespace Poker_Game.GUI
             // 
             this.numericUpDownNumberOfPlayers.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.numericUpDownNumberOfPlayers.Enabled = false;
-            this.numericUpDownNumberOfPlayers.Location = new System.Drawing.Point(381, 21);
+            this.numericUpDownNumberOfPlayers.Location = new System.Drawing.Point(394, 21);
             this.numericUpDownNumberOfPlayers.Maximum = new decimal(new int[] {
             2,
             0,
@@ -199,7 +199,7 @@ namespace Poker_Game.GUI
             0,
             0,
             0});
-            this.numericUpDownPotSize.Location = new System.Drawing.Point(381, 72);
+            this.numericUpDownPotSize.Location = new System.Drawing.Point(394, 72);
             this.numericUpDownPotSize.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -228,7 +228,7 @@ namespace Poker_Game.GUI
             0,
             0,
             0});
-            this.numericUpDownBlindSize.Location = new System.Drawing.Point(381, 121);
+            this.numericUpDownBlindSize.Location = new System.Drawing.Point(394, 121);
             this.numericUpDownBlindSize.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -253,7 +253,7 @@ namespace Poker_Game.GUI
             // 
             this.nameErrorLabel.AutoSize = true;
             this.nameErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.nameErrorLabel.Location = new System.Drawing.Point(230, 265);
+            this.nameErrorLabel.Location = new System.Drawing.Point(229, 235);
             this.nameErrorLabel.Name = "nameErrorLabel";
             this.nameErrorLabel.Size = new System.Drawing.Size(137, 16);
             this.nameErrorLabel.TabIndex = 13;
@@ -263,11 +263,11 @@ namespace Poker_Game.GUI
             // grpboxEvaluationMode
             // 
             this.grpboxEvaluationMode.BackColor = System.Drawing.Color.Silver;
-            this.grpboxEvaluationMode.Controls.Add(this.radioButton1);
+            this.grpboxEvaluationMode.Controls.Add(this.rdobtnExpectiMax);
             this.grpboxEvaluationMode.Controls.Add(this.rdobtnMonteCarlo);
-            this.grpboxEvaluationMode.Location = new System.Drawing.Point(12, 173);
+            this.grpboxEvaluationMode.Location = new System.Drawing.Point(12, 159);
             this.grpboxEvaluationMode.Name = "grpboxEvaluationMode";
-            this.grpboxEvaluationMode.Size = new System.Drawing.Size(445, 63);
+            this.grpboxEvaluationMode.Size = new System.Drawing.Size(458, 64);
             this.grpboxEvaluationMode.TabIndex = 14;
             this.grpboxEvaluationMode.TabStop = false;
             this.grpboxEvaluationMode.Text = "AI Evaluationmode";
@@ -276,7 +276,7 @@ namespace Poker_Game.GUI
             // 
             this.rdobtnMonteCarlo.AutoSize = true;
             this.rdobtnMonteCarlo.Checked = true;
-            this.rdobtnMonteCarlo.Location = new System.Drawing.Point(10, 37);
+            this.rdobtnMonteCarlo.Location = new System.Drawing.Point(6, 28);
             this.rdobtnMonteCarlo.Name = "rdobtnMonteCarlo";
             this.rdobtnMonteCarlo.Size = new System.Drawing.Size(135, 20);
             this.rdobtnMonteCarlo.TabIndex = 0;
@@ -284,23 +284,22 @@ namespace Poker_Game.GUI
             this.rdobtnMonteCarlo.Text = "Monte Carlo Trials";
             this.rdobtnMonteCarlo.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // rdobtnExpectiMax
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(215, 37);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(173, 20);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "ExpectiMax Tree Search";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rdobtnExpectiMax.AutoSize = true;
+            this.rdobtnExpectiMax.Location = new System.Drawing.Point(216, 28);
+            this.rdobtnExpectiMax.Name = "rdobtnExpectiMax";
+            this.rdobtnExpectiMax.Size = new System.Drawing.Size(173, 20);
+            this.rdobtnExpectiMax.TabIndex = 1;
+            this.rdobtnExpectiMax.Text = "ExpectiMax Tree Search";
+            this.rdobtnExpectiMax.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(469, 411);
+            this.ClientSize = new System.Drawing.Size(482, 377);
             this.Controls.Add(this.grpboxEvaluationMode);
             this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.numericUpDownBlindSize);
@@ -356,7 +355,7 @@ namespace Poker_Game.GUI
         private System.Windows.Forms.NumericUpDown numericUpDownBlindSize;
         private System.Windows.Forms.Label nameErrorLabel;
         private System.Windows.Forms.GroupBox grpboxEvaluationMode;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rdobtnExpectiMax;
         private System.Windows.Forms.RadioButton rdobtnMonteCarlo;
     }
 }

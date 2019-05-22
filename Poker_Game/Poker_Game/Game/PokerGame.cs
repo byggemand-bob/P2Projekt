@@ -125,6 +125,11 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        public int GetNextBet(Player player) {
+            return Math.Abs(player.CurrentBet - Players[(player.Id + 1) % 2].CurrentBet) + Settings.BetSize;
+        }
+
+
         public void RewardWinners() {
             List<Player> winners = GetWinners(Hand);
             if(winners.Count == 1) {

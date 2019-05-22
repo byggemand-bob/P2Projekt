@@ -20,7 +20,7 @@ namespace Poker_Game.GUI {
             if (Testing || _nameChanged)
             {
                 Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1, AiMode.MonteCarlo);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1, rdobtnMonteCarlo.Checked ? AiMode.MonteCarlo : AiMode.ExpectiMax);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 Close();
