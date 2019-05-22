@@ -79,16 +79,12 @@ namespace Poker_Game.AI.Opponent {
             return turns[currentIndex - 1].Action == PlayerAction.Raise;
         }
 
-        private int[] AddArrays(int[] array1, int[] array2) {
-            if(array1.Length != array2.Length) { throw new ArgumentException("The length of array1 and array2 are not the same.");}
-
-            int[] result = new int[array1.Length];
-            for(int i = 0; i < result.Length; i++) {
-                result[i] = array1[i] + array2[i];
+        public double ToPercent(int dataValue, bool smallBlind) {
+            if(smallBlind) {
+                return (double)dataValue / PlayerData.SmallBlindHands.Hands;
             }
+            return (double)dataValue / PlayerData.BigBlindHands.Hands;
 
-            return result;
         }
-
     }
 }

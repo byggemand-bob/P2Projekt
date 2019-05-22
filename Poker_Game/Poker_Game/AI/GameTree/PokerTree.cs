@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     class PokerTree {
         private Node RootNode { get; }
         private Node _currentNode;
+        private OpponentData _data;
 
-        public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
+        public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber, OpponentData data) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
+            _data = data;
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             Node result = new Node(null, string.Empty);
             PathGenerator pg = new PathGenerator();
-            PathConstructor ph = new PathConstructor();
+            PathConstructor ph = new PathConstructor(_data, player.IsSmallBlind);
             List<Card> cardHand = new List<Card>{player.Cards[0], player.Cards[1]};
             string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
@@ -48,7 +51,7 @@ namespace Poker_Game.AI.GameTree {
             Node result = null;
             for(int i = 0; i < parentNode.Children.Count; i++) {
                 Node tmp = FindBestPath(parentNode.Children[i]);
-                if(i == 0 || result.ExpectedValue < tmp.ExpectedValue) {
+                if(i == 0 || result.Value < tmp.Value) {
                     result = tmp;
                 } 
             }
