@@ -135,7 +135,6 @@ namespace Poker_Game.AI {
                 }
 
             } else if (_pokerGame.CurrentRoundNumber() > 1 && _pokerGame.CurrentRoundNumber() <= 3) { // Flop + Turn
-                
                 if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
@@ -191,7 +190,8 @@ namespace Poker_Game.AI {
 
         private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
             foreach(var element in range) {
-                if(element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) {
+                if((element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) ||
+                   (element[1].CompareTo(cardHand[0]) == 0 && element[0].CompareTo(cardHand[1]) == 0)) {
                     return true;
                 }
             }
