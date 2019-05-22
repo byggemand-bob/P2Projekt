@@ -139,11 +139,11 @@ namespace Poker_Game.AI {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
                     if (mtc > 0) {
-                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+                        if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
                         }
 
-                        if (mtc < 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanCall()) {
+                        if (mtc < 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanCall()) {
                             return PlayerAction.Call;
                         }
                     }
@@ -161,11 +161,11 @@ namespace Poker_Game.AI {
 
                     var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
                     if (mtc > 0) {
-                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+                        if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                             return PlayerAction.Raise;
                         }
 
-                        if (mtc > 0.33 * _pokerGame.Hand.Pot && _pokerGame.CanCall())
+                        if (mtc > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanCall())
                             return PlayerAction.Call;
                     }
                 }
