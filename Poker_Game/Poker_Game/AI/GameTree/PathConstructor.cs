@@ -5,11 +5,9 @@ using Poker_Game.Game;
 namespace Poker_Game.AI.GameTree {
     class PathConstructor {
         private readonly OpponentData _data;
+        private readonly bool _isSmallBlind;
+        private readonly int[] _roundEndIndex;
         private int _currentRound;
-
-        private bool _isSmallBlind;
-        private int[] _roundEndIndex;
-
 
         public PathConstructor(OpponentData data, bool isSmallBlind) {
             _data = data;
@@ -65,7 +63,7 @@ namespace Poker_Game.AI.GameTree {
                 return new Node(parent, action, value);
             }
 
-            return NewOpponentNode(parent, action, _currentRound);
+            return NewOpponentNode(parent, action, value, _currentRound);
         }
 
         private int GetCurrentRound(int index) {
@@ -95,10 +93,20 @@ namespace Poker_Game.AI.GameTree {
 
         private Node NewOpponentNode(Node parent, string action, int roundNumber) {
             HandData data = _isSmallBlind ? _data.BigBlindHands : _data.SmallBlindHands;
-            return new Node(parent, action, GetChance(action, roundNumber, data));
+            return new OpponentNode(parent, action, GetChance());
         }
 
-        private double GetChance(string action, int roundNumber, HandData data) {
+        private Node NewOpponentNode(Node parent, string action, double value, int roundNumber) {
+            HandData data = _isSmallBlind ? _data.BigBlindHands : _data.SmallBlindHands;
+            return new OpponentNode(parent, action, value, GetChance());
+        }
+
+        private double GetChance() {
+            throw new NotImplementedException();
+        }
+
+        // Obsolete
+        private double GetChanceOld(string action, int roundNumber, HandData data) {
             if(action == "R") {
                 return (double) data.Raises[roundNumber] / data.Hands;
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game.GUI {
@@ -19,7 +20,7 @@ namespace Poker_Game.GUI {
             if (Testing || _nameChanged)
             {
                 Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1, AiMode.MonteCarlo);
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 Close();

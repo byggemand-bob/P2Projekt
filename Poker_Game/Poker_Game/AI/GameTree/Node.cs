@@ -5,7 +5,7 @@ namespace Poker_Game.AI.GameTree {
     public class Node {
         public Node Parent { get; }
         public List<Node> Children { get; }
-        public double Value { get; }
+        public double Value { get; set; }
         public string Action { get; }
 
         public Node(Node parent, string action) {
@@ -15,6 +15,7 @@ namespace Poker_Game.AI.GameTree {
             Value = 0;
         }
 
+        // For leafnodes
         public Node(Node parent, string action, double value) {
             Parent = parent;
             Children = new List<Node>();

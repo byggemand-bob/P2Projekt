@@ -285,7 +285,6 @@ namespace Poker_Game.Game {
         }
         #endregion
 
-
         #region Ecaluate/givescore
         // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
@@ -521,15 +520,6 @@ namespace Poker_Game.Game {
             return null;
         }
         #endregion
-
-
-
-
-
-
-
-
-
 
         #region Find the best in case of the SameScore
         public Player SameScore(Player player1, Player player2) {  // Missing implementation

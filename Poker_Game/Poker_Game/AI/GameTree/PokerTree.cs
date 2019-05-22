@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
@@ -7,18 +8,20 @@ namespace Poker_Game.AI.GameTree {
     class PokerTree {
         private Node RootNode { get; }
         private Node _currentNode;
-        private OpponentData _data;
+        private readonly OpponentData _data;
+        private readonly bool _isSmallBlind;
 
         public PokerTree(List<Card> street, Player player, Settings settings, int currentRoundNumber, OpponentData data) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
             _data = data;
+            _isSmallBlind = player.IsSmallBlind;
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             Node result = new Node(null, string.Empty);
             PathGenerator pg = new PathGenerator();
-            PathConstructor ph = new PathConstructor(_data, player.IsSmallBlind);
+            PathConstructor ph = new PathConstructor(_data, _isSmallBlind);
             List<Card> cardHand = new List<Card>{player.Cards[0], player.Cards[1]};
             string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
@@ -57,6 +60,33 @@ namespace Poker_Game.AI.GameTree {
             }
             return result;
         }
+
+        private Node FindOptimalPath(Node position) {
+            if(position.Children.Count == 0) { return position; }
+
+            Node bestNode = null;
+            foreach(Node child in position.Children) {
+                if(position.GetType() == typeof(OpponentNode)) {
+                    Node tmp = FindOptimalPath(child);
+                    if(child == position.Children.First() || bestNode.Value < tmp.Value) {
+                        bestNode = tmp;
+                    }
+                } else {
+                    OpponentNode bestProb = null;
+                    foreach(OpponentNode probChild in child.Children) {
+                        if(probChild == child.Children.First() ||
+                           probChild.DecisionProbability < bestProb.DecisionProbability) {
+                            bestProb = probChild;
+                        }
+                    }
+
+                    bestNode = FindOptimalPath(bestProb);
+                }
+            }
+
+            return bestNode;
+        }
+
 
         public void RegisterOpponentMove(PlayerAction action) {
             _currentNode = GetOpponentMove(action);
