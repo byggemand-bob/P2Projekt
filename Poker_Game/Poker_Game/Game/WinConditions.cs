@@ -243,14 +243,13 @@ namespace Poker_Game.Game {
         }
         public void GiveHandFullHouse(Player player) {
             GiveHandThreeOfAKind(player);
-            GiveHandPair(player);
+            GiveHandAllPairs(player);
         }
         private void GiveHandFourOfAKind(Player player) {
-            for (int i = 0; i < player.ScoreHand.Count - 3; i++) {
-                if (player.ScoreHand[i].Rank == player.ScoreHand[i + 1].Rank &&
-                    player.ScoreHand[i + 1].Rank == player.ScoreHand[i + 2].Rank &&
-                    player.ScoreHand[i + 2].Rank == player.ScoreHand[i + 3].Rank) {
-                    player.ScoreHand.Clear();
+            for (int i = 0; i < player.Cards.Count - 3; i++) {
+                if (player.Cards[i].Rank == player.Cards[i + 1].Rank &&
+                    player.Cards[i + 1].Rank == player.Cards[i + 2].Rank &&
+                    player.Cards[i + 2].Rank == player.Cards[i + 3].Rank) {
                     for (int j = i; j < i + 4; j++) {
                         player.ScoreHand.Add(player.Cards[j]); 
                     }
@@ -261,7 +260,7 @@ namespace Poker_Game.Game {
             List<Card> cards = DuplicateDeck(player.Cards);
             cards.Sort();
             RemoveDublicateRank(cards, 0);
-            for (int i = 0; i <= cards.Count - 5; i++) {
+            for (int i = cards.Count - 5; i >= 0; i--) {
                 if (cards[i].Rank + 1 == cards[i + 1].Rank &&
                     cards[i + 1].Rank + 1 == cards[i + 2].Rank &&
                     cards[i + 2].Rank + 1 == cards[i + 3].Rank &&
@@ -269,7 +268,7 @@ namespace Poker_Game.Game {
                     for (int j = i; j < i + 5; j++) {
                         player.ScoreHand.Add(cards[j]); 
                     }
-                    return GiveHandStraight(player);
+                    return player.ScoreHand;
                 }
                 if (cards[i + 4].Rank == Rank.Ace) {
                     player.Cards[player.Cards.Count - 1].Rank = (Rank)1;

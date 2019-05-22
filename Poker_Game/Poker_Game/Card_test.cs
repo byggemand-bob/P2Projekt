@@ -23,9 +23,6 @@ namespace Poker_Game {
             FastWinCalc fw = new FastWinCalc();
             List<Card> allcards = new List<Card>();
             do {
-                //for (int i = h.Deck.Count - 1; i >= 0; i--) {
-                //    h.Deck.Remove(h.Deck[i]);
-                //}
                 #region problems
                 //players[0].Cards.Clear();
                 //players[1].Cards.Clear();
@@ -46,7 +43,7 @@ namespace Poker_Game {
                 //players[1].Cards.Add(allcards[3]);
                 //players[1].Cards.Add(allcards[4]);
                 //players[1].Cards.Add(new Card(Suit.Hearts, Rank.King));
-                //players[1].Cards.Add(new Card(Suit.Hearts, Rank.Jack));
+                //players[1].Cards.Add(new Card(Suit.Hearts, Rank.Ace));
 
 
 
@@ -59,24 +56,24 @@ namespace Poker_Game {
                 //} else if (result == 0) {
                 //    draw++;
                 //}
-                //TAELLER++; 
+                //TAELLER++;
                 #endregion
                 #region new card test
-                players[0].Cards.Add(new Card(Suit.Clubs, (Rank)9));
-                players[0].Cards.Add(new Card(Suit.Diamonds, (Rank)5));
-                players[0].Cards.Add(new Card(Suit.Hearts, Rank.Queen));
-                players[0].Cards.Add(new Card(Suit.Hearts, (Rank)10));
+                players[0].Cards.Add(new Card(Suit.Diamonds, (Rank)8));
                 players[0].Cards.Add(new Card(Suit.Diamonds, Rank.Jack));
-                players[0].Cards.Add(new Card(Suit.Spades, Rank.Ace));
-                players[0].Cards.Add(new Card(Suit.Clubs, Rank.King));
+                players[0].Cards.Add(new Card(Suit.Diamonds, Rank.Queen));
+                players[0].Cards.Add(new Card(Suit.Clubs, Rank.Ace));
+                players[0].Cards.Add(new Card(Suit.Hearts, Rank.Queen));
+                players[0].Cards.Add(new Card(Suit.Spades, Rank.Queen));
+                players[0].Cards.Add(new Card(Suit.Clubs, Rank.Queen));
 
-                players[1].Cards.Add(new Card(Suit.Diamonds, (Rank)4));
-                players[1].Cards.Add(new Card(Suit.Spades, Rank.Queen));
+                players[1].Cards.Add(new Card(Suit.Diamonds, (Rank)8));
+                players[1].Cards.Add(new Card(Suit.Diamonds, (Rank)3));
+                players[1].Cards.Add(new Card(Suit.Diamonds, Rank.Queen));
+                players[1].Cards.Add(new Card(Suit.Clubs, Rank.Ace));
                 players[1].Cards.Add(new Card(Suit.Hearts, Rank.Queen));
-                players[1].Cards.Add(new Card(Suit.Hearts, (Rank)10));
-                players[1].Cards.Add(new Card(Suit.Diamonds, Rank.Jack));
-                players[1].Cards.Add(new Card(Suit.Spades, Rank.Ace));
-                players[1].Cards.Add(new Card(Suit.Clubs, Rank.King));
+                players[1].Cards.Add(new Card(Suit.Spades, Rank.Queen));
+                players[1].Cards.Add(new Card(Suit.Clubs, Rank.Queen));
 
 
                 players[0].Cards.Sort();
@@ -94,7 +91,7 @@ namespace Poker_Game {
                 w.GiveScoreHand(players[0]);
                 w.GiveScoreHand(players[1]);
                 if (w.WhoWins(players[0], players[1]) != null) {
-                    Console.WriteLine("winner is: " + w.WhoWins(players[0], players[1]).Id); 
+                    Console.WriteLine("winner is: " + w.WhoWins(players[0], players[1]).Id);
                 } else {
                     Console.WriteLine("Draw");
                 }
@@ -104,6 +101,10 @@ namespace Poker_Game {
             //Console.WriteLine("Wins: " + wins);
             //Console.WriteLine("Loss: " + loss);
             //Console.WriteLine("Draw: " + draw);
+
+            //Console.WriteLine("Wins: " + wins/1000);
+            //Console.WriteLine("Loss: " + loss/1000);
+            //Console.WriteLine("Draw: " + draw/1000);
 
             //PrintFile.Add("Tid" + stopWatch.ElapsedMilliseconds.ToString());
             //PrintFile.Add("TÆLLER: " + TAELLER.ToString());
