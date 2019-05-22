@@ -267,7 +267,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool InsideStraightAndFlushDraw(List<Card> cardHand, List<Card> street)
+        public bool InsideStraightAndFlushDraw(List<Card> cardHand, List<Card> street)
         {
             if (GetFlushOuts(cardHand, street) == 4 && GetFlushOuts(cardHand, street) >= 4)
             {
@@ -287,7 +287,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool IsOpenEndedStraightDraw(List<Card> street, List<Card> cardHand)
+        public bool IsOpenEndedStraightDraw(List<Card> street, List<Card> cardHand)
         { // Outs 8
             if (GetStraightOuts(cardHand, street) == 8)
             {
@@ -297,7 +297,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool IsInsideStraightDraw(List<Card> street, List<Card> cardHand)
+        public bool IsInsideStraightDraw(List<Card> street, List<Card> cardHand)
         {
             if (GetStraightOuts(cardHand, street) == 4)
             {
