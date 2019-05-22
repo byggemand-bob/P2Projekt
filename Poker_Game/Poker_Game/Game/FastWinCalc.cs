@@ -473,11 +473,11 @@ namespace Poker_Game.Game
                     n--;
                 }
 
-                if (Player1Cards[i].Rank > Player1Cards[n].Rank)
+                if (Player1Cards[i].Rank > Player2Cards[n].Rank)
                 {
                     return -1;
                 }
-                else if (Player1Cards[i].Rank < Player1Cards[n].Rank)
+                else if (Player1Cards[i].Rank < Player2Cards[n].Rank)
                 {
                     return 1;
                 }
