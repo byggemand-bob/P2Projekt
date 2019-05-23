@@ -30,24 +30,27 @@ namespace Poker_Game.AI {
             _raiseRange = rp.Parse(new List<string>
                 {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"});
 
-            _callRange = rp.Parse(new List<string>
-                {"55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"})
+            _callRange = rp.Parse(new List<string> {
+                    "55+", "A2s+", "K3s+", "Q6s+", "J7s+", "T6s+", "97s+", "87s", "A4o+", "K8o+", "Q9o+", "J9o+", "T9o"
+                })
                 .Except(_raiseRange).ToList();
         }
-        
+
         public PlayerAction MakeDecision() {
             List<Card> cardsToEvaluate = new List<Card>(_cardHand);
             cardsToEvaluate.AddRange(_street);
 
-            if(_pokerGame.CurrentRoundNumber() == 1) {
+            if (_pokerGame.CurrentRoundNumber() == 1) {
                 return Preflop();
             }
 
-            if(_pokerGame.CurrentRoundNumber() > 1 && _pokerGame.CurrentRoundNumber() <= 3) { // Flop + Turn
+            if (_pokerGame.CurrentRoundNumber() > 1 && _pokerGame.CurrentRoundNumber() <= 3) {
+                // Flop + Turn
                 return FlopTurn(cardsToEvaluate);
             }
 
-            if(_pokerGame.CurrentRoundNumber() == 4) { // River
+            if (_pokerGame.CurrentRoundNumber() == 4) {
+                // River
                 return River(cardsToEvaluate);
             }
 
@@ -56,12 +59,12 @@ namespace Poker_Game.AI {
 
         private PlayerAction River(List<Card> cardsToEvaluate) {
             WinConditions wc = new WinConditions();
-            if(wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
-                if(_pokerGame.CanRaise()) {
-                        return PlayerAction.Raise;
+            if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+                if (_pokerGame.CanRaise()) {
+                    return PlayerAction.Raise;
                 }
 
-                if(_pokerGame.CanCall()) { 
+                if (_pokerGame.CanCall()) {
                     return PlayerAction.Call;
                 }
 
@@ -76,9 +79,10 @@ namespace Poker_Game.AI {
             WinConditions wc = new WinConditions();
 
             int compareOuts = oc.CompareOuts(_cardHand, _street);
-            if(wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
-                EvFlopTurn();
-            } else if(compareOuts > 0) {
+            if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
+                /*EvFlopTurn();*/
+            }
+            else if (compareOuts > 0) {
                 return OutsFlopTurn();
             }
 
@@ -89,43 +93,43 @@ namespace Poker_Game.AI {
             OutsCalculator oc = new OutsCalculator();
             int outs = oc.CompareOuts(_cardHand, _street);
 
-            if(outs > 4 && _pokerGame.CanRaise()) {
+            if (outs > 4 && _pokerGame.CanRaise()) {
                 return PlayerAction.Raise;
             }
 
-            if(outs <= 4 && _pokerGame.CanCall()) {
+            if (outs <= 4 && _pokerGame.CanCall()) {
                 return PlayerAction.Call;
             }
 
             return CheckFold();
         }
 
-        private PlayerAction EvFlopTurn() {
+        /*private PlayerAction EvFlopTurn() {
             EVCalculator ev = new EVCalculator(_pokerGame.Settings);
             var eValue = ev.CalculateMonteCarlo(_cardHand, _pokerGame.Players[0], _pokerGame.Hand, _pokerGame.Settings);
-            if(eValue > 0) {
-                if(eValue > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
+            if (eValue > 0) {
+                if (eValue > 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanRaise()) {
                     return PlayerAction.Raise;
                 }
 
-                if(eValue < 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanCall()) {
+                if (eValue < 0.25 * _pokerGame.Hand.Pot && _pokerGame.CanCall()) {
                     return PlayerAction.Call;
                 }
             }
 
             return CheckFold();
-        }
+        } */
 
         private PlayerAction Preflop() {
-            if(ContainsCardHand(_raiseRange, _cardHand) && _pokerGame.CanRaise()) {
+            if (ContainsCardHand(_raiseRange, _cardHand) && _pokerGame.CanRaise()) {
                 return PlayerAction.Raise;
             }
 
-            if(ContainsCardHand(_callRange, _cardHand) && _pokerGame.CanCall()) {
+            if (ContainsCardHand(_callRange, _cardHand) && _pokerGame.CanCall()) {
                 return PlayerAction.Call;
             }
 
-            if(_pokerGame.CanCheck()) {
+            if (_pokerGame.CanCheck()) {
                 return PlayerAction.Check;
             }
 
@@ -133,9 +137,9 @@ namespace Poker_Game.AI {
         }
 
         private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
-            foreach(var element in range) {
-                if((element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) ||
-                   (element[1].CompareTo(cardHand[0]) == 0 && element[0].CompareTo(cardHand[1]) == 0)) {
+            foreach (var element in range) {
+                if ((element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) ||
+                    (element[1].CompareTo(cardHand[0]) == 0 && element[0].CompareTo(cardHand[1]) == 0)) {
                     return true;
                 }
             }
@@ -144,7 +148,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction CheckFold() {
-            if(_pokerGame.CanCheck()) {
+            if (_pokerGame.CanCheck()) {
                 return PlayerAction.Check;
             }
 
@@ -152,27 +156,26 @@ namespace Poker_Game.AI {
         }
 
 
-        private PlayerAction MakeDecisionOld() {
-            EVCalculator evCalculator = new EVCalculator(_pokerGame.Settings);
-            double value = evCalculator.CalculateMonteCarlo(_cardHand, _pokerGame.Players[0], _pokerGame.Hand, _pokerGame.Settings);
+        /*private PlayerAction MakeDecisionOld() {
+
+           EVCalculator evCalculator = new EVCalculator(_pokerGame.Settings);
+           var value = evCalculator.CalculateMonteCarlo(_cardHand, _pokerGame.Players[0], _pokerGame.Hand, _pokerGame.Settings);
 
 
-            if(value >= _pokerGame.Hand.Pot * RaiseModifier && _pokerGame.CanRaise()) {
-                return PlayerAction.Raise;
-            }
+           if(value >= _pokerGame.Hand.Pot * RaiseModifier && _pokerGame.CanRaise()) {
+               return PlayerAction.Raise;
+           }
 
-            if(value >= _pokerGame.Hand.Pot * CallModifier && _pokerGame.CanCall()) {
-                return PlayerAction.Call;
-            }
+           if(value >= _pokerGame.Hand.Pot * CallModifier && _pokerGame.CanCall()) {
+               return PlayerAction.Call;
+           }
 
-            if(_pokerGame.CanCheck()) {
-                return PlayerAction.Check;
-            }
+           if(_pokerGame.CanCheck()) {
+               return PlayerAction.Check;
+           }
 
-            return PlayerAction.Fold;
-        }
-
-
-
+           return PlayerAction.Fold;
+       }
+       */
     }
 }
