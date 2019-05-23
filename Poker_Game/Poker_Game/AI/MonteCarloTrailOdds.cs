@@ -15,7 +15,7 @@ namespace Poker_Game.AI
         public int wins = 0, loses = 0, draws = 0;
 
         int NUMOFTHREADS = System.Environment.ProcessorCount;
-        const int TotalNumberOfTrails = 1000000;
+        const int TotalNumberOfTrails = 100000;
         
 
         
