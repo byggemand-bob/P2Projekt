@@ -13,7 +13,7 @@ namespace Poker_Game.AI {
         ExpectiMax
     }
 
-    class PokerAi {
+    public class PokerAi {
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
