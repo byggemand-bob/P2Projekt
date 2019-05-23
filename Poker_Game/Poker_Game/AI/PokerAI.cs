@@ -148,35 +148,32 @@ namespace Poker_Game.AI {
                 var currentScore = wc.Evaluate(cardsToEvaluate);
                 var compareOuts = oc.CompareOuts(_player.Cards, _street);
 
-
-
-                if (currentScore >= Score.Pair) {
-                    if (currentScore >= Score.Pair) {
-
-                        if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
-                            if (mtcBet > mtcCall) {
-                                return PlayerAction.Raise;
-                            }
-
-                            return PlayerAction.Call;
+                if (currentScore <= Score.Pair) {
+                    
+                    if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
+                        if (mtcBet > mtcCall) {
+                            return PlayerAction.Raise;
                         }
 
-                        if (_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
-                            if (mtcBet > mtcCall) {
-                                return PlayerAction.Raise;
-                            }
+                        return PlayerAction.Call;
+                    }
 
-                            return PlayerAction.Call;
+                    if (_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
+                        if (mtcBet > mtcCall) {
+                            return PlayerAction.Raise;
                         }
 
+                        return PlayerAction.Call;
+                    }
 
-                        if (_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
 
-                            if (mtcBet > 0.00) {
-                                return PlayerAction.Call;
-                            }
+                    if (_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
+
+                        if (mtcBet > 0.00) {
+                            return PlayerAction.Call;
                         }
                     }
+                    
                 }
 
 
@@ -195,7 +192,7 @@ namespace Poker_Game.AI {
             else if (_pokerGame.CurrentRoundNumber() == 4) {
                 var currentScore = wc.Evaluate(cardsToEvaluate);
 
-                if (currentScore >= Score.Pair) {
+                if (currentScore <= Score.Pair) {
 
                     if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
                         if (mtcBet > mtcCall) {
