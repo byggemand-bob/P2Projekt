@@ -25,16 +25,14 @@ namespace Poker_Game.AI {
             EVCalculator ev = new EVCalculator(_pokerGame, _pokerGame.Settings);
             List<Card> evalCards = GetCardsToEvaluate();
             List<double> ExpectedValues;
-            double mtcBet = 0,
-                   mtcCall = 0;
+            double mtcWin = 0,
+                   mtcLoss = 0;
 
             if(_pokerGame.CurrentRoundNumber() > 1) {
                 ExpectedValues = new List<double>(ev.CalculateMonteCarlo(_player.Cards, _pokerGame.Hand, _pokerGame.Settings));
-                mtcBet = ExpectedValues[0];
-
-                if(ExpectedValues.Count > 1) {
-                    mtcCall = ExpectedValues[1];
-                }
+                mtcWin = ExpectedValues[0];
+                mtcLoss = ExpectedValues[1];
+                
 
             }
 
@@ -42,107 +40,104 @@ namespace Poker_Game.AI {
                 return PreFlop();
             }
             if(_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) {
-                return FlopTurn(evalCards, mtcBet, mtcCall);
+                return FlopTurn(mtcWin, mtcLoss);
             }
             if(_pokerGame.CurrentRoundNumber() == 4) {
-                return River(evalCards, mtcBet, mtcCall);
+                return River(mtcWin, mtcLoss);
             }
 
             return CheckFold();
         }
 
-        private PlayerAction River(List<Card> evalCards, double mtcBet, double mtcCall) {
-            WinConditions wc = new WinConditions();
-            var currentScore = wc.Evaluate(evalCards);
-
-            if(currentScore >= Score.Pair) {
-                if(_pokerGame.CanCall() && _pokerGame.CanRaise()) {
-                    if(mtcBet > mtcCall) {
-                        return PlayerAction.Raise;
-                    }
-
-                    return PlayerAction.Call;
-                }
-
-                if(_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
-                    if(mtcBet > mtcCall) {
-                        return PlayerAction.Raise;
-                    }
-
-                    return PlayerAction.Call;
-                }
-
-                if(_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
-                    if(mtcBet > 0.00) {
-                        return PlayerAction.Call;
-                    }
-                }
-            }
-
-            return CheckFold();
-        }
-
-        private PlayerAction FlopTurn(List<Card> cardsToEvaluate, double mtcBet, double mtcCall) {
-            OutsCalculator oc = new OutsCalculator();
-            WinConditions wc = new WinConditions();
-
-            var currentScore = wc.Evaluate(cardsToEvaluate);
-            var compareOuts = oc.CompareOuts(_player.Cards, _street);
-
-            if(currentScore >= Score.Pair) {
-                if((_pokerGame.CanCheck() || _pokerGame.CanCall()) && _pokerGame.CanRaise()) {
-                    if(mtcBet > mtcCall) {
-                        return PlayerAction.Raise;
-                    }
-
-                    return PlayerAction.Call;
-                }
-                
-                if(_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
-                    if(mtcBet > 0.00) {
-                        return PlayerAction.Call;
-                    }
-                }
-
-                return CheckFold();
-            }
-
-
-            if(compareOuts > 0) {
-                if(oc.CompareOuts(_player.Cards, _street) > 5) {
-                    if(_pokerGame.CanRaise()) {
-                        return PlayerAction.Raise;
-                    }
-
-                    if(_pokerGame.CanCall()) {
-                        return PlayerAction.Call;
-                    }
-                }
-            }
-
-            return CheckFold();
-        }
-
-        private PlayerAction PreFlop() {
-            RangeParser rangeParser = new RangeParser();
-            List<List<Card>> raiseCardRange = rangeParser.Parse(_raiseRange);
-
-            if(ContainsCardHand(raiseCardRange, _player.Cards)) {
-                if(_pokerGame.CanRaise()) {
+        private PlayerAction River(double mtcWin, double mtcLoss) {
+            
+            if(_pokerGame.CanCall() && _pokerGame.CanRaise()) {
+                if(mtcWin > mtcLoss) {
                     return PlayerAction.Raise;
                 }
 
-                if(_pokerGame.CanCall()) {
+            }
+
+            if(_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
+                if(mtcWin > mtcLoss) {
+                    return PlayerAction.Raise;
+                }
+
+                return PlayerAction.Check;
+            }
+
+            if(_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
+                if(mtcWin > mtcLoss) {
                     return PlayerAction.Call;
                 }
-            } else if(ContainsCardHand(rangeParser.Parse(_callRange).Except(raiseCardRange).ToList(), _player.Cards)) {
-                if(_pokerGame.CanCall()) {
+            }
+        
+
+            return CheckFold();
+        }
+
+        private PlayerAction FlopTurn(double mtcWin, double mtcLoss) {
+            
+            if (_pokerGame.CanCall() && _pokerGame.CanRaise())
+            {
+                if (mtcWin > mtcLoss)
+                {
+                    return PlayerAction.Raise;
+                }
+
+            }
+
+            if (_pokerGame.CanCheck() && _pokerGame.CanRaise())
+            {
+                if (mtcWin > mtcLoss)
+                {
+                    return PlayerAction.Raise;
+                }
+
+                return PlayerAction.Check;
+            }
+
+            if (_pokerGame.CanCall() && !_pokerGame.CanCheck())
+            {
+                if (mtcWin > mtcLoss)
+                {
+                    return PlayerAction.Call;
+                }
+            }
+
+
+            return CheckFold();
+        }
+
+
+        public PlayerAction PreFlop()
+        {
+            RangeParser rangeParser = new RangeParser();
+            List<List<Card>> raiseCardRange = rangeParser.Parse(_raiseRange);
+
+            if (ContainsCardHand(raiseCardRange, _player.Cards))
+            {
+                if (_pokerGame.CanRaise())
+                {
+                    return PlayerAction.Raise;
+                }
+
+                if (_pokerGame.CanCall())
+                {
+                    return PlayerAction.Call;
+                }
+            }
+            else if (ContainsCardHand(rangeParser.Parse(_callRange).Except(raiseCardRange).ToList(), _player.Cards))
+            {
+                if (_pokerGame.CanCall())
+                {
                     return PlayerAction.Call;
                 }
             }
 
             return CheckFold();
         }
+
 
         private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
             foreach(var element in range) {

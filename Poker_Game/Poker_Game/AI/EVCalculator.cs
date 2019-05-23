@@ -16,58 +16,31 @@ namespace Poker_Game.AI {
             List<double> monteCarloRates = new List<double>();
 
             var odds = mctr.MultiThreadMonteCarlo(cardHand, hand.Street);
-            var winPot = hand.Pot;
-            var bet = 0;
-            var call = 0;
-
-            if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
-                bet = 2 * settings.BetSize;
-                call = settings.BetSize;
-
-                var evBet = (odds.WinOdds / 100) * winPot - (odds.LoseOdds / 100) * bet;
-                var evCall = (odds.WinOdds / 100) * winPot - (odds.LoseOdds / 100) * call;
-                monteCarloRates.Add(evBet);
-                monteCarloRates.Add(evCall);
-
-            }
-
-            if (_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
-                bet = settings.BetSize;
-                call = 0;
-
-                var evBet = (odds.WinOdds / 100) * winPot - (odds.LoseOdds / 100) * bet;
-                var evCall = (odds.WinOdds / 100) * winPot - (odds.LoseOdds / 100) * call;
-                monteCarloRates.Add(evBet);
-                monteCarloRates.Add(evCall);
-
-            }
-
-            if (_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
-                bet = settings.BetSize;
-
-                var evBet = (odds.WinOdds / 100) * winPot - (odds.LoseOdds / 100) * bet;
-                monteCarloRates.Add(evBet);
-            }
+            var winOdds = odds.WinOdds;
+            var lossOdds = odds.LoseOdds;
+            
+            monteCarloRates.Add(winOdds);
+            monteCarloRates.Add(lossOdds);
 
             return monteCarloRates;
         }
 
-        public double CalculateEv(string path, List<Card> street, Player player) {
+        public double CalculateEv(string path, List<Card> street, Player player, Settings settings) {
             OutsCalculator outCalc = new OutsCalculator();
             PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
 
             double winOdds = 2 * outCalc.CompareOuts(player.Cards, street) * 0.01;
             double lossOdds = 1 - winOdds;
             double winPot = potCalc.GetPotsize(path);
-            double lossPot = player.CurrentBet;
+            double lossPot = settings.BetSize;
 
             return (winOdds * winPot) - (lossOdds * lossPot);
         }
 
-        public double[] CalculateAll(string[] paths, List<Card> street, Player player) {
+        public double[] CalculateAll(string[] paths, List<Card> street, Player player, Settings settings) {
             double[] result = new double[paths.Length];
             for(int i = 0; i < paths.Length; i++) {
-                result[i] = CalculateEv(paths[i], street, player);
+                result[i] = CalculateEv(paths[i], street, player, settings);
             }
 
             return result;

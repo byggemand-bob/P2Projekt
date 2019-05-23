@@ -33,7 +33,7 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private double[] GetEVs(string[] paths, List<Card> street, Player player, Settings settings) {
-            return _evCalculator.CalculateAll(paths, street, player);
+            return _evCalculator.CalculateAll(paths, street, player, settings);
         }
     }
 }
