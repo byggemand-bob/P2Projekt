@@ -13,7 +13,7 @@ namespace Poker_Game.AI {
         ExpectiMax
     }
 
-    class PokerAi {
+    public class PokerAi {
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
@@ -23,6 +23,7 @@ namespace Poker_Game.AI {
         private readonly List<Card> _street;
         private readonly Hand _hand;
         private readonly ExpectiMaxDecisionMaking _expectiMaxDecisionMaking;
+        private readonly MonteCarloDecisionMaking _monteCarloDecisionMaking;
 
         private const int ExpectiMaxMininmumData = 10; 
 
@@ -36,7 +37,12 @@ namespace Poker_Game.AI {
             _round = game.CurrentRound();
             _street = game.Hand.Street.ToList();
             _hand = game.Hand;
-            _expectiMaxDecisionMaking = new ExpectiMaxDecisionMaking(_dataController.PlayerData);
+
+            if(game.Settings.EvaluationStyle == AiMode.MonteCarlo) {
+                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(_pokerGame); 
+            } else {
+                _expectiMaxDecisionMaking = new ExpectiMaxDecisionMaking(_dataController.PlayerData);
+            }
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -90,11 +96,11 @@ namespace Poker_Game.AI {
             }
         }
 
-        private PlayerAction MonteCarlonew() {
-            throw new NotImplementedException();
+        private PlayerAction MonteCarlo() {
+            return _monteCarloDecisionMaking.GetNextAction();
         }
 
-        private PlayerAction MonteCarlo() {
+        private PlayerAction MonteCarloOld() {
             WinConditions wc = new WinConditions();
             RangeParser rc = new RangeParser();
             EVCalculator ev = new EVCalculator(_pokerGame, _settings);
@@ -113,7 +119,7 @@ namespace Poker_Game.AI {
             var cardHand = _player.Cards;
 
             List<double> ExpectedValues =
-                new List<double>(ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings));
+                new List<double>(ev.CalculateMonteCarlo(cardHand, _hand, _settings));
 
             var mtcBet = ExpectedValues[0];
             var mtcCall = 0.00;

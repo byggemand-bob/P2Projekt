@@ -27,9 +27,9 @@ namespace Poker_Game.Game {
                 } else if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
                     return player2;
                 } else {
-                    if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
                         return player1;
-                    } else if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    } else if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
                         return player2;
                     } else {
                         return null;

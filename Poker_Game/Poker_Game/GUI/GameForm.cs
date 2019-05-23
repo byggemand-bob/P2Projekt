@@ -104,6 +104,7 @@ namespace Poker_Game.GUI {
             EndOfHand();
             CreateNewHand();
             UpdatePlayerBlindLabels(_game.Players[0]);
+            listboxPrevActions.Items.Clear();
             MainUpdate();
         } 
         #endregion
@@ -127,8 +128,13 @@ namespace Poker_Game.GUI {
 
         #region Visual Updates
 
-        private void UpdatePreviousAction() {
-            AIAction.Text = _game.Players[1].PreviousAction.ToString();
+        private void UpdateLog() {
+            Player prevPlayer = _game.Players[(_game.CurrentPlayerIndex + 1) % 2];
+            string message = prevPlayer.Name +  " " + prevPlayer.PreviousAction + (prevPlayer.PreviousAction == PlayerAction.Raise ? "d." : "ed.");
+            listboxPrevActions.Items.Add(message);
+            if(listboxPrevActions.Items.Count > 8) {
+                listboxPrevActions.Items.RemoveAt(0);
+            }
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -254,16 +260,19 @@ namespace Poker_Game.GUI {
 
         private void ButtonCall_Click(object sender, EventArgs e) {
             _game.Call();
+            UpdateLog();
             MainUpdate();
         }
 
         private void ButtonCheck_Click(object sender, EventArgs e) {
             _game.Check();
+            UpdateLog();
             MainUpdate();
         }
 
         private void ButtonRaise_Click(object sender, EventArgs e) {
             _game.Raise();
+            UpdateLog();
             MainUpdate();
         }
 
@@ -273,6 +282,7 @@ namespace Poker_Game.GUI {
                 if(answer == DialogResult.No) { return; }
             }
             _game.Fold();
+            UpdateLog();
             HandUpdate();
         }
 
@@ -371,7 +381,7 @@ namespace Poker_Game.GUI {
                 return _game.Hand.Winner.Score.ToString();
             }
 
-            return _game.Players[0].Score + " & " + _game.Players[1].Score;
+            return _game.Players[0].Score.ToString();
         }
 
         private string GiveNumericScoreName(int numericScore) {
@@ -414,7 +424,7 @@ namespace Poker_Game.GUI {
         #region AI
 
         private void AiTurn() {
-            if(_game.Players[0].Action != PlayerAction.Fold) {
+            if(_game.Players[0].Action != PlayerAction.Fold || _game.CurrentRoundNumber() != 5) {
                 if(_prevRound > 2) { _ai.PrepareNewTree(); }
                 if(_game.CurrentPlayerIndex == 1) {
                     _ai.MakeDecision();
@@ -423,7 +433,7 @@ namespace Poker_Game.GUI {
                     } else {
                         MainUpdate();
                     }
-                    UpdatePreviousAction();
+                    UpdateLog();
                 }
             }
         }
