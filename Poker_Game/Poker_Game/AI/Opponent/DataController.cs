@@ -7,18 +7,21 @@ namespace Poker_Game.AI.Opponent {
         public OpponentData PlayerData { get; }
         private readonly string _playerName;
 
+        private const string FolderName = "\\PlayerData\\";
+        private const string FileExtension = ".dat";
+
         public DataController(string playerName) {
             _playerName = playerName;
             PlayerData = LoadData();
         }
 
         private OpponentData LoadData() {
-            DataReader dr = new DataReader(_playerName);
+            DataReader dr = new DataReader(_playerName, FolderName, FileExtension);
             return dr.HasExistingData() ? dr.ReadData() : new OpponentData(_playerName);
         }
 
         public void SaveData() {
-            DataWriter dw = new DataWriter(_playerName);
+            DataWriter dw = new DataWriter(_playerName, FolderName, FileExtension);
             dw.WriteData(PlayerData);
         }
 
@@ -63,7 +66,7 @@ namespace Poker_Game.AI.Opponent {
                             }
                             break;
                         default:
-                            throw new Exception("An illegal playeraction has been made in round " + roundNumber + ".");
+                            throw new Exception("An illegal playerAction has been made in round " + roundNumber + ".");
                     }
                 }
             }

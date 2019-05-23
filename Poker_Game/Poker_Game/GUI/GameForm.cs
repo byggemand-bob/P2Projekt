@@ -14,7 +14,7 @@ namespace Poker_Game.GUI {
         private readonly PokerGame _game;
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
-        private readonly PokerAI _ai;
+        private readonly PokerAi _ai;
         private int _prevRound;
 
 
@@ -38,7 +38,7 @@ namespace Poker_Game.GUI {
             UpdatePlayerBlindLabels(_game.Players[0]);
 
             //AI
-            _ai = new PokerAI(_game, AiMode.MonteCarlo);
+            _ai = new PokerAi(_game);
 
             MainUpdate();
         }
@@ -377,13 +377,13 @@ namespace Poker_Game.GUI {
         private string GiveNumericScoreName(int numericScore) {
             if(numericScore == 11) {
                 return "Jack (Highest Card)";
-            } else if(numericScore == 12) {
+            } if(numericScore == 12) {
                 return "Queen (Highest Card)";
-            } else if(numericScore == 13) {
+            } if(numericScore == 13) {
                 return "King (Highest Card)";
-            } else {
-                return "Ace (Highest Card)";
             }
+
+            return "Ace (Highest Card)";
         }
 
         // Creates a new hand and calls methods for the new gamestate

@@ -13,27 +13,26 @@ namespace Poker_Game.AI {
         ExpectiMax
     }
 
-    class PokerAI {
+    class PokerAi {
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly List<Action> _actions;
         private readonly PokerGame _pokerGame;
         private readonly DataController _dataController;
-        private PokerTree _pokerTree;
         private readonly Round _round;
         private readonly List<Card> _street;
         private readonly Hand _hand;
-        private AiMode _mode;
+        private readonly ExpectiMax _expectiMax;
+
+        private const int ExpectiMaxMininmumData = 10; 
 
 
-
-        public PokerAI(PokerGame game, AiMode mode) {
+        public PokerAi(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1]; // AI is always player 1
             _settings = game.Settings;
             _actions = GetActions(game);
             _dataController = new DataController(game.Settings.PlayerName);
-            _mode = mode;
             _round = game.CurrentRound();
             _street = game.Hand.Street.ToList();
             _hand = game.Hand;
@@ -52,13 +51,12 @@ namespace Poker_Game.AI {
         // Called at the start of a new hand
         public void PrepareNewHand() {
             _dataController.UpdateData(_pokerGame.Hand);
-            _pokerTree = null;
+            //_expectiMax.ClearTree();
         }
 
         public void PrepareNewTree() {
-
-            if(_mode == AiMode.ExpectiMax) {
-                _pokerTree = new PokerTree(_pokerGame, _pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber(), _dataController.PlayerData); 
+            if(_settings.EvaluationStyle == AiMode.ExpectiMax && _pokerGame.CurrentRoundNumber() > 1) {
+                _expectiMax.CreateNewTree(_pokerGame); 
             }
         }
 
@@ -67,8 +65,15 @@ namespace Poker_Game.AI {
         }
 
         public void MakeDecision() {
-            PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo() : ExpectiMax();
-            switch (action) {
+            PlayerAction action;
+            if(_settings.EvaluationStyle == AiMode.ExpectiMax && _dataController.PlayerData.Hands > ExpectiMaxMininmumData) {
+                action = ExpectiMax();
+            } else {
+                action = MonteCarlo();
+            }
+
+
+            switch(action) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -240,13 +245,13 @@ namespace Poker_Game.AI {
             if(_pokerGame.Hand.CurrentRoundNumber() == 1) {
                 return Preflop();
             } else {
-                if(_pokerTree == null) {
-                    PrepareNewTree();
-                }
+                //if(_pokerTree == null) {
+                //    PrepareNewTree();
+                //}
                 if(_player.IsBigBlind) {
-                    _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+                    _expectiMax.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() > 1) {
-                    _pokerTree.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+                    _expectiMax.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 }
 
                 return AfterPreflop();
@@ -263,7 +268,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop() {
-            PlayerAction result =_pokerTree.GetBestAction();
+            PlayerAction result =_expectiMax.GetNextAction();
             return result;
         }
     }

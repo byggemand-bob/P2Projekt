@@ -11,10 +11,9 @@ namespace Poker_Game.Game {
         public List<Player> Players { get; }
         public Player Winner { get; set; }
 
-
         private readonly List<Card> _deck;
 
-        // Allocation and initialization for the various elements of a hand
+
         #region Initialization
 
         // for testing purpose only
@@ -30,8 +29,6 @@ namespace Poker_Game.Game {
             Street = new List<Card>();
             Rounds = new List<Round>();
             Players = InitializePlayers(players, dealerButtonPosition);
-
-            //Players = GetActivePlayers(players);
             StartRound();
         }
 

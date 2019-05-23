@@ -30,16 +30,16 @@ namespace Poker_Game.AI.Opponent.VPIP {
 
             List<List<Card>> result = new List<List<Card>>();
             bool suited = part.Contains('s'),
-                 offsuit = part.Contains('o'),
+                 offSuit = part.Contains('o'),
                  allAbove = part.Contains('+');
 
             if(allAbove && suited) {
                 result.AddRange(MakeAllSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(allAbove && offsuit) {
+            } else if(allAbove && offSuit) {
                 result.AddRange(MakeAllOffsuit(CharToRank(part[0]), CharToRank(part[1])));
             } else if(suited) {
                 result.AddRange(MakeSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(offsuit) {
+            } else if(offSuit) {
                 result.AddRange(MakeOffsuit(CharToRank(part[0]), CharToRank(part[1])));
             } else {
                 throw new Exception("Something went wrong...");
@@ -164,6 +164,5 @@ namespace Poker_Game.AI.Opponent.VPIP {
         private bool CompareCardhand(List<Card> cards1, List<Card> cards2) {
             return cards1[0].CompareTo(cards2[0]) == 0 && cards1[1].CompareTo(cards2[1]) == 0;
         }
-
     }
 }

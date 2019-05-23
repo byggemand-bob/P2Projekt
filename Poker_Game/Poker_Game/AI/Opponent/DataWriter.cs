@@ -3,17 +3,19 @@ using System.IO;
 
 namespace Poker_Game.AI.Opponent {
     class DataWriter {
-        private const string FolderName = "\\PlayerData\\";
-        private const string FileExtension = ".dat";
+        private readonly string _folderName;
+        private readonly string _fileExtension;
         private readonly string _filePath;
         
-        public DataWriter(string playerName) {
+        public DataWriter(string playerName, string folderName, string fileExtension) {
+            _folderName = folderName;
+            _fileExtension = fileExtension;
             _filePath = CreateFilePath(playerName);
-            EnsureDirectoryExists(System.Windows.Forms.Application.StartupPath + FolderName);
+            EnsureDirectoryExists(System.Windows.Forms.Application.StartupPath + _folderName);
         }
 
         private string CreateFilePath(string playerName) {
-            return System.Windows.Forms.Application.StartupPath + FolderName + playerName + FileExtension;
+            return System.Windows.Forms.Application.StartupPath + _folderName + playerName + _fileExtension;
         }
 
 

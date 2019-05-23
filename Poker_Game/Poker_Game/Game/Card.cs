@@ -8,7 +8,7 @@ namespace Poker_Game.Game {
 
 
     public class Card : IComparable, ICloneable {
-        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad g�r dette?
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
         public Rank Rank { get; set; }
         public Suit Suit { get; private set; }
         public Image Image { get; private set; }

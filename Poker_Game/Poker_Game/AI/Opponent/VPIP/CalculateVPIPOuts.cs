@@ -11,7 +11,7 @@ namespace Poker_Game.AI.Opponent {
         
         public List<List<Card>> FindOpponentRank(List<Card> Hand, List<Card> street, OpponentData playerData) {
             OutsCalculator oc = new OutsCalculator();
-            VPIPController vpc = new VPIPController(playerData);
+            VpipController vpc = new VpipController(playerData);
             List<List<Card>> playerOutsRange = new List<List<Card>>();
 
             List<List<Card>> vpipRange = vpc.GetRange();
