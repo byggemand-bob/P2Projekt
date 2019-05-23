@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Poker_Game.Game {
     public class PokerGame {
@@ -93,6 +94,9 @@ namespace Poker_Game.Game {
                 Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
+                if(CurrentRoundNumber() == 5) {
+                    MessageBox.Show(CurrentRoundNumber().ToString()); 
+                }
             }
         }
 

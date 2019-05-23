@@ -11,7 +11,7 @@ namespace Poker_Game.AI {
             _pokerGame = game;
         }
 
-        public List<double> CalculateMonteCarlo(List<Card> cardHand, Player player, Hand hand, Settings settings) {
+        public List<double> CalculateMonteCarlo(List<Card> cardHand, Hand hand, Settings settings) {
             MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
             List<double> monteCarloRates = new List<double>();
 

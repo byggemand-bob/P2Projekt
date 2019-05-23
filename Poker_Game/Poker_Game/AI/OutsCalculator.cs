@@ -124,7 +124,7 @@ namespace Poker_Game.AI
 
                 straightCards.Sort();
 
-                for (int i = 0; i < allStraightCards.Count; i++)
+                for (int i = 0; i < allStraightCards.Count - 1; i++)
                 {
                     if (allStraightCards[i].Rank == allStraightCards[i + 1].Rank + 1)
                     {
