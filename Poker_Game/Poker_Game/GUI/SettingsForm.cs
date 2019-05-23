@@ -6,8 +6,8 @@ using Poker_Game.Game;
 namespace Poker_Game.GUI {
     public partial class SettingsForm : Form {
         private const bool Testing = true;
-        private bool _nameChanged = false;
-        private bool _valueJustChanged = false;
+        private bool _nameChanged;
+        private bool _valueJustChanged;
 
         public SettingsForm() {
             InitializeComponent();
@@ -20,7 +20,9 @@ namespace Poker_Game.GUI {
             if (Testing || _nameChanged)
             {
                 Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1, rdobtnMonteCarlo.Checked ? AiMode.MonteCarlo : AiMode.ExpectiMax);
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1,
+                    radioButtonMonteCarlo.Checked ? AiMode.MonteCarlo : AiMode.ExpectiMax);
+
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
                 Close();

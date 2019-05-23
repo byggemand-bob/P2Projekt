@@ -46,8 +46,8 @@ namespace Poker_Game.GUI
             this.numericUpDownBlindSize = new System.Windows.Forms.NumericUpDown();
             this.nameErrorLabel = new System.Windows.Forms.Label();
             this.grpboxEvaluationMode = new System.Windows.Forms.GroupBox();
-            this.rdobtnMonteCarlo = new System.Windows.Forms.RadioButton();
-            this.rdobtnExpectiMax = new System.Windows.Forms.RadioButton();
+            this.radioButtonExpectiMax = new System.Windows.Forms.RadioButton();
+            this.radioButtonMonteCarlo = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlindSize)).BeginInit();
@@ -263,8 +263,8 @@ namespace Poker_Game.GUI
             // grpboxEvaluationMode
             // 
             this.grpboxEvaluationMode.BackColor = System.Drawing.Color.Silver;
-            this.grpboxEvaluationMode.Controls.Add(this.rdobtnExpectiMax);
-            this.grpboxEvaluationMode.Controls.Add(this.rdobtnMonteCarlo);
+            this.grpboxEvaluationMode.Controls.Add(this.radioButtonExpectiMax);
+            this.grpboxEvaluationMode.Controls.Add(this.radioButtonMonteCarlo);
             this.grpboxEvaluationMode.Location = new System.Drawing.Point(12, 159);
             this.grpboxEvaluationMode.Name = "grpboxEvaluationMode";
             this.grpboxEvaluationMode.Size = new System.Drawing.Size(458, 64);
@@ -272,27 +272,27 @@ namespace Poker_Game.GUI
             this.grpboxEvaluationMode.TabStop = false;
             this.grpboxEvaluationMode.Text = "AI Evaluationmode";
             // 
-            // rdobtnMonteCarlo
+            // radioButtonExpectiMax
             // 
-            this.rdobtnMonteCarlo.AutoSize = true;
-            this.rdobtnMonteCarlo.Checked = true;
-            this.rdobtnMonteCarlo.Location = new System.Drawing.Point(6, 28);
-            this.rdobtnMonteCarlo.Name = "rdobtnMonteCarlo";
-            this.rdobtnMonteCarlo.Size = new System.Drawing.Size(135, 20);
-            this.rdobtnMonteCarlo.TabIndex = 0;
-            this.rdobtnMonteCarlo.TabStop = true;
-            this.rdobtnMonteCarlo.Text = "Monte Carlo Trials";
-            this.rdobtnMonteCarlo.UseVisualStyleBackColor = true;
+            this.radioButtonExpectiMax.AutoSize = true;
+            this.radioButtonExpectiMax.Location = new System.Drawing.Point(216, 28);
+            this.radioButtonExpectiMax.Name = "radioButtonExpectiMax";
+            this.radioButtonExpectiMax.Size = new System.Drawing.Size(173, 20);
+            this.radioButtonExpectiMax.TabIndex = 1;
+            this.radioButtonExpectiMax.Text = "ExpectiMax Tree Search";
+            this.radioButtonExpectiMax.UseVisualStyleBackColor = true;
             // 
-            // rdobtnExpectiMax
+            // radioButtonMonteCarlo
             // 
-            this.rdobtnExpectiMax.AutoSize = true;
-            this.rdobtnExpectiMax.Location = new System.Drawing.Point(216, 28);
-            this.rdobtnExpectiMax.Name = "rdobtnExpectiMax";
-            this.rdobtnExpectiMax.Size = new System.Drawing.Size(173, 20);
-            this.rdobtnExpectiMax.TabIndex = 1;
-            this.rdobtnExpectiMax.Text = "ExpectiMax Tree Search";
-            this.rdobtnExpectiMax.UseVisualStyleBackColor = true;
+            this.radioButtonMonteCarlo.AutoSize = true;
+            this.radioButtonMonteCarlo.Checked = true;
+            this.radioButtonMonteCarlo.Location = new System.Drawing.Point(6, 28);
+            this.radioButtonMonteCarlo.Name = "radioButtonMonteCarlo";
+            this.radioButtonMonteCarlo.Size = new System.Drawing.Size(135, 20);
+            this.radioButtonMonteCarlo.TabIndex = 0;
+            this.radioButtonMonteCarlo.TabStop = true;
+            this.radioButtonMonteCarlo.Text = "Monte Carlo Trials";
+            this.radioButtonMonteCarlo.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -355,7 +355,7 @@ namespace Poker_Game.GUI
         private System.Windows.Forms.NumericUpDown numericUpDownBlindSize;
         private System.Windows.Forms.Label nameErrorLabel;
         private System.Windows.Forms.GroupBox grpboxEvaluationMode;
-        private System.Windows.Forms.RadioButton rdobtnExpectiMax;
-        private System.Windows.Forms.RadioButton rdobtnMonteCarlo;
+        private System.Windows.Forms.RadioButton radioButtonExpectiMax;
+        private System.Windows.Forms.RadioButton radioButtonMonteCarlo;
     }
 }

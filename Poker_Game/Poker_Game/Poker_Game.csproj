@@ -77,7 +77,6 @@
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />
     <Compile Include="AI\Opponent\OpponentData.cs" />
-    <Compile Include="AI\Opponent\VPIP\ParseTest.cs" />
     <Compile Include="AI\Opponent\VPIP\VPIPController.cs" />
     <Compile Include="AI\EVCalculator.cs" />
     <Compile Include="AI\GameTree\Node.cs" />

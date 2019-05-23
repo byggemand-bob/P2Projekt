@@ -59,12 +59,7 @@ namespace Poker_Game.Game {
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             // Needs to be cut down
-            if(Players[CurrentPlayerIndex].CurrentBet > Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) {
-                Bet(Players[CurrentPlayerIndex],  Settings.BetSize);
-            } else {
-                Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + Settings.BetSize);
-            }
-
+            Bet(CurrentPlayer(), GetNextBet(CurrentPlayer()));
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
             Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
             CurrentPlayer().BetsTaken++;

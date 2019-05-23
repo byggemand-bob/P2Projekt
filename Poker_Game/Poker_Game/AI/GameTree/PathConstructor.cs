@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
@@ -15,8 +16,6 @@ namespace Poker_Game.AI.GameTree {
             _isSmallBlind = isSmallBlind;
             _roundEndIndex = new int[4];
         }
-
-
         public void ConstructPath(Node parent, string path, double expectedValue) {
             string[] separatedPath = SeparatePath(path);
             Node startNode = parent,

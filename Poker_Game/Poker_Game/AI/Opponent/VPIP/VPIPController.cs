@@ -2,7 +2,7 @@
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.Opponent.VPIP {
-    class VPIPController {
+    class VpipController {
         private double _pfr;
         private double _vpip;
         private OpponentData _playerData;
@@ -11,7 +11,7 @@ namespace Poker_Game.AI.Opponent.VPIP {
         private const int VPIPStandard = 25;
         private const int PFRStandard = 25;
 
-        public VPIPController(OpponentData playerData) {
+        public VpipController(OpponentData playerData) {
             _playerData = playerData;
             _pfr = PFRStandard;
             _vpip = VPIPStandard;
@@ -26,7 +26,11 @@ namespace Poker_Game.AI.Opponent.VPIP {
         }
 
         private void Update() {
-            int raises = _playerData.BigBlindHands.Raises[0] + _playerData.SmallBlindHands.Raises[0];
+            int raises = _playerData.BigBlindHands.Raises[0]   +
+                         _playerData.SmallBlindHands.Raises[0] +
+                         _playerData.BigBlindHands.ReRaises[0] +
+                         _playerData.SmallBlindHands.ReRaises[0];
+
             int calls = _playerData.BigBlindHands.Calls[0] + _playerData.SmallBlindHands.Calls[0];
 
             _pfr = CalculatePFR(_playerData.Hands, raises);

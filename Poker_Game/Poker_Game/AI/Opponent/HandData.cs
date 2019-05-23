@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace Poker_Game.AI.Opponent {
     class HandData {
@@ -19,9 +18,6 @@ namespace Poker_Game.AI.Opponent {
             ReRaises = new int[4];
             Hands = 0;
         }
-
-
-
 
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
