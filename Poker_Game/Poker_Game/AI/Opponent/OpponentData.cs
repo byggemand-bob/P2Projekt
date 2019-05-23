@@ -27,5 +27,13 @@ namespace Poker_Game.AI.Opponent {
             sb.Append(SmallBlindHands);
             return sb.ToString();
         }
+
+        public double ToPercent(int dataValue, bool smallBlind) {
+            if(smallBlind) {
+                return (double)dataValue / SmallBlindHands.Hands;
+            }
+            return (double)dataValue / BigBlindHands.Hands;
+
+        }
     }
 }

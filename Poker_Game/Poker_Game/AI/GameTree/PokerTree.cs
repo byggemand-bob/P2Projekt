@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
@@ -7,17 +9,22 @@ namespace Poker_Game.AI.GameTree {
         private Node RootNode { get; }
         private Node _currentNode;
         private readonly PokerGame _pokerGame;
+        private readonly OpponentData _data;
+        private readonly bool _isSmallBlind;
 
-        public PokerTree(PokerGame game, List<Card> street, Player player, Settings settings, int currentRoundNumber) {
+        public PokerTree(PokerGame game, List<Card> street, Player player, Settings settings, int currentRoundNumber, OpponentData data) {
             RootNode = CreateTree(street, player, settings, currentRoundNumber);
             _currentNode = RootNode;
+            _data = data;
+            _isSmallBlind = player.IsSmallBlind;
             _pokerGame = game;
+
         }
 
         private Node CreateTree(List<Card> street, Player player, Settings settings, int currentRoundNumber) {
             Node result = new Node(null, string.Empty);
             PathGenerator pg = new PathGenerator();
-            PathConstructor ph = new PathConstructor();
+            PathConstructor ph = new PathConstructor(_data, _isSmallBlind);
             List<Card> cardHand = new List<Card>{player.Cards[0], player.Cards[1]};
             string[] paths = pg.GeneratePaths(currentRoundNumber);
             double[] expectedValues = GetEVs(paths, cardHand, street, player, settings);
@@ -50,12 +57,39 @@ namespace Poker_Game.AI.GameTree {
             Node result = null;
             for(int i = 0; i < parentNode.Children.Count; i++) {
                 Node tmp = FindBestPath(parentNode.Children[i]);
-                if(i == 0 || result.ExpectedValue < tmp.ExpectedValue) {
+                if(i == 0 || result.Value < tmp.Value) {
                     result = tmp;
                 } 
             }
             return result;
         }
+
+        private Node FindOptimalPath(Node position) {
+            if(position.Children.Count == 0) { return position; }
+
+            Node bestNode = null;
+            foreach(Node child in position.Children) {
+                if(position.GetType() == typeof(OpponentNode)) {
+                    Node tmp = FindOptimalPath(child);
+                    if(child == position.Children.First() || bestNode.Value < tmp.Value) {
+                        bestNode = tmp;
+                    }
+                } else {
+                    OpponentNode bestProb = null;
+                    foreach(OpponentNode probChild in child.Children) {
+                        if(probChild == child.Children.First() ||
+                           probChild.DecisionProbability < bestProb.DecisionProbability) {
+                            bestProb = probChild;
+                        }
+                    }
+
+                    bestNode = FindOptimalPath(bestProb);
+                }
+            }
+
+            return bestNode;
+        }
+
 
         public void RegisterOpponentMove(PlayerAction action) {
             _currentNode = GetOpponentMove(action);

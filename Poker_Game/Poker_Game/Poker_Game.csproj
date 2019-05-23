@@ -70,8 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\GameTree\OpponentNode.cs" />
     <Compile Include="AI\MonteCarloDecisionMaking.cs" />
-    <Compile Include="AI\Opponent\CalculateVPIPOuts.cs" />
+    <Compile Include="AI\Opponent\VPIP\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
     <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />

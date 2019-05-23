@@ -8,7 +8,7 @@ using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    enum AiMode {
+    public enum AiMode {
         MonteCarlo,
         ExpectiMax
     }
@@ -56,8 +56,9 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewTree() {
-            if (_mode == AiMode.ExpectiMax) {
-                _pokerTree = new PokerTree(_pokerGame, _pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber());
+
+            if(_mode == AiMode.ExpectiMax) {
+                _pokerTree = new PokerTree(_pokerGame, _pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber(), _dataController.PlayerData); 
             }
         }
 
