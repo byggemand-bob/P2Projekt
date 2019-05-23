@@ -279,7 +279,7 @@ namespace Poker_Game.GUI
             this.radioButtonExpectiMax.Name = "radioButtonExpectiMax";
             this.radioButtonExpectiMax.Size = new System.Drawing.Size(173, 20);
             this.radioButtonExpectiMax.TabIndex = 1;
-            this.radioButtonExpectiMax.Text = "ExpectiMax Tree Search";
+            this.radioButtonExpectiMax.Text = "ExpectiMaxDecisionMaking Tree Search";
             this.radioButtonExpectiMax.UseVisualStyleBackColor = true;
             // 
             // radioButtonMonteCarlo

@@ -22,7 +22,7 @@ namespace Poker_Game.AI {
         private readonly Round _round;
         private readonly List<Card> _street;
         private readonly Hand _hand;
-        private readonly ExpectiMax _expectiMax;
+        private readonly ExpectiMaxDecisionMaking _expectiMaxDecisionMaking;
 
         private const int ExpectiMaxMininmumData = 10; 
 
@@ -36,6 +36,7 @@ namespace Poker_Game.AI {
             _round = game.CurrentRound();
             _street = game.Hand.Street.ToList();
             _hand = game.Hand;
+            _expectiMaxDecisionMaking = new ExpectiMaxDecisionMaking(_dataController.PlayerData);
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -51,12 +52,12 @@ namespace Poker_Game.AI {
         // Called at the start of a new hand
         public void PrepareNewHand() {
             _dataController.UpdateData(_pokerGame.Hand);
-            //_expectiMax.ClearTree();
+            //_expectiMaxDecisionMaking.ClearTree();
         }
 
         public void PrepareNewTree() {
             if(_settings.EvaluationStyle == AiMode.ExpectiMax && _pokerGame.CurrentRoundNumber() > 1) {
-                _expectiMax.CreateNewTree(_pokerGame); 
+                _expectiMaxDecisionMaking.CreateNewTree(_pokerGame); 
             }
         }
 
@@ -90,8 +91,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction MonteCarlonew() {
-            MonteCarloDecisionMaking mcdm = new MonteCarloDecisionMaking(_pokerGame);
-            return mcdm.MakeDecision();
+            throw new NotImplementedException();
         }
 
         private PlayerAction MonteCarlo() {
@@ -249,9 +249,9 @@ namespace Poker_Game.AI {
                 //    PrepareNewTree();
                 //}
                 if(_player.IsBigBlind) {
-                    _expectiMax.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+                    _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() > 1) {
-                    _expectiMax.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+                    _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
                 }
 
                 return AfterPreflop();
@@ -268,7 +268,7 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction AfterPreflop() {
-            PlayerAction result =_expectiMax.GetNextAction();
+            PlayerAction result =_expectiMaxDecisionMaking.GetNextAction();
             return result;
         }
     }
