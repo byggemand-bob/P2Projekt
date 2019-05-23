@@ -375,6 +375,7 @@ namespace Poker_Game.GUI {
             this.listboxPrevActions.Name = "listboxPrevActions";
             this.listboxPrevActions.Size = new System.Drawing.Size(120, 134);
             this.listboxPrevActions.TabIndex = 28;
+            this.listboxPrevActions.TabStop = false;
             // 
             // GameForm
             // 
