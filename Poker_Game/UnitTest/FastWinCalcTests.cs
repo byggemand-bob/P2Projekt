@@ -8,7 +8,7 @@ namespace UnitTest
     [TestClass]
     public class FastWinCalcTests
     {
-        FastWinCalc winCalc = new FastWinCalc();
+        public FastWinCalc WinCalc = new FastWinCalc();
 
         [TestMethod]
         public void FastWinCalcTest_Pair1()
@@ -40,7 +40,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -76,7 +76,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -112,7 +112,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -148,7 +148,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -184,7 +184,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -220,7 +220,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -256,7 +256,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -292,7 +292,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -328,7 +328,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -364,7 +364,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -400,7 +400,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -436,7 +436,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -472,7 +472,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -508,7 +508,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -545,7 +545,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -581,7 +581,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -617,7 +617,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -653,7 +653,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -689,7 +689,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -725,7 +725,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -761,7 +761,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -797,7 +797,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -833,7 +833,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -869,7 +869,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -905,7 +905,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -941,7 +941,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -977,7 +977,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -1013,7 +1013,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -1049,7 +1049,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -1085,7 +1085,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -1121,7 +1121,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -1157,7 +1157,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -1193,7 +1193,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(0, actual);
@@ -1229,7 +1229,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -1265,7 +1265,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
@@ -1301,7 +1301,7 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(1, actual);
@@ -1337,61 +1337,12 @@ namespace UnitTest
             Player2Cards.Add(tableCard5);
 
             // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
+            int actual = WinCalc.WhoWins(Player1Cards, Player2Cards);
 
             // Assert
             Assert.AreEqual(-1, actual);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        [TestMethod]
-        public void FastWinCalcTest_()
-        {
-            // Arrange
-            List<Card> Player1Cards = new List<Card>();
-            List<Card> Player2Cards = new List<Card>();
-
-            Card tableCard1 = new Card(Suit.Clubs, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Clubs, (Rank)14);
-            Card tableCard4 = new Card(Suit.Spades, (Rank)2);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)3);
-
-            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)2)); //
-            Player1Cards.Add(new Card(Suit.Diamonds, (Rank)3));
-            Player1Cards.Add(tableCard1);
-            Player1Cards.Add(tableCard2);
-            Player1Cards.Add(tableCard3);
-            Player1Cards.Add(tableCard4);
-            Player1Cards.Add(tableCard5);
-
-            Player2Cards.Add(new Card(Suit.Clubs, (Rank)4)); //
-            Player2Cards.Add(new Card(Suit.Clubs, (Rank)5));
-            Player2Cards.Add(tableCard1);
-            Player2Cards.Add(tableCard2);
-            Player2Cards.Add(tableCard3);
-            Player2Cards.Add(tableCard4);
-            Player2Cards.Add(tableCard5);
-
-            // Act
-            int actual = winCalc.WhoWins(Player1Cards, Player2Cards);
-
-            // Assert
-            Assert.AreEqual(1, actual);
-        }
-
+        
         [TestMethod]
         public void FastWinCalc_hasStraightFlushFunctionTest()
         {
@@ -1415,7 +1366,7 @@ namespace UnitTest
             PlayerCards.Add(tableCard5);
 
             // Act
-            result = winCalc.hasStraightFlush(PlayerCards, Suit.Clubs);
+            result = WinCalc.hasStraightFlush(PlayerCards, Suit.Clubs);
 
             // Assert
             Assert.AreEqual(5, result);
