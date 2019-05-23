@@ -22,7 +22,7 @@ namespace Poker_Game.AI
             Game = game;
             _round = game.CurrentRound();
         }
-
+        /*
         public List<List<Card>> splitVpipRange(List<List<Card>> vpiprange, OpponentData opponentdata, int opponentVPIPRange) {
             int splitNumber = 0;
             List<List<Card>> raiseRange = new List<List<Card>>();
@@ -102,7 +102,7 @@ namespace Poker_Game.AI
 
         //rinse and repeat for turn og river
         //Tjek hans narrowed list af hænder mod vores, er der størst % for at vi vinder eller taber, call / fold herefter
-
+        */
 
     }
 }
