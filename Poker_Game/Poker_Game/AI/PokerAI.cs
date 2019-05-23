@@ -24,7 +24,7 @@ namespace Poker_Game.AI {
         private readonly List<Card> _street;
         private readonly Hand _hand;
         private AiMode _mode;
-        
+
 
 
         public PokerAI(PokerGame game, AiMode mode) {
@@ -56,8 +56,8 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewTree() {
-            if(_mode == AiMode.ExpectiMax) {
-                _pokerTree = new PokerTree(_pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber()); 
+            if (_mode == AiMode.ExpectiMax) {
+                _pokerTree = new PokerTree(_pokerGame, _pokerGame.Hand.Street, _player, _settings, _pokerGame.CurrentRoundNumber());
             }
         }
 
@@ -67,7 +67,7 @@ namespace Poker_Game.AI {
 
         public void MakeDecision() {
             PlayerAction action = _mode == AiMode.MonteCarlo ? MonteCarlo() : ExpectiMax();
-            switch(action) {
+            switch (action) {
                 case PlayerAction.Fold:
                     _actions[0].Invoke();
                     break;
@@ -91,96 +91,137 @@ namespace Poker_Game.AI {
         private PlayerAction MonteCarlo() {
             WinConditions wc = new WinConditions();
             RangeParser rc = new RangeParser();
-            EVCalculator ev = new EVCalculator(_settings);
+            EVCalculator ev = new EVCalculator(_pokerGame, _settings);
             OutsCalculator oc = new OutsCalculator();
 
-            List<string> RaisePreflop = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
-            List<string> CallPreflop = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
+            List<string> RaisePreflop = new List<string>
+                {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
+            List<string> CallPreflop = new List<string>
+                {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
 
             List<Card> cardsToEvaluate = new List<Card>(_player.Cards);
-
-            
-            cardsToEvaluate.AddRange(_street);  
+            cardsToEvaluate.AddRange(_street);
 
             var handsToRaisePreflop = rc.Parse(RaisePreflop);
             var handsToCallPreflop = rc.Parse(CallPreflop).Except(handsToRaisePreflop).ToList();
             var cardHand = _player.Cards;
 
+            List<double> ExpectedValues =
+                new List<double>(ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings));
+
+            var mtcBet = ExpectedValues[0];
+            var mtcCall = 0.00;
+
+            if (ExpectedValues.Count > 1) {
+                mtcCall = ExpectedValues[1];
+            }
+            
             if (_pokerGame.CurrentRoundNumber() == 1) {
-                if (ContainsCardHand(handsToRaisePreflop, cardHand)) { 
-                    if (_pokerGame.CanRaise()) {
-                        return PlayerAction.Raise;
-                    }
-                    
-                    else if (_pokerGame.CanCall()) {
-                        return PlayerAction.Call;
+                if (ContainsCardHand(handsToRaisePreflop, cardHand)) {
+                    if (_player.IsSmallBlind) {
+                        if (_pokerGame.CanRaise()) {
+                            return PlayerAction.Raise;
+                        }
+
+                        if (_pokerGame.CanCall()) {
+                            return PlayerAction.Call;
+                        }
                     }
                 }
-            
+
                 if (ContainsCardHand(handsToCallPreflop, cardHand)) {
-                    if (_pokerGame.CanCall()) { 
+                    if (_pokerGame.CanCall()) {
                         return PlayerAction.Call;
                     }
                 }
 
-            } else if (_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) {
+            }
+            else if (_pokerGame.CurrentRoundNumber() == 2 || _pokerGame.CurrentRoundNumber() == 3) {
                 // Flop + Turn
 
                 var currentScore = wc.Evaluate(cardsToEvaluate);
                 var compareOuts = oc.CompareOuts(_player.Cards, _street);
 
-                if (currentScore == Score.Pair || currentScore == Score.TwoPairs)
-                    if ((flushOnStreet(_street) || straightOnStreet(_street))) {
 
-                        if (_pokerGame.CanCheck()) {
-                            return PlayerAction.Check;
+
+                if (currentScore >= Score.Pair) {
+                    if (currentScore >= Score.Pair) {
+
+                        if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
+                            if (mtcBet > mtcCall) {
+                                return PlayerAction.Raise;
+                            }
+
+                            return PlayerAction.Call;
                         }
 
-                        return PlayerAction.Fold;
-
-                    }
-
-                    else {
-
-                        var mtc = ev.CalculateMonteCarlo(cardHand, _pokerGame.Players[0], _hand, _settings);
-                        if (mtc > 0.00) {
-                            if (wc.Evaluate(cardsToEvaluate) >= Score.Pair && _pokerGame.CanRaise()) {
-                                return PlayerAction.Raise;
-                            }
-                     
-                            if (flushOnStreet(_street) && (!oc.IsOpenEndedStraightDraw(_street, cardHand) 
-                                                           || !oc.IsInsideStraightDraw(_street, cardHand)
-                                                           || !oc.InsideStraightAndFlushDraw(_street, cardHand))) {
-                                return PlayerAction.Fold;
-                            }
-
-                            if (straightOnStreet(_street) && oc.GetStraightOuts(cardHand, _street) < 4) {
-                                return PlayerAction.Fold;
-                            }
-
-                            if (compareOuts > 4 && _pokerGame.CanRaise()) {
+                        if (_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
+                            if (mtcBet > mtcCall) {
                                 return PlayerAction.Raise;
                             }
 
-                            if (oc.CompareOuts(_player.Cards, _street) <= 4 && _pokerGame.CanCall()) {
+                            return PlayerAction.Call;
+                        }
+
+
+                        if (_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
+
+                            if (mtcBet > 0.00) {
                                 return PlayerAction.Call;
                             }
                         }
-                        
-                    }
-            }
-
-            else if (_pokerGame.CurrentRoundNumber() == 4) { // River
-                if (wc.Evaluate(cardsToEvaluate) >= Score.Pair) {
-                    if (_pokerGame.CanRaise()) {
-                        return PlayerAction.Raise;
-                    }
-
-                    if (_pokerGame.CanCall())
-                        return PlayerAction.Call;
                     }
                 }
-            if(_pokerGame.CanCheck()) {
+
+
+                if (compareOuts > 0) {
+                    if (oc.CompareOuts(cardHand, _street) > 5) {
+                        if (_pokerGame.CanRaise()) {
+                            return PlayerAction.Raise;
+                        }
+
+                        if (_pokerGame.CanCall()) {
+                            return PlayerAction.Call;
+                        }
+                    }
+                }
+            }
+            else if (_pokerGame.CurrentRoundNumber() == 4) {
+                var currentScore = wc.Evaluate(cardsToEvaluate);
+
+                if (currentScore >= Score.Pair) {
+
+                    if (_pokerGame.CanCall() && _pokerGame.CanRaise()) {
+                        if (mtcBet > mtcCall) {
+                            return PlayerAction.Raise;
+                        }
+
+                        return PlayerAction.Call;
+
+                    }
+
+                    if (_pokerGame.CanCheck() && _pokerGame.CanRaise()) {
+                        if (mtcBet > mtcCall) {
+                            return PlayerAction.Raise;
+                        }
+
+                        return PlayerAction.Call;
+                    }
+
+
+                    if (_pokerGame.CanCall() && !_pokerGame.CanCheck()) {
+
+                        if (mtcBet > 0.00) {
+                            return PlayerAction.Call;
+                        }
+
+
+                    }
+                }
+            }
+
+            if (_pokerGame.CanCheck())
+            {
                 return PlayerAction.Check;
             }
 
@@ -194,55 +235,6 @@ namespace Poker_Game.AI {
                     return true;
                 }
             }
-            //FEJL
-
-            return false;
-        }
-
-        public bool flushOnStreet(List<Card> street) {
-            int count = 0;
-            for (int i = 0; i < street.Count-1; i++) {
-                if (street[i].Suit == street[i + 1].Suit) {
-                    count++;
-                }
-            }
-
-            if (_pokerGame.CurrentRoundNumber() == 2 && count >= 3) {
-                return true;
-            }
-
-            if (_pokerGame.CurrentRoundNumber() == 3 && count >= 4) {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool straightOnStreet(List<Card> street) {
-            int count = 0;
-           
-            for (int i = 0; i < street.Count - 1; i++){
-                for (int j = 0; i < street.Count; j++) {
-                    if (street[j].Rank >= street[i].Rank - 4 && street[i + 1].Rank <= street[i].Rank) {
-                        count++;
-                    }
-
-                    else if (street[i + 1].Rank >= street[i].Rank && street[i + 1].Rank <= street[i].Rank + 4) {
-                        count++;
-                    }
-                }
-            }
-
-            if (_pokerGame.CurrentRoundNumber() == 2 && count == 3)
-            {
-                return true;
-            }
-
-            if (_pokerGame.CurrentRoundNumber() == 3 && count == 4)
-            {
-                return true;
-            }
-
             return false;
         }
 

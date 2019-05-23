@@ -223,7 +223,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool IsPocketFlushDraw(List<Card> cardHand, List<Card> street)
+        public bool IsPocketFlushDraw(List<Card> cardHand, List<Card> street)
         {
             var count = 0;
             if (HasFlushChance(cardHand) && !IsOpenEndedStraightDraw(street, cardHand) && !IsInsideStraightDraw(street, cardHand))
@@ -241,7 +241,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool IsTableFlushDraw(List<Card> cardHand, List<Card> street)
+        public bool IsTableFlushDraw(List<Card> cardHand, List<Card> street)
         {
             int countFirst = 0, countSecond = 0;
             if (!HasFlushChance(cardHand))

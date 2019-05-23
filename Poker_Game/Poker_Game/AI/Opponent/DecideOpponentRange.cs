@@ -20,7 +20,7 @@ namespace Poker_Game.AI.Opponent {
         
         public List<List<List<Card>>> splitRanges(string path, List<List<Card>> playerOutsRange, List<Card> street) {
 
-            EVCalculator ev = new EVCalculator(Settings);
+            /*EVCalculator ev = new EVCalculator(Settings);
 
             double EvOpponentCards = 0;
 
@@ -42,9 +42,9 @@ namespace Poker_Game.AI.Opponent {
 
             OpponentReactionToHand.Add(cardsHeRaises);
             OpponentReactionToHand.Add(cardsHeCalls);
-            OpponentReactionToHand.Add(cardsHeFolds);
+            OpponentReactionToHand.Add(cardsHeFolds); */
 
-            return OpponentReactionToHand;
+            return OpponentReactionToHand; 
 
         }
 
