@@ -94,9 +94,6 @@ namespace Poker_Game.Game {
                 Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
-                if(CurrentRoundNumber() == 5) {
-                    MessageBox.Show(CurrentRoundNumber().ToString()); 
-                }
             }
         }
 
