@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\GameTree\OpponentNode.cs" />
+    <Compile Include="AI\GameTree\TreeConstructor.cs" />
     <Compile Include="AI\MonteCarloDecisionMaking.cs" />
     <Compile Include="AI\Opponent\VPIP\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />
-    <Compile Include="AI\GameTree\PokerTree.cs" />
+    <Compile Include="AI\GameTree\ExpectiMax.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />

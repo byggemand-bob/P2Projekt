@@ -9,12 +9,14 @@ namespace Poker_Game.AI.GameTree {
         private readonly List<Card> _street;
         private readonly Settings _settings;
         private readonly OpponentData _data;
+        private EVCalculator _evCalculator;
 
         public TreeConstructor(PokerGame game, OpponentData data) {
             _player = game.Players[1];
             _settings = game.Settings;
             _street = game.Hand.Street;
             _data = data;
+            _evCalculator= new EVCalculator(game, game.Settings);
         }
 
         public Node CreateTree(int currentRoundNumber) {
@@ -31,8 +33,7 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private double[] GetEVs(string[] paths, List<Card> street, Player player, Settings settings) {
-            EVCalculator evCalculator = new EVCalculator(settings);
-            return evCalculator.CalculateAll(paths, street, player);
+            return _evCalculator.CalculateAll(paths, street, player);
         }
     }
 }
