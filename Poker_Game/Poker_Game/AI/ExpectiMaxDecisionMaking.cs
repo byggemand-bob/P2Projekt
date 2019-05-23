@@ -5,7 +5,7 @@ using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
-    class ExpectiMax {
+    class ExpectiMaxDecisionMaking {
         private readonly OpponentData _data;
         private Node _currentNode;
         private Node _treeRoot;
@@ -13,7 +13,7 @@ namespace Poker_Game.AI.GameTree {
         private PlayerAction _expectedAction; // For checking if the human player follows the calculated path.
 
 
-        public ExpectiMax(OpponentData data) {
+        public ExpectiMaxDecisionMaking(OpponentData data) {
             _data = data;
         }
 

@@ -83,7 +83,7 @@
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />
-    <Compile Include="AI\GameTree\ExpectiMax.cs" />
+    <Compile Include="AI\ExpectiMaxDecisionMaking.cs" />
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />
