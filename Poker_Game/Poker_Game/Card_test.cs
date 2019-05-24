@@ -46,25 +46,24 @@ namespace Poker_Game {
                 players[1].Cards.Add(new Card(Suit.Hearts, Rank.Ace));
 
 
-                //players[0].Score = w.Evaluate(players[0].Cards);
-                //players[1].Score = w.Evaluate(players[1].Cards);
-                //w.GiveScoreHand(players[0]);
-                //w.GiveScoreHand(players[1]);
-                result = fw.WhoWins(players[0].Cards, players[1].Cards);
-                //if (w.WhoWins(players[0], players[1]) == null) {
-                //    draw++;
-                //} else if (w.WhoWins(players[0], players[1]).Id == 0) {
-                //    wins++;
-                //} else {
-                //    loss++;
-                //}
-                if (result == -1) {
-                    wins++;
-                }else if (result == 0) {
+                players[0].Score = w.Evaluate(players[0].Cards);
+                players[1].Score = w.Evaluate(players[1].Cards);
+                w.GiveScoreHand(players[0]);
+                w.GiveScoreHand(players[1]);
+                if (w.WhoWins(players[0], players[1]) == null) {
                     draw++;
-                } else if (result == 1) {
+                } else if (w.WhoWins(players[0], players[1]).Id == 0) {
+                    wins++;
+                } else {
                     loss++;
                 }
+                //if (result == -1) {
+                //    wins++;
+                //}else if (result == 0) {
+                //    draw++;
+                //} else if (result == 1) {
+                //    loss++;
+                //}
                 TAELLER++;
                 #endregion
                 #region new card test
@@ -105,7 +104,7 @@ namespace Poker_Game {
                 //    Console.WriteLine("Draw");
                 //}
                 #endregion
-            } while (TAELLER != 10000000);
+            } while (TAELLER != 10000);
 
             Console.WriteLine("Wins: " + wins);
             Console.WriteLine("Loss: " + loss);
