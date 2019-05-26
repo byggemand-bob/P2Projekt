@@ -89,6 +89,7 @@
     <Compile Include="AI\Opponent\VPIPReader.cs" />
     <Compile Include="AI\Opponent\VPIPWriter.cs" />
     <Compile Include="AI\MonteCarloTrailOdds.cs" />
+    <Compile Include="WinLoss.cs" />
     <Compile Include="WinCalcVsWinCalc.cs" />
     <Compile Include="Game\FastWinCalc.cs" />
     <Compile Include="MultiThreadCardTest.cs" />
