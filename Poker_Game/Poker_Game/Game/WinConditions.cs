@@ -285,7 +285,7 @@ namespace Poker_Game.Game {
         }
         #endregion
 
-        #region Ecaluate/givescore
+        #region Evaluate/givescore
         // Checks if the cards in hand / on street matches the different win conditions in the game
         public Score Evaluate(List<Card> cards) {
             List<Card> sortedCards = DuplicateDeck(cards);

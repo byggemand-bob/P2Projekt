@@ -16,7 +16,7 @@ namespace Poker_Game.GUI {
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAi _ai;
         private int _prevRound;
-
+        private int handCount = 0;
 
         #region Initialization
 
@@ -102,6 +102,13 @@ namespace Poker_Game.GUI {
         private void HandUpdate() {
             _prevRound = 0;
             EndOfHand();
+            handCount++;
+            if (handCount == 1000)
+            {
+                MessageBox.Show("AI stack: " + _game.Players[1].Stack + Environment.NewLine +
+                                "Bot Stack: " + _game.Players[0].Stack + Environment.NewLine +
+                                "Hands run: " + handCount);
+            }
             CreateNewHand();
             UpdatePlayerBlindLabels(_game.Players[0]);
             listboxPrevActions.Items.Clear();
@@ -355,8 +362,8 @@ namespace Poker_Game.GUI {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
-            handWinnerForm.ShowDialog();
+            // HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            // handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }
 
@@ -411,9 +418,9 @@ namespace Poker_Game.GUI {
         private void EndGameMessage() {
             string message;
             if(_game.Players[0].Stack < 1) {
-                message = "You lost the game. Shame on you!";
+                message = "You lost the game. Shame on you!" + Environment.NewLine + " HandCount: " + handCount;
             } else {
-                message = "You won the game!";
+                message = "You won the game!" + Environment.NewLine + " HandCount: " + handCount ;
             }
 
             MessageBox.Show(message, "Game over", MessageBoxButtons.OK);
@@ -435,7 +442,40 @@ namespace Poker_Game.GUI {
                     }
                     UpdateLog();
                 }
+                else
+                {
+                    BotTurn();
+                    if (_game.Players[0].PreviousAction == PlayerAction.Fold)
+                    {
+                        HandUpdate();
+                    }
+                    else
+                    {
+                        MainUpdate();
+                    }
+                }
             }
+        }
+
+        private void BotTurn()
+        {
+            if (_game.Hand.Rounds.Count > 0) _game.Fold();
+            //if (_game.CanRaise())
+            //{
+            //    _game.Raise();
+            //}
+            //else if (_game.CanCall())
+            //{
+            //    _game.Call();
+            //}
+            //else if (_game.CanCheck())
+            //{
+            //    _game.Check();
+            //}
+            //else
+            //{
+            //    throw new InvalidOperationException();
+            //}
         }
 
         #endregion

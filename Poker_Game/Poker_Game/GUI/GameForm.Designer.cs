@@ -51,6 +51,7 @@ namespace Poker_Game.GUI {
             this.labelAICurrentBet = new System.Windows.Forms.Label();
             this.checkboxEnableTimer = new System.Windows.Forms.CheckBox();
             this.listboxPrevActions = new System.Windows.Forms.ListBox();
+            this.labelHandCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureTableCard3)).BeginInit();
@@ -377,6 +378,15 @@ namespace Poker_Game.GUI {
             this.listboxPrevActions.TabIndex = 28;
             this.listboxPrevActions.TabStop = false;
             // 
+            // labelHandCount
+            // 
+            this.labelHandCount.AutoSize = true;
+            this.labelHandCount.Location = new System.Drawing.Point(850, 155);
+            this.labelHandCount.Name = "labelHandCount";
+            this.labelHandCount.Size = new System.Drawing.Size(83, 13);
+            this.labelHandCount.TabIndex = 29;
+            this.labelHandCount.Text = "labelHandCount";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,6 +396,7 @@ namespace Poker_Game.GUI {
             this.BackgroundImage = global::Poker_Game.Properties.Resources.PokerBord;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.labelHandCount);
             this.Controls.Add(this.listboxPrevActions);
             this.Controls.Add(this.checkboxEnableTimer);
             this.Controls.Add(this.labelAICurrentBet);
@@ -459,5 +470,6 @@ namespace Poker_Game.GUI {
         private System.Windows.Forms.Label labelAICurrentBet;
         private System.Windows.Forms.CheckBox checkboxEnableTimer;
         private System.Windows.Forms.ListBox listboxPrevActions;
+        private System.Windows.Forms.Label labelHandCount;
     }
 }

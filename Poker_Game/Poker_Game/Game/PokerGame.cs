@@ -225,6 +225,7 @@ namespace Poker_Game.Game {
             return Players[0].CurrentBet - Players[1].CurrentBet != 0;
         }
 
+
         public bool CanRaise() {
             return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BetSize;
         }

@@ -13,7 +13,7 @@ namespace Poker_Game.Game {
         #region Initialization
         public Settings(int numberOfPlayers, int stackSize, int blindSize, string playerName, int maxBetsPerRound, AiMode evalStyle) {
             NumberOfPlayers = numberOfPlayers;
-            StackSize = stackSize;
+            StackSize = 100000;
             BlindSize = blindSize;
             PlayerName = playerName;
             MaxBetsPerRound = maxBetsPerRound;
