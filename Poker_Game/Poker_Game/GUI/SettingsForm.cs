@@ -5,7 +5,6 @@ using Poker_Game.Game;
 
 namespace Poker_Game.GUI {
     public partial class SettingsForm : Form {
-        private const bool Testing = true;
         private bool _nameChanged;
         private bool _valueJustChanged;
 
@@ -17,7 +16,7 @@ namespace Poker_Game.GUI {
         
         // Makes sure you've entered a name before continueing
         private void ButtonStartGame_Click(object sender, EventArgs e) {
-            if (Testing || _nameChanged)
+            if (_nameChanged)
             {
                 Hide();
                 Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1,

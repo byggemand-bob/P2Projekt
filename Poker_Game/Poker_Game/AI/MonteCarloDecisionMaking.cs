@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
     public class MonteCarloDecisionMaking {
-        List<string> _raiseRange = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
-        List<string> _callRange = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
+        private readonly List<string> _raiseRange = new List<string> {"88+", "A2s+", "K5s+", "Q8s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
+        private readonly List<string> _callRange = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
 
         private readonly PokerGame _pokerGame;
         private readonly Player _player;
-        private readonly List<Card> _street;
 
         public MonteCarloDecisionMaking(PokerGame game) {
             _pokerGame = game;
             _player = game.Players[1];
-            _street = game.Hand.Street;
         }
 
         public PlayerAction GetNextAction() {
             EVCalculator ev = new EVCalculator(_pokerGame, _pokerGame.Settings);
-            List<Card> evalCards = GetCardsToEvaluate();
-            List<double> ExpectedValues;
             double mtcWin = 0,
                    mtcLoss = 0;
 
             if(_pokerGame.CurrentRoundNumber() > 1) {
-                ExpectedValues = new List<double>(ev.CalculateMonteCarlo(_player.Cards, _pokerGame.Hand, _pokerGame.Settings));
-                mtcWin = ExpectedValues[0];
-                mtcLoss = ExpectedValues[1];
-                
-
+                List<double> expectedValues = new List<double>(ev.CalculateMonteCarlo(_player.Cards, _pokerGame.Hand, _pokerGame.Settings));
+                mtcWin = expectedValues[0];
+                mtcLoss = expectedValues[1];
             }
 
             if(_pokerGame.CurrentRoundNumber() == 1) {
@@ -106,8 +97,7 @@ namespace Poker_Game.AI {
             return CheckFold();
         }
 
-
-        public PlayerAction PreFlop()
+        private PlayerAction PreFlop()
         {
             RangeParser rangeParser = new RangeParser();
             List<List<Card>> raiseCardRange = rangeParser.Parse(_raiseRange);
@@ -135,7 +125,6 @@ namespace Poker_Game.AI {
             return CheckFold();
         }
 
-
         private bool ContainsCardHand(List<List<Card>> range, List<Card> cardHand) {
             foreach(var element in range) {
                 if((element[0].CompareTo(cardHand[0]) == 0 && element[1].CompareTo(cardHand[1]) == 0) ||
@@ -146,12 +135,6 @@ namespace Poker_Game.AI {
             return false;
         }
 
-        private List<Card> GetCardsToEvaluate() {
-            List<Card> result = new List<Card>(_player.Cards);
-            result.AddRange(_street);
-            return result;
-        }
-
         private PlayerAction CheckFold() {
             if(_pokerGame.CanCheck()) {
                 return PlayerAction.Check;
@@ -159,7 +142,5 @@ namespace Poker_Game.AI {
 
             return PlayerAction.Fold;
         }
-
-
     }
 }
