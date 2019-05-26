@@ -9,10 +9,11 @@ namespace Poker_Game.Game {
         public List<Card> Street { get; }  
         public List<Round> Rounds { get; }
         public List<Player> Players { get; }
+        public Player Winner { get; set; }
 
         private readonly List<Card> _deck;
 
-        // Allocation and initialization for the various elements of a hand
+
         #region Initialization
 
         // for testing purpose only
@@ -28,8 +29,6 @@ namespace Poker_Game.Game {
             Street = new List<Card>();
             Rounds = new List<Round>();
             Players = InitializePlayers(players, dealerButtonPosition);
-
-            //Players = GetActivePlayers(players);
             StartRound();
         }
 
@@ -94,9 +93,6 @@ namespace Poker_Game.Game {
                 Card newCard = new Card(_deck);
                 _deck.Add(newCard);
                 Street.Add(newCard);
-                foreach (Player player in Players) {
-                    player.Cards.Add(newCard);
-                }
             }
         }
 
@@ -125,7 +121,5 @@ namespace Poker_Game.Game {
         public int CurrentRoundNumber() {
             return Rounds.Count;
         }
-
-
     }
 }

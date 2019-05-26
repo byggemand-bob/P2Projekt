@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Poker_Game.Game {
@@ -12,6 +13,7 @@ namespace Poker_Game.Game {
         private int _dealerButtonPosition;
         private bool _handInProgress;
         private bool _roundInProgress;
+
 
 
         #region Initialization
@@ -58,8 +60,7 @@ namespace Poker_Game.Game {
 
         public void Raise() { // Method used for coding a press of Raise-button in GameForm.
             // Needs to be cut down
-            //MessageBox.Show(Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet).ToString());
-            Bet(Players[CurrentPlayerIndex], Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet) + 2 * Settings.BlindSize);
+            Bet(CurrentPlayer(), GetNextBet(CurrentPlayer()));
             Players[CurrentPlayerIndex].Action = PlayerAction.Raise;
             Players[CurrentPlayerIndex].PreviousAction = PlayerAction.Raise;
             CurrentPlayer().BetsTaken++;
@@ -80,13 +81,16 @@ namespace Poker_Game.Game {
         #endregion
 
         public void NewHand() {
-            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function?
+            _dealerButtonPosition = ++_dealerButtonPosition % Settings.NumberOfPlayers; // Separate function? 
             Hand = new Hand(Players, _dealerButtonPosition);
+            CurrentPlayerIndex = GetStartingPlayerIndex();
+            Settings.BetSize = 2 * Settings.BlindSize;
             PayBlinds();
             _handInProgress = true;
         }
         private void NewRound() {
             if(!_roundInProgress) {
+                Settings.BetSize *= 2;
                 Hand.StartRound();
                 _roundInProgress = true;
                 CurrentPlayerIndex = GetStartingPlayerIndex();
@@ -117,8 +121,16 @@ namespace Poker_Game.Game {
             return false;
         }
 
+        public int GetNextBet(Player player) {
+            return Math.Abs(player.CurrentBet - Players[(player.Id + 1) % 2].CurrentBet) + Settings.BetSize;
+        }
+
+
         public void RewardWinners() {
             List<Player> winners = GetWinners(Hand);
+            if(winners.Count == 1) {
+                Hand.Winner = winners[0];
+            }
             foreach(Player player in winners) {
                 player.Stack += Hand.Pot / winners.Count;
             }
@@ -134,9 +146,10 @@ namespace Poker_Game.Game {
 
         private List<Player> GetWinningPlayers(List<Player> players) {
             foreach (Player player in players) {
-                player.Cards.Sort();
+                player.Cards.AddRange(Hand.Street);
                 player.GetScore();
             }
+
             if (players[0].Score > players[1].Score) {
                 return new List<Player> { players[0] };
             }
@@ -147,13 +160,19 @@ namespace Poker_Game.Game {
         }
 
         private List<Player> GetSameScoreWinners(List<Player> players) {
-            WinConditions wc = new WinConditions();
-            Player tempPlayer = wc.SameScore(players[0], players[1]);
-            if(tempPlayer == null) {
-                List<Player> winners = new List<Player> {players[0], players[1]};
-                return winners;
+            FastWinCalc winCalculator = new FastWinCalc();
+            int winner = winCalculator.WhoWins(players[1].Cards, players[0].Cards);
+            List<Player> tempPlayers = new List<Player>();
+            if (winner != 0)
+            {
+                tempPlayers.Add(winner == 1 ? players[0] : players[1]);
             }
-            return new List<Player> { tempPlayer };
+            else
+            {
+                tempPlayers.Add(players[0]);
+                tempPlayers.Add(players[1]);
+            }
+            return tempPlayers;
         }
 
         private List<Player> GetUnfoldedPlayers(List<Player> players) {
@@ -171,17 +190,15 @@ namespace Poker_Game.Game {
         }
 
         private void Bet(Player player, int amount) {
-            if(player.Stack >= amount) {
-                player.CurrentBet += amount;
-                player.Stack -= amount;
-                Hand.Pot += amount;
-            }
+            player.CurrentBet += amount;
+            player.Stack -= amount;
+            Hand.Pot += amount;
         }
 
         private void PayBlinds() {
             for(int i = 0; i < Settings.NumberOfPlayers; i++) {
                 if(Players[i].IsBigBlind) {
-                    Bet(Players[i], 2 * Settings.BlindSize);
+                    Bet(Players[i], Settings.BetSize);
                     Players[i].Action = PlayerAction.Raise;
                     Players[i].PreviousAction = PlayerAction.Raise;
                 } else if(Players[i].IsSmallBlind) {
@@ -209,7 +226,7 @@ namespace Poker_Game.Game {
         }
 
         public bool CanRaise() {
-            return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BlindSize * 2;
+            return CurrentPlayer().BetsTaken < Settings.MaxBetsPerRound && CurrentPlayer().Stack >= Settings.BetSize;
         }
 
         public int CurrentRoundNumber() {

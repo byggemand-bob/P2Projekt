@@ -14,8 +14,8 @@ namespace Poker_Game.GUI {
         private readonly PokerGame _game;
         private readonly List<Button> _actionButtons = new List<Button>();
         private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
-        private readonly PokerAI _ai;
-        private int _prevRound = 0;
+        private readonly PokerAi _ai;
+        private int _prevRound;
 
 
         #region Initialization
@@ -38,21 +38,21 @@ namespace Poker_Game.GUI {
             UpdatePlayerBlindLabels(_game.Players[0]);
 
             //AI
-            _ai = new PokerAI(_game);
+            _ai = new PokerAi(_game);
 
             MainUpdate();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            this.MaximumSize = new Size(1000, 700);
-            this.MinimumSize = new Size(1000, 700);
+            MaximumSize = new Size(1000, 700);
+            MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
             Icon = Properties.Resources.coins;
 
             //Load background picture
-            this.BackgroundImage = Properties.Resources.PokerBord;
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            BackgroundImage = Properties.Resources.PokerBord;
+            BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void CreateButtonList() // Adds all action-buttons to ButtonsList
@@ -104,6 +104,7 @@ namespace Poker_Game.GUI {
             EndOfHand();
             CreateNewHand();
             UpdatePlayerBlindLabels(_game.Players[0]);
+            listboxPrevActions.Items.Clear();
             MainUpdate();
         } 
         #endregion
@@ -127,8 +128,13 @@ namespace Poker_Game.GUI {
 
         #region Visual Updates
 
-        private void UpdatePreviousAction() {
-            AIAction.Text = _game.Players[1].PreviousAction.ToString();
+        private void UpdateLog() {
+            Player prevPlayer = _game.Players[(_game.CurrentPlayerIndex + 1) % 2];
+            string message = prevPlayer.Name +  " " + prevPlayer.PreviousAction + (prevPlayer.PreviousAction == PlayerAction.Raise ? "d." : "ed.");
+            listboxPrevActions.Items.Add(message);
+            if(listboxPrevActions.Items.Count > 8) {
+                listboxPrevActions.Items.RemoveAt(0);
+            }
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -195,10 +201,10 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private void UpdatePlayerStack(Player player, Player AI) // Updates the stack-label of all players
+        private void UpdatePlayerStack(Player player, Player ai) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
-            labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + AI.Stack;
+            labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + ai.Stack;
         }
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
@@ -245,24 +251,28 @@ namespace Poker_Game.GUI {
 
         #region ButtonEvents
 
-        private void ButtonQuitToMenu_Click(object sender, EventArgs e) // Exits gameForm
-        {
-            QuitConfirmationForm formConfirmationQuit = new QuitConfirmationForm(this);
-            formConfirmationQuit.ShowDialog();
+        private void ButtonQuitToMenu_Click(object sender, EventArgs e) {
+            DialogResult answer = MessageBox.Show(@"A game is still in progress. Are you sure you want to exit?", @"Exit game", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if(answer == DialogResult.Yes) {
+                Close();
+            }
         }
 
         private void ButtonCall_Click(object sender, EventArgs e) {
             _game.Call();
+            UpdateLog();
             MainUpdate();
         }
 
         private void ButtonCheck_Click(object sender, EventArgs e) {
             _game.Check();
+            UpdateLog();
             MainUpdate();
         }
 
         private void ButtonRaise_Click(object sender, EventArgs e) {
             _game.Raise();
+            UpdateLog();
             MainUpdate();
         }
 
@@ -272,6 +282,7 @@ namespace Poker_Game.GUI {
                 if(answer == DialogResult.No) { return; }
             }
             _game.Fold();
+            UpdateLog();
             HandUpdate();
         }
 
@@ -289,7 +300,12 @@ namespace Poker_Game.GUI {
 
         private void ButtonRaise_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0) {
-                labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[1].CurrentBet + 2 * _settings.BlindSize);
+                int currentBet = _settings.BetSize;
+                if(_game.Players[0].CurrentBet <= _game.Players[1].CurrentBet) {
+                    currentBet = Math.Abs(_game.Players[_game.CurrentPlayerIndex].CurrentBet - _game.Players[(_game.CurrentPlayerIndex + 1) % 2].CurrentBet) + _settings.BetSize;
+                }
+
+                labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[0].CurrentBet + currentBet);
             }
         }
 
@@ -339,55 +355,45 @@ namespace Poker_Game.GUI {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(CheckPlayerStackForDepletion(_game.Players), GetWinnerPlayersName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }
 
+        private string GetWinningPlayerName() {
+            if(_game.Hand.Winner != null) {
+                return _game.Hand.Winner.Name;
+            }
+
+            return _game.Players[0].Name + " & " + _game.Players[1].Name;
+        }
+
         private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
         {
-            if(_game.GetWinners(_game.Hand).Count == 1) {
-                if(Int32.TryParse(ConvertScoreToString(0), out int numericScore)) {
+            if(_game.Hand.Winner != null) {
+                if(Int32.TryParse(_game.Hand.Winner.Score.ToString(), out int numericScore)) {
                     if(numericScore > 10) {
                         return GiveNumericScoreName(numericScore);
                     }
                     return numericScore + " (Highest Card)";
                 }
-                return ConvertScoreToString(0);
-            } else if(_game.GetWinners(_game.Hand).Count == 2) {
-                return ConvertScoreToString(0);
+
+                return _game.Hand.Winner.Score.ToString();
             }
-            return null; // TODO: error handling
+
+            return _game.Players[0].Score.ToString();
         }
 
         private string GiveNumericScoreName(int numericScore) {
             if(numericScore == 11) {
                 return "Jack (Highest Card)";
-            } else if(numericScore == 12) {
+            } if(numericScore == 12) {
                 return "Queen (Highest Card)";
-            } else if(numericScore == 13) {
+            } if(numericScore == 13) {
                 return "King (Highest Card)";
-            } else {
-                return "Ace (Highest Card)";
             }
-        }
 
-        private string ConvertScoreToString(int index) {
-            return Convert.ToString(_game.GetWinners(_game.Hand)[index].Score);
-        }
-
-        private string GetWinnerPlayersName() // Gets the string of which player has won
-        {
-            List<Player> players = _game.GetWinners(_game.Hand);
-            string winners = null;
-            foreach(Player player in players) {
-                if(winners == null) {
-                    winners += player.Name;
-                } else {
-                    winners += " & " + player.Name;
-                }
-            }
-            return winners;
+            return "Ace (Highest Card)";
         }
 
         // Creates a new hand and calls methods for the new gamestate
@@ -418,7 +424,7 @@ namespace Poker_Game.GUI {
         #region AI
 
         private void AiTurn() {
-            if(_game.Players[0].Action != PlayerAction.Fold) {
+            if(_game.Players[0].Action != PlayerAction.Fold || _game.CurrentRoundNumber() != 5) {
                 if(_prevRound > 2) { _ai.PrepareNewTree(); }
                 if(_game.CurrentPlayerIndex == 1) {
                     _ai.MakeDecision();
@@ -427,7 +433,7 @@ namespace Poker_Game.GUI {
                     } else {
                         MainUpdate();
                     }
-                    UpdatePreviousAction();
+                    UpdateLog();
                 }
             }
         }

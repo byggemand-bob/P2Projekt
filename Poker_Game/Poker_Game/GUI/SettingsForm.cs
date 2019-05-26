@@ -1,42 +1,38 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.AI;
 using Poker_Game.Game;
 
 namespace Poker_Game.GUI {
     public partial class SettingsForm : Form {
         private const bool Testing = true;
-        private bool _nameChanged = false;
-        private bool _valueJustChanged = false;
+        private bool _nameChanged;
+        private bool _valueJustChanged;
 
         public SettingsForm() {
             InitializeComponent();
             Icon = Properties.Resources.coins;
             StartPosition = FormStartPosition.CenterScreen;
         }
-
-        private void SettingsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ButtonStartGame_Click(object sender, EventArgs e)
+        
         // Makes sure you've entered a name before continueing
-        {
+        private void ButtonStartGame_Click(object sender, EventArgs e) {
             if (Testing || _nameChanged)
             {
-                this.Hide();
-                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1);
+                Hide();
+                Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1,
+                    radioButtonMonteCarlo.Checked ? AiMode.MonteCarlo : AiMode.ExpectiMax);
+
                 GameForm formGame = new GameForm(settings);
                 formGame.ShowDialog();
-                this.Close();
+                Close();
             } else {
                 nameErrorLabel.Visible = true;
             }
         }
 
-        private void BlindSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the blind numeric up down with the blind trackbar
-        {
+        private void BlindSizeNumericUpDown_ValueChanged(object sender, EventArgs e) {
             if (_valueJustChanged)
             {
                 _valueJustChanged = false;
@@ -46,26 +42,8 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private void BlindSizeTrackBar_ValueChanged(object sender, EventArgs e)
-        // Links the blind trackbar with the blind numeric up down
-        {
-            if (_valueJustChanged)
-            {
-                _valueJustChanged = false;
-            } else {
-                _valueJustChanged = true;
-
-                if(trackBarBlindSize.Value % 10 != 0) {
-                    _valueJustChanged = true;
-                    trackBarBlindSize.Value = trackBarBlindSize.Value - (trackBarBlindSize.Value % 10);
-                }
-                numericUpDownBlindSize.Value = trackBarBlindSize.Value;
-            }
-        }
-
-        private void PotSizeTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the potsize trackbar with the potsize numeric up down
-        {
+        private void PotSizeTrackBar_ValueChanged(object sender, EventArgs e) {
             if (_valueJustChanged) {
                 _valueJustChanged = false;
             } else {
@@ -79,11 +57,9 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private void PotSizeNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the potsize numeric up down with the potsize trackbar
-        {
-            if (_valueJustChanged)
-            {
+        private void PotSizeNumericUpDown_ValueChanged(object sender, EventArgs e) {
+            if (_valueJustChanged) {
                 _valueJustChanged = false;
             } else {
                 _valueJustChanged = true;
@@ -91,15 +67,13 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private void NumberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e)
         // Links the number of players trackbar with the number of players numeric up down
-        {
+        private void NumberOfPlayersTrackBar_ValueChanged(object sender, EventArgs e) {
             numericUpDownNumberOfPlayers.Value = trackBarNumberOfPlayers.Value;
         }
 
-        private void NumberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e)
         // Links the number of players numeric up down with the number of players trackbar
-        {
+        private void NumberOfPlayersNumericUpDown_ValueChanged(object sender, EventArgs e) {
             trackBarNumberOfPlayers.Value = (int)numericUpDownNumberOfPlayers.Value;
         }
 
@@ -108,32 +82,29 @@ namespace Poker_Game.GUI {
         {
             TextBox txtbox = (TextBox)sender;
             if(txtbox.Text == "") {
-                txtbox.Text = "Enter Name";
+                txtbox.Text = @"Enter Name";
                 _nameChanged = false;
             }
         }
 
-        private void TextboxName_Enter(object sender, EventArgs e)
         // Removes the text "Enter Name" when clicked
-        {
+        private void TextboxName_Enter(object sender, EventArgs e) {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text == "Enter Name" && !_nameChanged) {
+            if(txtbox.Text == @"Enter Name" && !_nameChanged) {
                 txtbox.Text = "";
             }
         }
 
-        private void Textbox_CheckChange(object sender, KeyPressEventArgs e)
         // Checks if the Entered name is a Valid option
-        {
+        private void Textbox_CheckChange(object sender, KeyPressEventArgs e) {
             TextBox txtbox = (TextBox)sender;
-            if(txtbox.Text != "" || txtbox.Text != "Enter Name") {
+            if(txtbox.Text != "" || txtbox.Text != @"Enter Name") {
                 _nameChanged = true;
             }
         }
 
-        private void TextboxName_KeyDown(object sender, KeyEventArgs e)
         //Enables the user to press "Enter" and start the game from the Player Name textbox.
-        {
+        private void TextboxName_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter)
             {
                 buttonStartGame.PerformClick();

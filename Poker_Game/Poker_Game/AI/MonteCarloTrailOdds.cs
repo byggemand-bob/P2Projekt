@@ -13,8 +13,9 @@ namespace Poker_Game.AI
         Random rndNr = new Random();
         private List<Card> aiHand, street;
         public int wins = 0, loses = 0, draws = 0;
+
         int NUMOFTHREADS = System.Environment.ProcessorCount;
-        const int TotalNumberOfTrails = 1000000;
+        const int TotalNumberOfTrails = 100000;
         
 
         
@@ -23,22 +24,19 @@ namespace Poker_Game.AI
         {
             public double WinOdds, LoseOdds, DrawOdds;
 
-            public Odds(double winOdds, double loseOdds, double drawOdds)
-            {
+            public Odds(double winOdds, double loseOdds, double drawOdds) {
                 WinOdds = winOdds;
                 LoseOdds = loseOdds;
                 DrawOdds = drawOdds;
             }
 
-            public void Add(Odds AddX)
-            {
+            public void Add(Odds AddX) {
                 WinOdds += AddX.WinOdds;
                 LoseOdds += AddX.LoseOdds;
                 DrawOdds += AddX.DrawOdds;
             }
 
-            public void DevideAllBy(double DevideBy)
-            {
+            public void DevideAllBy(double DevideBy) {
                 WinOdds /= DevideBy;
                 LoseOdds /= DevideBy;
                 DrawOdds /= DevideBy;
@@ -74,7 +72,7 @@ namespace Poker_Game.AI
                     CardsInPlay.Add(NewCard);
                     opponantTrailCards.Add(NewCard);
                 }
-
+                
                 //forced to add to opponent hand
                 //opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.King));
                 //opponantTrailCards.Add(new Card(Suit.Diamonds, Rank.Ace));

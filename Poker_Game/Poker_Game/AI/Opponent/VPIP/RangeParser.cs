@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Opponent {
+namespace Poker_Game.AI.Opponent.VPIP {
     class RangeParser {
 
         private readonly List<Suit> _suits = new List<Suit> {
@@ -30,16 +30,16 @@ namespace Poker_Game.AI.Opponent {
 
             List<List<Card>> result = new List<List<Card>>();
             bool suited = part.Contains('s'),
-                 offsuit = part.Contains('o'),
+                 offSuit = part.Contains('o'),
                  allAbove = part.Contains('+');
 
             if(allAbove && suited) {
                 result.AddRange(MakeAllSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(allAbove && offsuit) {
+            } else if(allAbove && offSuit) {
                 result.AddRange(MakeAllOffsuit(CharToRank(part[0]), CharToRank(part[1])));
             } else if(suited) {
                 result.AddRange(MakeSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(offsuit) {
+            } else if(offSuit) {
                 result.AddRange(MakeOffsuit(CharToRank(part[0]), CharToRank(part[1])));
             } else {
                 throw new Exception("Something went wrong...");
@@ -74,7 +74,7 @@ namespace Poker_Game.AI.Opponent {
 
             for(Rank r = lower; r <= Rank.Ace; r++) {
                 foreach(Suit suit in _suits) {
-                    result.Add(MakeCardHand(r, r, suit));
+                    result.AddRange(MakeOffsuit(r, r));
                 }
             }
 
@@ -162,8 +162,7 @@ namespace Poker_Game.AI.Opponent {
         }
 
         private bool CompareCardhand(List<Card> cards1, List<Card> cards2) {
-            return cards1[0].Equals(cards2[0]) && cards1[1].Equals(cards2[1]);
+            return cards1[0].CompareTo(cards2[0]) == 0 && cards1[1].CompareTo(cards2[1]) == 0;
         }
-
     }
 }

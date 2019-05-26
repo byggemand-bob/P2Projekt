@@ -8,15 +8,15 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI {
     class PotSizeCalculator {
-        private readonly int _blindSize;
+        private readonly int _betSize;
 
         public PotSizeCalculator(Settings settings) {
-            _blindSize = settings.BlindSize;
+            _betSize = settings.BetSize;
         }
 
         public int GetPotsize(string path) {
             string[] actions = SeparatePath(path);
-            int result = 3 * _blindSize;
+            int result = _betSize + _betSize/2; // Big- and small-blind
 
             foreach(string action in actions) {
                 result += ParseAction(action);
@@ -28,11 +28,10 @@ namespace Poker_Game.AI {
         private int ParseAction(string action) {
             switch(action) {
                 case "RE":
-                    return 4 * _blindSize;
+                    return 2 * _betSize;
                 case "R":
-                    return 2 * _blindSize;
                 case "C":
-                    return _blindSize;
+                    return _betSize;
                 default:
                     return 0;
             }

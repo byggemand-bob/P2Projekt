@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Poker_Game.Game {
     public enum PlayerAction {
-        None,
+        Fold,
         Check,
         Call,
         Raise,
-        Fold
+        None
     }
 
     public class Player : IComparable, ICloneable {

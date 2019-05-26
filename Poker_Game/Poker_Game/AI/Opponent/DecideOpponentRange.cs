@@ -17,17 +17,16 @@ namespace Poker_Game.AI.Opponent {
         List<List<Card>> cardsHeCalls = new List<List<Card>>();
         List<List<Card>> cardsHeFolds = new List<List<Card>>();
         List<List<List<Card>>> OpponentReactionToHand = new List<List<List<Card>>>();
-
-
+        
         public List<List<List<Card>>> splitRanges(string path, List<List<Card>> playerOutsRange, List<Card> street) {
 
-            EVCalculator ev = new EVCalculator(Player, Settings);
+            /*EVCalculator ev = new EVCalculator(Settings);
 
             double EvOpponentCards = 0;
 
             foreach (var element in playerOutsRange) {
-
-                EvOpponentCards = ev.CalculateEv(path, element, street);
+                
+                EvOpponentCards = ev.CalculateEv(path, element, street, Player);
                 if (EvOpponentCards >= 2) {
                     cardsHeRaises.Add(element);
                 }
@@ -43,9 +42,9 @@ namespace Poker_Game.AI.Opponent {
 
             OpponentReactionToHand.Add(cardsHeRaises);
             OpponentReactionToHand.Add(cardsHeCalls);
-            OpponentReactionToHand.Add(cardsHeFolds);
+            OpponentReactionToHand.Add(cardsHeFolds); */
 
-            return OpponentReactionToHand;
+            return OpponentReactionToHand; 
 
         }
 

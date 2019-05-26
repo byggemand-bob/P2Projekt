@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.Game;
-using Poker_Game;
 using Poker_Game.AI;
 
 namespace UnitTest
@@ -13,53 +11,54 @@ namespace UnitTest
         public OutsCalculator OutsCalculator = new OutsCalculator();
 
         [TestMethod]
-        public void HasFlushChanceAndHasStraightChanceTest()
+        public void IsPocketFlushDraw()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace); // Flush chance and straight chance on hand
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank) 5);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank) 2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank) 10);
+            Card tableCard1 = new Card(Suit.Spades, (Rank)5);
+            Card tableCard2 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
             {
-                handCard1, handCard2, tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+                handCard1, handCard2
             };
-             
+
             List<Card> street = new List<Card>
             {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
-            var expected = (13 - (7 + 1)) + (-2); // Flush outs + straight outs
+            int expected = 9;
 
             // Act
-            var actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(street, hand);
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestMethod]
-        public void HasFlushChanceAndNotStraightChanceTest()
+        public void IsPocketFlushDrawTest()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace); // Flush chance on hand, not straight chance
-            Card handCard2 = new Card(Suit.Spades, (Rank) 10);
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
             Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
             Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
             Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank) 8);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
             {
-                handCard1, handCard2, tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+                handCard1, handCard2
             };
 
             List<Card> street = new List<Card>
@@ -67,31 +66,32 @@ namespace UnitTest
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
-            var expected = (13 - (1 + 7)); // Flush outs (13 - (Same suit in street as hand + number of cards in hands))
+            int expected = 9;
 
             // Act
-            var actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestMethod]
-        public void HasStraightChanceNotFlushChanceTest()
+        public void IsTableFlushDrawTest()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace); // Straight chance on hands, not flush chance
-            Card handCard2 = new Card(Suit.Clubs, Rank.Jack);
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Hearts, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)8);
+            Card tableCard1 = new Card(Suit.Spades, (Rank)3);
+            Card tableCard2 = new Card(Suit.Spades, (Rank)2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
+            Card tableCard4 = new Card(Suit.Spades, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
             {
-                handCard1, handCard2, tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+                handCard1, handCard2
             };
 
             List<Card> street = new List<Card>
@@ -99,31 +99,32 @@ namespace UnitTest
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
-            var expected = (5 - 7); // 5 - number of straightCards
+            int expected = 9;
 
             // Act
-            var actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestMethod]
-        public void HasPocketPairTest()
+        public void ThreeOAKToFullHouseOrFourOAKTest()
         {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, Rank.Ace); // Flush chance on hand, not straight chance
-            Card handCard2 = new Card(Suit.Hearts, (Rank)5);
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace); // 3x Ace
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)5);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard1 = new Card(Suit.Diamonds, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.Ace);
             Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
             Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Spades, (Rank)8);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
 
             List<Card> hand = new List<Card>
             {
-                handCard1, handCard2, tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+                handCard1, handCard2
             };
 
             List<Card> street = new List<Card>
@@ -131,10 +132,242 @@ namespace UnitTest
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
-            var expected = 2;
+            int expected = 7;
 
             // Act
-            var actual = OutsCalculator.CompareOuts(hand, street);
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void PocketPairToSetTest()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Clubs, Rank.Ace);
+
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 2;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void OnePairToTwoPairTest()
+        { 
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+
+            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)10);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 5;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void OneOverCardTest()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 3;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TwoCardsOVerToOverPair()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Hearts, Rank.King);
+
+            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 6;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TwoPairToFullHouse()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, Rank.Ace);
+            Card handCard2 = new Card(Suit.Hearts, Rank.Ace);
+
+            Card tableCard1 = new Card(Suit.Hearts, Rank.King);
+            Card tableCard2 = new Card(Suit.Clubs,  Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 4;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void OnePairToSet()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)10);
+
+            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 5;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void NoPairToPair()
+        {
+            // Arrange
+            Card handCard1 = new Card(Suit.Spades, (Rank)2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+
+            Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
+            Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+
+            List<Card> hand = new List<Card>
+            {
+                handCard1, handCard2
+            };
+
+            List<Card> street = new List<Card>
+            {
+                tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
+            };
+
+            int expected = 6;
+
+            // Act
+            int actual = OutsCalculator.CompareOuts(hand, street);
 
             // Assert
             Assert.AreEqual(expected, actual);

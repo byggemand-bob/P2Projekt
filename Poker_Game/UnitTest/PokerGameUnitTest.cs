@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.Game;
 using Poker_Game;
+using Poker_Game.AI;
 
 
 namespace UnitTest
@@ -14,7 +15,7 @@ namespace UnitTest
 
         public void CreateProperties()
         {
-            Settings = new Settings(2, 1000, 50, "bob", 2);
+            Settings = new Settings(2, 1000, 50, "bob", 2, AiMode.MonteCarlo);
             Game = new PokerGame(Settings);
         }
 
@@ -73,7 +74,7 @@ namespace UnitTest
             // Round 2
             Game.Fold();
 
-            var expected = Game.Players[1].Id;
+            var expected = Game.Players[0].Id;
 
             // Act
             var actual = Game.GetWinners(Game.Hand);

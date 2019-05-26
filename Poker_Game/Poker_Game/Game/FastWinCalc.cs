@@ -369,7 +369,7 @@ namespace Poker_Game.Game
             return 0;
         }
 
-        public int hasStraightFlush(List<Card> cards, Suit FlushSuit) //needs to be rewritten to take advantage of FlushSuit in EvalCards
+        public int hasStraightFlush(List<Card> cards, Suit FlushSuit)
         {
             int ConsequtiveCardsOfSameSuitAndRank = 0, Result = 0, x = 6;
             Rank lastRank = 0;
@@ -436,13 +436,11 @@ namespace Poker_Game.Game
                 {
                     n--;
                 }
-
-                if (Player1Cards[i].Rank > Player2Cards[n].Rank)
-                {
+             
+                if (Player1Cards[i].Rank > Player2Cards[n].Rank){
                     return -1;
                 }
-                else if (Player1Cards[i].Rank < Player2Cards[n].Rank)
-                {
+                else if (Player1Cards[i].Rank < Player2Cards[n].Rank){
                     return 1;
                 }
 

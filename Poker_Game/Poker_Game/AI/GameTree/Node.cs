@@ -1,28 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using Poker_Game;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     public class Node {
         public Node Parent { get; }
         public List<Node> Children { get; }
-        public double ExpectedValue { get; }
+        public double Value { get; set; }
         public string Action { get; }
 
         public Node(Node parent, string action) {
             Parent = parent;
             Children = new List<Node>();
             Action = action;
-            ExpectedValue = 0;
+            Value = 0;
         }
 
-        public Node(Node parent, string action, double expectedValue) {
+        // For leafnodes
+        public Node(Node parent, string action, double value) {
             Parent = parent;
             Children = new List<Node>();
             Action = action;
-            ExpectedValue = expectedValue;
+            Value = value;
         }
 
         public PlayerAction GetAction() { // Rename?

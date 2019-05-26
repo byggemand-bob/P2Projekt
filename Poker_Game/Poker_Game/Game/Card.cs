@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Poker_Game;
 
 namespace Poker_Game.Game {
     public enum Suit { Clubs, Diamonds, Hearts, Spades };
@@ -9,7 +8,7 @@ namespace Poker_Game.Game {
 
 
     public class Card : IComparable, ICloneable {
-        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode()); // Hvad g�r dette?
+        private readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
         public Rank Rank { get; set; }
         public Suit Suit { get; private set; }
         public Image Image { get; private set; }
@@ -73,6 +72,10 @@ namespace Poker_Game.Game {
 
         public object Clone() {
             return new Card(Suit, Rank);
+        }
+
+        public override string ToString() {
+            return Rank.ToString() + " of " + Suit.ToString();
         }
     }
 }
