@@ -160,13 +160,19 @@ namespace Poker_Game.Game {
         }
 
         private List<Player> GetSameScoreWinners(List<Player> players) {
-            WinConditions wc = new WinConditions();
-            Player tempPlayer = wc.SameScore(players[0], players[1]);
-            if(tempPlayer == null) {
-                List<Player> winners = new List<Player> {players[0], players[1]};
-                return winners;
+            FastWinCalc winCalculator = new FastWinCalc();
+            int winner = winCalculator.WhoWins(players[1].Cards, players[0].Cards);
+            List<Player> tempPlayers = new List<Player>();
+            if (winner != 0)
+            {
+                tempPlayers.Add(winner == 1 ? players[0] : players[1]);
             }
-            return new List<Player> { tempPlayer };
+            else
+            {
+                tempPlayers.Add(players[0]);
+                tempPlayers.Add(players[1]);
+            }
+            return tempPlayers;
         }
 
         private List<Player> GetUnfoldedPlayers(List<Player> players) {
