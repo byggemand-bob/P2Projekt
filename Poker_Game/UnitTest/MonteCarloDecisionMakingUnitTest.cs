@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.AI;
 using Poker_Game.Game;
 
@@ -8,7 +7,7 @@ namespace UnitTest
     [TestClass]
     public class MonteCarloDecisionMakingUnitTest
     {
-        public Settings Settings = new Settings(2, 100000, 50, "player", 2, AiMode.MonteCarlo);
+        public Settings Settings = new Settings(2, 100000, 50, "player", 1, AiMode.MonteCarlo);
 
         [TestMethod]
         public void RaiseAtPreflopTest()
@@ -260,9 +259,9 @@ namespace UnitTest
             PokerGame.Check();
             PokerGame.Check();
             // River
-            PokerGame.Check();
-            PokerGame.Raise();
-            PokerGame.Raise();
+            PokerGame.Check(); // Player
+            PokerGame.Raise(); // AI
+            PokerGame.Raise(); // Player
 
             PokerGame.Players[1].Cards[0] = new Card(Suit.Spades, Rank.Ace);
             PokerGame.Players[1].Cards[1] = new Card(Suit.Spades, Rank.King);
