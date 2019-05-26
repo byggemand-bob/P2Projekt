@@ -30,7 +30,7 @@ namespace Poker_Game {
                 for (int i = 0; i < NumberOfCards; i++) {
                     allcards.Add(new Card(allcards));
                 }
-                players[0].Cards.Add(new Card(Suit.Diamonds, Rank.Ace));
+                players[0].Cards.Add(new Card(Suit.Diamonds, Rank.King));
                 players[0].Cards.Add(new Card(Suit.Spades, Rank.Ace));
                 players[0].Cards.Add(allcards[0]);
                 players[0].Cards.Add(allcards[1]);
@@ -50,7 +50,6 @@ namespace Poker_Game {
                 players[1].Score = w.Evaluate(players[1].Cards);
                 w.GiveScoreHand(players[0]);
                 w.GiveScoreHand(players[1]);
-                //result = w.WhoWins(players[0], players[1]).Id;
                 if (w.WhoWins(players[0], players[1]) == null) {
                     draw++;
                 } else if (w.WhoWins(players[0], players[1]).Id == 0) {
@@ -58,6 +57,13 @@ namespace Poker_Game {
                 } else {
                     loss++;
                 }
+                //if (result == -1) {
+                //    wins++;
+                //}else if (result == 0) {
+                //    draw++;
+                //} else if (result == 1) {
+                //    loss++;
+                //}
                 TAELLER++;
                 #endregion
                 #region new card test
@@ -98,7 +104,7 @@ namespace Poker_Game {
                 //    Console.WriteLine("Draw");
                 //}
                 #endregion
-            } while (TAELLER != 100000);
+            } while (TAELLER != 10000);
 
             Console.WriteLine("Wins: " + wins);
             Console.WriteLine("Loss: " + loss);
