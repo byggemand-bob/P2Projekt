@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Opponent.VPIP {
+namespace Poker_Game.AI.Opponent {
     class RangeParser {
 
         private readonly List<Suit> _suits = new List<Suit> {
@@ -73,7 +73,7 @@ namespace Poker_Game.AI.Opponent.VPIP {
             List<List<Card>> result = new List<List<Card>>();
 
             for(Rank r = lower; r <= Rank.Ace; r++) {
-                foreach(Suit suit in _suits) {
+                foreach(Suit unused in _suits) {
                     result.AddRange(MakeOffsuit(r, r));
                 }
             }

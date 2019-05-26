@@ -74,13 +74,11 @@
     <Compile Include="AI\GameTree\OpponentNode.cs" />
     <Compile Include="AI\GameTree\TreeConstructor.cs" />
     <Compile Include="AI\MonteCarloDecisionMaking.cs" />
-    <Compile Include="AI\Opponent\VPIP\CalculateVPIPOuts.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
-    <Compile Include="AI\Opponent\DecideOpponentRange.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />
     <Compile Include="AI\Opponent\OpponentData.cs" />
-    <Compile Include="AI\Opponent\VPIP\VPIPController.cs" />
-    <Compile Include="AI\EVCalculator.cs" />
+    <Compile Include="AI\Opponent\VPIPController.cs" />
+    <Compile Include="AI\EvCalculator.cs" />
     <Compile Include="AI\GameTree\Node.cs" />
     <Compile Include="AI\GameTree\PathConstructor.cs" />
     <Compile Include="AI\GameTree\PathGenerator.cs" />
@@ -88,17 +86,12 @@
     <Compile Include="AI\OutsCalculator.cs" />
     <Compile Include="AI\PokerAI.cs" />
     <Compile Include="AI\PotSizeCalculator.cs" />
-    <Compile Include="AI\Opponent\VPIP\RangeParser.cs" />
+    <Compile Include="AI\Opponent\RangeParser.cs" />
     <Compile Include="AI\Opponent\DataReader.cs" />
     <Compile Include="AI\Opponent\DataWriter.cs" />
-    <Compile Include="AI\MonteCarloTrailOdds.cs" />
-    <Compile Include="WinLoss.cs" />
-    <Compile Include="WinCalcVsWinCalc.cs" />
+    <Compile Include="AI\MonteCarloTrialOdds.cs" />
     <Compile Include="Game\FastWinCalc.cs" />
-    <Compile Include="MultiThreadCardTest.cs" />
-    <Compile Include="Odds_test.cs" />
     <Compile Include="Game\Card.cs" />
-    <Compile Include="Card_test.cs" />
     <Compile Include="Game\CompareBySuit.cs" />
     <Compile Include="Game\Hand.cs" />
     <Compile Include="Game\Player.cs" />
@@ -133,13 +126,6 @@
     <Compile Include="Game\Settings.cs" />
     <Compile Include="Game\Turn.cs" />
     <Compile Include="Game\WinConditions.cs" />
-    <Compile Include="UserTestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTestForm.Designer.cs">
-      <DependentUpon>UserTestForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserTestForms.cs" />
     <EmbeddedResource Include="GUI\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,9 +143,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserTestForm.resx">
-      <DependentUpon>UserTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Poker_Game.AI.Opponent.VPIP;
+using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
@@ -17,12 +17,12 @@ namespace Poker_Game.AI {
         }
 
         public PlayerAction GetNextAction() {
-            EVCalculator ev = new EVCalculator(_pokerGame, _pokerGame.Settings);
+            EvCalculator ev = new EvCalculator(_pokerGame.Settings);
             double mtcWin = 0,
                    mtcLoss = 0;
 
             if(_pokerGame.CurrentRoundNumber() > 1) {
-                List<double> expectedValues = new List<double>(ev.CalculateMonteCarlo(_player.Cards, _pokerGame.Hand, _pokerGame.Settings));
+                List<double> expectedValues = new List<double>(ev.CalculateMonteCarlo(_player.Cards, _pokerGame.Hand));
                 mtcWin = expectedValues[0];
                 mtcLoss = expectedValues[1];
             }

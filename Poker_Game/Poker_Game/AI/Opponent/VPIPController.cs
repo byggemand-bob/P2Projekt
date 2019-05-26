@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.Opponent.VPIP {
+namespace Poker_Game.AI.Opponent {
     class VpipController {
         private double _pfr;
         private double _vpip;
         private OpponentData _playerData;
 
-        private const int VPIPThreshold = 10;
-        private const int VPIPStandard = 25;
-        private const int PFRStandard = 25;
+        private const int VpipThreshold = 10;
+        private const int VpipStandard = 25;
+        private const int PfrStandard = 25;
 
         public VpipController(OpponentData playerData) {
             _playerData = playerData;
-            _pfr = PFRStandard;
-            _vpip = VPIPStandard;
+            _pfr = PfrStandard;
+            _vpip = VpipStandard;
         }
 
-        private double CalculateVPIP(int hands, int preFlopRCalls, int preFlopRaises) {
+        private double CalculateVpip(int hands, int preFlopRCalls, int preFlopRaises) {
             return ((double)hands / (preFlopRCalls + preFlopRaises)) * 100;
         }
 
-        private double CalculatePFR(int hands, int preFlopRaises) {
+        private double CalculatePfr(int hands, int preFlopRaises) {
             return ((double) hands / preFlopRaises) * 100;
         }
 
@@ -33,8 +33,8 @@ namespace Poker_Game.AI.Opponent.VPIP {
 
             int calls = _playerData.BigBlindHands.Calls[0] + _playerData.SmallBlindHands.Calls[0];
 
-            _pfr = CalculatePFR(_playerData.Hands, raises);
-            _vpip = CalculateVPIP(_playerData.Hands, calls, raises);
+            _pfr = CalculatePfr(_playerData.Hands, raises);
+            _vpip = CalculateVpip(_playerData.Hands, calls, raises);
         }
 
         public List<List<Card>> GetRange() {
@@ -44,7 +44,7 @@ namespace Poker_Game.AI.Opponent.VPIP {
 
         private List<string> FindRange() {
             // Should these be arrays?
-            if(_playerData.Hands >= VPIPThreshold) {
+            if(_playerData.Hands >= VpipThreshold) {
                 Update();
             }
             if(_vpip >= 75) {

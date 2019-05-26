@@ -2,17 +2,15 @@
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class EVCalculator {
+    class EvCalculator {
         private readonly Settings _settings;
-        private readonly PokerGame _pokerGame;
 
-        public EVCalculator(PokerGame game, Settings settings) {
+        public EvCalculator(Settings settings) {
             _settings = settings;
-            _pokerGame = game;
         }
 
-        public List<double> CalculateMonteCarlo(List<Card> cardHand, Hand hand, Settings settings) {
-            MonteCarloTrailOdds mctr = new MonteCarloTrailOdds();
+        public List<double> CalculateMonteCarlo(List<Card> cardHand, Hand hand) {
+            MonteCarloTrialOdds mctr = new MonteCarloTrialOdds();
             List<double> monteCarloRates = new List<double>();
 
             var odds = mctr.MultiThreadMonteCarlo(cardHand, hand.Street);

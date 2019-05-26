@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI
@@ -72,7 +68,7 @@ namespace Poker_Game.AI
             }
             else
             {
-                if (ThreeOAKToFullHouseOr4OAK(street, cardHand))
+                if (ThreeOakToFullHouseOr4Oak(street, cardHand))
                 {
                     return 7;
                 }
@@ -92,7 +88,7 @@ namespace Poker_Game.AI
                 {
                     return 3;
                 }
-                if (NoPairToPair(street, cardHand))
+                if (NoPairToPair(cardHand))
                 {
                     return 6;
                 }
@@ -141,7 +137,7 @@ namespace Poker_Game.AI
             return 0;
         }
 
-        public List<Card> findMissingCardsForStraight(List<Card> listOfPossibleStraightCards, List<Card> straightCards)
+        public List<Card> FindMissingCardsForStraight(List<Card> listOfPossibleStraightCards, List<Card> straightCards)
         {
 
             WinConditions wc = new WinConditions();
@@ -150,9 +146,9 @@ namespace Poker_Game.AI
 
             wc.RemoveDublicateRank(listOfPossibleStraightCards, 0);
 
-            var MinVal = listOfPossibleStraightCards.Min();
-            var MaxVal = listOfPossibleStraightCards.Max();
-            for (int i = 0; i < (MaxVal.Rank - MinVal.Rank); i++)
+            Card minVal = listOfPossibleStraightCards.Min();
+            Card maxVal = listOfPossibleStraightCards.Max();
+            for (int i = 0; i < (maxVal.Rank - minVal.Rank); i++)
             {
                 allStraightCards.Add(new Card(Suit.Hearts, listOfPossibleStraightCards[0].Rank + i));
             }
@@ -183,20 +179,20 @@ namespace Poker_Game.AI
         private int FindStreetCardsEqualToCardHand(List<Card> cardHand, List<Card> street)
         {
 
-            List<Card> StreetCardsEqualToHand = new List<Card>();
+            List<Card> streetCardsEqualToHand = new List<Card>();
             // Tjekker om kort på streeten er magen til dem spilleren har på hånden
 
             foreach (var element in street)
             {
                 if (element.Rank.Equals(cardHand[0].Rank) || element.Rank.Equals(cardHand[1].Rank))
                 {
-                    StreetCardsEqualToHand.Add(element);
+                    streetCardsEqualToHand.Add(element);
                 }
             }
-            return StreetCardsEqualToHand.Count;
+            return streetCardsEqualToHand.Count;
         }
 
-        private int FindMultipleCardsOnStreet(List<Card> cardHand, List<Card> street)
+        private int FindMultipleCardsOnStreet(List<Card> street)
         {
             int count = 0;
 
@@ -225,14 +221,12 @@ namespace Poker_Game.AI
 
         public bool IsPocketFlushDraw(List<Card> cardHand, List<Card> street)
         {
-            var count = 0;
             if (HasFlushChance(cardHand) && !IsOpenEndedStraightDraw(street, cardHand) && !IsInsideStraightDraw(street, cardHand))
             {
                 foreach (var element in street)
                 {
                     if (element.Suit == cardHand[0].Suit)
                     {
-                        count++;
                     }
                 }
 
@@ -307,7 +301,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool ThreeOAKToFullHouseOr4OAK(List<Card> street, List<Card> cardHand)
+        private bool ThreeOakToFullHouseOr4Oak(List<Card> street, List<Card> cardHand)
         { // Outs 7
             WinConditions wc = new WinConditions();
             List<Card> temp = new List<Card>{cardHand[0], cardHand[1]};
@@ -326,7 +320,7 @@ namespace Poker_Game.AI
 
         private bool TwoPairToFullHouse(List<Card> street, List<Card> cardHand)
         {
-            var multiples = FindMultipleCardsOnStreet(cardHand, street);
+            var multiples = FindMultipleCardsOnStreet(street);
 
             if (FindStreetCardsEqualToCardHand(cardHand, street) == 1 && multiples == 1)
             { // 4 outs
@@ -383,7 +377,7 @@ namespace Poker_Game.AI
         private bool OnePairToTwoPair(List<Card> street, List<Card> cardHand)
         { // 5 outs
 
-            var multiples = FindMultipleCardsOnStreet(cardHand, street);
+            var multiples = FindMultipleCardsOnStreet(street);
             if (HasPair(cardHand) && multiples == 0)
             {
                 return true;
@@ -418,7 +412,7 @@ namespace Poker_Game.AI
             return false;
         }
 
-        private bool NoPairToPair(List<Card> street, List<Card> cardHand)
+        private bool NoPairToPair(List<Card> cardHand)
         { // Outs 6
             if (!HasPair(cardHand))
             {
@@ -462,12 +456,12 @@ namespace Poker_Game.AI
 
             if (streetSize == 4)
             {
-                result = 1 - ((46 - outs) / 46);
+                result = 1 - (46 - outs) / 46;
             }
             else if (streetSize == 3)
             {
-                result = (47 - outs) / 47;
-                result *= (46 - outs) / 46;
+                result = (47 - outs) / (double) 47;
+                result *= (46 - outs) / (double) 46;
                 result = 1 - result;
             }
             else

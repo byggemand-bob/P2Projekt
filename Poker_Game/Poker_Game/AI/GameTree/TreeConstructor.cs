@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
@@ -9,14 +8,14 @@ namespace Poker_Game.AI.GameTree {
         private readonly List<Card> _street;
         private readonly Settings _settings;
         private readonly OpponentData _data;
-        private EVCalculator _evCalculator;
+        private EvCalculator _evCalculator;
 
         public TreeConstructor(PokerGame game, OpponentData data) {
             _player = game.Players[1];
             _settings = game.Settings;
             _street = game.Hand.Street;
             _data = data;
-            _evCalculator= new EVCalculator(game, game.Settings);
+            _evCalculator= new EvCalculator(game.Settings);
         }
 
         public Node CreateTree(int currentRoundNumber) {

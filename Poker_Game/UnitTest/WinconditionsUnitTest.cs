@@ -13,7 +13,7 @@ namespace UnitTest
     [TestClass]
     public class WinconditionsUnitTest
     {
-        WinConditions winConditions = new WinConditions();
+        WinConditions _winConditions = new WinConditions();
 
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace UnitTest
             Score expected = (Score)Rank.King;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -54,7 +54,7 @@ namespace UnitTest
             Score expected = (Score)15;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -77,7 +77,7 @@ namespace UnitTest
             Score expected = Score.TwoPairs;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -100,7 +100,7 @@ namespace UnitTest
             Score expected = Score.ThreeOfAKind;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -123,7 +123,7 @@ namespace UnitTest
             Score expected = Score.Straight;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -146,7 +146,7 @@ namespace UnitTest
             Score expected = Score.Flush;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -169,7 +169,7 @@ namespace UnitTest
             Score expected = Score.Flush;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -192,7 +192,7 @@ namespace UnitTest
             Score expected = Score.FullHouse;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -215,7 +215,7 @@ namespace UnitTest
             Score expected = Score.FourOfAKind;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -238,7 +238,7 @@ namespace UnitTest
             Score expected = Score.StraightFlush;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -261,7 +261,7 @@ namespace UnitTest
             Score expected = Score.RoyalFlush;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -285,7 +285,7 @@ namespace UnitTest
             Score expected = (Score)Rank.King;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -308,7 +308,7 @@ namespace UnitTest
             Score expected = Score.Pair;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -332,7 +332,7 @@ namespace UnitTest
             Score expected = (Score)Rank.Queen;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -355,7 +355,7 @@ namespace UnitTest
             Score expected = Score.Pair;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -379,7 +379,7 @@ namespace UnitTest
             Score expected = Score.Straight;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -403,7 +403,7 @@ namespace UnitTest
             Score expected = Score.Straight;
 
             // Act
-            Score actual = winConditions.Evaluate(cards);
+            Score actual = _winConditions.Evaluate(cards);
 
             // Assert
             Assert.AreEqual(expected, actual);

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using Poker_Game.AI.GameTree;
 using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
-namespace Poker_Game.AI.GameTree {
+namespace Poker_Game.AI {
     class ExpectiMaxDecisionMaking {
         private readonly OpponentData _data;
         private Node _currentNode;

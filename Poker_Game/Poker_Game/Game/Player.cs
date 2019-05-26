@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// TODO: create GetHashCode()
-
 namespace Poker_Game.Game {
     public enum PlayerAction {
         Fold,

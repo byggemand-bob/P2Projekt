@@ -110,7 +110,7 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void ThreeOAKToFullHouseOrFourOAKTest()
+        public void ThreeOakToFullHouseOrFourOakTest()
         {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace); // 3x Ace

@@ -139,18 +139,18 @@ namespace Poker_Game.Game {
             }
         }
         private void AddRemainingHighCards(Player player) {
-            bool CardFound;
+            bool cardFound;
             for (int i = player.Cards.Count - 1; i > 0; i--) {
                 if (player.ScoreHand.Count >= 5) {
                     break;
                 }
-                CardFound = false;
+                cardFound = false;
                 for (int j = 0; j < player.ScoreHand.Count - 1; j++) {
                     if (player.Cards[i].Rank == player.ScoreHand[j].Rank) {
-                        CardFound = true;
+                        cardFound = true;
                     }
                 }
-                if (!CardFound) {
+                if (!cardFound) {
                     player.ScoreHand.Add(player.Cards[i]);
                 }
             }
@@ -166,15 +166,15 @@ namespace Poker_Game.Game {
             }
         }
         public void GiveHandAllPairs(Player player) {
-            bool CardFound;
+            bool cardFound;
             for (int i = player.Cards.Count - 2; i >= 0 ; i--) {
-                CardFound = false;
+                cardFound = false;
                 for (int j = 0; j < player.ScoreHand.Count - 1; j++) {
                     if (player.Cards[i].Rank == player.ScoreHand[j].Rank) {
-                        CardFound = true;
+                        cardFound = true;
                     }
                 }
-                if (player.Cards[i].Rank == player.Cards[i + 1].Rank && !CardFound) {
+                if (player.Cards[i].Rank == player.Cards[i + 1].Rank && !cardFound) {
                     for (int j = i; j < i + 2; j++) {
                         player.ScoreHand.Add(player.Cards[j]);
                     }
@@ -201,23 +201,23 @@ namespace Poker_Game.Game {
             }
         }
         private void GiveHandFlush(Player player) {
-            int C = 0, D = 0, H = 0, S = 0;
+            int c = 0, d = 0, h = 0, s = 0;
             foreach (Card element in player.Cards) {
                 if (element.Suit == Suit.Clubs) {
-                    C++;
+                    c++;
                 } else if (element.Suit == Suit.Diamonds) {
-                    D++;
+                    d++;
                 } else if (element.Suit == Suit.Hearts) {
-                    H++;
+                    h++;
                 } else if (element.Suit == Suit.Spades) {
-                    S++;
+                    s++;
                 }
             }
-            if (C > D && C > H && C > S) {
+            if (c > d && c > h && c > s) {
                 AddCardsOfSuit(player, Suit.Clubs);
-            } else if (D > C && D > H && D > S) {
+            } else if (d > c && d > h && d > s) {
                 AddCardsOfSuit(player, Suit.Diamonds);
-            } else if (H > C && H > D && H > S) {
+            } else if (h > c && h > d && h > s) {
                 AddCardsOfSuit(player, Suit.Hearts);
             } else {
                 AddCardsOfSuit(player, Suit.Spades);
@@ -444,19 +444,19 @@ namespace Poker_Game.Game {
 
         // Checks if the player has a flush - 26/4/2019 check
         public bool HasFlush(List<Card> hand) {
-            int C = 0, D = 0, H = 0, S = 0;
+            int c = 0, d = 0, h = 0, s = 0;
             foreach (Card element in hand) {
                 if (element.Suit == Suit.Clubs) {
-                    C++;
+                    c++;
                 } else if (element.Suit == Suit.Diamonds) {
-                    D++;
+                    d++;
                 } else if (element.Suit == Suit.Hearts) {
-                    H++;
+                    h++;
                 } else if (element.Suit == Suit.Spades) {
-                    S++;
+                    s++;
                 }
             }
-            if (C > 4 || D > 4 || H > 4 || S > 4) {
+            if (c > 4 || d > 4 || h > 4 || s > 4) {
                 return true;
             }
             return false;
@@ -464,23 +464,23 @@ namespace Poker_Game.Game {
 
         // Checks if the cards in hand / street forms a correct straight house - 26/4/2019 check
         private List<Card> FlushSuit(List<Card> cards) {
-            int C = 0, D = 0, H = 0, S = 0;
+            int c = 0, d = 0, h = 0, s = 0;
             foreach (Card element in cards) {
                 if (element.Suit == Suit.Clubs) {
-                    C++;
+                    c++;
                 } else if (element.Suit == Suit.Diamonds) {
-                    D++;
+                    d++;
                 } else if (element.Suit == Suit.Hearts) {
-                    H++;
+                    h++;
                 } else if (element.Suit == Suit.Spades) {
-                    S++;
+                    s++;
                 }
             }
-            if (C > D && C > H && C > S) {
+            if (c > d && c > h && c > s) {
                 return RemoveUnfitSuit(cards, Suit.Clubs);
-            } else if (D > C && D > H && D > S) {
+            } else if (d > c && d > h && d > s) {
                 return RemoveUnfitSuit(cards, Suit.Diamonds);
-            } else if (H > C && H > D && H > S) {
+            } else if (h > c && h > d && h > s) {
                 return RemoveUnfitSuit(cards, Suit.Hearts);
             } else {
                 return RemoveUnfitSuit(cards, Suit.Spades);
@@ -523,7 +523,7 @@ namespace Poker_Game.Game {
 
         #region Find the best in case of the SameScore
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
-            FastWinCalc WIN2 = new FastWinCalc();
+            FastWinCalc win2 = new FastWinCalc();
             if (player1.Score == Score.RoyalFlush) {
                 return null;
             } else if (player1.Score == Score.StraightFlush) {
@@ -622,32 +622,32 @@ namespace Poker_Game.Game {
 
         //Think it works, but need testing
         private Player BestFourOfAKind(Player player1, Player player2) {
-            List<Card> player1cards = DuplicateDeck(player1.Cards);
-            List<Card> player2cards = DuplicateDeck(player2.Cards);
-            player1cards.Sort();
-            player2cards.Sort();
-            for (int i = 0; i < player1cards.Count - 3; i++) {
-                if (player1cards[i].Rank == player1cards[i + 1].Rank &&
-                    player1cards[i + 1].Rank == player1cards[i + 2].Rank &&
-                    player1cards[i + 2].Rank == player1cards[i + 3].Rank) {
-                    for (int j = 0; i < player1cards.Count - 3; j++) {
-                        if (player2cards[j].Rank == player2cards[j + 1].Rank &&
-                            player2cards[j + 1].Rank == player2cards[j + 2].Rank &&
-                            player2cards[j + 2].Rank == player2cards[j + 3].Rank) {
-                            if (player1cards[i].Rank == player2cards[j].Rank) {
-                                RemoveUnfitRank(player1cards, (player1cards[i].Rank));
-                                RemoveUnfitRank(player2cards, (player2cards[j].Rank));
-                                GetXAmountOfHighestCard(player1cards, 1);
-                                GetXAmountOfHighestCard(player2cards, 1);
-                                if (GetBestHighestCard(player1cards, player2cards) == 1) {
+            List<Card> player1Cards = DuplicateDeck(player1.Cards);
+            List<Card> player2Cards = DuplicateDeck(player2.Cards);
+            player1Cards.Sort();
+            player2Cards.Sort();
+            for (int i = 0; i < player1Cards.Count - 3; i++) {
+                if (player1Cards[i].Rank == player1Cards[i + 1].Rank &&
+                    player1Cards[i + 1].Rank == player1Cards[i + 2].Rank &&
+                    player1Cards[i + 2].Rank == player1Cards[i + 3].Rank) {
+                    for (int j = 0; i < player1Cards.Count - 3; j++) {
+                        if (player2Cards[j].Rank == player2Cards[j + 1].Rank &&
+                            player2Cards[j + 1].Rank == player2Cards[j + 2].Rank &&
+                            player2Cards[j + 2].Rank == player2Cards[j + 3].Rank) {
+                            if (player1Cards[i].Rank == player2Cards[j].Rank) {
+                                RemoveUnfitRank(player1Cards, (player1Cards[i].Rank));
+                                RemoveUnfitRank(player2Cards, (player2Cards[j].Rank));
+                                GetXAmountOfHighestCard(player1Cards, 1);
+                                GetXAmountOfHighestCard(player2Cards, 1);
+                                if (GetBestHighestCard(player1Cards, player2Cards) == 1) {
                                     return player2;
-                                } else if (GetBestHighestCard(player1cards, player2cards) == 0) {
+                                } else if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
                                     return player1;
                                 } else {
                                     return null;
                                 }
                             } else {
-                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                                return (player1Cards[i].Rank > player2Cards[j].Rank ? player1 : player2);
                             }
                         }
                     }
@@ -665,10 +665,10 @@ namespace Poker_Game.Game {
 
         //Need input on this one since it is drastically different to the bool version (HasFullHouse)
         private Player BestFullHouse(Player player1, Player player2) {
-            List<Card> player1cards = DuplicateDeck(player1.Cards);
-            List<Card> player2cards = DuplicateDeck(player2.Cards);
-            player1cards.Sort();
-            player2cards.Sort();
+            List<Card> player1Cards = DuplicateDeck(player1.Cards);
+            List<Card> player2Cards = DuplicateDeck(player2.Cards);
+            player1Cards.Sort();
+            player2Cards.Sort();
             if (BestThreeOfAKind(player1, player2) != null) {
                 return BestThreeOfAKind(player1, player2);
             } else {
@@ -678,12 +678,12 @@ namespace Poker_Game.Game {
                         for (int j = 0; j < player2.Cards.Count - 1; j++) {
                             if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                                 player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
-                                Player player1clone = (Player)player1.Clone();
-                                Player player2clone = (Player)player2.Clone();
-                                player1clone.Cards = RemoveUnfitRank(player1clone.Cards, player1clone.Cards[i].Rank);
-                                player2clone.Cards = RemoveUnfitRank(player2clone.Cards, player2clone.Cards[j].Rank);
+                                Player player1Clone = (Player)player1.Clone();
+                                Player player2Clone = (Player)player2.Clone();
+                                player1Clone.Cards = RemoveUnfitRank(player1Clone.Cards, player1Clone.Cards[i].Rank);
+                                player2Clone.Cards = RemoveUnfitRank(player2Clone.Cards, player2Clone.Cards[j].Rank);
                                 
-                                return BestPair(player1clone, player2clone);
+                                return BestPair(player1Clone, player2Clone);
                             }
                         }
                     }
@@ -693,20 +693,20 @@ namespace Poker_Game.Game {
         }
 
         private Player BestFlush(Player player1, Player player2) {
-            Player player1clone = (Player)player1.Clone();
-            Player player2clone = (Player)player2.Clone();
-            FlushSuit(player1clone.Cards);
-            FlushSuit(player2clone.Cards);
-            player1clone.Cards.Sort();
-            player2clone.Cards.Sort();
-            return GetBestHighestCard(player1clone, player2clone);
+            Player player1Clone = (Player)player1.Clone();
+            Player player2Clone = (Player)player2.Clone();
+            FlushSuit(player1Clone.Cards);
+            FlushSuit(player2Clone.Cards);
+            player1Clone.Cards.Sort();
+            player2Clone.Cards.Sort();
+            return GetBestHighestCard(player1Clone, player2Clone);
         }
 
         private Player BestThreeOfAKind(Player player1, Player player2) {
-            List<Card> player1cards = DuplicateDeck(player1.Cards);
-            List<Card> player2cards = DuplicateDeck(player2.Cards);
-            player1cards.Sort();
-            player2cards.Sort();
+            List<Card> player1Cards = DuplicateDeck(player1.Cards);
+            List<Card> player2Cards = DuplicateDeck(player2.Cards);
+            player1Cards.Sort();
+            player2Cards.Sort();
             for (int i = 0; i < player1.Cards.Count - 1; i++) {
                 if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
                     player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
@@ -714,13 +714,13 @@ namespace Poker_Game.Game {
                         if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
                             player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                player1.Cards = RemoveUnfitRank(player1cards, (player1cards[i].Rank));
-                                player2.Cards = RemoveUnfitRank(player2cards, (player2cards[j].Rank));
-                                player1.Cards = GetXAmountOfHighestCard(player1cards, 2);
-                                player2.Cards = GetXAmountOfHighestCard(player2cards, 2);
-                                if (GetBestHighestCard(player1cards, player2cards) == 1) {
+                                player1.Cards = RemoveUnfitRank(player1Cards, (player1Cards[i].Rank));
+                                player2.Cards = RemoveUnfitRank(player2Cards, (player2Cards[j].Rank));
+                                player1.Cards = GetXAmountOfHighestCard(player1Cards, 2);
+                                player2.Cards = GetXAmountOfHighestCard(player2Cards, 2);
+                                if (GetBestHighestCard(player1Cards, player2Cards) == 1) {
                                     return player2;
-                                } else if (GetBestHighestCard(player1cards, player2cards) == 0) {
+                                } else if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
                                     return player1;
                                 } else {
                                     return null;
@@ -736,29 +736,29 @@ namespace Poker_Game.Game {
         }
 
         private Player BestTwoPairs(Player player1, Player player2) {
-            List<Card> player1cards = DuplicateDeck(player1.Cards);
-            List<Card> player2cards = DuplicateDeck(player2.Cards);
-            player1cards.Sort();
-            player2cards.Sort();
-            for (int i = player1cards.Count - 1; i > 0; i--) {
-                if (player1cards[i].Rank == player1cards[i - 1].Rank) {
-                    for (int j = player2cards.Count - 1; j > 0; j--) {
-                        if (player2cards[j].Rank == player2cards[j - 1].Rank) {
-                            if (player1cards[i].Rank == player2cards[j].Rank) {
+            List<Card> player1Cards = DuplicateDeck(player1.Cards);
+            List<Card> player2Cards = DuplicateDeck(player2.Cards);
+            player1Cards.Sort();
+            player2Cards.Sort();
+            for (int i = player1Cards.Count - 1; i > 0; i--) {
+                if (player1Cards[i].Rank == player1Cards[i - 1].Rank) {
+                    for (int j = player2Cards.Count - 1; j > 0; j--) {
+                        if (player2Cards[j].Rank == player2Cards[j - 1].Rank) {
+                            if (player1Cards[i].Rank == player2Cards[j].Rank) {
                                 for (int h = 0; h < player1.Cards.Count - 1; h++) {
                                     if (player1.Cards[h].Rank == player1.Cards[h + 1].Rank) {
                                         for (int k = 0; k < player2.Cards.Count - 1; k++) {
                                             if (player2.Cards[k].Rank == player2.Cards[k + 1].Rank) {
                                                 if (player1.Cards[h].Rank == player2.Cards[k].Rank) {
-                                                    Player player1clone = (Player)player1.Clone();
-                                                    Player player2clone = (Player)player2.Clone();
-                                                    player1clone.Cards = RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[i].Rank));
-                                                    player2clone.Cards = RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[j].Rank));
-                                                    player1clone.Cards = RemoveUnfitRank(player1clone.Cards, (player1clone.Cards[h].Rank));
-                                                    player2clone.Cards = RemoveUnfitRank(player2clone.Cards, (player2clone.Cards[k].Rank));
-                                                    player1clone.Cards = GetXAmountOfHighestCard(player1clone.Cards, 1);
-                                                    player2clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 1);
-                                                    return GetBestHighestCard(player1clone, player2clone); // Should check for highestCard here.
+                                                    Player player1Clone = (Player)player1.Clone();
+                                                    Player player2Clone = (Player)player2.Clone();
+                                                    player1Clone.Cards = RemoveUnfitRank(player1Clone.Cards, (player1Clone.Cards[i].Rank));
+                                                    player2Clone.Cards = RemoveUnfitRank(player2Clone.Cards, (player2Clone.Cards[j].Rank));
+                                                    player1Clone.Cards = RemoveUnfitRank(player1Clone.Cards, (player1Clone.Cards[h].Rank));
+                                                    player2Clone.Cards = RemoveUnfitRank(player2Clone.Cards, (player2Clone.Cards[k].Rank));
+                                                    player1Clone.Cards = GetXAmountOfHighestCard(player1Clone.Cards, 1);
+                                                    player2Clone.Cards = GetXAmountOfHighestCard(player2Clone.Cards, 1);
+                                                    return GetBestHighestCard(player1Clone, player2Clone); // Should check for highestCard here.
                                                 } else {
                                                     return (player1.Cards[h].Rank > player2.Cards[k].Rank ? player1 : player2);
                                                 }
@@ -772,7 +772,7 @@ namespace Poker_Game.Game {
                                 //RemoveUnfitRank(player2clone, (player2clone[j].Rank));
                                 //return BestPair(player1clone, player2clone);
                             } else {
-                                return (player1cards[i].Rank > player2cards[j].Rank ? player1 : player2);
+                                return (player1Cards[i].Rank > player2Cards[j].Rank ? player1 : player2);
                             }
                         }
                     }
@@ -787,10 +787,10 @@ namespace Poker_Game.Game {
                     for (int j = player2.Cards.Count - 1; j > 0; j--) {
                         if (player2.Cards[j].Rank == player2.Cards[j - 1].Rank) {
                             if (player1.Cards[i].Rank == player2.Cards[j].Rank) {
-                                Player player1clone = (Player)player1.Clone();
-                                Player player2clone = (Player)player2.Clone();
-                                player1clone.Cards = GetXAmountOfHighestCard(player1clone.Cards, 3);
-                                player1clone.Cards = GetXAmountOfHighestCard(player2clone.Cards, 3);
+                                Player player1Clone = (Player)player1.Clone();
+                                Player player2Clone = (Player)player2.Clone();
+                                player1Clone.Cards = GetXAmountOfHighestCard(player1Clone.Cards, 3);
+                                player1Clone.Cards = GetXAmountOfHighestCard(player2Clone.Cards, 3);
                                 return GetBestHighestCard(player1, player2); // Should check for highestCard here.
                             } else {
                                 return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
