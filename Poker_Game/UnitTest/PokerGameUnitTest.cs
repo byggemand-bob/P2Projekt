@@ -15,7 +15,7 @@ namespace UnitTest
 
         public void CreateProperties()
         {
-            Settings = new Settings(2, 1000, 50, "bob", 2, AiMode.MonteCarlo);
+            Settings = new Settings(2, 1000, 50, "bob", 1, AiMode.MonteCarlo);
             Game = new PokerGame(Settings);
         }
 
