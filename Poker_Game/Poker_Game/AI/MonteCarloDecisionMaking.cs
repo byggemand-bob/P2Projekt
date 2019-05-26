@@ -7,7 +7,7 @@ using Poker_Game.AI.Opponent.VPIP;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class MonteCarloDecisionMaking {
+    public class MonteCarloDecisionMaking {
         List<string> _raiseRange = new List<string> {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
         List<string> _callRange = new List<string> {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
 
@@ -71,8 +71,6 @@ namespace Poker_Game.AI {
                     return PlayerAction.Call;
                 }
             }
-        
-
             return CheckFold();
         }
 
@@ -84,7 +82,6 @@ namespace Poker_Game.AI {
                 {
                     return PlayerAction.Raise;
                 }
-
             }
 
             if (_pokerGame.CanCheck() && _pokerGame.CanRaise())
