@@ -29,6 +29,7 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestMethod]
         public void FoldAtPreflopTest()
         {
@@ -47,6 +48,7 @@ namespace UnitTest
             // Assert
             Assert.AreEqual(expected, actual);
         }
+
 
         [TestMethod]
         public void CallAtPreflopTest()
@@ -69,6 +71,7 @@ namespace UnitTest
             // Assert
             Assert.AreEqual(expected, actual);
         }
+
 
         [TestMethod]
         public void CheckAtPreflopTest()
