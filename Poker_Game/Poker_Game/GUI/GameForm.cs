@@ -103,7 +103,7 @@ namespace Poker_Game.GUI {
             _prevRound = 0;
             EndOfHand();
             handCount++;
-            if (handCount == 1000)
+            if (handCount == 250)
             {
                 MessageBox.Show("AI stack: " + _game.Players[1].Stack + Environment.NewLine +
                                 "Bot Stack: " + _game.Players[0].Stack + Environment.NewLine +
@@ -459,23 +459,18 @@ namespace Poker_Game.GUI {
 
         private void BotTurn()
         {
-            if (_game.Hand.Rounds.Count > 0) _game.Fold();
-            //if (_game.CanRaise())
-            //{
-            //    _game.Raise();
-            //}
-            //else if (_game.CanCall())
-            //{
-            //    _game.Call();
-            //}
-            //else if (_game.CanCheck())
-            //{
-            //    _game.Check();
-            //}
-            //else
-            //{
-            //    throw new InvalidOperationException();
-            //}
+            if (_game.CanCall())
+            {
+                _game.Call();
+            }
+            else if (_game.CanCheck())
+            {
+                _game.Check();
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         #endregion
