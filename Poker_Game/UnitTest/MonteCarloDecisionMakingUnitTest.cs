@@ -11,7 +11,7 @@ namespace UnitTest {
         public void RaiseAtPreflopTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
 
             pokerGame.Players[1].Cards[0] = new Card(Suit.Clubs, Rank.Ace);
             pokerGame.Players[1].Cards[1] = new Card(Suit.Diamonds, Rank.Ace);
@@ -30,7 +30,7 @@ namespace UnitTest {
         public void FoldAtPreflopTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
 
             pokerGame.Players[1].Cards[0] = new Card(Suit.Clubs, (Rank) 3);
             pokerGame.Players[1].Cards[1] = new Card(Suit.Diamonds, (Rank) 10);
@@ -49,7 +49,7 @@ namespace UnitTest {
         public void CallAtPreflopTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             pokerGame.Raise(); // Player
             pokerGame.Raise(); // AI
             pokerGame.Raise(); // Player
@@ -71,7 +71,7 @@ namespace UnitTest {
         public void CheckAtPreflopTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             pokerGame.Call(); // PlayerMove -> AI can check when both players has same amount in stack. 
 
             pokerGame.Players[1].Cards[0] = new Card(Suit.Clubs, (Rank) 3);
@@ -91,7 +91,7 @@ namespace UnitTest {
         public void RaiseAtFlopTurnTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -118,7 +118,7 @@ namespace UnitTest {
         public void CallAtFlopTurnTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -147,7 +147,7 @@ namespace UnitTest {
         public void CheckAtFlopTurnTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -174,7 +174,7 @@ namespace UnitTest {
         public void FoldAtFlopTurnTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -201,7 +201,7 @@ namespace UnitTest {
         public void RaiseAtRiverTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -236,7 +236,7 @@ namespace UnitTest {
         public void CallAtRiverTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -273,7 +273,7 @@ namespace UnitTest {
         public void CheckAtRiverTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();
@@ -310,7 +310,7 @@ namespace UnitTest {
         public void FoldAtRiverTest() {
             // Arrange
             PokerGame pokerGame = new PokerGame(Settings);
-            MonteCarloDecisionMaking monteCarloDecisionMaking = new MonteCarloDecisionMaking(pokerGame);
+            MonteCarloEvDecisionMaking monteCarloDecisionMaking = new MonteCarloEvDecisionMaking(pokerGame);
             // Preflop
             pokerGame.Call();
             pokerGame.Check();

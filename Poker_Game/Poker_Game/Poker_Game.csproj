@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AI\GameTree\OpponentNode.cs" />
     <Compile Include="AI\GameTree\TreeConstructor.cs" />
+    <Compile Include="AI\MonteCarloEvDecisionMaking.cs" />
     <Compile Include="AI\MonteCarloDecisionMaking.cs" />
     <Compile Include="AI\Opponent\DataController.cs" />
     <Compile Include="AI\Opponent\HandData.cs" />

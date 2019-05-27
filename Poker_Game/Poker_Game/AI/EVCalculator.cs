@@ -2,7 +2,7 @@
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class EvCalculator {
+    internal class EvCalculator {
         private readonly Settings _settings;
 
         public EvCalculator(Settings settings) {
@@ -23,7 +23,7 @@ namespace Poker_Game.AI {
             return monteCarloRates;
         }
 
-        public double CalculateEv(string path, List<Card> street, Player player, Settings settings) {
+        public double CalculateEvPath(string path, List<Card> street, Player player, Settings settings) {
             OutsCalculator outCalc = new OutsCalculator();
             PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
 
@@ -35,9 +35,22 @@ namespace Poker_Game.AI {
             return winOdds * winPot - lossOdds * lossPot;
         }
 
+        public bool CalculateEv(List<Card> street, Player player, Hand hand) {
+            OutsCalculator outCalc = new OutsCalculator();
+            PotSizeCalculator potCalc = new PotSizeCalculator(_settings);
+
+            double cardOdds = outCalc.CompareOuts(player.Cards, street);
+            double potSize = hand.Pot;
+            double playerBet = _settings.BetSize;
+
+            if(cardOdds > playerBet / potSize) return true;
+
+            return false;
+        }
+
         public double[] CalculateAll(string[] paths, List<Card> street, Player player, Settings settings) {
             double[] result = new double[paths.Length];
-            for(int i = 0; i < paths.Length; i++) result[i] = CalculateEv(paths[i], street, player, settings);
+            for(int i = 0; i < paths.Length; i++) result[i] = CalculateEvPath(paths[i], street, player, settings);
 
             return result;
         }

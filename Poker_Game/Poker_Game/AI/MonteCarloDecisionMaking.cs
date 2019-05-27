@@ -9,7 +9,6 @@ namespace Poker_Game.AI {
             {"22+", "A2s+", "K2s+", "Q2s+", "J2s+", "T6s+", "97s+", "87s", "A2o+", "K2o+", "Q2o+", "J9o+", "T9o"};
 
         private readonly Player _player;
-
         private readonly PokerGame _pokerGame;
 
         private readonly List<string> _raiseRange = new List<string>

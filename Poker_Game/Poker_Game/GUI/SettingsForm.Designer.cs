@@ -46,7 +46,7 @@ namespace Poker_Game.GUI
             this.numericUpDownBlindSize = new System.Windows.Forms.NumericUpDown();
             this.nameErrorLabel = new System.Windows.Forms.Label();
             this.grpboxEvaluationMode = new System.Windows.Forms.GroupBox();
-            this.radioButtonExpectiMax = new System.Windows.Forms.RadioButton();
+            this.radioButtonMonteCarloEV = new System.Windows.Forms.RadioButton();
             this.radioButtonMonteCarlo = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNumberOfPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPotSize)).BeginInit();
@@ -263,7 +263,7 @@ namespace Poker_Game.GUI
             // grpboxEvaluationMode
             // 
             this.grpboxEvaluationMode.BackColor = System.Drawing.Color.Silver;
-            this.grpboxEvaluationMode.Controls.Add(this.radioButtonExpectiMax);
+            this.grpboxEvaluationMode.Controls.Add(this.radioButtonMonteCarloEV);
             this.grpboxEvaluationMode.Controls.Add(this.radioButtonMonteCarlo);
             this.grpboxEvaluationMode.Location = new System.Drawing.Point(12, 159);
             this.grpboxEvaluationMode.Name = "grpboxEvaluationMode";
@@ -272,16 +272,15 @@ namespace Poker_Game.GUI
             this.grpboxEvaluationMode.TabStop = false;
             this.grpboxEvaluationMode.Text = "AI Evaluationmode";
             // 
-            // radioButtonExpectiMax
+            // radioButtonMonteCarloEV
             // 
-            this.radioButtonExpectiMax.AutoSize = true;
-            this.radioButtonExpectiMax.Enabled = false;
-            this.radioButtonExpectiMax.Location = new System.Drawing.Point(216, 28);
-            this.radioButtonExpectiMax.Name = "radioButtonExpectiMax";
-            this.radioButtonExpectiMax.Size = new System.Drawing.Size(173, 20);
-            this.radioButtonExpectiMax.TabIndex = 1;
-            this.radioButtonExpectiMax.Text = "ExpectiMax Tree Search";
-            this.radioButtonExpectiMax.UseVisualStyleBackColor = true;
+            this.radioButtonMonteCarloEV.AutoSize = true;
+            this.radioButtonMonteCarloEV.Location = new System.Drawing.Point(216, 28);
+            this.radioButtonMonteCarloEV.Name = "radioButtonMonteCarloEV";
+            this.radioButtonMonteCarloEV.Size = new System.Drawing.Size(156, 20);
+            this.radioButtonMonteCarloEV.TabIndex = 1;
+            this.radioButtonMonteCarloEV.Text = "Monte Carlo EV Trials";
+            this.radioButtonMonteCarloEV.UseVisualStyleBackColor = true;
             // 
             // radioButtonMonteCarlo
             // 
@@ -356,7 +355,7 @@ namespace Poker_Game.GUI
         private System.Windows.Forms.NumericUpDown numericUpDownBlindSize;
         private System.Windows.Forms.Label nameErrorLabel;
         private System.Windows.Forms.GroupBox grpboxEvaluationMode;
-        private System.Windows.Forms.RadioButton radioButtonExpectiMax;
+        private System.Windows.Forms.RadioButton radioButtonMonteCarloEV;
         private System.Windows.Forms.RadioButton radioButtonMonteCarlo;
     }
 }

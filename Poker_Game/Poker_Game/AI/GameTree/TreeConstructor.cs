@@ -5,10 +5,10 @@ using Poker_Game.Game;
 namespace Poker_Game.AI.GameTree {
     internal class TreeConstructor {
         private readonly OpponentData _data;
+        private readonly EvCalculator _evCalculator;
         private readonly Player _player;
         private readonly Settings _settings;
         private readonly List<Card> _street;
-        private readonly EvCalculator _evCalculator;
 
         public TreeConstructor(PokerGame game, OpponentData data) {
             _player = game.Players[1];

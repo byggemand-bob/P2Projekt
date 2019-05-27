@@ -6,8 +6,8 @@ namespace Poker_Game.AI.Opponent {
         private const int VpipThreshold = 10;
         private const int VpipStandard = 25;
         private const int PfrStandard = 25;
-        private double _pfr;
         private readonly OpponentData _playerData;
+        private double _pfr;
         private double _vpip;
 
         public VpipController(OpponentData playerData) {
