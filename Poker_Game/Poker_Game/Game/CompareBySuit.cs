@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Poker_Game.Game {
     public class CompareBySuit : IComparer<Card> {
         public int Compare(Card x, Card y) {
+            if(x == null || y == null) {
+                throw new ArgumentNullException(x == null ? "x" : "y");
+            }
+
             if(x.Suit.CompareTo(y.Suit) < 0) {
                 return -1;
             }

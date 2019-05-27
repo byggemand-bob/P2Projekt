@@ -49,7 +49,7 @@ namespace Poker_Game.AI {
             foreach(Node child in position.Children) {
                 if(position.GetType() == typeof(OpponentNode)) {
                     Node tmp = FindOptimalPath(child);
-                    if(child == position.Children.First() || bestNode.Value < tmp.Value) {
+                    if(bestNode != null && (child == position.Children.First() || bestNode.Value < tmp.Value)) {
                         bestNode = tmp;
                     }
                 } else {

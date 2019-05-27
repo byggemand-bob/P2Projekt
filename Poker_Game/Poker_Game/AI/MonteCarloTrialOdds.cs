@@ -31,10 +31,10 @@ namespace Poker_Game.AI
                 DrawOdds += addX.DrawOdds;
             }
 
-            public void DivideAllBy(double devideBy) {
-                WinOdds /= devideBy;
-                LoseOdds /= devideBy;
-                DrawOdds /= devideBy;
+            public void DivideAllBy(double divideBy) {
+                WinOdds /= divideBy;
+                LoseOdds /= divideBy;
+                DrawOdds /= divideBy;
             }
         }
 

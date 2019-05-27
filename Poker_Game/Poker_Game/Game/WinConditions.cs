@@ -21,79 +21,94 @@ namespace Poker_Game.Game {
         public Player WhoWins(Player player1, Player player2) {
             if (player1.Score == Score.StraightFlush) {
                 return player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank ? player1 : player2;
-            } else if (player1.Score == Score.FourOfAKind || player1.Score == Score.FullHouse) {
+            }
+
+            if (player1.Score == Score.FourOfAKind || player1.Score == Score.FullHouse) {
                 if (player1.ScoreHand[0].Rank > player2.ScoreHand[0].Rank) {
                     return player1;
-                } else if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
-                    return player2;
-                } else {
-                    if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                        return player1;
-                    } else if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                        return player2;
-                    } else {
-                        return null;
-                    }
                 }
-            } else if (player1.Score == Score.Flush) {
-                return GetBestHighestCard(player1, player2);
-            } else if (player1.Score == Score.Straight) {
-                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
-                    return player1;
-                } else if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+
+                if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
                     return player2;
-                } else {
-                    return null;
                 }
-            } else if (player1.Score == Score.ThreeOfAKind || player1.Score == Score.TwoPairs) {
-                if (player1.ScoreHand[0].Rank > player2.ScoreHand[0].Rank) {
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
                     return player1;
-                } else if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
-                    return player2;
-                } else {
-                    if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                        return player1;
-                    } else if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                        return player2;
-                    } else {
-                        if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
-                            return player1;
-                        } else if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
-                            return player2;
-                        } else {
-                            return null;
-                        }
-                    }
                 }
-            } else if (player1.Score == Score.Pair) {
-                if (player1.ScoreHand[0].Rank > player2.ScoreHand[0].Rank) {
-                    return player1;
-                } else if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
                     return player2;
-                } else {
-                    if (player1.ScoreHand[player1.ScoreHand.Count - 3].Rank > player2.ScoreHand[player2.ScoreHand.Count - 3].Rank) {
-                        return player1;
-                    } else if (player1.ScoreHand[player1.ScoreHand.Count - 3].Rank < player2.ScoreHand[player2.ScoreHand.Count - 3].Rank) {
-                        return player2;
-                    } else {
-                        if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                            return player1;
-                        } else if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
-                            return player2;
-                        } else {
-                            if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
-                                return player1;
-                            } else if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
-                                return player2;
-                            } else {
-                                return null;
-                            }
-                        }
-                    }
-                } 
-            } else {
+                }
+                return null;
+            }
+            if (player1.Score == Score.Flush) {
                 return GetBestHighestCard(player1, player2);
             }
+            if (player1.Score == Score.Straight) {
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player2;
+                }
+                return null;
+            }
+            if (player1.Score == Score.ThreeOfAKind || player1.Score == Score.TwoPairs) {
+                if (player1.ScoreHand[0].Rank > player2.ScoreHand[0].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
+                    return player2;
+                }
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
+                    return player2;
+                }
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player2;
+                }
+                return null;
+            }
+            if (player1.Score == Score.Pair) {
+                if (player1.ScoreHand[0].Rank > player2.ScoreHand[0].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[0].Rank < player2.ScoreHand[0].Rank) {
+                    return player2;
+                }
+                if (player1.ScoreHand[player1.ScoreHand.Count - 3].Rank > player2.ScoreHand[player2.ScoreHand.Count - 3].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 3].Rank < player2.ScoreHand[player2.ScoreHand.Count - 3].Rank) {
+                    return player2;
+                }
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank > player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 2].Rank < player2.ScoreHand[player2.ScoreHand.Count - 2].Rank) {
+                    return player2;
+                }
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank > player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player1;
+                }
+
+                if (player1.ScoreHand[player1.ScoreHand.Count - 1].Rank < player2.ScoreHand[player2.ScoreHand.Count - 1].Rank) {
+                    return player2;
+                }
+                return null;
+            }
+            return GetBestHighestCard(player1, player2);
         }
         #region ScoreHand
 
@@ -293,25 +308,33 @@ namespace Poker_Game.Game {
 
             if (HasRoyalFlush(sortedCards)) {
                 return Score.RoyalFlush;
-            } else if (HasStraightFlush(sortedCards)) {
-                return Score.StraightFlush;
-            } else if (HasFourOfAKind(sortedCards)) {
-                return Score.FourOfAKind;
-            } else if (HasFullHouse(sortedCards)) {
-                return Score.FullHouse;
-            } else if (HasFlush(sortedCards)) {
-                return Score.Flush;
-            } else if (HasStraight(sortedCards)) {
-                return Score.Straight;
-            } else if (HasThreeOfAKind(sortedCards)) {
-                return Score.ThreeOfAKind;
-            } else if (HasTwoPairs(sortedCards)) {
-                return Score.TwoPairs;
-            } else if (HasPair(sortedCards)) {
-                return Score.Pair;
-            } else {
-                return GetBestCard(sortedCards);
             }
+
+            if (HasStraightFlush(sortedCards)) {
+                return Score.StraightFlush;
+            }
+            if (HasFourOfAKind(sortedCards)) {
+                return Score.FourOfAKind;
+            }
+            if (HasFullHouse(sortedCards)) {
+                return Score.FullHouse;
+            }
+            if (HasFlush(sortedCards)) {
+                return Score.Flush;
+            }
+            if (HasStraight(sortedCards)) {
+                return Score.Straight;
+            }
+            if (HasThreeOfAKind(sortedCards)) {
+                return Score.ThreeOfAKind;
+            }
+            if (HasTwoPairs(sortedCards)) {
+                return Score.TwoPairs;
+            }
+            if (HasPair(sortedCards)) {
+                return Score.Pair;
+            }
+            return GetBestCard(sortedCards);
         }
 
         // Finds the best of 2 cards - 26/4/2019 check
@@ -478,13 +501,15 @@ namespace Poker_Game.Game {
             }
             if (c > d && c > h && c > s) {
                 return RemoveUnfitSuit(cards, Suit.Clubs);
-            } else if (d > c && d > h && d > s) {
-                return RemoveUnfitSuit(cards, Suit.Diamonds);
-            } else if (h > c && h > d && h > s) {
-                return RemoveUnfitSuit(cards, Suit.Hearts);
-            } else {
-                return RemoveUnfitSuit(cards, Suit.Spades);
             }
+
+            if (d > c && d > h && d > s) {
+                return RemoveUnfitSuit(cards, Suit.Diamonds);
+            }
+            if (h > c && h > d && h > s) {
+                return RemoveUnfitSuit(cards, Suit.Hearts);
+            }
+            return RemoveUnfitSuit(cards, Suit.Spades);
         }
 
         //Removes all cards which is not of a given suit - 26/4/2019 check
@@ -513,9 +538,9 @@ namespace Poker_Game.Game {
                 if (cards[index].Rank == cards[index + 1].Rank) {
                     cards.Remove(cards[index + 1]);
                     return RemoveDublicateRank(cards, index);
-                } else {
-                    return RemoveDublicateRank(cards, index + 1);
                 }
+
+                return RemoveDublicateRank(cards, index + 1);
             }
             return null;
         }
@@ -523,28 +548,35 @@ namespace Poker_Game.Game {
 
         #region Find the best in case of the SameScore
         public Player SameScore(Player player1, Player player2) {  // Missing implementation
-            FastWinCalc win2 = new FastWinCalc();
             if (player1.Score == Score.RoyalFlush) {
                 return null;
-            } else if (player1.Score == Score.StraightFlush) {
-                return BestStraight(player1, player2);
-            } else if (player1.Score == Score.FourOfAKind) {
-                return BestFourOfAKind(player1, player2);
-            } else if (player1.Score == Score.FullHouse) {
-                return BestFullHouse(player1, player2);
-            } else if (player1.Score == Score.Flush) {
-                return BestFlush(player1, player2);
-            } else if (player1.Score == Score.Straight) {
-                return BestStraight(player1, player2);
-            } else if (player1.Score == Score.ThreeOfAKind) {
-                return BestThreeOfAKind(player1, player2);
-            } else if (player1.Score == Score.TwoPairs) {
-                return BestTwoPairs(player1, player2);
-            } else if (player1.Score == Score.Pair) {
-                return BestPair(player1, player2);
-            } else {
-                return null;
             }
+
+            if (player1.Score == Score.StraightFlush) {
+                return BestStraight(player1, player2);
+            }
+            if (player1.Score == Score.FourOfAKind) {
+                return BestFourOfAKind(player1, player2);
+            }
+            if (player1.Score == Score.FullHouse) {
+                return BestFullHouse(player1, player2);
+            }
+            if (player1.Score == Score.Flush) {
+                return BestFlush(player1, player2);
+            }
+            if (player1.Score == Score.Straight) {
+                return BestStraight(player1, player2);
+            }
+            if (player1.Score == Score.ThreeOfAKind) {
+                return BestThreeOfAKind(player1, player2);
+            }
+            if (player1.Score == Score.TwoPairs) {
+                return BestTwoPairs(player1, player2);
+            }
+            if (player1.Score == Score.Pair) {
+                return BestPair(player1, player2);
+            }
+            return null;
         }
 
         private Player GetBestHighestCard(Player player1, Player player2) {
@@ -570,7 +602,6 @@ namespace Poker_Game.Game {
                 j--;
             }
             return -1;
-            throw new System.InvalidOperationException("Error in highest card bool edition");
         }
 
         //Returns the player with the best straight in case both get a straight - Bug: hvis der er 2 kort af samme rank i listen af de 5 kort der bruges til straighten, vil den ikke finde en straight
@@ -578,10 +609,13 @@ namespace Poker_Game.Game {
 
             if (HasStraightAndCardReturn(player1.Cards).Rank > HasStraightAndCardReturn(player2.Cards).Rank) {
                 return player1;
-            } else if (HasStraightAndCardReturn(player1.Cards).Rank < HasStraightAndCardReturn(player2.Cards).Rank) {
+            }
+
+            if (HasStraightAndCardReturn(player1.Cards).Rank < HasStraightAndCardReturn(player2.Cards).Rank) {
                 return player2;
-            } else
-                return null;
+            }
+            return null;
+
             #region hideshitthatdoesntwork
             //List<Card> player1cards = DeckDuper3000(player1.Cards);
             //List<Card> player2cards = DeckDuper3000(player2.Cards);
@@ -617,7 +651,6 @@ namespace Poker_Game.Game {
             //    }
             //} 
             #endregion
-            throw new System.InvalidOperationException("BestStraight exited loop");
         }
 
         //Think it works, but need testing
@@ -641,14 +674,15 @@ namespace Poker_Game.Game {
                                 GetXAmountOfHighestCard(player2Cards, 1);
                                 if (GetBestHighestCard(player1Cards, player2Cards) == 1) {
                                     return player2;
-                                } else if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
-                                    return player1;
-                                } else {
-                                    return null;
                                 }
-                            } else {
-                                return (player1Cards[i].Rank > player2Cards[j].Rank ? player1 : player2);
+
+                                if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
+                                    return player1;
+                                }
+                                return null;
                             }
+
+                            return (player1Cards[i].Rank > player2Cards[j].Rank ? player1 : player2);
                         }
                     }
                 }
@@ -671,20 +705,20 @@ namespace Poker_Game.Game {
             player2Cards.Sort();
             if (BestThreeOfAKind(player1, player2) != null) {
                 return BestThreeOfAKind(player1, player2);
-            } else {
-                for (int i = 0; i < player1.Cards.Count - 1; i++) {
-                    if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
-                        player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
-                        for (int j = 0; j < player2.Cards.Count - 1; j++) {
-                            if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
-                                player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
-                                Player player1Clone = (Player)player1.Clone();
-                                Player player2Clone = (Player)player2.Clone();
-                                player1Clone.Cards = RemoveUnfitRank(player1Clone.Cards, player1Clone.Cards[i].Rank);
-                                player2Clone.Cards = RemoveUnfitRank(player2Clone.Cards, player2Clone.Cards[j].Rank);
+            }
+
+            for (int i = 0; i < player1.Cards.Count - 1; i++) {
+                if (player1.Cards[i].Rank == player1.Cards[i + 1].Rank &&
+                    player1.Cards[i + 1].Rank == player1.Cards[i + 2].Rank) {
+                    for (int j = 0; j < player2.Cards.Count - 1; j++) {
+                        if (player2.Cards[j].Rank == player2.Cards[j + 1].Rank &&
+                            player2.Cards[j + 1].Rank == player2.Cards[j + 2].Rank) {
+                            Player player1Clone = (Player)player1.Clone();
+                            Player player2Clone = (Player)player2.Clone();
+                            player1Clone.Cards = RemoveUnfitRank(player1Clone.Cards, player1Clone.Cards[i].Rank);
+                            player2Clone.Cards = RemoveUnfitRank(player2Clone.Cards, player2Clone.Cards[j].Rank);
                                 
-                                return BestPair(player1Clone, player2Clone);
-                            }
+                            return BestPair(player1Clone, player2Clone);
                         }
                     }
                 }
@@ -720,14 +754,15 @@ namespace Poker_Game.Game {
                                 player2.Cards = GetXAmountOfHighestCard(player2Cards, 2);
                                 if (GetBestHighestCard(player1Cards, player2Cards) == 1) {
                                     return player2;
-                                } else if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
-                                    return player1;
-                                } else {
-                                    return null;
                                 }
-                            } else {
-                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
+
+                                if (GetBestHighestCard(player1Cards, player2Cards) == 0) {
+                                    return player1;
+                                }
+                                return null;
                             }
+
+                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                         }
                     }
                 }
@@ -759,9 +794,9 @@ namespace Poker_Game.Game {
                                                     player1Clone.Cards = GetXAmountOfHighestCard(player1Clone.Cards, 1);
                                                     player2Clone.Cards = GetXAmountOfHighestCard(player2Clone.Cards, 1);
                                                     return GetBestHighestCard(player1Clone, player2Clone); // Should check for highestCard here.
-                                                } else {
-                                                    return (player1.Cards[h].Rank > player2.Cards[k].Rank ? player1 : player2);
                                                 }
+
+                                                return (player1.Cards[h].Rank > player2.Cards[k].Rank ? player1 : player2);
                                             }
                                         }
                                     }
@@ -792,9 +827,9 @@ namespace Poker_Game.Game {
                                 player1Clone.Cards = GetXAmountOfHighestCard(player1Clone.Cards, 3);
                                 player1Clone.Cards = GetXAmountOfHighestCard(player2Clone.Cards, 3);
                                 return GetBestHighestCard(player1, player2); // Should check for highestCard here.
-                            } else {
-                                return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                             }
+
+                            return (player1.Cards[i].Rank > player2.Cards[j].Rank ? player1 : player2);
                         }
                     }
                 }
