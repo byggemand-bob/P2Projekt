@@ -70,7 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\ExpctCalculator.cs" />
     <Compile Include="AI\GameTree\OpponentNode.cs" />
     <Compile Include="AI\GameTree\TreeConstructor.cs" />
     <Compile Include="AI\MonteCarloDecisionMaking.cs" />

@@ -401,7 +401,6 @@ namespace Poker_Game.GUI {
         {
             if(_game.IsFinished()) {
                 EndGameMessage();
-                new MenuForm().ShowDialog();
                 Close();
             }
             _game.NewHand();

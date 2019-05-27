@@ -111,7 +111,7 @@ namespace Poker_Game.AI
             }
 
             List<Card> allStraightCards = street // this is broken. Rank.Ace when Hand includes Ace and King. 
-                .Where(s => s.Rank >= cardHand[0].Rank - (cardRange - 3) && s.Rank <= cardHand[1].Rank + (3 - cardRange)).ToList();
+                .Where(s => s.Rank >= cardHand[0].Rank - (cardRange - 4) && s.Rank <= cardHand[1].Rank + (4 - cardRange)).ToList();
             allStraightCards.Add(cardHand[0]);
             allStraightCards.Add(cardHand[1]);
 
@@ -137,7 +137,7 @@ namespace Poker_Game.AI
             return 0;
         }
 
-        public List<Card> FindMissingCardsForStraight(List<Card> listOfPossibleStraightCards, List<Card> straightCards)
+        public List<Card> FindMissingCardsForStraight(List<Card> listOfPossibleStraightCards)
         {
 
             WinConditions wc = new WinConditions();

@@ -275,6 +275,7 @@ namespace Poker_Game.GUI
             // radioButtonExpectiMax
             // 
             this.radioButtonExpectiMax.AutoSize = true;
+            this.radioButtonExpectiMax.Enabled = false;
             this.radioButtonExpectiMax.Location = new System.Drawing.Point(216, 28);
             this.radioButtonExpectiMax.Name = "radioButtonExpectiMax";
             this.radioButtonExpectiMax.Size = new System.Drawing.Size(173, 20);
