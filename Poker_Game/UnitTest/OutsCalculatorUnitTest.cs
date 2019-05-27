@@ -1,35 +1,30 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Poker_Game.Game;
 using Poker_Game.AI;
+using Poker_Game.Game;
 
-namespace UnitTest
-{
+namespace UnitTest {
     [TestClass]
-    public class OutsCalculatorUnitTest
-    {
+    public class OutsCalculatorUnitTest {
         public OutsCalculator OutsCalculator = new OutsCalculator();
 
         [TestMethod]
-        public void IsPocketFlushDraw()
-        {
+        public void IsPocketFlushDraw() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Spades, (Rank)5);
-            Card tableCard2 = new Card(Suit.Spades, (Rank)2);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Spades, (Rank) 5);
+            Card tableCard2 = new Card(Suit.Spades, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -44,25 +39,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void IsPocketFlushDrawTest()
-        {
+        public void IsPocketFlushDrawTest() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Spades, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Hearts, (Rank) 3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -77,25 +69,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void IsTableFlushDrawTest()
-        {
+        public void IsTableFlushDrawTest() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Hearts, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Spades, (Rank)3);
-            Card tableCard2 = new Card(Suit.Spades, (Rank)2);
-            Card tableCard3 = new Card(Suit.Spades, (Rank)9);
-            Card tableCard4 = new Card(Suit.Spades, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Spades, (Rank) 3);
+            Card tableCard2 = new Card(Suit.Spades, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Spades, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Spades, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -110,25 +99,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void ThreeOakToFullHouseOrFourOakTest()
-        {
+        public void ThreeOakToFullHouseOrFourOakTest() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace); // 3x Ace
-            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+            Card handCard2 = new Card(Suit.Hearts, (Rank) 7);
 
             Card tableCard1 = new Card(Suit.Diamonds, Rank.Ace);
             Card tableCard2 = new Card(Suit.Clubs, Rank.Ace);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -143,26 +129,23 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void PocketPairToSetTest()
-        {
+        public void PocketPairToSetTest() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Clubs, Rank.Ace);
 
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Hearts, (Rank) 3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -177,25 +160,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void OnePairToTwoPairTest()
-        { 
+        public void OnePairToTwoPairTest() {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, (Rank)2);
-            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+            Card handCard1 = new Card(Suit.Spades, (Rank) 2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank) 7);
 
             Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
             Card tableCard2 = new Card(Suit.Clubs, Rank.King);
             Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)10);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 10);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -210,25 +190,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void OneOverCardTest()
-        {
+        public void OneOverCardTest() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
-            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+            Card handCard2 = new Card(Suit.Hearts, (Rank) 7);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Hearts, (Rank) 3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -243,25 +220,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TwoCardsOVerToOverPair()
-        {
+        public void TwoCardsOVerToOverPair() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Hearts, Rank.King);
 
-            Card tableCard1 = new Card(Suit.Hearts, (Rank)3);
-            Card tableCard2 = new Card(Suit.Clubs, (Rank)2);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard1 = new Card(Suit.Hearts, (Rank) 3);
+            Card tableCard2 = new Card(Suit.Clubs, (Rank) 2);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -276,25 +250,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TwoPairToFullHouse()
-        {
+        public void TwoPairToFullHouse() {
             // Arrange
             Card handCard1 = new Card(Suit.Spades, Rank.Ace);
             Card handCard2 = new Card(Suit.Hearts, Rank.Ace);
 
             Card tableCard1 = new Card(Suit.Hearts, Rank.King);
-            Card tableCard2 = new Card(Suit.Clubs,  Rank.King);
-            Card tableCard3 = new Card(Suit.Diamonds, (Rank)9);
-            Card tableCard4 = new Card(Suit.Hearts, (Rank)4);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard2 = new Card(Suit.Clubs, Rank.King);
+            Card tableCard3 = new Card(Suit.Diamonds, (Rank) 9);
+            Card tableCard4 = new Card(Suit.Hearts, (Rank) 4);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -309,25 +280,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void OnePairToSet()
-        {
+        public void OnePairToSet() {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, (Rank)2);
-            Card handCard2 = new Card(Suit.Hearts, (Rank)10);
+            Card handCard1 = new Card(Suit.Spades, (Rank) 2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank) 10);
 
             Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
             Card tableCard2 = new Card(Suit.Clubs, Rank.King);
             Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
             Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 
@@ -342,25 +310,22 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void NoPairToPair()
-        {
+        public void NoPairToPair() {
             // Arrange
-            Card handCard1 = new Card(Suit.Spades, (Rank)2);
-            Card handCard2 = new Card(Suit.Hearts, (Rank)7);
+            Card handCard1 = new Card(Suit.Spades, (Rank) 2);
+            Card handCard2 = new Card(Suit.Hearts, (Rank) 7);
 
             Card tableCard1 = new Card(Suit.Hearts, Rank.Ace);
             Card tableCard2 = new Card(Suit.Clubs, Rank.King);
             Card tableCard3 = new Card(Suit.Diamonds, Rank.Queen);
             Card tableCard4 = new Card(Suit.Hearts, Rank.Jack);
-            Card tableCard5 = new Card(Suit.Clubs, (Rank)10);
+            Card tableCard5 = new Card(Suit.Clubs, (Rank) 10);
 
-            List<Card> hand = new List<Card>
-            {
+            List<Card> hand = new List<Card> {
                 handCard1, handCard2
             };
 
-            List<Card> street = new List<Card>
-            {
+            List<Card> street = new List<Card> {
                 tableCard1, tableCard2, tableCard3, tableCard4, tableCard5
             };
 

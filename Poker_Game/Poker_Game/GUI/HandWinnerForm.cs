@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
+using Poker_Game.Properties;
 
 namespace Poker_Game.GUI {
-    partial class HandWinnerForm : Form {
+    internal partial class HandWinnerForm : Form {
         private int _timeLeft = 10;
 
         public HandWinnerForm(string winners, int potSizeWon, string score, bool timerEnabled) {
             InitializeComponent();
-            Icon = Properties.Resources.coins;
+            Icon = Resources.coins;
 
             labelMessage.Text = GenerateMessage(winners, potSizeWon, score);
             if(timerEnabled) {
@@ -19,14 +20,12 @@ namespace Poker_Game.GUI {
         }
 
         private string GenerateMessage(string winners, int moneyWon, string score) {
-            if (score.Equals("None"))  {
+            if(score.Equals("None"))
                 return winners + " won, because their opponent folded." +
                        Environment.NewLine + winners + " gained $" + moneyWon;
-            }
-            if (!winners.Contains("&"))  {
+            if(!winners.Contains("&"))
                 return winners + " won over their opponent with " +
-                    Environment.NewLine + "a " + score + ". " + winners + " gained $" + moneyWon;
-            }
+                       Environment.NewLine + "a " + score + ". " + winners + " gained $" + moneyWon;
 
             string[] winnersArray = winners.Split('&');
             return winnersArray[0] + "and" + winnersArray[1] + " tied with" + Environment.NewLine +
@@ -39,9 +38,7 @@ namespace Poker_Game.GUI {
 
         private void timer1_Tick(object sender, EventArgs e) {
             buttonContinue.Text = "Continue .. " + --_timeLeft;
-            if(_timeLeft == 0) {
-                Close();
-            }
+            if(_timeLeft == 0) Close();
         }
     }
 }

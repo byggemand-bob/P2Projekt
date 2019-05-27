@@ -3,11 +3,6 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI.GameTree {
     public class Node {
-        public Node Parent { get; }
-        public List<Node> Children { get; }
-        public double Value { get; set; }
-        public string Action { get; }
-
         public Node(Node parent, string action) {
             Parent = parent;
             Children = new List<Node>();
@@ -23,7 +18,13 @@ namespace Poker_Game.AI.GameTree {
             Value = value;
         }
 
-        public PlayerAction GetAction() { // Rename?
+        public Node Parent { get; }
+        public List<Node> Children { get; }
+        public double Value { get; set; }
+        public string Action { get; }
+
+        public PlayerAction GetAction() {
+            // Rename?
             switch(Action) {
                 case "R":
                 case "RE":
@@ -38,6 +39,5 @@ namespace Poker_Game.AI.GameTree {
                     return PlayerAction.None;
             }
         }
-
     }
 }

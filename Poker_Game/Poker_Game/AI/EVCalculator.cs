@@ -13,10 +13,10 @@ namespace Poker_Game.AI {
             MonteCarloTrialOdds mctr = new MonteCarloTrialOdds();
             List<double> monteCarloRates = new List<double>();
 
-            var odds = mctr.MultiThreadMonteCarlo(cardHand, hand.Street);
-            var winOdds = odds.WinOdds;
-            var lossOdds = odds.LoseOdds;
-            
+            MonteCarloTrialOdds.Odds odds = mctr.MultiThreadMonteCarlo(cardHand, hand.Street);
+            double winOdds = odds.WinOdds;
+            double lossOdds = odds.LoseOdds;
+
             monteCarloRates.Add(winOdds);
             monteCarloRates.Add(lossOdds);
 
@@ -32,17 +32,14 @@ namespace Poker_Game.AI {
             double winPot = potCalc.GetPotsize(path);
             double lossPot = settings.BetSize;
 
-            return (winOdds * winPot) - (lossOdds * lossPot);
+            return winOdds * winPot - lossOdds * lossPot;
         }
 
         public double[] CalculateAll(string[] paths, List<Card> street, Player player, Settings settings) {
             double[] result = new double[paths.Length];
-            for(int i = 0; i < paths.Length; i++) {
-                result[i] = CalculateEv(paths[i], street, player, settings);
-            }
+            for(int i = 0; i < paths.Length; i++) result[i] = CalculateEv(paths[i], street, player, settings);
 
             return result;
         }
-
     }
 }

@@ -1,25 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Poker_Game.Game;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Poker_Game.AI;
+using Poker_Game.Game;
 
-
-namespace UnitTest
-{
+namespace UnitTest {
     [TestClass]
-    public class PokerGameUnitTest
-    {
-        public Settings Settings;
+    public class PokerGameUnitTest {
         public PokerGame Game;
+        public Settings Settings;
 
-        public void CreateProperties()
-        {
+        public void CreateProperties() {
             Settings = new Settings(2, 1000, 50, "bob", 1, AiMode.MonteCarlo);
             Game = new PokerGame(Settings);
         }
 
         [TestMethod]
-        public void TestNumberOfPlayers()
-        {
+        public void TestNumberOfPlayers() {
             // Arrange
             CreateProperties();
             int expected = 2;
@@ -33,8 +29,7 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TestRoundIncrements()
-        {
+        public void TestRoundIncrements() {
             // Arrange
             CreateProperties();
             // Round 1
@@ -53,18 +48,17 @@ namespace UnitTest
             Game.Check();
             Game.Check();
 
-            var expected = 5;
+            int expected = 5;
 
             // Act
-            var actual = Game.Hand.CurrentRoundNumber();
+            int actual = Game.Hand.CurrentRoundNumber();
 
             // Assert
             Assert.AreEqual(expected, actual);
         }
-        
+
         [TestMethod]
-        public void TestWinnerIfPlayerFolds()
-        {
+        public void TestWinnerIfPlayerFolds() {
             // Arrange
             CreateProperties();
             // Round 1
@@ -72,10 +66,10 @@ namespace UnitTest
             // Round 2
             Game.Fold();
 
-            var expected = Game.Players[0].Id;
+            int expected = Game.Players[0].Id;
 
             // Act
-            var actual = Game.GetWinners(Game.Hand);
+            List<Player> actual = Game.GetWinners(Game.Hand);
 
             // Assert
             Assert.AreEqual(expected, actual[0].Id);
@@ -83,18 +77,17 @@ namespace UnitTest
 
 
         [TestMethod]
-        public void TestRaiseFunctionality()
-        {
+        public void TestRaiseFunctionality() {
             // Arrange
             CreateProperties();
             // Round 1
             Game.Raise();
             Game.Call();
 
-            var expected = 400;
+            int expected = 400;
 
             // Act
-            var actual = Game.Hand.Pot;
+            int actual = Game.Hand.Pot;
 
             // Assert
             Assert.AreEqual(expected, actual);

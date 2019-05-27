@@ -4,23 +4,48 @@ using System.Drawing;
 using System.Windows.Forms;
 using Poker_Game.AI;
 using Poker_Game.Game;
+using Poker_Game.Properties;
+using Settings = Poker_Game.Game.Settings;
 
 // TODO: Can only raise if other player has enough to re-raise.
 
 
 namespace Poker_Game.GUI {
     public partial class GameForm : Form {
-        private readonly Settings _settings;
-        private readonly PokerGame _game;
         private readonly List<Button> _actionButtons = new List<Button>();
-        private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
         private readonly PokerAi _ai;
+        private readonly PokerGame _game;
+        private readonly List<PictureBox> _pictureBoxes = new List<PictureBox>();
+        private readonly Settings _settings;
         private int _prevRound;
+
+        #region AI
+
+        private void AiTurn() {
+            if(_game.Players[0].Action != PlayerAction.Fold || _game.CurrentRoundNumber() != 5) {
+                if(_prevRound > 2) _ai.PrepareNewTree();
+                if(_game.CurrentPlayerIndex == 1) {
+                    _ai.MakeDecision();
+                    if(_game.Players[1].PreviousAction == PlayerAction.Fold)
+                        HandUpdate();
+                    else
+                        MainUpdate();
+                    UpdateLog();
+                }
+            }
+        }
+
+        #endregion
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
+            _ai.SaveData();
+        }
 
 
         #region Initialization
 
-        public GameForm(Settings settings) { // Think about making Settings in settingsForm and has it as a parameter. 
+        public GameForm(Settings settings) {
+            // Think about making Settings in settingsForm and has it as a parameter. 
             InitializeComponent();
             _settings = settings;
             // Initialization of List for more readable and homogeneous code
@@ -48,10 +73,10 @@ namespace Poker_Game.GUI {
             MinimumSize = new Size(1000, 700);
             Size = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
-            Icon = Properties.Resources.coins;
+            Icon = Resources.coins;
 
             //Load background picture
-            BackgroundImage = Properties.Resources.PokerBord;
+            BackgroundImage = Resources.PokerBord;
             BackgroundImageLayout = ImageLayout.Stretch;
         }
 
@@ -77,9 +102,10 @@ namespace Poker_Game.GUI {
         #endregion
 
         #region Updates
+
         private void MainUpdate() {
-            if(_prevRound < _game.CurrentRoundNumber()) { RoundUpdate(); }
-            if(_prevRound == 5) { HandUpdate(); }
+            if(_prevRound < _game.CurrentRoundNumber()) RoundUpdate();
+            if(_prevRound == 5) HandUpdate();
             TurnUpdate();
         }
 
@@ -106,22 +132,23 @@ namespace Poker_Game.GUI {
             UpdatePlayerBlindLabels(_game.Players[0]);
             listboxPrevActions.Items.Clear();
             MainUpdate();
-        } 
+        }
+
         #endregion
 
         #region Table Cards Visuals
 
-        private void ShowCardImage(PictureBox obj, Card card) // Changes image of a tablecard. Both image and object are parameters
+        private void
+            ShowCardImage(PictureBox obj,
+                Card card) // Changes image of a tablecard. Both image and object are parameters
         {
             card.LoadImage();
             obj.Image = card.Image;
         }
 
-        private void ResetCards()  // Reset of tablecard images to default
+        private void ResetCards() // Reset of tablecard images to default
         {
-            foreach(PictureBox pictureBox in _pictureBoxes) {
-                pictureBox.Image = Properties.Resources.z_Back_of_card2;
-            }
+            foreach(PictureBox pictureBox in _pictureBoxes) pictureBox.Image = Resources.z_Back_of_card2;
         }
 
         #endregion
@@ -130,11 +157,10 @@ namespace Poker_Game.GUI {
 
         private void UpdateLog() {
             Player prevPlayer = _game.Players[(_game.CurrentPlayerIndex + 1) % 2];
-            string message = prevPlayer.Name +  " " + prevPlayer.PreviousAction + (prevPlayer.PreviousAction == PlayerAction.Raise ? "d." : "ed.");
+            string message = prevPlayer.Name + " " + prevPlayer.PreviousAction +
+                             (prevPlayer.PreviousAction == PlayerAction.Raise ? "d." : "ed.");
             listboxPrevActions.Items.Add(message);
-            if(listboxPrevActions.Items.Count > 8) {
-                listboxPrevActions.Items.RemoveAt(0);
-            }
+            if(listboxPrevActions.Items.Count > 8) listboxPrevActions.Items.RemoveAt(0);
         }
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
@@ -143,7 +169,8 @@ namespace Poker_Game.GUI {
                 ShowCardImage(picturePlayerCard1, _game.Players[0].Cards[0]);
                 ShowCardImage(picturePlayerCard2, _game.Players[0].Cards[1]);
             } else if(_game.CurrentRoundNumber() == 2) {
-                ShowCardImage(pictureTableCard1, _game.Hand.Street[0]); // Shows image of the the first table card (flop)
+                ShowCardImage(pictureTableCard1,
+                    _game.Hand.Street[0]); // Shows image of the the first table card (flop)
                 ShowCardImage(pictureTableCard2, _game.Hand.Street[1]);
                 ShowCardImage(pictureTableCard3, _game.Hand.Street[2]);
             } else if(_game.CurrentRoundNumber() == 3) {
@@ -161,7 +188,8 @@ namespace Poker_Game.GUI {
 
         private void ShowAllCards() // only called if a player is all in, and the street has to be drawn
         {
-            _game.Hand.DrawCards(5 - _game.Hand.Street.Count); // Draws all cards for the street without going through all the List<Round> in hands. 
+            _game.Hand.DrawCards(5 - _game.Hand.Street
+                                     .Count); // Draws all cards for the street without going through all the List<Round> in hands. 
             ShowOpponentsHand();
             ShowCardImage(pictureTableCard1, _game.Hand.Street[0]); // Shows image of the the first table card (flop)
             ShowCardImage(pictureTableCard2, _game.Hand.Street[1]); // Shows image of the second table card (flop)
@@ -172,28 +200,26 @@ namespace Poker_Game.GUI {
 
         private void UpdateRoundName() // Updates the labelRoundName to show player. 
         {
-            if(_game.CurrentRoundNumber() == 1) {
+            if(_game.CurrentRoundNumber() == 1)
                 labelRoundName.Text = "Round: Preflop";
-            } else if(_game.CurrentRoundNumber() == 2) {
+            else if(_game.CurrentRoundNumber() == 2)
                 labelRoundName.Text = "Round: Flop";
-            } else if(_game.CurrentRoundNumber() == 3) {
+            else if(_game.CurrentRoundNumber() == 3)
                 labelRoundName.Text = "Round: Turn";
-            } else if(_game.CurrentRoundNumber() == 4) {
+            else if(_game.CurrentRoundNumber() == 4)
                 labelRoundName.Text = "Round: River";
-            } else if(_game.CurrentRoundNumber() == 5) {
-                labelRoundName.Text = "Round: Showdown";
-            }
-
+            else if(_game.CurrentRoundNumber() == 5) labelRoundName.Text = "Round: Showdown";
         }
 
         // Highlights current player's name with a yellew color
         private void UpdateCurrentPlayer() {
-            
-            if(_game.CurrentPlayerIndex == 0) { // Player has turn
+            if(_game.CurrentPlayerIndex == 0) {
+                // Player has turn
                 labelPlayerName.ForeColor = Color.Yellow;
                 labelAIStack.ForeColor = Color.White;
                 ChangeActionButtonState(true);
-            } else { // AI has turn
+            } else {
+                // AI has turn
                 labelAIStack.ForeColor = Color.Yellow;
                 labelPlayerName.ForeColor = Color.White;
                 //Disabled untill AI has been implemented ??? missing something
@@ -230,21 +256,17 @@ namespace Poker_Game.GUI {
 
         private void ChangeActionButtonState(bool updatedState) // check if updatedState is the same as old?
         {
-            foreach(Button button in _actionButtons) {
-                button.Enabled = updatedState;
-            }
+            foreach(Button button in _actionButtons) button.Enabled = updatedState;
             ChangeActionButtonColor();
         }
 
         private void ChangeActionButtonColor() // Changes color depending if button is clickable or not
         {
-            foreach(Button button in _actionButtons) {
-                if(!button.Enabled) {
+            foreach(Button button in _actionButtons)
+                if(!button.Enabled)
                     button.BackColor = Color.Gray;
-                } else {
+                else
                     button.BackColor = Color.Red;
-                }
-            }
         }
 
         #endregion
@@ -252,10 +274,9 @@ namespace Poker_Game.GUI {
         #region ButtonEvents
 
         private void ButtonQuitToMenu_Click(object sender, EventArgs e) {
-            DialogResult answer = MessageBox.Show(@"A game is still in progress. Are you sure you want to exit?", @"Exit game", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-            if(answer == DialogResult.Yes) {
-                Close();
-            }
+            DialogResult answer = MessageBox.Show(@"A game is still in progress. Are you sure you want to exit?",
+                @"Exit game", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if(answer == DialogResult.Yes) Close();
         }
 
         private void ButtonCall_Click(object sender, EventArgs e) {
@@ -278,49 +299,50 @@ namespace Poker_Game.GUI {
 
         private void ButtonFold_Click(object sender, EventArgs e) {
             if(_game.CanCheck()) {
-                DialogResult answer = MessageBox.Show("You can check. Are you sure you wish to fold?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                if(answer == DialogResult.No) { return; }
+                DialogResult answer = MessageBox.Show("You can check. Are you sure you wish to fold?", "",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if(answer == DialogResult.No) return;
             }
+
             _game.Fold();
             UpdateLog();
             HandUpdate();
         }
 
         private void ButtonCall_MouseEnter(object sender, EventArgs e) {
-            if(_game.CurrentPlayerIndex == 0) {
+            if(_game.CurrentPlayerIndex == 0)
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[1].CurrentBet;
-            }
         }
 
         private void ButtonCall_MouseLeave(object sender, EventArgs e) {
-            if(_game.CurrentPlayerIndex == 0) {
+            if(_game.CurrentPlayerIndex == 0)
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[0].CurrentBet;
-            }
         }
 
         private void ButtonRaise_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0) {
                 int currentBet = _settings.BetSize;
-                if(_game.Players[0].CurrentBet <= _game.Players[1].CurrentBet) {
-                    currentBet = Math.Abs(_game.Players[_game.CurrentPlayerIndex].CurrentBet - _game.Players[(_game.CurrentPlayerIndex + 1) % 2].CurrentBet) + _settings.BetSize;
-                }
+                if(_game.Players[0].CurrentBet <= _game.Players[1].CurrentBet)
+                    currentBet =
+                        Math.Abs(_game.Players[_game.CurrentPlayerIndex].CurrentBet -
+                                 _game.Players[(_game.CurrentPlayerIndex + 1) % 2].CurrentBet) + _settings.BetSize;
 
                 labelPlayerCurrentBet.Text = "Current betsize: $" + (_game.Players[0].CurrentBet + currentBet);
             }
         }
 
         private void ButtonRaise_MouseLeave(object sender, EventArgs e) {
-            if(_game.CurrentPlayerIndex == 0) {
+            if(_game.CurrentPlayerIndex == 0)
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[0].CurrentBet;
-            }
         }
 
-        #endregion  
+        #endregion
 
         #region End Of Hand Methods
 
-
-        private void CheckForPrematureShowdown(List<Player> players) // Calls metods for showdown when a player has $0 in stack and both have same currentBet. 
+        private void
+            CheckForPrematureShowdown(
+                List<Player> players) // Calls metods for showdown when a player has $0 in stack and both have same currentBet. 
         {
             if(CheckPlayerStackForDepletion(players)) {
                 ShowAllCards();
@@ -328,13 +350,13 @@ namespace Poker_Game.GUI {
             }
         }
 
-        private bool CheckPlayerStackForDepletion(List<Player> players) // Checks for players having less of equal to $0 in stack. 
+        private bool
+            CheckPlayerStackForDepletion(
+                List<Player> players) // Checks for players having less of equal to $0 in stack. 
         {
-            foreach(Player player in players) {
-                if(player.Stack <= 0) {
+            foreach(Player player in players)
+                if(player.Stack <= 0)
                     return true;
-                }
-            }
             return false;
         }
 
@@ -355,26 +377,24 @@ namespace Poker_Game.GUI {
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
-            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot, GetWinningPlayersScore(), checkboxEnableTimer.Checked);
+            HandWinnerForm handWinnerForm = new HandWinnerForm(GetWinningPlayerName(), _game.Hand.Pot,
+                GetWinningPlayersScore(), checkboxEnableTimer.Checked);
             handWinnerForm.ShowDialog();
             ChangeActionButtonState(true);
         }
 
         private string GetWinningPlayerName() {
-            if(_game.Hand.Winner != null) {
-                return _game.Hand.Winner.Name;
-            }
+            if(_game.Hand.Winner != null) return _game.Hand.Winner.Name;
 
             return _game.Players[0].Name + " & " + _game.Players[1].Name;
         }
 
-        private string GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
+        private string
+            GetWinningPlayersScore() // Collects information about winner(s) and converts into a string for easy parameter. 
         {
             if(_game.Hand.Winner != null) {
-                if(Int32.TryParse(_game.Hand.Winner.Score.ToString(), out int numericScore)) {
-                    if(numericScore > 10) {
-                        return GiveNumericScoreName(numericScore);
-                    }
+                if(int.TryParse(_game.Hand.Winner.Score.ToString(), out int numericScore)) {
+                    if(numericScore > 10) return GiveNumericScoreName(numericScore);
                     return numericScore + " (Highest Card)";
                 }
 
@@ -385,62 +405,34 @@ namespace Poker_Game.GUI {
         }
 
         private string GiveNumericScoreName(int numericScore) {
-            if(numericScore == 11) {
-                return "Jack (Highest Card)";
-            } if(numericScore == 12) {
-                return "Queen (Highest Card)";
-            } if(numericScore == 13) {
-                return "King (Highest Card)";
-            }
+            if(numericScore == 11) return "Jack (Highest Card)";
+            if(numericScore == 12) return "Queen (Highest Card)";
+            if(numericScore == 13) return "King (Highest Card)";
 
             return "Ace (Highest Card)";
         }
 
         // Creates a new hand and calls methods for the new gamestate
-        private void CreateNewHand() 
-        {
+        private void CreateNewHand() {
             if(_game.IsFinished()) {
                 EndGameMessage();
                 Close();
             }
+
             _game.NewHand();
             ResetCards();
         }
 
         private void EndGameMessage() {
             string message;
-            if(_game.Players[0].Stack < 1) {
+            if(_game.Players[0].Stack < 1)
                 message = "You lost the game. Shame on you!";
-            } else {
+            else
                 message = "You won the game!";
-            }
 
             MessageBox.Show(message, "Game over", MessageBoxButtons.OK);
         }
 
         #endregion
-
-        #region AI
-
-        private void AiTurn() {
-            if(_game.Players[0].Action != PlayerAction.Fold || _game.CurrentRoundNumber() != 5) {
-                if(_prevRound > 2) { _ai.PrepareNewTree(); }
-                if(_game.CurrentPlayerIndex == 1) {
-                    _ai.MakeDecision();
-                    if(_game.Players[1].PreviousAction == PlayerAction.Fold) {
-                        HandUpdate();
-                    } else {
-                        MainUpdate();
-                    }
-                    UpdateLog();
-                }
-            }
-        }
-
-        #endregion
-
-        private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
-            _ai.SaveData();
-        }
     }
 }

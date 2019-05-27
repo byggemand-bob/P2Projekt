@@ -5,12 +5,12 @@ using Poker_Game.AI.Opponent;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class ExpectiMaxDecisionMaking {
+    internal class ExpectiMaxDecisionMaking {
         private readonly OpponentData _data;
         private Node _currentNode;
-        private Node _treeRoot;
         private Node _currentTarget;
         private PlayerAction _expectedAction; // For checking if the human player follows the calculated path.
+        private Node _treeRoot;
 
 
         public ExpectiMaxDecisionMaking(OpponentData data) {
@@ -23,13 +23,11 @@ namespace Poker_Game.AI {
             _currentNode = _treeRoot;
             _currentTarget = null;
             _expectedAction = PlayerAction.None;
-
         }
 
         public PlayerAction GetNextAction() {
-            if(_expectedAction == PlayerAction.None || _expectedAction != _currentNode.GetAction()) {
+            if(_expectedAction == PlayerAction.None || _expectedAction != _currentNode.GetAction())
                 _currentTarget = FindOptimalPath(_currentNode);
-            }
 
             Node result = _currentTarget;
 
@@ -43,27 +41,23 @@ namespace Poker_Game.AI {
         }
 
         private Node FindOptimalPath(Node position) {
-            if(position.Children.Count == 0) { return position; }
+            if(position.Children.Count == 0) return position;
 
             Node bestNode = null;
-            foreach(Node child in position.Children) {
+            foreach(Node child in position.Children)
                 if(position.GetType() == typeof(OpponentNode)) {
                     Node tmp = FindOptimalPath(child);
-                    if(bestNode != null && (child == position.Children.First() || bestNode.Value < tmp.Value)) {
+                    if(bestNode != null && (child == position.Children.First() || bestNode.Value < tmp.Value))
                         bestNode = tmp;
-                    }
                 } else {
                     OpponentNode bestProb = null;
-                    foreach(OpponentNode probChild in child.Children) {
+                    foreach(OpponentNode probChild in child.Children)
                         if(probChild == child.Children.First() ||
-                           probChild.DecisionProbability < bestProb.DecisionProbability) {
+                           probChild.DecisionProbability < bestProb.DecisionProbability)
                             bestProb = probChild;
-                        }
-                    }
 
                     bestNode = FindOptimalPath(bestProb);
                 }
-            }
 
             return bestNode;
         }
@@ -74,11 +68,9 @@ namespace Poker_Game.AI {
         }
 
         private Node GetOpponentMove(PlayerAction action) {
-            foreach(Node childNode in _currentNode.Children) {
-                if(childNode.GetAction() == action) {
+            foreach(Node childNode in _currentNode.Children)
+                if(childNode.GetAction() == action)
                     return childNode;
-                }
-            }
             throw new Exception("Action does not match any possible node.");
         }
     }

@@ -2,7 +2,7 @@
 using Poker_Game.AI.Opponent;
 
 namespace Poker_Game.AI.GameTree {
-    class PathConstructor {
+    internal class PathConstructor {
         private readonly OpponentData _data;
         private readonly bool _isSmallBlind;
         private readonly int[] _roundEndIndex;
@@ -14,10 +14,11 @@ namespace Poker_Game.AI.GameTree {
             _isSmallBlind = isSmallBlind;
             _roundEndIndex = new int[4];
         }
+
         public void ConstructPath(Node parent, string path, double expectedValue) {
             string[] separatedPath = SeparatePath(path);
             Node startNode = parent,
-                 prevNode = startNode;
+                prevNode = startNode;
             UpdateRoundIndexes(separatedPath);
 
             for(int i = 0; i < separatedPath.Length; i++) {
@@ -27,7 +28,7 @@ namespace Poker_Game.AI.GameTree {
                 if(i == separatedPath.Length - 1) {
                     prevNode.Children.Add(NewLeafNode(prevNode, separatedPath[i], expectedValue, isAiNode));
                 } else {
-                    if(NodeExists(ref prevNode, separatedPath[i])) { continue; }
+                    if(NodeExists(ref prevNode, separatedPath[i])) continue;
 
                     Node tempNode = NewNode(prevNode, separatedPath[i], isAiNode);
                     prevNode.Children.Add(tempNode);
@@ -40,13 +41,9 @@ namespace Poker_Game.AI.GameTree {
             int roundStartIndex = 0;
             for(int i = 0; i < _roundEndIndex.Length; i++) {
                 if(index >= roundStartIndex && index < _roundEndIndex[i]) {
-                    if(!_isSmallBlind) {
-                        roundStartIndex++;
-                    }
+                    if(!_isSmallBlind) roundStartIndex++;
 
-                    if((index - roundStartIndex) % 2 == 0) {
-                        return true;
-                    }
+                    if((index - roundStartIndex) % 2 == 0) return true;
                 }
 
                 roundStartIndex = _roundEndIndex[i]++;
@@ -56,26 +53,22 @@ namespace Poker_Game.AI.GameTree {
         }
 
         private Node NewLeafNode(Node parent, string action, double value, bool isAiNode) {
-            if(isAiNode) {
-                return new Node(parent, action, value);
-            }
+            if(isAiNode) return new Node(parent, action, value);
 
             return NewOpponentNode(parent, action, value, _currentRound);
         }
 
         private int GetCurrentRound(int index) {
-            for(int i = 0; i < _roundEndIndex.Length; i++) {
-                if(_roundEndIndex[i] > index) {
+            for(int i = 0; i < _roundEndIndex.Length; i++)
+                if(_roundEndIndex[i] > index)
                     return i;
-                }
-            }
 
             return _currentRound;
         }
 
         private void UpdateRoundIndexes(string[] actions) {
             int roundNumber = 0;
-            for(int i = 0; i < actions.Length; i++) {
+            for(int i = 0; i < actions.Length; i++)
                 if(actions[i] == "C") {
                     _roundEndIndex[roundNumber] = i;
                     roundNumber++;
@@ -84,7 +77,6 @@ namespace Poker_Game.AI.GameTree {
                     roundNumber++;
                     i++;
                 }
-            }
         }
 
 
@@ -104,43 +96,31 @@ namespace Poker_Game.AI.GameTree {
 
         // Obsolete
         private double GetChanceOld(string action, int roundNumber, HandData data) {
-            if(action == "R") {
-                return (double) data.Raises[roundNumber] / data.Hands;
-            }
-            if(action == "RE") {
-                return (double)data.ReRaises[roundNumber] / data.Hands;
-            }
-            if(action == "C") {
-                return (double)data.Calls[roundNumber] / data.Hands;
-            }
-            if(action == "Ch") {
-                return (double)data.Checks[roundNumber] / data.Hands;
-            }
-            if(action == "F") {
-                return (double)data.Folds[roundNumber] / data.Hands;
-            }
+            if(action == "R") return (double) data.Raises[roundNumber] / data.Hands;
+            if(action == "RE") return (double) data.ReRaises[roundNumber] / data.Hands;
+            if(action == "C") return (double) data.Calls[roundNumber] / data.Hands;
+            if(action == "Ch") return (double) data.Checks[roundNumber] / data.Hands;
+            if(action == "F") return (double) data.Folds[roundNumber] / data.Hands;
 
             throw new Exception("Unknown action recieved.");
         }
 
         private Node NewNode(Node parent, string action, bool isAiNode) {
-            if(isAiNode) {
-                return new Node(parent, action);
-            }
+            if(isAiNode) return new Node(parent, action);
 
             return NewOpponentNode(parent, action, _currentRound);
         }
 
         private bool NodeExists(ref Node parent, string action) {
-            foreach(Node child in parent.Children) {
+            foreach(Node child in parent.Children)
                 if(child.Action == action) {
                     parent = child;
                     return true;
                 }
-            }
+
             return false;
         }
-        
+
         private string[] SeparatePath(string path) {
             return path.Split('-');
         }

@@ -1,15 +1,7 @@
 ﻿using System.Text;
 
 namespace Poker_Game.AI.Opponent {
-    class HandData {
-        // Index represents round number 
-        public int[] Folds { get; set; }
-        public int[] Checks { get; set; }
-        public int[] Calls { get; set; }
-        public int[] Raises { get; set; }
-        public int[] ReRaises { get; set; }
-        public int Hands { get; set; }
-
+    internal class HandData {
         public HandData() {
             Folds = new int[4];
             Checks = new int[4];
@@ -18,6 +10,14 @@ namespace Poker_Game.AI.Opponent {
             ReRaises = new int[4];
             Hands = 0;
         }
+
+        // Index represents round number 
+        public int[] Folds { get; set; }
+        public int[] Checks { get; set; }
+        public int[] Calls { get; set; }
+        public int[] Raises { get; set; }
+        public int[] ReRaises { get; set; }
+        public int Hands { get; set; }
 
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
@@ -33,13 +33,11 @@ namespace Poker_Game.AI.Opponent {
 
         private string WriteArray(int[] array) {
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < array.Length; i++) {
-                if(i == array.Length - 1) {
+            for(int i = 0; i < array.Length; i++)
+                if(i == array.Length - 1)
                     sb.Append(array[i]);
-                } else {
+                else
                     sb.Append(array[i] + ",");
-                }
-            }
 
             return sb.ToString();
         }

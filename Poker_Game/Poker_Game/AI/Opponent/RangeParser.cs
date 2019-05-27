@@ -4,8 +4,7 @@ using System.Linq;
 using Poker_Game.Game;
 
 namespace Poker_Game.AI.Opponent {
-    class RangeParser {
-
+    internal class RangeParser {
         private readonly List<Suit> _suits = new List<Suit> {
             Suit.Clubs,
             Suit.Diamonds,
@@ -16,46 +15,39 @@ namespace Poker_Game.AI.Opponent {
         public List<List<Card>> Parse(List<string> range) {
             List<List<Card>> result = new List<List<Card>>();
 
-            foreach(string part in range) {
-                result.AddRange(ParsePart(part));
-            }
+            foreach(string part in range) result.AddRange(ParsePart(part));
 
             return DeleteDuplicates(result);
         }
 
         private List<List<Card>> ParsePart(string part) {
-            if(part[0] == part[1]) {
-                return CreatePairs(CharToRank(part[0]));
-            }
+            if(part[0] == part[1]) return CreatePairs(CharToRank(part[0]));
 
             List<List<Card>> result = new List<List<Card>>();
             bool suited = part.Contains('s'),
-                 offSuit = part.Contains('o'),
-                 allAbove = part.Contains('+');
+                offSuit = part.Contains('o'),
+                allAbove = part.Contains('+');
 
-            if(allAbove && suited) {
+            if(allAbove && suited)
                 result.AddRange(MakeAllSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(allAbove && offSuit) {
+            else if(allAbove && offSuit)
                 result.AddRange(MakeAllOffsuit(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(suited) {
+            else if(suited)
                 result.AddRange(MakeSuited(CharToRank(part[0]), CharToRank(part[1])));
-            } else if(offSuit) {
+            else if(offSuit)
                 result.AddRange(MakeOffsuit(CharToRank(part[0]), CharToRank(part[1])));
-            } else {
+            else
                 throw new Exception("Something went wrong...");
-            }
 
             return result;
         }
 
         private Rank CharToRank(char c) {
-            if(Char.IsDigit(c)) {
-                return (Rank)Int32.Parse((c.ToString()));
-            }
+            if(char.IsDigit(c)) return (Rank) int.Parse(c.ToString());
 
             switch(c) {
                 case 'T':
-                    return (Rank)10;
+                    return (Rank) 10;
                 case 'J':
                     return Rank.Jack;
                 case 'Q':
@@ -72,11 +64,9 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> CreatePairs(Rank lower) {
             List<List<Card>> result = new List<List<Card>>();
 
-            for(Rank r = lower; r <= Rank.Ace; r++) {
-                foreach(Suit unused in _suits) {
+            for(Rank r = lower; r <= Rank.Ace; r++)
+                foreach(Suit unused in _suits)
                     result.AddRange(MakeOffsuit(r, r));
-                }
-            }
 
             return result;
         }
@@ -84,13 +74,10 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> MakeAllSuited(Rank lower1, Rank lower2) {
             List<List<Card>> result = new List<List<Card>>();
 
-            for(Rank r1 = lower1; r1 <= Rank.Ace; r1++) {
-                for(Rank r2 = lower2; r2 <= Rank.Ace; r2++) {
-                    if(r1 != r2) {
-                        result.AddRange(MakeSuited(r1, r2)); 
-                    }
-                }
-            }
+            for(Rank r1 = lower1; r1 <= Rank.Ace; r1++)
+            for(Rank r2 = lower2; r2 <= Rank.Ace; r2++)
+                if(r1 != r2)
+                    result.AddRange(MakeSuited(r1, r2));
 
             return result;
         }
@@ -98,9 +85,7 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> MakeSuited(Rank rank1, Rank rank2) {
             List<List<Card>> result = new List<List<Card>>();
 
-            foreach(Suit suit in _suits) {
-                result.Add(MakeCardHand(rank1, rank2, suit));
-            }
+            foreach(Suit suit in _suits) result.Add(MakeCardHand(rank1, rank2, suit));
 
             return result;
         }
@@ -108,13 +93,10 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> MakeAllOffsuit(Rank lower1, Rank lower2) {
             List<List<Card>> result = new List<List<Card>>();
 
-            for(Rank r1 = lower1; r1 <= Rank.Ace; r1++) {
-                for(Rank r2 = lower2; r2 <= Rank.Ace; r2++) {
-                    if(r1 != r2) {
-                        result.AddRange(MakeOffsuit(r1, r2)); 
-                    }
-                }
-            }
+            for(Rank r1 = lower1; r1 <= Rank.Ace; r1++)
+            for(Rank r2 = lower2; r2 <= Rank.Ace; r2++)
+                if(r1 != r2)
+                    result.AddRange(MakeOffsuit(r1, r2));
 
             return result;
         }
@@ -122,13 +104,10 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> MakeOffsuit(Rank rank1, Rank rank2) {
             List<List<Card>> result = new List<List<Card>>();
 
-            foreach(Suit s1 in _suits) {
-                foreach(Suit s2 in _suits) {
-                    if(s1 != s2) {
-                        result.Add(MakeCardHand(rank1, rank2, s1, s2));
-                    }
-                }
-            }
+            foreach(Suit s1 in _suits)
+            foreach(Suit s2 in _suits)
+                if(s1 != s2)
+                    result.Add(MakeCardHand(rank1, rank2, s1, s2));
 
             return result;
         }
@@ -150,13 +129,10 @@ namespace Poker_Game.AI.Opponent {
         private List<List<Card>> DeleteDuplicates(List<List<Card>> list) {
             List<List<Card>> result = new List<List<Card>>(list);
 
-            for(int i = 0; i < result.Count; i++) {
-                for(int j = i + 1; j < result.Count; j++) {
-                    if(CompareCardhand(result[0], result[1])) {
-                        result.RemoveAt(j);
-                    }
-                }
-            }
+            for(int i = 0; i < result.Count; i++)
+            for(int j = i + 1; j < result.Count; j++)
+                if(CompareCardhand(result[0], result[1]))
+                    result.RemoveAt(j);
 
             return result;
         }

@@ -1,7 +1,7 @@
 ﻿using Poker_Game.Game;
 
 namespace Poker_Game.AI {
-    class PotSizeCalculator {
+    internal class PotSizeCalculator {
         private readonly int _betSize;
 
         public PotSizeCalculator(Settings settings) {
@@ -10,11 +10,9 @@ namespace Poker_Game.AI {
 
         public int GetPotsize(string path) {
             string[] actions = SeparatePath(path);
-            int result = _betSize + _betSize/2; // Big- and small-blind
+            int result = _betSize + _betSize / 2; // Big- and small-blind
 
-            foreach(string action in actions) {
-                result += ParseAction(action);
-            }
+            foreach(string action in actions) result += ParseAction(action);
 
             return result;
         }

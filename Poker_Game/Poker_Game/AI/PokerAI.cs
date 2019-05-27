@@ -10,15 +10,14 @@ namespace Poker_Game.AI {
     }
 
     public class PokerAi {
-        private readonly Player _player;
-        private readonly Settings _settings;
+        private const int ExpectiMaxMininmumData = 10;
         private readonly List<Action> _actions;
-        private readonly PokerGame _pokerGame;
         private readonly DataController _dataController;
         private readonly ExpectiMaxDecisionMaking _expectiMaxDecisionMaking;
         private readonly MonteCarloDecisionMaking _monteCarloDecisionMaking;
-
-        private const int ExpectiMaxMininmumData = 10; 
+        private readonly Player _player;
+        private readonly PokerGame _pokerGame;
+        private readonly Settings _settings;
 
 
         public PokerAi(PokerGame game) {
@@ -28,11 +27,10 @@ namespace Poker_Game.AI {
             _actions = GetActions(game);
             _dataController = new DataController(game.Settings.PlayerName);
 
-            if(game.Settings.EvaluationStyle == AiMode.MonteCarlo) {
-                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(_pokerGame); 
-            } else {
+            if(game.Settings.EvaluationStyle == AiMode.MonteCarlo)
+                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(_pokerGame);
+            else
                 _expectiMaxDecisionMaking = new ExpectiMaxDecisionMaking(_dataController.PlayerData);
-            }
         }
 
         private List<Action> GetActions(PokerGame game) {
@@ -50,9 +48,8 @@ namespace Poker_Game.AI {
         }
 
         public void PrepareNewTree() {
-            if(_settings.EvaluationStyle == AiMode.ExpectiMax && _pokerGame.CurrentRoundNumber() > 1) {
-                _expectiMaxDecisionMaking.CreateNewTree(_pokerGame); 
-            }
+            if(_settings.EvaluationStyle == AiMode.ExpectiMax && _pokerGame.CurrentRoundNumber() > 1)
+                _expectiMaxDecisionMaking.CreateNewTree(_pokerGame);
         }
 
         public void SaveData() {
@@ -61,11 +58,11 @@ namespace Poker_Game.AI {
 
         public void MakeDecision() {
             PlayerAction action;
-            if(_settings.EvaluationStyle == AiMode.ExpectiMax && _dataController.PlayerData.Hands > ExpectiMaxMininmumData) {
+            if(_settings.EvaluationStyle == AiMode.ExpectiMax &&
+               _dataController.PlayerData.Hands > ExpectiMaxMininmumData)
                 action = ExpectiMax();
-            } else {
+            else
                 action = MonteCarlo();
-            }
 
 
             switch(action) {
@@ -89,29 +86,24 @@ namespace Poker_Game.AI {
         }
 
         private PlayerAction ExpectiMax() {
-            if(_pokerGame.Hand.CurrentRoundNumber() == 1) {
-                return Preflop();
-            } else {
-                if(_player.IsBigBlind) {
-                    _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
-                } else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() > 1) {
-                    _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
-                }
+            if(_pokerGame.Hand.CurrentRoundNumber() == 1) return Preflop();
 
-                return AfterPreflop();
-            }
+            if(_player.IsBigBlind)
+                _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+            else if(_player.IsSmallBlind && _pokerGame.CurrentTurnNumber() > 1)
+                _expectiMaxDecisionMaking.RegisterOpponentMove(_pokerGame.Players[0].PreviousAction);
+
+            return AfterPreflop();
         }
 
         private PlayerAction Preflop() {
-            if(_pokerGame.CanCall()) {
-                return PlayerAction.Call;
-            }
+            if(_pokerGame.CanCall()) return PlayerAction.Call;
 
             return PlayerAction.Check;
         }
 
         private PlayerAction AfterPreflop() {
-            PlayerAction result =_expectiMaxDecisionMaking.GetNextAction();
+            PlayerAction result = _expectiMaxDecisionMaking.GetNextAction();
             return result;
         }
     }
