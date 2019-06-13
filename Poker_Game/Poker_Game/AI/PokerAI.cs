@@ -25,9 +25,21 @@ namespace Poker_Game.AI {
             _dataController = new DataController(game.Settings.PlayerName);
 
             if(game.Settings.EvaluationStyle == AiMode.MonteCarlo)
-                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(game);
+                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(game, _player);
             else
-                _monteCarloEvDecisionMaking = new MonteCarloEvDecisionMaking(game);
+                _monteCarloEvDecisionMaking = new MonteCarloEvDecisionMaking(game, _player);
+        }
+
+        public PokerAi(PokerGame game, Player player) {
+            _player = player; 
+            _settings = game.Settings;
+            _actions = GetActions(game);
+            _dataController = new DataController(game.Settings.PlayerName);
+
+            if(game.Settings.EvaluationStyle == AiMode.MonteCarlo)
+                _monteCarloDecisionMaking = new MonteCarloDecisionMaking(game, player);
+            else
+                _monteCarloEvDecisionMaking = new MonteCarloEvDecisionMaking(game, player);
         }
 
         private List<Action> GetActions(PokerGame game) {

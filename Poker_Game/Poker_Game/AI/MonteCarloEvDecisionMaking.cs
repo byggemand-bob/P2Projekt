@@ -18,9 +18,9 @@ namespace Poker_Game.AI {
         private readonly List<string> _raiseRange = new List<string>
             {"88+", "A2s+", "K9s+", "Q9s+", "J9s+", "T9s+", "98s", "87s", "A10o+", "K9o+", "Q9o+", "J9o+", "T9o"};
 
-        public MonteCarloEvDecisionMaking(PokerGame game) {
+        public MonteCarloEvDecisionMaking(PokerGame game, Player player) {
             _pokerGame = game;
-            _player = game.Players[1];
+            _player = player;
             _street = game.Hand.Street;
             _settings = game.Settings;
             _hand = game.Hand;
