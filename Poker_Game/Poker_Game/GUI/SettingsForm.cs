@@ -17,7 +17,7 @@ namespace Poker_Game.GUI {
 
         // Makes sure you've entered a name before continueing
         private void ButtonStartGame_Click(object sender, EventArgs e) {
-            if(_nameChanged) {
+            if(_nameChanged) { 
                 Hide();
                 Settings settings = new Settings(2, trackBarPotSize.Value, trackBarBlindSize.Value, textboxName.Text, 1,
                     radioButtonMonteCarlo.Checked ? AiMode.MonteCarlo : AiMode.MonteCarloEv);
