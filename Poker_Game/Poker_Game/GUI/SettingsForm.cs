@@ -15,7 +15,7 @@ namespace Poker_Game.GUI {
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        // Makes sure you've entered a name before continueing
+        // Makes sure you've entered a name before continueing.
         private void ButtonStartGame_Click(object sender, EventArgs e) {
             if(_nameChanged) { 
                 Hide();

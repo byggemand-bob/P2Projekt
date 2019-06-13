@@ -149,7 +149,6 @@ namespace Poker_Game.Game {
 
         public void Call() {
             // Method used for coding a press of Call-button in GameForm.
-            // Needs to be cut down
             Bet(Players[CurrentPlayerIndex],
                 Math.Abs(Players[CurrentPlayerIndex].CurrentBet - Players[(CurrentPlayerIndex + 1) % 2].CurrentBet));
             Players[CurrentPlayerIndex].Action = PlayerAction.Call;

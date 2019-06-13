@@ -6,7 +6,7 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI {
     internal class MonteCarloTrialOdds {
-        private const int TotalNumberOfTrials = 100000;
+        private const int TotalNumberOfTrials = 10000;
 
         private readonly int _numberOfThreads = Environment.ProcessorCount;
         private readonly Random _rndNr = new Random();
