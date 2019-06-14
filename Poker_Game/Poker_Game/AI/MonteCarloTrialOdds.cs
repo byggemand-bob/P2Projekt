@@ -6,12 +6,15 @@ using Poker_Game.Game;
 
 namespace Poker_Game.AI {
     internal class MonteCarloTrialOdds {
-        private const int TotalNumberOfTrials = 100000;
+        private const int TotalNumberOfTrials = 10000;
 
         private readonly int _numberOfThreads = Environment.ProcessorCount;
         private readonly Random _rndNr = new Random();
         private List<Card> _aiHand, _street;
         public int Wins = 0, Loses = 0, Draws = 0;
+
+        // Generere alle de ukendte kort der mangler til streeten og modstanderen
+        // Ændres til to lister af 7 kort - vores hånd / street og ai hånd / street
 
         public Odds RunTrials(int numberOfTrials) {
             int x;
@@ -64,6 +67,8 @@ namespace Poker_Game.AI {
 
             return results;
         }
+
+        // Generere hånden ud fra den liste der sendes med videre i parametrene
 
         public Odds RunTrials(int numberOfTrials, List<List<Card>> range) {
             int x, n, missingCardsOnStreet = 5 - _street.Count;
@@ -118,6 +123,8 @@ namespace Poker_Game.AI {
 
             return results;
         }
+
+        // Anvendes til at teste to wincalcs mod hinanden - gammel testkode anvendes ikke længere
 
         public Odds TestRunTrials(int numberOfTrials) {
             int x, n, missingCardsOnStreet = 5 - _street.Count;
@@ -178,6 +185,9 @@ namespace Poker_Game.AI {
             return results;
         }
 
+        // Kører monte carlo - kalder run trials i multiple threads
+        // Alle resultater summeres og divideres med antal threads
+
         public Odds MultiThreadMonteCarlo(List<Card> hand, List<Card> street) {
             int x;
             Odds[] trialResults = new Odds[_numberOfThreads];
@@ -205,6 +215,8 @@ namespace Poker_Game.AI {
 
             return totalResults;
         }
+
+        // Samme som ovenstående, med parametre
 
         public Odds MultiThreadMonteCarlo(List<Card> hand, List<Card> street, List<List<Card>> range) {
             int x;
@@ -235,6 +247,8 @@ namespace Poker_Game.AI {
 
             return totalResults;
         }
+
+        // Anvendes til at teste- gammel kode
 
         public Odds TestMultiThreadMonteCarlo(List<Card> hand, List<Card> street) {
             int x;

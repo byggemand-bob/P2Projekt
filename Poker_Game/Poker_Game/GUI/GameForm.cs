@@ -36,7 +36,7 @@ namespace Poker_Game.GUI {
         }
 
         #endregion
-
+        // Hvad gør den?
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e) {
             _ai.SaveData();
         }
@@ -103,11 +103,15 @@ namespace Poker_Game.GUI {
 
         #region Updates
 
+        // Opdatere
+
         private void MainUpdate() {
             if(_prevRound < _game.CurrentRoundNumber()) RoundUpdate();
             if(_prevRound == 5) HandUpdate();
             TurnUpdate();
         }
+
+        // Opdatere Turn og de værdier deri
 
         private void TurnUpdate() {
             AiTurn();
@@ -119,11 +123,15 @@ namespace Poker_Game.GUI {
             CheckForPrematureShowdown(_game.Players);
         }
 
+        // Opdatere round
+
         private void RoundUpdate() {
             _prevRound++;
             UpdateRoundName();
             UpdateCards();
         }
+
+        // Opdatere hand
 
         private void HandUpdate() {
             _prevRound = 0;
@@ -155,6 +163,8 @@ namespace Poker_Game.GUI {
 
         #region Visual Updates
 
+        // Den ude i siden
+
         private void UpdateLog() {
             Player prevPlayer = _game.Players[(_game.CurrentPlayerIndex + 1) % 2];
             string message = prevPlayer.Name + " " + prevPlayer.PreviousAction +
@@ -162,6 +172,8 @@ namespace Poker_Game.GUI {
             listboxPrevActions.Items.Add(message);
             if(listboxPrevActions.Items.Count > 8) listboxPrevActions.Items.RemoveAt(0);
         }
+
+        // Opdatere billederne på spillerens kort
 
         private void UpdateCards() // Checks if a new tablecard should be 'revealed'
         {
@@ -180,11 +192,15 @@ namespace Poker_Game.GUI {
             }
         }
 
+        // Opdatere spillerens knapper, så de kan anvendes
         private void UpdateButtons() {
             buttonCall.Enabled = _game.CanCall();
             buttonCheck.Enabled = _game.CanCheck();
             buttonRaise.Enabled = _game.CanRaise();
         }
+
+
+        // When a player is all in - altså ikke har mere i stacken
 
         private void ShowAllCards() // only called if a player is all in, and the street has to be drawn
         {
@@ -197,6 +213,8 @@ namespace Poker_Game.GUI {
             ShowCardImage(pictureTableCard4, _game.Hand.Street[3]); // Shows turn card
             ShowCardImage(pictureTableCard5, _game.Hand.Street[4]); // Shows river card
         }
+
+        // Opdatere hvilken runde vi er i
 
         private void UpdateRoundName() // Updates the labelRoundName to show player. 
         {
@@ -227,16 +245,22 @@ namespace Poker_Game.GUI {
             }
         }
 
+        // Updates each players stack of chips
+
         private void UpdatePlayerStack(Player player, Player ai) // Updates the stack-label of all players
         {
             labelPlayerStack.Text = "Your Stack:" + Environment.NewLine + player.Stack;
             labelAIStack.Text = _game.Players[1].Name + Environment.NewLine + "Stack:" + Environment.NewLine + ai.Stack;
         }
+        
+        // Updates the pot
 
         private void UpdatePotSize(Hand hand) // Updates the Pot size-label.
         {
             labelTablePot.Text = "Pot:   $" + Convert.ToString(hand.Pot);
         }
+
+        // Labes for big / small blind
 
         private void UpdatePlayerBlindLabels(Player player) // Updates blind-labels for both players
         {
@@ -273,6 +297,8 @@ namespace Poker_Game.GUI {
 
         #region ButtonEvents
 
+        // Det der sker når vi trykker på knapperne
+
         private void ButtonQuitToMenu_Click(object sender, EventArgs e) {
             DialogResult answer = MessageBox.Show(@"A game is still in progress. Are you sure you want to exit?",
                 @"Exit game", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
@@ -297,6 +323,8 @@ namespace Poker_Game.GUI {
             MainUpdate();
         }
 
+        // SIkre at vi ikke kan tjekke
+
         private void ButtonFold_Click(object sender, EventArgs e) {
             if(_game.CanCheck()) {
                 DialogResult answer = MessageBox.Show("You can check. Are you sure you wish to fold?", "",
@@ -309,6 +337,8 @@ namespace Poker_Game.GUI {
             HandUpdate();
         }
 
+
+        // Når vi hover over stack / raise, så kan vi se hvordan vores stack ændre sig ved den pågældende action tages
         private void ButtonCall_MouseEnter(object sender, EventArgs e) {
             if(_game.CurrentPlayerIndex == 0)
                 labelPlayerCurrentBet.Text = "Current betsize: $" + _game.Players[1].CurrentBet;
@@ -340,6 +370,8 @@ namespace Poker_Game.GUI {
 
         #region End Of Hand Methods
 
+        // Hvis en spiller har 0 i stacken, og begge har samme bet size
+
         private void
             CheckForPrematureShowdown(
                 List<Player> players) // Calls metods for showdown when a player has $0 in stack and both have same currentBet. 
@@ -349,6 +381,8 @@ namespace Poker_Game.GUI {
                 HandUpdate();
             }
         }
+
+        // Er der 0 i stacken
 
         private bool
             CheckPlayerStackForDepletion(
@@ -374,6 +408,8 @@ namespace Poker_Game.GUI {
             _game.RewardWinners();
             ShowEndOfHandWindow();
         }
+
+        // HAnd winner form 
 
         private void ShowEndOfHandWindow() {
             // Shows new window with information about who won, how much and how. (CheckPlayerStack, Playername, potsize and wincondition)
@@ -404,6 +440,8 @@ namespace Poker_Game.GUI {
             return _game.Players[0].Score.ToString();
         }
 
+        // For at J, Q, K, A kan repræsenteres med tal værdier
+
         private string GiveNumericScoreName(int numericScore) {
             if(numericScore == 11) return "Jack (Highest Card)";
             if(numericScore == 12) return "Queen (Highest Card)";
@@ -422,6 +460,8 @@ namespace Poker_Game.GUI {
             _game.NewHand();
             ResetCards();
         }
+
+        // When the game ends
 
         private void EndGameMessage() {
             string message;

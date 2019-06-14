@@ -3,9 +3,13 @@ using System.Collections.Generic;
 
 namespace Poker_Game.Game {
     public class FastWinCalc {
+
+        // Kalder de værdier som er fundet i Calc
         public int WhoWins(List<Card> aiCards, List<Card> playerCards)
             //return -1 for ai win, 1 for player win, 0 for draw
         {
+
+            // Disse to structs gemmer værdierne fra EvaluationCalc
             EvaluatedCards aiEvalCards = new EvaluatedCards(aiCards), playerEvalCards = new EvaluatedCards(playerCards);
 
             //check for straight flush
@@ -131,6 +135,9 @@ namespace Poker_Game.Game {
             return WhoHasHighCard(aiCards, playerCards, aiEvalCards.NrOfHighestCard, aiEvalCards.NrOfSecondHighestCard,
                 aiEvalCards.ValueOfHighestCard, aiEvalCards.ValueOfSecondHighestCard);
         }
+
+        // Finder det højeste kort, hvis 2 har det samme, så sammenlignes disse og der findes hvem der har det højeste kort.
+
 
         private int WhoHasHighCard(List<Card> aiCards, List<Card> playerCards, int nrOfHighestValueCards,
             int nrOfSecoundHighestValueCards, int valueOfHighestCard, int valueOfSecoundHighestCard) {
@@ -268,6 +275,12 @@ namespace Poker_Game.Game {
 
                 EvaluationCalc(cards);
             }
+
+
+            // Itterere over værdierne fra 0 - 14 og incremere disse
+            // Er der 5 mellem 0 - 14, sættes straight til true
+            // Er der 5 suited - sættes flush til true
+            // Desuden lagres den højeste og anden højeste værdi, og antallet af disse
 
             private void EvaluationCalc(List<Card> cards) {
                 int[] nrOfSuits = new int[4];
